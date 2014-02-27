@@ -3,10 +3,10 @@
 # Name:        module1
 # Purpose:
 #
-# Author:      NAMIK ERDO?AN
+# Author:      NAMIK ERDOĞAN
 #
 # Created:     23.01.2014
-# Copyright:   (c) NAMIK ERDO?AN 2014
+# Copyright:   (c) NAMIK ERDOĞAN 2014
 # Licence:     <your licence>
 #-------------------------------------------------------------------------------
 import adodbapi
@@ -14,9 +14,9 @@ import MySQLdb
 
 class Mmdb():
     def __init__(self):
-        database = "D:\\dist\\datalar\\27012014.mdb"
+        database = "D:\\aproje\\nenra\\datalar\\08022014.mdb"
         constr = 'Provider=Microsoft.Jet.OLEDB.4.0; Data Source=%s'  % database
-        self.tablename = "satodeme"
+        self.tablename = "satdata"
         # connect to the database
         self.conn = adodbapi.connect(constr)
         # create a cursor

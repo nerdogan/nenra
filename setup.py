@@ -15,7 +15,7 @@ sys.argv.append('py2exe')
 setup(
     name = 'NENRA',
     description = 'Restaurant Automotion',
-    version = '1.1',
+    version = '1.1.1',
 	windows=['nenra.py'],
 	options={
     'py2exe': {

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created: Tue Feb 25 15:56:56 2014
+# Created: Thu Feb 27 23:39:37 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -68,13 +68,16 @@ class Ui_MainWindow(object):
         self.pushButton.setObjectName(_fromUtf8("pushButton"))
         self.horizontalLayout.addWidget(self.pushButton)
         self.horizontalLayoutWidget_2 = QtGui.QWidget(self.centralwidget)
-        self.horizontalLayoutWidget_2.setGeometry(QtCore.QRect(140, 10, 81, 71))
+        self.horizontalLayoutWidget_2.setGeometry(QtCore.QRect(140, 10, 91, 71))
         self.horizontalLayoutWidget_2.setObjectName(_fromUtf8("horizontalLayoutWidget_2"))
         self.horizontalLayout_2 = QtGui.QHBoxLayout(self.horizontalLayoutWidget_2)
         self.horizontalLayout_2.setMargin(0)
         self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
         self.pushButton_2 = QtGui.QPushButton(self.horizontalLayoutWidget_2)
         self.pushButton_2.setMaximumSize(QtCore.QSize(89, 89))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.pushButton_2.setFont(font)
         self.pushButton_2.setObjectName(_fromUtf8("pushButton_2"))
         self.horizontalLayout_2.addWidget(self.pushButton_2)
         self.horizontalLayoutWidget_3 = QtGui.QWidget(self.centralwidget)
@@ -112,7 +115,7 @@ class Ui_MainWindow(object):
         item = self.tableWidget.horizontalHeaderItem(3)
         item.setText(_translate("MainWindow", "TARİH", None))
         self.pushButton.setText(_translate("MainWindow", "Reçete", None))
-        self.pushButton_2.setText(_translate("MainWindow", "PushButton", None))
+        self.pushButton_2.setText(_translate("MainWindow", "Fatura", None))
 
 
 if __name__ == "__main__":

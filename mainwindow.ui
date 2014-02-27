@@ -96,7 +96,7 @@
      <rect>
       <x>140</x>
       <y>10</y>
-      <width>81</width>
+      <width>91</width>
       <height>71</height>
      </rect>
     </property>
@@ -109,8 +109,13 @@
          <height>89</height>
         </size>
        </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
        <property name="text">
-        <string>PushButton</string>
+        <string>Fatura</string>
        </property>
       </widget>
      </item>

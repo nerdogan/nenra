@@ -3,10 +3,10 @@
 # Name:        module1
 # Purpose:
 #
-# Author:      NAMIK ERDO?AN
+# Author:      NAMIK ERDOĞAN
 #
 # Created:     22.01.2014
-# Copyright:   (c) NAMIK ERDO?AN  2014
+# Copyright:   (c) NAMIK ERDOĞAN  2014
 # Licence:     <your licence>
 #-------------------------------------------------------------------------------
 
@@ -20,6 +20,7 @@ from PyQt4 import QtGui, QtCore
 from mainwindow import MainWindow
 from mainwindow import Recete
 from mainwindow import Recete2
+from mainwindow import Fatura
 from modulemdb import *
 
 def main():
@@ -29,6 +30,7 @@ def main():
     mmdb=Mmdb()
     recete=Recete()
     recete2=Recete2()
+    fatura=Fatura()
     myddb=Myddb()
 
 
@@ -58,7 +60,7 @@ def main():
         mainWindow.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
         item=str(row1[15])
         mainWindow.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
-        toplam=toplam+row1[15]
+        #toplam=toplam+row1[15]
         aa=aa+1
 
 
@@ -139,15 +141,11 @@ def main():
             recete2.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
             aa=aa+1
 
-    
-#   recete2 ekranı hazırlanıyor       
-   
-# veritabanından bilgi çek
 
 
     @pyqtSlot(int,int)
     def slothamclick(item,item2):
-        
+    #   hammadde listesinden çiftklikle tablewidget_2 ye hammadde bilgisini ekliyor.     
         i=recete2.tableWidget_2.rowCount()
         deger1=recete2.tableWidget.item(item,0).text()
         deger2=recete2.tableWidget.item(item,1).text()
@@ -169,6 +167,44 @@ def main():
         recete2.tableWidget_2.setItem(aa, 3, QtGui.QTableWidgetItem(item))
         item='0'
         recete2.tableWidget_2.setItem(aa, 4, QtGui.QTableWidgetItem(item)) 
+
+    @pyqtSlot(int,int)
+    def slotfatura(item,item2):
+    #   cari listesinden çiftklikle line edite cari firma bilgisini yazıyor
+
+        if len(fatura.label_3.text())<12 :
+            deger1=fatura.tableWidget.item(item,0).text()
+            deger2=fatura.tableWidget.item(item,1).text()
+            deger3=fatura.tableWidget.item(item,2).text()
+            deger4=fatura.tableWidget.item(item,3).text()
+            fatura.label_3.setText(deger1+" "+deger2+" "+deger3)
+            return
+
+        if len(fatura.label_3.text())>12 :
+            #   hammadde listesinden çiftklikle tablewidget_2 ye hammadde bilgisini ekliyor.     
+            i=fatura.tableWidget_2.rowCount()
+            deger1=fatura.tableWidget.item(item,0).text()
+            deger2=fatura.tableWidget.item(item,1).text()
+            deger3=fatura.tableWidget.item(item,2).text()
+            deger4=fatura.tableWidget.item(item,3).text()
+        
+            i=i+1
+            j=5
+            fatura.tableWidget_2.setRowCount(i)
+            aa=i-1
+
+            item=deger1
+            fatura.tableWidget_2.setItem(aa, 0, QtGui.QTableWidgetItem(item))
+            item=deger2
+            fatura.tableWidget_2.setItem(aa, 1, QtGui.QTableWidgetItem(item))
+            item=deger3 
+            fatura.tableWidget_2.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+            item=deger4
+            fatura.tableWidget_2.setItem(aa, 3, QtGui.QTableWidgetItem(item))
+            item='0'
+            fatura.tableWidget_2.setItem(aa, 4, QtGui.QTableWidgetItem(item)) 
+
+       
 
 
     @pyqtSlot()
@@ -213,6 +249,20 @@ def main():
             recete.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
             aa=aa+1
 
+
+    @pyqtSlot()
+    def slotpuss2(item2):
+        print "fatura arayüzü açıldı"
+        fatura.lineEdit.setText("")
+        fatura.lineEdit_2.setText("")
+        fatura.lineEdit_3.setText("")
+        fatura.label_3.setText("")
+        fatura.tableWidget.setRowCount(0)
+        fatura.tableWidget_2.setRowCount(0)
+        fatura.show()
+
+       
+
     @pyqtSlot()
     def slottextch(item2):
         print "kjkljlk reçete"
@@ -240,18 +290,68 @@ def main():
             item=str(row1[4])
             recete.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
             aa=aa+1
+            
+
+           
+    @pyqtSlot()
+    def slottextch2(item2):
+        print "fatura"
+        a=item2.toUtf8()
+        a=str(a)
+        print a
+        bul=myddb.cek1(a,"cari","cariad")
+
+        if len(fatura.label_3.text())>12 :
+            bul=myddb.cek1(a,"hammadde","hamad")
+
+
+        
+        i=len(bul)
+        j=5
+        fatura.tableWidget.setRowCount(i)
+        aa=0
+        toplam=0
+        for row1 in bul:
+            item=str(row1[0])
+            fatura.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
+            item=str(row1[1])
+            fatura.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
+            item=row1[2]
+            fatura.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+            item=str(row1[3])
+            fatura.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
+            item=str(row1[4])
+            fatura.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
+            aa=aa+1
+
+
+    @pyqtSlot()
+    def copyFunction():
+        fatura.label_2.setText("f10 a bastın")
 
 
 
+
+        
     mainWindow.tableWidget.cellClicked.connect(slotItemClicked)
     mainWindow.pushButton.clicked.connect(slotpuss)
+    mainWindow.pushButton_2.clicked.connect(slotpuss2)
     recete.lineEdit.textChanged.connect(slottextch)
+    fatura.lineEdit_3.textChanged.connect(slottextch2)
+    
+    fatura.tableWidget.cellDoubleClicked.connect(slotfatura)
     recete.tableWidget.cellDoubleClicked.connect(slotrecete2)
     recete2.lineEdit.textChanged.connect(slotrecete2sql)
     recete2.tableWidget.cellClicked.connect(slothamclick)
     recete2.pushButton.clicked.connect(slotrecete2kaydet)
 
+    sh = QtGui.QShortcut(fatura)
+    sh.setKey("F10")
+    fatura.connect(sh, QtCore.SIGNAL("activated()"), copyFunction)
+
     mainWindow.show()
+
+
 
     return app.exec_()
 

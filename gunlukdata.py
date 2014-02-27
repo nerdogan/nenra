@@ -10,4 +10,4 @@
 #-------------------------------------------------------------------------------
 import os
 
-print os.system("copy z:\\datalar\\gunluk\\*.* F:\\PortablePython2751\\datalar")
+print os.system("copy z:\\datalar\\gunluk\\*.* D:\\aproje\\nenra\\datalar")

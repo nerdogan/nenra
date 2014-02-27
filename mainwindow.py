@@ -6,6 +6,7 @@ from PyQt4 import QtGui, QtCore
 from ui_mainwindow import Ui_MainWindow
 from ui_recete import Ui_Dialog
 from ui_recete2 import Ui_Dialog2
+from ui_fatura import Ui_Dialog3
 
 class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
     def __init__(self):
@@ -19,6 +20,12 @@ class Recete(QtGui.QDialog , Ui_Dialog):
     
 
 class Recete2(QtGui.QDialog , Ui_Dialog2):
+    def __init__(self):
+        QtGui.QDialog.__init__(self)
+        self.setupUi(self)
+    
+
+class Fatura(QtGui.QDialog , Ui_Dialog3):
     def __init__(self):
         QtGui.QDialog.__init__(self)
         self.setupUi(self)
