@@ -11,11 +11,16 @@
 #-------------------------------------------------------------------------------
 import adodbapi
 import MySQLdb
+import os
 
 class Mmdb():
     def __init__(self):
-        database = "D:\\aproje\\nenra\\datalar\\08022014.mdb"
-        constr = 'Provider=Microsoft.Jet.OLEDB.4.0; Data Source=%s'  % database
+        dir =os.getcwd() 
+        print dir
+        database = dir+os.sep+"datalar"+os.sep+"18022014.mdb"
+        print database
+        #database = "D:\\aproje\\nenra\\datalar\\08022014.mdb"
+        constr = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source=%s"  % database
         self.tablename = "satdata"
         # connect to the database
         self.conn = adodbapi.connect(constr)
@@ -38,7 +43,7 @@ class Mmdb():
 class Myddb():
     def __init__(self):
         # connect to the database
-        self.conn = MySQLdb.connect('127.0.0.1', 'root', '654152', 'test', charset='utf8');
+        self.conn = MySQLdb.connect('81.215.207.134', 'nen', '654152', 'test', charset='utf8');
 
 
         # create a cursor

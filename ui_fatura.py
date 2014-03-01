@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'fatura.ui'
 #
-# Created: Thu Feb 27 23:39:37 2014
+# Created: Sat Mar 01 17:39:55 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -102,6 +102,13 @@ class Ui_Dialog3(object):
         self.retranslateUi(Dialog3)
         QtCore.QObject.connect(self.pushButton_2, QtCore.SIGNAL(_fromUtf8("clicked()")), Dialog3.close)
         QtCore.QMetaObject.connectSlotsByName(Dialog3)
+        Dialog3.setTabOrder(self.lineEdit, self.lineEdit_2)
+        Dialog3.setTabOrder(self.lineEdit_2, self.dateEdit)
+        Dialog3.setTabOrder(self.dateEdit, self.lineEdit_3)
+        Dialog3.setTabOrder(self.lineEdit_3, self.pushButton)
+        Dialog3.setTabOrder(self.pushButton, self.pushButton_2)
+        Dialog3.setTabOrder(self.pushButton_2, self.tableWidget)
+        Dialog3.setTabOrder(self.tableWidget, self.tableWidget_2)
 
     def retranslateUi(self, Dialog3):
         Dialog3.setWindowTitle(_translate("Dialog3", "Fatura", None))

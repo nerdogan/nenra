@@ -167,6 +167,7 @@ def main():
         recete2.tableWidget_2.setItem(aa, 3, QtGui.QTableWidgetItem(item))
         item='0'
         recete2.tableWidget_2.setItem(aa, 4, QtGui.QTableWidgetItem(item)) 
+        recete2.lineEdit.setFocus(True)
 
     @pyqtSlot(int,int)
     def slotfatura(item,item2):
@@ -259,6 +260,9 @@ def main():
         fatura.label_3.setText("")
         fatura.tableWidget.setRowCount(0)
         fatura.tableWidget_2.setRowCount(0)
+        # some_date = QtCore.QDate(2011,4,22)
+        some_date = QtCore.QDate.currentDate()
+        fatura.dateEdit.setDate(some_date)
         fatura.show()
 
        
