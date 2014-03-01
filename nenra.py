@@ -111,6 +111,7 @@ def main():
 
         
         recete2.show()
+        recete2.lineEdit.setFocus(True)
         
 
     @pyqtSlot()
@@ -249,6 +250,7 @@ def main():
             item=str(row1[4])
             recete.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
             aa=aa+1
+        recete.lineEdit.setFocus(True)
 
 
     @pyqtSlot()
@@ -264,6 +266,7 @@ def main():
         some_date = QtCore.QDate.currentDate()
         fatura.dateEdit.setDate(some_date)
         fatura.show()
+        fatura.lineEdit.setFocus(True)
 
        
 
