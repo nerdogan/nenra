@@ -43,7 +43,7 @@ class Mmdb():
 class Myddb():
     def __init__(self):
         # connect to the database
-        self.conn = MySQLdb.connect('192.168.1.141', 'nen', '654152', 'test', charset='utf8');
+        self.conn = MySQLdb.connect('nerdogan.no-ip.biz', 'nen', '654152', 'test', charset='utf8');
 
 
         # create a cursor
