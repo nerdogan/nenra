@@ -17,8 +17,8 @@
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>440</y>
+      <x>10</x>
+      <y>470</y>
       <width>621</width>
       <height>80</height>
      </rect>
@@ -28,8 +28,8 @@
    <widget class="QWidget" name="verticalLayoutWidget_2">
     <property name="geometry">
      <rect>
-      <x>19</x>
-      <y>99</y>
+      <x>10</x>
+      <y>140</y>
       <width>511</width>
       <height>331</height>
      </rect>
@@ -64,8 +64,8 @@
    <widget class="QWidget" name="horizontalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>10</y>
+      <x>20</x>
+      <y>20</y>
       <width>91</width>
       <height>71</height>
      </rect>
@@ -81,11 +81,14 @@
        </property>
        <property name="font">
         <font>
+         <family>Verdana</family>
          <pointsize>12</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
         </font>
        </property>
        <property name="text">
-        <string>Reçete</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -94,8 +97,8 @@
    <widget class="QWidget" name="horizontalLayoutWidget_2">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>10</y>
+      <x>120</x>
+      <y>20</y>
       <width>91</width>
       <height>71</height>
      </rect>
@@ -111,11 +114,14 @@
        </property>
        <property name="font">
         <font>
+         <family>Verdana</family>
          <pointsize>12</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
         </font>
        </property>
        <property name="text">
-        <string>Fatura</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -142,6 +148,44 @@
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout_4"/>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>35</x>
+      <y>100</y>
+      <width>61</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Reçete</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>100</y>
+      <width>61</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Fatura</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

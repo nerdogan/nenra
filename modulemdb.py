@@ -57,10 +57,8 @@ class Myddb():
 
 
 
-    def cek( self , tablenam):
-        self.tablename=tablenam
-        # extract all the data
-        sql = "select * from %s" % self.tablename
+    def cek( self , sql):
+        
         self.cur.execute(sql)
         # show the result
         self.result = self.cur.fetchall()

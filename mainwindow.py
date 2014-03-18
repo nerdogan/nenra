@@ -13,6 +13,13 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         QtGui.QMainWindow.__init__(self)
         self.setupUi(self)
 
+
+   
+            
+
+        
+        
+
 class Recete(QtGui.QDialog , Ui_Dialog):
     def __init__(self):
         QtGui.QDialog.__init__(self)
@@ -29,4 +36,3 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
     def __init__(self):
         QtGui.QDialog.__init__(self)
         self.setupUi(self)
-    

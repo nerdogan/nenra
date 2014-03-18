@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'recete.ui'
 #
-# Created: Sat Mar 01 17:49:02 2014
+# Created: Thu Mar 13 20:53:03 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
