@@ -11,6 +11,7 @@
 #-------------------------------------------------------------------------------
 
 import sys
+import re
 
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
@@ -65,6 +66,16 @@ def main():
         mainWindow.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
         #toplam=toplam+row1[15]
         aa=aa+1
+
+
+    def kontrol(girdi):
+        girdi = str(girdi)
+        ara = re.search(",", girdi)
+        if ara:
+            derle = re.compile(",")
+            cikti = derle.sub(".",girdi)
+            return cikti
+        return girdi
 
 
     @pyqtSlot(int,int)
@@ -203,8 +214,9 @@ def main():
                     bul1=str(item[0])
 
                 bul2=myddb.cek2(item[0],"cariay","chid")
+                print bul2
                 i=len(bul2)
-                j=5
+                j=6
                 fatura.tableWidget_2.setRowCount(i)
                 aa=0
                 toplam=0
@@ -212,14 +224,19 @@ def main():
                     item=str(row1[2])
                     fatura.tableWidget_2.setItem(aa, 0, QtGui.QTableWidgetItem(item))
                     bul3=myddb.cek2(item,"hammadde","hammaddeid")
-                    item=str(bul3[0][1])
+                    item=str(bul3[0][2])
                     fatura.tableWidget_2.setItem(aa, 1, QtGui.QTableWidgetItem(item))
-                    item=bul3[0][2]
-                    fatura.tableWidget_2.setItem(aa, 2, QtGui.QTableWidgetItem(item))
                     item=bul3[0][3]
+                    fatura.tableWidget_2.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+                    item=str(row1[5])
+                    print item
                     fatura.tableWidget_2.setItem(aa, 3, QtGui.QTableWidgetItem(item))
                     item=str(row1[3])
+                    print item
                     recete2.tableWidget_2.setItem(aa, 4, QtGui.QTableWidgetItem(item))
+                    item=str(row1[4])
+                    print item
+                    recete2.tableWidget_2.setItem(aa, 5, QtGui.QTableWidgetItem(item))
                     aa=aa+1   
             fatura.lineEdit_3.setFocus(True)
             return
@@ -297,6 +314,7 @@ def main():
         deger7=fatura.dateEdit.date().toPyDate()
         sql="select * from carihar where  serino='"+str(deger5)+"' and sirano='"+str(deger6)+"'"
         sonuc=myddb.cek(sql)
+        print sonuc
         if len(sonuc)==0:
             print "fatura kaydı yok"
             sql1="insert into carihar (cariid,serino,sirano,tarih) values (%s,%s,%s,%s)"
@@ -313,11 +331,15 @@ def main():
         
         i=fatura.tableWidget_2.rowCount()
         for item in range(i):
+            deger10=fatura.tableWidget_2.item(item,0).text()
+            deger11=fatura.tableWidget_2.item(item,3).text()
+            deger12=fatura.tableWidget_2.item(item,4).text()
+            deger13=fatura.tableWidget_2.item(item,5).text()
+            deger13=kontrol(deger13)
+            print deger10
+            sql2="insert into cariay (chid,hammaddeid,kdv,miktar,birimfiy) values (%s,%s,%s,%s,%s)"
+            myddb.cur.execute(sql2,(sonuc[0][0],deger10,deger11,deger12,deger13))
             
-            deger1=fatura.tableWidget_2.item(item,0).text()
-            deger2=fatura.tableWidget_2.item(item,4).text()
-            print deger0 , deger1 , deger2
-            myddb.kaydet(deger0,deger1,deger2)
         myddb.conn.commit()
 
 

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'fatura.ui'
 #
-# Created: Thu Mar 13 20:53:03 2014
+# Created: Tue Mar 18 20:15:58 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,7 +26,7 @@ except AttributeError:
 class Ui_Dialog3(object):
     def setupUi(self, Dialog3):
         Dialog3.setObjectName(_fromUtf8("Dialog3"))
-        Dialog3.resize(764, 625)
+        Dialog3.resize(796, 625)
         self.lineEdit = QtGui.QLineEdit(Dialog3)
         self.lineEdit.setGeometry(QtCore.QRect(80, 10, 61, 20))
         self.lineEdit.setObjectName(_fromUtf8("lineEdit"))
@@ -35,7 +35,7 @@ class Ui_Dialog3(object):
         self.lineEdit_2.setObjectName(_fromUtf8("lineEdit_2"))
         self.lineEdit_3 = QtGui.QLineEdit(Dialog3)
         self.lineEdit_3.setEnabled(True)
-        self.lineEdit_3.setGeometry(QtCore.QRect(50, 70, 521, 20))
+        self.lineEdit_3.setGeometry(QtCore.QRect(50, 70, 561, 20))
         self.lineEdit_3.setObjectName(_fromUtf8("lineEdit_3"))
         self.label = QtGui.QLabel(Dialog3)
         self.label.setGeometry(QtCore.QRect(20, 10, 46, 13))
@@ -47,7 +47,7 @@ class Ui_Dialog3(object):
         self.dateEdit.setGeometry(QtCore.QRect(470, 10, 110, 22))
         self.dateEdit.setObjectName(_fromUtf8("dateEdit"))
         self.tableWidget = QtGui.QTableWidget(Dialog3)
-        self.tableWidget.setGeometry(QtCore.QRect(10, 100, 571, 131))
+        self.tableWidget.setGeometry(QtCore.QRect(10, 100, 601, 131))
         self.tableWidget.setObjectName(_fromUtf8("tableWidget"))
         self.tableWidget.setColumnCount(5)
         self.tableWidget.setRowCount(0)
@@ -63,7 +63,7 @@ class Ui_Dialog3(object):
         self.tableWidget.setHorizontalHeaderItem(4, item)
         self.tableWidget.horizontalHeader().setVisible(False)
         self.tableWidget_2 = QtGui.QTableWidget(Dialog3)
-        self.tableWidget_2.setGeometry(QtCore.QRect(10, 240, 571, 391))
+        self.tableWidget_2.setGeometry(QtCore.QRect(10, 240, 601, 391))
         self.tableWidget_2.setLineWidth(1)
         self.tableWidget_2.setAlternatingRowColors(True)
         self.tableWidget_2.setObjectName(_fromUtf8("tableWidget_2"))
@@ -84,11 +84,11 @@ class Ui_Dialog3(object):
         self.tableWidget_2.horizontalHeader().setVisible(True)
         self.tableWidget_2.horizontalHeader().setDefaultSectionSize(90)
         self.pushButton = QtGui.QPushButton(Dialog3)
-        self.pushButton.setGeometry(QtCore.QRect(600, 570, 75, 23))
+        self.pushButton.setGeometry(QtCore.QRect(620, 570, 75, 23))
         self.pushButton.setAutoDefault(False)
         self.pushButton.setObjectName(_fromUtf8("pushButton"))
         self.pushButton_2 = QtGui.QPushButton(Dialog3)
-        self.pushButton_2.setGeometry(QtCore.QRect(680, 570, 75, 23))
+        self.pushButton_2.setGeometry(QtCore.QRect(710, 570, 75, 23))
         self.pushButton_2.setAutoDefault(False)
         self.pushButton_2.setDefault(False)
         self.pushButton_2.setFlat(False)
@@ -111,7 +111,7 @@ class Ui_Dialog3(object):
         self.label_4.setFont(font)
         self.label_4.setObjectName(_fromUtf8("label_4"))
         self.label_5 = QtGui.QLabel(Dialog3)
-        self.label_5.setGeometry(QtCore.QRect(90, 40, 46, 13))
+        self.label_5.setGeometry(QtCore.QRect(690, 300, 71, 51))
         self.label_5.setText(_fromUtf8(""))
         self.label_5.setObjectName(_fromUtf8("label_5"))
 
