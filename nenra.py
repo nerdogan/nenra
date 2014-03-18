@@ -228,15 +228,12 @@ def main():
                     fatura.tableWidget_2.setItem(aa, 1, QtGui.QTableWidgetItem(item))
                     item=bul3[0][3]
                     fatura.tableWidget_2.setItem(aa, 2, QtGui.QTableWidgetItem(item))
-                    item=str(row1[5])
-                    print item
+                    item=str(row1[5])                   
                     fatura.tableWidget_2.setItem(aa, 3, QtGui.QTableWidgetItem(item))
-                    item=str(row1[3])
-                    print item
-                    recete2.tableWidget_2.setItem(aa, 4, QtGui.QTableWidgetItem(item))
+                    item=str(row1[3])                    
+                    fatura.tableWidget_2.setItem(aa, 4, QtGui.QTableWidgetItem(item))
                     item=str(row1[4])
-                    print item
-                    recete2.tableWidget_2.setItem(aa, 5, QtGui.QTableWidgetItem(item))
+                    fatura.tableWidget_2.setItem(aa, 5, QtGui.QTableWidgetItem(item))
                     aa=aa+1   
             fatura.lineEdit_3.setFocus(True)
             return
@@ -257,6 +254,7 @@ def main():
             fatura.label_3.setText(deger1+" "+deger2+" "+deger3)
             bul1=str(deger1)
             fatura.lineEdit_3.setText("")
+            slotfaturakaydet()
             
 
             return
@@ -341,6 +339,7 @@ def main():
             myddb.cur.execute(sql2,(sonuc[0][0],deger10,deger11,deger12,deger13))
             
         myddb.conn.commit()
+        fatura.lineEdit_3.setFocus(True)
 
 
 
