@@ -12,17 +12,15 @@
 
 import sys
 import re
-
+import datetime
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from PyQt4.QtNetwork import *
 from PyQt4.QtCore import pyqtSlot
 from PyQt4 import QtGui, QtCore
 from mainwindow import MainWindow
-from mainwindow import Recete
-from mainwindow import Recete2
-from mainwindow import Fatura
-from modulemdb import *
+
+from modulemdb2 import *
 
 
 def main():
@@ -30,18 +28,73 @@ def main():
     app.processEvents()
 
     mainWindow = MainWindow()
-    
-    recete=Recete()
-    recete2=Recete2()
-    fatura=Fatura()
+    mmdb=Mmdb()
+   
+
     myddb=Myddb()
     
 
-   
-    bul=myddb.cek("select * from menu")
+
+
     
+   
     
 
+
+    StartDate="31/12/13"
+    EndDate = datetime.datetime.strptime(StartDate, "%d/%m/%y")
+    now = datetime.datetime.now()
+    dt=now-EndDate
+    print dt.days
+    for i in range(dt.days):
+        EndDate = EndDate + datetime.timedelta(days=1)
+        sql= " select * from satdata where tarih like %s"
+        sonuc=myddb.cur.execute(sql,(EndDate.strftime('%Y-%m-%d')+"%"))
+        if sonuc==0:
+            print " kaydediliyor"
+            tar=EndDate.strftime('%d%m%Y')
+            EndDate.strftime('%d%m%Y')
+            bilgi=mmdb.cekmysql(tar)
+            if bilgi!=1978:
+                for row1 in bilgi:
+                    sql1="insert into satdata (masaad,konumkod,urunkod,urungrup,yiyic,adisyon,kasiyerkod,kasiyerad,kuver,ikram,fixim,konumad,kdv,saat,tarih,adet,fixmenu,tutarx,tutar) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+                    myddb.cur.execute(sql1,(row1[1],row1[2],row1[3],row1[4],row1[5],row1[6],row1[7],row1[8],row1[10],row1[18],row1[19],row1[29],row1[32],row1[39],row1[40],row1[41],row1[45],row1[46],row1[47]))
+                    myddb.conn.commit()
+
+
+
+        
+        print EndDate.strftime('%d%m%Y')
+    
+
+
+
+
+    bilgi=mmdb.cek()
+
+    i=len(bilgi)
+    j=56
+    mainWindow.tableWidget.setRowCount(i)
+    mainWindow.tableWidget.setColumnCount(j)
+    mainWindow.tableWidget.setColumnWidth( 0, 200 )
+    aa=0
+    toplam=0
+    
+    for row1 in bilgi:
+        print row1[40]
+        for aaa in range(len(row1)):
+            
+            try:
+                item = row1[aaa]
+                mainWindow.tableWidget.setItem(aa, aaa, QtGui.QTableWidgetItem(item))
+                
+            except TypeError:
+                item = " "
+                mainWindow.tableWidget.setItem(aa, aaa, QtGui.QTableWidgetItem(item))
+            
+            
+         
+        aa=aa+1
 
     def kontrol(girdi):
         girdi = str(girdi)
@@ -53,7 +106,13 @@ def main():
         return girdi
 
 
-    
+    @pyqtSlot(int,int)
+    def slotItemClicked(item,item2):
+        print "Row: "+str(item)+" |Column: "+QString.number(item2)
+        mainWindow.tableWidget.horizontalHeaderItem(0).setText(str(item)+"  "+str(item2))
+        QMessageBox.information(mainWindow.tableWidget,
+				"QTableWidget Cell Click",
+				"Text: "+str(toplam))
 
     @pyqtSlot(int,int)
     def slotrecete2(item,item2):
@@ -405,6 +464,7 @@ def main():
         i=len(bul)
         j=5
         fatura.tableWidget.setRowCount(i)
+
         aa=0
         toplam=0
         for row1 in bul:
@@ -432,22 +492,14 @@ def main():
     
     mainWindow.pushButton.setStyleSheet("color: black ;  background-image: url(image.png)")  
     mainWindow.pushButton_2.setStyleSheet("color: black ;  background-image: url(fatura.png)")  
+    mainWindow.tableWidget.cellClicked.connect(slotItemClicked)
     mainWindow.pushButton.clicked.connect(slotpuss)
     mainWindow.pushButton_2.clicked.connect(slotpuss2)
-    recete.lineEdit.textChanged.connect(slottextch)
-    fatura.lineEdit_3.textChanged.connect(slottextch2)
-    fatura.lineEdit_2.textChanged.connect(slotfaturakont)
-    fatura.lineEdit.textChanged.connect(slotfaturakont)
-    fatura.pushButton.clicked.connect(slotfaturakaydet)
-    fatura.tableWidget.cellClicked.connect(slotfatura)
-    recete.tableWidget.cellDoubleClicked.connect(slotrecete2)
-    recete2.lineEdit.textChanged.connect(slotrecete2sql)
-    recete2.tableWidget.cellClicked.connect(slothamclick)
-    recete2.pushButton.clicked.connect(slotrecete2kaydet)
+    
 
-    sh = QtGui.QShortcut(fatura)
+    sh = QtGui.QShortcut(mainWindow)
     sh.setKey(Qt.Key_Enter)
-    fatura.connect(sh, QtCore.SIGNAL("activated()"), copyFunction)
+    mainWindow.connect(sh, QtCore.SIGNAL("activated()"), copyFunction)
 
 
 

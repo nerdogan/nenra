@@ -19,10 +19,8 @@ from PyQt4.QtNetwork import *
 from PyQt4.QtCore import pyqtSlot
 from PyQt4 import QtGui, QtCore
 from mainwindow import MainWindow
-from mainwindow import Recete
-from mainwindow import Recete2
-from mainwindow import Fatura
-from modulemdb import *
+
+from modulemdb2 import *
 
 
 def main():
@@ -30,17 +28,42 @@ def main():
     app.processEvents()
 
     mainWindow = MainWindow()
-    
+    mmdb=Mmdb()
     recete=Recete()
     recete2=Recete2()
     fatura=Fatura()
     myddb=Myddb()
     
 
-   
+
+
+    bilgi=mmdb.cek()
+    mmdb.kapat()
     bul=myddb.cek("select * from menu")
     
-    
+
+
+
+
+
+    i=len(bilgi)
+    j=5
+    mainWindow.tableWidget.setRowCount(i)
+    aa=0
+    toplam=0
+    for row1 in bilgi:
+        item=row1[1]
+        mainWindow.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
+        item=row1[2]
+        mainWindow.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
+        item=row1[7]
+        mainWindow.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+        item=row1[8]
+        mainWindow.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
+        item=str(row1[15])
+        mainWindow.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
+        #toplam=toplam+row1[15]
+        aa=aa+1
 
 
     def kontrol(girdi):
@@ -53,7 +76,13 @@ def main():
         return girdi
 
 
-    
+    @pyqtSlot(int,int)
+    def slotItemClicked(item,item2):
+        print "Row: "+str(item)+" |Column: "+QString.number(item2)
+        mainWindow.tableWidget.horizontalHeaderItem(0).setText(str(item)+"  "+str(item2))
+        QMessageBox.information(mainWindow.tableWidget,
+				"QTableWidget Cell Click",
+				"Text: "+str(toplam))
 
     @pyqtSlot(int,int)
     def slotrecete2(item,item2):
@@ -432,6 +461,7 @@ def main():
     
     mainWindow.pushButton.setStyleSheet("color: black ;  background-image: url(image.png)")  
     mainWindow.pushButton_2.setStyleSheet("color: black ;  background-image: url(fatura.png)")  
+    mainWindow.tableWidget.cellClicked.connect(slotItemClicked)
     mainWindow.pushButton.clicked.connect(slotpuss)
     mainWindow.pushButton_2.clicked.connect(slotpuss2)
     recete.lineEdit.textChanged.connect(slottextch)

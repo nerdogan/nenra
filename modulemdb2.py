@@ -9,10 +9,34 @@
 # Copyright:   (c) NAMIK ERDOĞAN 2014
 # Licence:     <your licence>
 #-------------------------------------------------------------------------------
-
+import adodbapi
 import MySQLdb
 import os
 
+class Mmdb():
+    def __init__(self):
+        dir =os.getcwd() 
+        print dir
+        database = dir+os.sep+"datalar"+os.sep+"18022014.mdb"
+        print database
+        #database = "D:\\aproje\\nenra\\datalar\\08022014.mdb"
+        constr = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source=%s"  % database
+        self.tablename = "satdata"
+        # connect to the database
+        self.conn = adodbapi.connect(constr)
+        # create a cursor
+        self.cur = self.conn.cursor()
+    def cek(self):
+        # extract all the data
+        sql = "select * from %s" % self.tablename
+        self.cur.execute(sql)
+        # show the result
+        self.result = self.cur.fetchall()
+        return self.result
+
+    def kapat(self):
+        self.cur.close()
+        self.conn.close()
 
 
 
