@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'recete2.ui'
 #
-# Created: Tue Mar 18 21:06:08 2014
+# Created: Sat Mar 22 17:13:01 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -97,25 +97,25 @@ class Ui_Dialog2(object):
         item = self.tableWidget.verticalHeaderItem(0)
         item.setText(_translate("Dialog2", "1", None))
         item = self.tableWidget.horizontalHeaderItem(0)
-        item.setText(_translate("Dialog2", "id", None))
+        item.setText(_translate("Dialog2", "ID", None))
         item = self.tableWidget.horizontalHeaderItem(1)
-        item.setText(_translate("Dialog2", "kod", None))
+        item.setText(_translate("Dialog2", "KOD", None))
         item = self.tableWidget.horizontalHeaderItem(2)
-        item.setText(_translate("Dialog2", "ad", None))
+        item.setText(_translate("Dialog2", "AÇIKLAMA", None))
         item = self.tableWidget.horizontalHeaderItem(3)
-        item.setText(_translate("Dialog2", "New Column", None))
+        item.setText(_translate("Dialog2", "BİRİM", None))
         item = self.tableWidget.horizontalHeaderItem(4)
-        item.setText(_translate("Dialog2", "New Column", None))
+        item.setText(_translate("Dialog2", "N", None))
         item = self.tableWidget_2.horizontalHeaderItem(0)
-        item.setText(_translate("Dialog2", "New Column", None))
+        item.setText(_translate("Dialog2", "ID", None))
         item = self.tableWidget_2.horizontalHeaderItem(1)
-        item.setText(_translate("Dialog2", "New Column", None))
+        item.setText(_translate("Dialog2", "KOD", None))
         item = self.tableWidget_2.horizontalHeaderItem(2)
-        item.setText(_translate("Dialog2", "New Column", None))
+        item.setText(_translate("Dialog2", "AÇIKLAMA", None))
         item = self.tableWidget_2.horizontalHeaderItem(3)
-        item.setText(_translate("Dialog2", "New Column", None))
+        item.setText(_translate("Dialog2", "BİRİM", None))
         item = self.tableWidget_2.horizontalHeaderItem(4)
-        item.setText(_translate("Dialog2", "New Column", None))
+        item.setText(_translate("Dialog2", "MİKTAR", None))
         self.label.setText(_translate("Dialog2", "TextLabel", None))
         self.pushButton.setText(_translate("Dialog2", "Kaydet", None))
         self.pushButton_2.setText(_translate("Dialog2", "İptal", None))

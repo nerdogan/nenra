@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created: Wed Mar 19 20:01:42 2014
+# Created: Thu Mar 20 17:05:33 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -35,13 +35,7 @@ class Ui_MainWindow(object):
         self.verticalLayout = QtGui.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setMargin(0)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
-        self.verticalLayoutWidget_2 = QtGui.QWidget(self.centralwidget)
-        self.verticalLayoutWidget_2.setGeometry(QtCore.QRect(10, 140, 741, 331))
-        self.verticalLayoutWidget_2.setObjectName(_fromUtf8("verticalLayoutWidget_2"))
-        self.verticalLayout_2 = QtGui.QVBoxLayout(self.verticalLayoutWidget_2)
-        self.verticalLayout_2.setMargin(0)
-        self.verticalLayout_2.setObjectName(_fromUtf8("verticalLayout_2"))
-        self.tableWidget = QtGui.QTableWidget(self.verticalLayoutWidget_2)
+        self.tableWidget = QtGui.QTableWidget(self.verticalLayoutWidget)
         self.tableWidget.setObjectName(_fromUtf8("tableWidget"))
         self.tableWidget.setColumnCount(5)
         self.tableWidget.setRowCount(0)
@@ -55,7 +49,17 @@ class Ui_MainWindow(object):
         self.tableWidget.setHorizontalHeaderItem(3, item)
         item = QtGui.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(4, item)
-        self.verticalLayout_2.addWidget(self.tableWidget)
+        self.verticalLayout.addWidget(self.tableWidget)
+        self.verticalLayoutWidget_2 = QtGui.QWidget(self.centralwidget)
+        self.verticalLayoutWidget_2.setGeometry(QtCore.QRect(10, 140, 621, 321))
+        self.verticalLayoutWidget_2.setObjectName(_fromUtf8("verticalLayoutWidget_2"))
+        self.verticalLayout_2 = QtGui.QVBoxLayout(self.verticalLayoutWidget_2)
+        self.verticalLayout_2.setMargin(0)
+        self.verticalLayout_2.setObjectName(_fromUtf8("verticalLayout_2"))
+        self.plainTextEdit = QtGui.QPlainTextEdit(self.verticalLayoutWidget_2)
+        self.plainTextEdit.setPlainText(_fromUtf8(""))
+        self.plainTextEdit.setObjectName(_fromUtf8("plainTextEdit"))
+        self.verticalLayout_2.addWidget(self.plainTextEdit)
         self.horizontalLayoutWidget = QtGui.QWidget(self.centralwidget)
         self.horizontalLayoutWidget.setGeometry(QtCore.QRect(20, 20, 91, 71))
         self.horizontalLayoutWidget.setObjectName(_fromUtf8("horizontalLayoutWidget"))

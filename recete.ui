@@ -6,17 +6,17 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>504</height>
+    <width>626</width>
+    <height>595</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>REÇETE MENU </string>
   </property>
   <widget class="QLineEdit" name="lineEdit">
    <property name="geometry">
     <rect>
-     <x>20</x>
+     <x>80</x>
      <y>30</y>
      <width>131</width>
      <height>20</height>
@@ -26,37 +26,50 @@
   <widget class="QTableWidget" name="tableWidget">
    <property name="geometry">
     <rect>
-     <x>20</x>
+     <x>10</x>
      <y>70</y>
      <width>601</width>
-     <height>411</height>
+     <height>511</height>
     </rect>
    </property>
    <column>
     <property name="text">
-     <string>id</string>
+     <string>ID</string>
     </property>
    </column>
    <column>
     <property name="text">
-     <string>kod</string>
+     <string>KOD</string>
     </property>
    </column>
    <column>
     <property name="text">
-     <string>ad</string>
+     <string>MENU ADI</string>
     </property>
    </column>
    <column>
     <property name="text">
-     <string>New Column</string>
+     <string>FİYATI</string>
     </property>
    </column>
    <column>
     <property name="text">
-     <string>New Column</string>
+     <string>KDV</string>
     </property>
    </column>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>30</y>
+     <width>46</width>
+     <height>13</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>ARAMA</string>
+   </property>
   </widget>
  </widget>
  <resources/>

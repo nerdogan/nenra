@@ -39,27 +39,27 @@
    </row>
    <column>
     <property name="text">
-     <string>id</string>
+     <string>ID</string>
     </property>
    </column>
    <column>
     <property name="text">
-     <string>kod</string>
+     <string>KOD</string>
     </property>
    </column>
    <column>
     <property name="text">
-     <string>ad</string>
+     <string>AÇIKLAMA</string>
     </property>
    </column>
    <column>
     <property name="text">
-     <string>New Column</string>
+     <string>BİRİM</string>
     </property>
    </column>
    <column>
     <property name="text">
-     <string>New Column</string>
+     <string>N</string>
     </property>
    </column>
   </widget>
@@ -74,27 +74,27 @@
    </property>
    <column>
     <property name="text">
-     <string>New Column</string>
+     <string>ID</string>
     </property>
    </column>
    <column>
     <property name="text">
-     <string>New Column</string>
+     <string>KOD</string>
     </property>
    </column>
    <column>
     <property name="text">
-     <string>New Column</string>
+     <string>AÇIKLAMA</string>
     </property>
    </column>
    <column>
     <property name="text">
-     <string>New Column</string>
+     <string>BİRİM</string>
     </property>
    </column>
    <column>
     <property name="text">
-     <string>New Column</string>
+     <string>MİKTAR</string>
     </property>
    </column>
   </widget>
