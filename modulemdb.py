@@ -47,6 +47,8 @@ class Myddb():
         sql=" '%"+ sql +"%'"
         print sql
         sql1="select * from "+tablenam+ " where "+colname+" like "+sql
+        if colname=="menuad":
+            sql1=sql1+" or menukod like "+sql
         print sql1
         self.cur.execute(sql1)
         # show the result
