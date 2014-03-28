@@ -11,16 +11,16 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>ARIA POS TO  SQL DATABASE</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>470</y>
-      <width>621</width>
-      <height>80</height>
+      <y>520</y>
+      <width>751</width>
+      <height>63</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -60,8 +60,8 @@
      <rect>
       <x>10</x>
       <y>140</y>
-      <width>621</width>
-      <height>321</height>
+      <width>411</width>
+      <height>361</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -79,7 +79,7 @@
      <rect>
       <x>20</x>
       <y>20</y>
-      <width>91</width>
+      <width>181</width>
       <height>71</height>
      </rect>
     </property>
@@ -110,9 +110,9 @@
    <widget class="QWidget" name="horizontalLayoutWidget_2">
     <property name="geometry">
      <rect>
-      <x>120</x>
+      <x>270</x>
       <y>20</y>
-      <width>91</width>
+      <width>151</width>
       <height>71</height>
      </rect>
     </property>
@@ -167,7 +167,7 @@
      <rect>
       <x>35</x>
       <y>100</y>
-      <width>61</width>
+      <width>161</width>
       <height>20</height>
      </rect>
     </property>
@@ -178,15 +178,15 @@
      </font>
     </property>
     <property name="text">
-     <string>Reçete</string>
+     <string>SATIŞ BİLGİSİ AL</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>140</x>
+      <x>260</x>
       <y>100</y>
-      <width>61</width>
+      <width>171</width>
       <height>16</height>
      </rect>
     </property>
@@ -197,7 +197,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Fatura</string>
+     <string>ÖDEME BİLGİSİ AL</string>
     </property>
    </widget>
   </widget>

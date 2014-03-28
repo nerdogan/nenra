@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created: Wed Mar 26 14:55:21 2014
+# Created: Fri Mar 28 15:48:58 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -30,7 +30,7 @@ class Ui_MainWindow(object):
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.verticalLayoutWidget = QtGui.QWidget(self.centralwidget)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 470, 621, 80))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 520, 751, 63))
         self.verticalLayoutWidget.setObjectName(_fromUtf8("verticalLayoutWidget"))
         self.verticalLayout = QtGui.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setMargin(0)
@@ -51,7 +51,7 @@ class Ui_MainWindow(object):
         self.tableWidget.setHorizontalHeaderItem(4, item)
         self.verticalLayout.addWidget(self.tableWidget)
         self.verticalLayoutWidget_2 = QtGui.QWidget(self.centralwidget)
-        self.verticalLayoutWidget_2.setGeometry(QtCore.QRect(10, 140, 621, 321))
+        self.verticalLayoutWidget_2.setGeometry(QtCore.QRect(10, 140, 411, 361))
         self.verticalLayoutWidget_2.setObjectName(_fromUtf8("verticalLayoutWidget_2"))
         self.verticalLayout_2 = QtGui.QVBoxLayout(self.verticalLayoutWidget_2)
         self.verticalLayout_2.setMargin(0)
@@ -61,7 +61,7 @@ class Ui_MainWindow(object):
         self.plainTextEdit.setObjectName(_fromUtf8("plainTextEdit"))
         self.verticalLayout_2.addWidget(self.plainTextEdit)
         self.horizontalLayoutWidget = QtGui.QWidget(self.centralwidget)
-        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(20, 20, 91, 71))
+        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(20, 20, 181, 71))
         self.horizontalLayoutWidget.setObjectName(_fromUtf8("horizontalLayoutWidget"))
         self.horizontalLayout = QtGui.QHBoxLayout(self.horizontalLayoutWidget)
         self.horizontalLayout.setMargin(0)
@@ -78,7 +78,7 @@ class Ui_MainWindow(object):
         self.pushButton.setObjectName(_fromUtf8("pushButton"))
         self.horizontalLayout.addWidget(self.pushButton)
         self.horizontalLayoutWidget_2 = QtGui.QWidget(self.centralwidget)
-        self.horizontalLayoutWidget_2.setGeometry(QtCore.QRect(120, 20, 91, 71))
+        self.horizontalLayoutWidget_2.setGeometry(QtCore.QRect(270, 20, 151, 71))
         self.horizontalLayoutWidget_2.setObjectName(_fromUtf8("horizontalLayoutWidget_2"))
         self.horizontalLayout_2 = QtGui.QHBoxLayout(self.horizontalLayoutWidget_2)
         self.horizontalLayout_2.setMargin(0)
@@ -107,14 +107,14 @@ class Ui_MainWindow(object):
         self.horizontalLayout_4.setMargin(0)
         self.horizontalLayout_4.setObjectName(_fromUtf8("horizontalLayout_4"))
         self.label = QtGui.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(35, 100, 61, 20))
+        self.label.setGeometry(QtCore.QRect(35, 100, 161, 20))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Verdana"))
         font.setPointSize(12)
         self.label.setFont(font)
         self.label.setObjectName(_fromUtf8("label"))
         self.label_2 = QtGui.QLabel(self.centralwidget)
-        self.label_2.setGeometry(QtCore.QRect(140, 100, 61, 16))
+        self.label_2.setGeometry(QtCore.QRect(260, 100, 171, 16))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Verdana"))
         font.setPointSize(12)
@@ -133,7 +133,7 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow", None))
+        MainWindow.setWindowTitle(_translate("MainWindow", "ARIA POS TO  SQL DATABASE", None))
         item = self.tableWidget.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "New Column", None))
         item = self.tableWidget.horizontalHeaderItem(1)
@@ -144,8 +144,8 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "New Column", None))
         item = self.tableWidget.horizontalHeaderItem(4)
         item.setText(_translate("MainWindow", "New Column", None))
-        self.label.setText(_translate("MainWindow", "Reçete", None))
-        self.label_2.setText(_translate("MainWindow", "Fatura", None))
+        self.label.setText(_translate("MainWindow", "SATIŞ BİLGİSİ AL", None))
+        self.label_2.setText(_translate("MainWindow", "ÖDEME BİLGİSİ AL", None))
 
 
 if __name__ == "__main__":

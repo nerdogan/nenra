@@ -33,7 +33,7 @@ class Mmdb():
         # show the result
         self.result = self.cur.fetchall()
         return self.result
-    def cekmysql(self,tar):
+    def cekmysql(self,tar,tablename):
         dir =os.getcwd() 
         print dir
         database = dir+os.sep+"datalar"+os.sep+tar+".mdb"
@@ -43,7 +43,7 @@ class Mmdb():
             return 1978
         #database = "D:\\aproje\\nenra\\datalar\\08022014.mdb"
         constr = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source=%s"  % database
-        self.tablename = "satdata"
+        self.tablename =tablename
         # connect to the database
         self.conn = adodbapi.connect(constr)
         # create a cursor
