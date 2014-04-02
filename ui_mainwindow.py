@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created: Fri Mar 28 13:27:37 2014
+# Created: Wed Apr 02 21:42:49 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,7 +26,7 @@ except AttributeError:
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
-        MainWindow.resize(252, 600)
+        MainWindow.resize(423, 600)
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.verticalLayoutWidget = QtGui.QWidget(self.centralwidget)
@@ -101,9 +101,33 @@ class Ui_MainWindow(object):
         font.setPointSize(12)
         self.label_2.setFont(font)
         self.label_2.setObjectName(_fromUtf8("label_2"))
+        self.horizontalLayoutWidget_5 = QtGui.QWidget(self.centralwidget)
+        self.horizontalLayoutWidget_5.setGeometry(QtCore.QRect(240, 20, 91, 71))
+        self.horizontalLayoutWidget_5.setObjectName(_fromUtf8("horizontalLayoutWidget_5"))
+        self.horizontalLayout_5 = QtGui.QHBoxLayout(self.horizontalLayoutWidget_5)
+        self.horizontalLayout_5.setMargin(0)
+        self.horizontalLayout_5.setObjectName(_fromUtf8("horizontalLayout_5"))
+        self.pushButton_3 = QtGui.QPushButton(self.horizontalLayoutWidget_5)
+        self.pushButton_3.setMaximumSize(QtCore.QSize(89, 89))
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Verdana"))
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.pushButton_3.setFont(font)
+        self.pushButton_3.setText(_fromUtf8(""))
+        self.pushButton_3.setObjectName(_fromUtf8("pushButton_3"))
+        self.horizontalLayout_5.addWidget(self.pushButton_3)
+        self.label_3 = QtGui.QLabel(self.centralwidget)
+        self.label_3.setGeometry(QtCore.QRect(250, 100, 61, 16))
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Verdana"))
+        font.setPointSize(12)
+        self.label_3.setFont(font)
+        self.label_3.setObjectName(_fromUtf8("label_3"))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 252, 18))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 423, 18))
         self.menubar.setObjectName(_fromUtf8("menubar"))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtGui.QStatusBar(MainWindow)
@@ -117,6 +141,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow", None))
         self.label.setText(_translate("MainWindow", "Reçete", None))
         self.label_2.setText(_translate("MainWindow", "Fatura", None))
+        self.label_3.setText(_translate("MainWindow", "Maliyet", None))
 
 
 if __name__ == "__main__":

@@ -22,6 +22,7 @@ from mainwindow import MainWindow
 from mainwindow import Recete
 from mainwindow import Recete2
 from mainwindow import Fatura
+from mainwindow import Maliyet
 from modulemdb import *
 
 
@@ -34,6 +35,7 @@ def main():
     recete=Recete()
     recete2=Recete2()
     fatura=Fatura()
+    maliyet=Maliyet()
     myddb=Myddb()
     
 
@@ -357,6 +359,12 @@ def main():
         fatura.show()
         fatura.lineEdit.setFocus(True)
 
+    @pyqtSlot()
+    def slotpuss3(item2):
+        print "maliyet arayüzü açıldı"
+        maliyet.show()
+
+
        
 
     @pyqtSlot()
@@ -432,8 +440,10 @@ def main():
     
     mainWindow.pushButton.setStyleSheet("color: black ;  background-image: url(image.png)")  
     mainWindow.pushButton_2.setStyleSheet("color: black ;  background-image: url(fatura.png)")  
+    mainWindow.pushButton_3.setStyleSheet("color: black ;  background-image: url(image.png)")  
     mainWindow.pushButton.clicked.connect(slotpuss)
     mainWindow.pushButton_2.clicked.connect(slotpuss2)
+    mainWindow.pushButton_3.clicked.connect(slotpuss3)
     recete.lineEdit.textChanged.connect(slottextch)
     fatura.lineEdit_3.textChanged.connect(slottextch2)
     fatura.lineEdit_2.textChanged.connect(slotfaturakont)

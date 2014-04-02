@@ -23,6 +23,8 @@ from mainwindow import MainWindow
 from modulemdb2 import *
 
 
+
+
 def main():
     app =QApplication(sys.argv)
     app.processEvents()
@@ -349,6 +351,8 @@ def main():
         
 # veritabanından bilgi çek
 
+    def yaz(elmaci):
+        mainWindow.plainTextEdit.appendPlainText(elmaci+" kaydediliyor")
 
     
     @pyqtSlot()
@@ -367,12 +371,13 @@ def main():
             if sonuc==0:
                 print " kaydediliyor"
                 tar=EndDate.strftime('%d%m%Y')
-                mainWindow.plainTextEdit.appendPlainText(tar+" kaydediliyor")
+               
+                
                 bilgi=mmdb.cekmysql(tar,"satdata")
                 if bilgi!=1978:
                     for row1 in bilgi:
                         sql1="insert into satdata (masaad,konumkod,urunkod,urungrup,yiyic,adisyon,kasiyerkod,kasiyerad,kuver,ikram,fixim,konumad,kdv,saat,tarih,adet,fixmenu,tutarx,tutar) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-                        myddb.cur.execute(sql1,(row1[1],row1[2],row1[3],row1[4],row1[5],row1[6],row1[7],row1[8],row1[10],row1[18],row1[19],row1[29],row1[32],row1[39],row1[40],row1[41],row1[45],row1[46],row1[47]))
+                        myddb.cur.execute(sql1,(row1[1],row1[2],row1[3],row1[4],row1[5],row1[6],row1[7],row1[8],row1[10],row1[18],row1[19],row1[29],row1[32],row1[39],EndDate,row1[41],row1[45],row1[46],row1[47]))
                         myddb.conn.commit()
                 else:
                     mainWindow.plainTextEdit.appendPlainText(tar+"  DOSYASI MEVCUT DEGIL!!!. GUNSONU ALINMAMIS OLABILIR")
@@ -383,6 +388,7 @@ def main():
     def slotpuss2(item2):
 
         StartDate="31/12/13"
+        
         EndDate = datetime.datetime.strptime(StartDate, "%d/%m/%y")
         now = datetime.datetime.now()- datetime.timedelta(days=1)
         dt=now-EndDate
@@ -395,7 +401,7 @@ def main():
             if sonuc==0:
                 print " kaydediliyor"
                 tar=EndDate.strftime('%d%m%Y')
-                mainWindow.plainTextEdit.appendPlainText(tar+" kaydediliyor")
+               
                 bilgi=mmdb.cekmysql(tar,"satodeme")
                 if bilgi!=1978:
                     for row1 in bilgi:
