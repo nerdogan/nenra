@@ -305,6 +305,7 @@ def main():
             deger1=recete2.tableWidget_2.item(item,0).text()
             deger2=recete2.tableWidget_2.item(item,4).text()
             print deger0 , deger1 , deger2
+            deger2=kontrol(deger2)
             myddb.kaydet(deger0,deger1,deger2)
         myddb.conn.commit()
         
