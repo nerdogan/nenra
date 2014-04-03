@@ -12,7 +12,7 @@
 
 import sys
 import re
-
+import datetime
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from PyQt4.QtNetwork import *
@@ -64,6 +64,8 @@ def main():
 #   recete2 ekranı hazırlanıyor       
         deger0=recete.tableWidget.item(item,0).text()
         recete2.label_3.setText(deger0)
+        file = open(deger0+".txt", "w")
+
 
         deger=recete.tableWidget.item(item,1).text()
         deger1=deger+" "+recete.tableWidget.item(item,2).text()+"  "
@@ -72,6 +74,12 @@ def main():
 # veritabanından bilgi çek
         
         bul2=myddb.cek2(deger0,"recete","menuid")
+        bul=myddb.cek("select * from menu where menukod>9000")
+        recete2.comboBox.clear()
+        i=len(bul)
+        for xx1 in range(i):
+            recete2.comboBox.addItem(str(bul[xx1][1])+" "+bul[xx1][2])
+
 
 
         i=len(bul2)
@@ -80,20 +88,26 @@ def main():
         aa=0
         toplam=0
         for row1 in bul2:
+
             item=str(row1[2])
+            file.write(item+" ")
             recete2.tableWidget_2.setItem(aa, 0, QtGui.QTableWidgetItem(item))
             bul3=myddb.cek2(item,"hammadde","hammaddeid")
             item=str(bul3[0][1])
+            file.write(item+" ")
             recete2.tableWidget_2.setItem(aa, 1, QtGui.QTableWidgetItem(item))
             item=bul3[0][2]
+            #file.write(item+" ")
             recete2.tableWidget_2.setItem(aa, 2, QtGui.QTableWidgetItem(item))
             item=bul3[0][3]
+            file.write(item+" ")
             recete2.tableWidget_2.setItem(aa, 3, QtGui.QTableWidgetItem(item))
             item=str(row1[3])
             recete2.tableWidget_2.setItem(aa, 4, QtGui.QTableWidgetItem(item))
             aa=aa+1
+            file.write(item+"\n")
 
-
+        file.close()
         
         recete2.show()
         recete2.lineEdit.setFocus(True)
@@ -365,6 +379,33 @@ def main():
         print "maliyet arayüzü açıldı"
         maliyet.show()
 
+        StartDate="21/03/14"
+        
+        EndDate = datetime.datetime.strptime(StartDate, "%d/%m/%y")
+        now = datetime.datetime.now()- datetime.timedelta(days=1)
+        dt=now-EndDate
+        print dt.days
+        #mainWindow.plainTextEdit.appendPlainText(str(dt.days))
+        for i in range(dt.days):
+            EndDate = EndDate + datetime.timedelta(days=1)
+            sql= " select * from harcanan where tarih like %s"
+            sonuc=myddb.cur.execute(sql,(EndDate.strftime('%Y-%m-%d')+"%"))
+            if sonuc==0:
+                print " kaydediliyor"
+                tar=EndDate.strftime('%d%m%Y')
+                
+                sql2="select urunkod,hammaddeid,miktar from satdata inner join recete on  urunkod=menuid and DATE(tarih)=%s"
+                bilgi=myddb.cur.execute(sql2,(EndDate.strftime('%Y-%m-%d')))
+                print bilgi
+                if bilgi<>0:
+                    bilgi2=myddb.cur.fetchall()
+                    for row1 in bilgi2:
+                        sql1="insert into harcanan (hurunkod,hhammaddeid,hmiktar,fiyat,tarih) values (%s,%s,%s,%s,%s)"
+                        myddb.cur.execute(sql1,(row1[0],row1[1],row1[2],"0",EndDate))
+                        myddb.conn.commit()
+                
+            print EndDate.strftime('%d%m%Y')
+
 
        
 
@@ -429,12 +470,18 @@ def main():
             fatura.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
             aa=aa+1
 
-
     @pyqtSlot()
     def copyFunction():
         print "f10 a bastın"
         abc = QKeyEvent ( QEvent.KeyPress, Qt.Key_Tab, Qt.NoModifier)
         QCoreApplication.postEvent (fatura, abc)
+
+
+    @pyqtSlot()
+    def slotrecete2satirsil():
+        bb=recete2.tableWidget_2.currentRow()
+        recete2.tableWidget_2.removeRow(bb)
+
 
 
 
@@ -455,6 +502,7 @@ def main():
     recete2.lineEdit.textChanged.connect(slotrecete2sql)
     recete2.tableWidget.cellClicked.connect(slothamclick)
     recete2.pushButton.clicked.connect(slotrecete2kaydet)
+    recete2.pushButton_3.clicked.connect(slotrecete2satirsil)
 
     sh = QtGui.QShortcut(fatura)
     sh.setKey(Qt.Key_Enter)

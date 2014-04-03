@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'recete2.ui'
 #
-# Created: Wed Apr 02 22:01:42 2014
+# Created: Thu Apr 03 23:53:40 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -79,14 +79,22 @@ class Ui_Dialog2(object):
         self.label_2.setScaledContents(True)
         self.label_2.setObjectName(_fromUtf8("label_2"))
         self.pushButton = QtGui.QPushButton(Dialog2)
-        self.pushButton.setGeometry(QtCore.QRect(630, 360, 71, 41))
+        self.pushButton.setGeometry(QtCore.QRect(530, 510, 71, 41))
         self.pushButton.setObjectName(_fromUtf8("pushButton"))
         self.pushButton_2 = QtGui.QPushButton(Dialog2)
-        self.pushButton_2.setGeometry(QtCore.QRect(710, 360, 71, 41))
+        self.pushButton_2.setGeometry(QtCore.QRect(630, 510, 71, 41))
         self.pushButton_2.setObjectName(_fromUtf8("pushButton_2"))
         self.label_3 = QtGui.QLabel(Dialog2)
-        self.label_3.setGeometry(QtCore.QRect(550, 360, 71, 31))
+        self.label_3.setGeometry(QtCore.QRect(550, 440, 71, 31))
         self.label_3.setObjectName(_fromUtf8("label_3"))
+        self.pushButton_3 = QtGui.QPushButton(Dialog2)
+        self.pushButton_3.setGeometry(QtCore.QRect(540, 320, 101, 41))
+        self.pushButton_3.setAutoFillBackground(False)
+        self.pushButton_3.setStyleSheet(_fromUtf8("background =rgb(255, 16, 60)"))
+        self.pushButton_3.setObjectName(_fromUtf8("pushButton_3"))
+        self.comboBox = QtGui.QComboBox(Dialog2)
+        self.comboBox.setGeometry(QtCore.QRect(530, 250, 161, 22))
+        self.comboBox.setObjectName(_fromUtf8("comboBox"))
 
         self.retranslateUi(Dialog2)
         QtCore.QObject.connect(self.pushButton_2, QtCore.SIGNAL(_fromUtf8("clicked()")), Dialog2.close)
@@ -120,6 +128,7 @@ class Ui_Dialog2(object):
         self.pushButton.setText(_translate("Dialog2", "Kaydet", None))
         self.pushButton_2.setText(_translate("Dialog2", "İptal", None))
         self.label_3.setText(_translate("Dialog2", "TextLabel", None))
+        self.pushButton_3.setText(_translate("Dialog2", "Satır Sil", None))
 
 
 if __name__ == "__main__":
