@@ -122,6 +122,7 @@ def main():
 
         bul=myddb.cek1(a,"hammadde","hamad")
 
+
         
         i=len(bul)
         j=5
@@ -394,7 +395,7 @@ def main():
                 print " kaydediliyor"
                 tar=EndDate.strftime('%d%m%Y')
                 
-                sql2="select urunkod,hammaddeid,miktar from satdata inner join recete on  urunkod=menuid and DATE(tarih)=%s"
+                sql2="select urunkod,hammaddeid,miktar from satdata inner join recete on  urunkod=menukod and DATE(tarih)=%s"
                 bilgi=myddb.cur.execute(sql2,(EndDate.strftime('%Y-%m-%d')))
                 print bilgi
                 if bilgi<>0:
@@ -469,6 +470,14 @@ def main():
             item=str(row1[5])
             fatura.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
             aa=aa+1
+    @pyqtSlot()
+    def sloturunmaliyet(item2):
+        
+        print "urunmaliyet"
+        a=item2.toUtf8()
+        a=str(a)
+        print a
+
 
     @pyqtSlot()
     def copyFunction():
@@ -503,6 +512,7 @@ def main():
     recete2.tableWidget.cellClicked.connect(slothamclick)
     recete2.pushButton.clicked.connect(slotrecete2kaydet)
     recete2.pushButton_3.clicked.connect(slotrecete2satirsil)
+    maliyet.pushButton.clicked.connect(sloturunmaliyet)
 
     sh = QtGui.QShortcut(fatura)
     sh.setKey(Qt.Key_Enter)

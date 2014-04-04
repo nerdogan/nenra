@@ -372,6 +372,7 @@ def main():
             if sonuc==0:
                 print " kaydediliyor"
                 tar=EndDate.strftime('%d%m%Y')
+                mainWindow.plainTextEdit.appendPlainText(str(tar)+"kaydediliyor")
                
                 
                 bilgi=mmdb.cekmysql(tar,"satdata")
@@ -402,6 +403,7 @@ def main():
             if sonuc==0:
                 print " kaydediliyor"
                 tar=EndDate.strftime('%d%m%Y')
+                mainWindow.plainTextEdit.appendPlainText(str(tar)+"kaydediliyor")
                
                 bilgi=mmdb.cekmysql(tar,"satodeme")
                 if bilgi!=1978:
