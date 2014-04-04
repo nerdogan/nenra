@@ -395,14 +395,16 @@ def main():
                 print " kaydediliyor"
                 tar=EndDate.strftime('%d%m%Y')
                 
-                sql2="select urunkod,hammaddeid,miktar from satdata inner join recete on  urunkod=menukod and DATE(tarih)=%s"
+                sql2="SELECT menu.menuid,hammaddeid,miktar,adet FROM SATDATA inner join menu on urunkod=menukod and DATE(tarih)=%s  inner join recete on  menu.menuid=recete.menuid "
                 bilgi=myddb.cur.execute(sql2,(EndDate.strftime('%Y-%m-%d')))
                 print bilgi
                 if bilgi<>0:
                     bilgi2=myddb.cur.fetchall()
                     for row1 in bilgi2:
+                        hmikt=row1[2]*row1[2]
+                        print hmikt
                         sql1="insert into harcanan (hurunkod,hhammaddeid,hmiktar,fiyat,tarih) values (%s,%s,%s,%s,%s)"
-                        myddb.cur.execute(sql1,(row1[0],row1[1],row1[2],"0",EndDate))
+                        myddb.cur.execute(sql1,(row1[0],row1[1],hmikt,"0",EndDate))
                         myddb.conn.commit()
                 
             print EndDate.strftime('%d%m%Y')
