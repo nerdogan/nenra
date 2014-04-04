@@ -401,7 +401,7 @@ def main():
                 if bilgi<>0:
                     bilgi2=myddb.cur.fetchall()
                     for row1 in bilgi2:
-                        hmikt=row1[2]*row1[2]
+                        hmikt=row1[2]*row1[3]
                         print hmikt
                         sql1="insert into harcanan (hurunkod,hhammaddeid,hmiktar,fiyat,tarih) values (%s,%s,%s,%s,%s)"
                         myddb.cur.execute(sql1,(row1[0],row1[1],hmikt,"0",EndDate))
