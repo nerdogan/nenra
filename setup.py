@@ -26,7 +26,7 @@ setup(
     }
     },
 data_files = [
-            ('phonon_backend', [ 'F:\PortablePython2751\App\Lib\site-packages\PyQt4\plugins\phonon_backend\phonon_ds94.dll' ]),
+            ('phonon_backend',  [ 'F:\PortablePython2751\App\Lib\site-packages\PyQt4\plugins\phonon_backend\phonon_ds94.dll' ]),
             ('datalar', ['F:\\PortablePython2751\\datalar\\18022014.mdb']) ]
     )
 
