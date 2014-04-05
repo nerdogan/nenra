@@ -9,7 +9,7 @@
 # Copyright:   (c) NAMIK ERDOĞAN  2014
 # Licence:     <your licence>
 #-------------------------------------------------------------------------------
-
+import os, sys, subprocess
 import sys
 import re
 import datetime
@@ -25,6 +25,10 @@ from mainwindow import Fatura
 from mainwindow import Maliyet
 from modulemdb import *
 from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter, A4
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont   
+
 
 def main():
     app =QApplication(sys.argv)
@@ -482,6 +486,8 @@ def main():
         
         print "urunmaliyet"
         c = canvas.Canvas("maliyet.pdf")
+        pdfmetrics.registerFont(TTFont('Verdana', 'Verdana.ttf'))
+        c.setFont("Verdana", 8)
         deger1=maliyet.dateEdit.date().toPyDate()
         deger2=maliyet.dateEdit_2.date().toPyDate()
         tar1=deger1.strftime('%Y-%m-%d')
@@ -497,7 +503,12 @@ def main():
         j=5
         maliyet.tableWidget.setRowCount(i)
         aa=0
+        bb=0
         toplam=0
+        toplam1=0
+        toplam2=0
+        item="   ÜRÜN AÇIKLAMA                                              ADET             TUTAR                      MALIYET                     ORAN "
+        c.drawString(10,810,item)
         for row1 in bul:
             sql1="select hurunkod,sum(hmiktar*fiyat1),harcanan.tarih from harcanan inner join hammadde on hhammaddeid=hammaddeid where DATE(tarih)>=%s and DATE(tarih)<=%s and hurunkod=%s"
             bul1=myddb.cur.execute(sql1,(tar1,tar2,str(row1[0])))
@@ -505,28 +516,54 @@ def main():
 
 
             item=str(row1[0])
-            c.drawString(100*(aa+1),10,item)
+            c.drawString(10,800-(15*(bb+1)),item)
             maliyet.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
             item=row1[1]
-            c.drawString(100*(aa+1),100,item)
+            c.drawString(35,800-(15*(bb+1)),item)
             maliyet.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
             item=str(row1[2])
-            c.drawString(100*(aa+1),190,item)
+            c.drawString(240,800-(15*(bb+1)),item)
+            toplam=toplam+row1[2]
             maliyet.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
             item=str(row1[3])
-            c.drawString(100*(aa+1),290,item)
+            c.drawString(320,800-(15*(bb+1)),item)
+            toplam1=toplam1+row1[3]
             maliyet.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
             item=str(bul1[0][1])
-            c.drawString(100*(aa+1),300,item)
+            toplam2=toplam2+bul1[0][1]
+            c.drawString(400,800-(15*(bb+1)),item)
             maliyet.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
             item="% "+str(int((row1[3]-bul1[0][1])/bul1[0][1]*100))
-            c.drawString(100*(aa+1),330,item)
+            c.drawString(510,800-(15*(bb+1)),item)
             maliyet.tableWidget.setItem(aa, 5, QtGui.QTableWidgetItem(item))
             
             aa=aa+1
-
-        c.showPage()
+            bb=bb+1
+            if (15*(bb+1))>=760:
+                c.setFont("Verdana", 11)
+                c.drawString(240,800-(15*(bb+1)),str(toplam))
+                c.drawString(320,800-(15*(bb+1)),str(toplam1))
+                c.drawString(400,800-(15*(bb+1)),str(toplam2))
+                c.showPage()
+                c.setFont("Verdana", 8)
+                bb=0
+        c.setFont("Verdana", 12)
+        c.drawString(240,800-(15*(bb+1)),str(toplam))
+        c.drawString(320,800-(15*(bb+1)),str(toplam1))
+        c.drawString(400,800-(15*(bb+1)),str(toplam2))
+                
         c.save()
+    @pyqtSlot()
+    def sloturunmaliyetpdf(item2):
+        if sys.platform == "win32":
+            os.startfile("maliyet.pdf")
+        else:
+            opener ="open" if sys.platform == "darwin" else "xdg-open"
+            subprocess.call([opener, "maliyet.pdf"])
+
+
+        
+   
 
 
 
@@ -568,6 +605,7 @@ def main():
     recete2.pushButton.clicked.connect(slotrecete2kaydet)
     recete2.pushButton_3.clicked.connect(slotrecete2satirsil)
     maliyet.pushButton.clicked.connect(sloturunmaliyet)
+    maliyet.pushButton_2.clicked.connect(sloturunmaliyetpdf)
 
     sh = QtGui.QShortcut(fatura)
     sh.setKey(Qt.Key_Enter)
