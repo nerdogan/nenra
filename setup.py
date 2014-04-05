@@ -19,7 +19,16 @@ setup(
 	windows=['nenra.py'],
 	options={
     'py2exe': {
-    'packages' : ['PyQt4','adodbapi'],
+    'packages' : ['PyQt4','adodbapi','reportlab',
+    'reportlab.graphics.charts',
+    'reportlab.graphics.samples',
+    'reportlab.graphics.widgets',
+    'reportlab.graphics.barcode',
+    'reportlab.graphics',
+    'reportlab.lib',
+    'reportlab.pdfbase',
+    'reportlab.pdfgen',
+    'reportlab.platypus'],
     'includes':['sip','MySQLdb'],
     'dll_excludes': [''],
     'bundle_files': 1 

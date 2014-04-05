@@ -24,7 +24,7 @@ from mainwindow import Recete2
 from mainwindow import Fatura
 from mainwindow import Maliyet
 from modulemdb import *
-
+from reportlab.pdfgen import canvas
 
 def main():
     app =QApplication(sys.argv)
@@ -481,6 +481,7 @@ def main():
     def sloturunmaliyet(item2):
         
         print "urunmaliyet"
+        c = canvas.Canvas("maliyet.pdf")
         deger1=maliyet.dateEdit.date().toPyDate()
         deger2=maliyet.dateEdit_2.date().toPyDate()
         tar1=deger1.strftime('%Y-%m-%d')
@@ -504,19 +505,28 @@ def main():
 
 
             item=str(row1[0])
+            c.drawString(100*(aa+1),10,item)
             maliyet.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
             item=row1[1]
+            c.drawString(100*(aa+1),100,item)
             maliyet.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
             item=str(row1[2])
+            c.drawString(100*(aa+1),190,item)
             maliyet.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
             item=str(row1[3])
+            c.drawString(100*(aa+1),290,item)
             maliyet.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
             item=str(bul1[0][1])
+            c.drawString(100*(aa+1),300,item)
             maliyet.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
             item="% "+str(int((row1[3]-bul1[0][1])/bul1[0][1]*100))
+            c.drawString(100*(aa+1),330,item)
             maliyet.tableWidget.setItem(aa, 5, QtGui.QTableWidgetItem(item))
             
             aa=aa+1
+
+        c.showPage()
+        c.save()
 
 
 
@@ -542,7 +552,7 @@ def main():
     
     mainWindow.pushButton.setStyleSheet("color: black ;  background-image: url(image.png)")  
     mainWindow.pushButton_2.setStyleSheet("color: black ;  background-image: url(fatura.png)")  
-    mainWindow.pushButton_3.setStyleSheet("color: black ;  background-image: url(image.png)")  
+    mainWindow.pushButton_3.setStyleSheet("color: black ;  background-image: url(maliyet.png)")  
     mainWindow.pushButton.clicked.connect(slotpuss)
     mainWindow.pushButton_2.clicked.connect(slotpuss2)
     mainWindow.pushButton_3.clicked.connect(slotpuss3)

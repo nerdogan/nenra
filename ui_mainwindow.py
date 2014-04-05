@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created: Sat Apr 05 16:54:00 2014
+# Created: Sat Apr 05 18:23:13 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -59,7 +59,7 @@ class Ui_MainWindow(object):
         self.pushButton.setObjectName(_fromUtf8("pushButton"))
         self.horizontalLayout.addWidget(self.pushButton)
         self.horizontalLayoutWidget_2 = QtGui.QWidget(self.centralwidget)
-        self.horizontalLayoutWidget_2.setGeometry(QtCore.QRect(120, 20, 91, 71))
+        self.horizontalLayoutWidget_2.setGeometry(QtCore.QRect(140, 20, 91, 71))
         self.horizontalLayoutWidget_2.setObjectName(_fromUtf8("horizontalLayoutWidget_2"))
         self.horizontalLayout_2 = QtGui.QHBoxLayout(self.horizontalLayoutWidget_2)
         self.horizontalLayout_2.setMargin(0)
@@ -95,14 +95,14 @@ class Ui_MainWindow(object):
         self.label.setFont(font)
         self.label.setObjectName(_fromUtf8("label"))
         self.label_2 = QtGui.QLabel(self.centralwidget)
-        self.label_2.setGeometry(QtCore.QRect(140, 100, 61, 16))
+        self.label_2.setGeometry(QtCore.QRect(150, 100, 61, 16))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Verdana"))
         font.setPointSize(12)
         self.label_2.setFont(font)
         self.label_2.setObjectName(_fromUtf8("label_2"))
         self.horizontalLayoutWidget_5 = QtGui.QWidget(self.centralwidget)
-        self.horizontalLayoutWidget_5.setGeometry(QtCore.QRect(240, 20, 91, 71))
+        self.horizontalLayoutWidget_5.setGeometry(QtCore.QRect(270, 20, 91, 71))
         self.horizontalLayoutWidget_5.setObjectName(_fromUtf8("horizontalLayoutWidget_5"))
         self.horizontalLayout_5 = QtGui.QHBoxLayout(self.horizontalLayoutWidget_5)
         self.horizontalLayout_5.setMargin(0)
@@ -119,7 +119,7 @@ class Ui_MainWindow(object):
         self.pushButton_3.setObjectName(_fromUtf8("pushButton_3"))
         self.horizontalLayout_5.addWidget(self.pushButton_3)
         self.label_3 = QtGui.QLabel(self.centralwidget)
-        self.label_3.setGeometry(QtCore.QRect(250, 100, 61, 16))
+        self.label_3.setGeometry(QtCore.QRect(280, 100, 61, 16))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Verdana"))
         font.setPointSize(12)
