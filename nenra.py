@@ -379,6 +379,10 @@ def main():
     def slotpuss3(item2):
         print "maliyet arayüzü açıldı"
         maliyet.show()
+        maliyet.tableWidget.setRowCount(0)
+        some_date = QtCore.QDate.currentDate()
+        maliyet.dateEdit.setDate(some_date)
+        maliyet.dateEdit_2.setDate(some_date)
 
         StartDate="21/03/14"
         
@@ -472,13 +476,52 @@ def main():
             item=str(row1[5])
             fatura.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
             aa=aa+1
+
     @pyqtSlot()
     def sloturunmaliyet(item2):
         
         print "urunmaliyet"
-        a=item2.toUtf8()
-        a=str(a)
-        print a
+        deger1=maliyet.dateEdit.date().toPyDate()
+        deger2=maliyet.dateEdit_2.date().toPyDate()
+        tar1=deger1.strftime('%Y-%m-%d')
+        tar2=deger2.strftime('%Y-%m-%d')
+
+       
+        sql="SELECT urunkod,menuad,sum(adet),sum(tutar) FROM SATDATA inner join menu on  urunkod=menukod and DATE(tarih)>=%s and DATE(tarih)<=%s group by urunkod order by urunkod asc"
+        bul=myddb.cur.execute(sql,(tar1,tar2))
+        bul=myddb.cur.fetchall()
+
+
+        i=len(bul)
+        j=5
+        maliyet.tableWidget.setRowCount(i)
+        aa=0
+        toplam=0
+        for row1 in bul:
+            sql1="select hurunkod,sum(hmiktar*fiyat1),harcanan.tarih from harcanan inner join hammadde on hhammaddeid=hammaddeid where DATE(tarih)>=%s and DATE(tarih)<=%s and hurunkod=%s"
+            bul1=myddb.cur.execute(sql1,(tar1,tar2,str(row1[0])))
+            bul1=myddb.cur.fetchall()
+
+
+            item=str(row1[0])
+            maliyet.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
+            item=row1[1]
+            maliyet.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
+            item=str(row1[2])
+            maliyet.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+            item=str(row1[3])
+            maliyet.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
+            item=str(bul1[0][1])
+            maliyet.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
+            item="% "+str(int((row1[3]-bul1[0][1])/bul1[0][1]*100))
+            maliyet.tableWidget.setItem(aa, 5, QtGui.QTableWidgetItem(item))
+            
+            aa=aa+1
+
+
+
+
+
 
 
     @pyqtSlot()

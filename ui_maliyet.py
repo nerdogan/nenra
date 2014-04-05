@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'maliyet.ui'
 #
-# Created: Sat Apr 05 04:49:09 2014
+# Created: Sat Apr 05 16:54:01 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,7 +26,7 @@ except AttributeError:
 class Ui_Dialog4(object):
     def setupUi(self, Dialog4):
         Dialog4.setObjectName(_fromUtf8("Dialog4"))
-        Dialog4.resize(800, 600)
+        Dialog4.resize(889, 600)
         self.dateEdit = QtGui.QDateEdit(Dialog4)
         self.dateEdit.setGeometry(QtCore.QRect(10, 40, 151, 41))
         font = QtGui.QFont()
@@ -69,7 +69,7 @@ class Ui_Dialog4(object):
         self.pushButton_2.setGeometry(QtCore.QRect(10, 270, 161, 51))
         self.pushButton_2.setObjectName(_fromUtf8("pushButton_2"))
         self.tableWidget = QtGui.QTableWidget(Dialog4)
-        self.tableWidget.setGeometry(QtCore.QRect(180, 10, 611, 581))
+        self.tableWidget.setGeometry(QtCore.QRect(180, 10, 681, 581))
         self.tableWidget.setObjectName(_fromUtf8("tableWidget"))
         self.tableWidget.setColumnCount(6)
         self.tableWidget.setRowCount(0)
@@ -96,17 +96,17 @@ class Ui_Dialog4(object):
         self.pushButton.setText(_translate("Dialog4", "Ürün Maliyet Raporu", None))
         self.pushButton_2.setText(_translate("Dialog4", "PushButton", None))
         item = self.tableWidget.horizontalHeaderItem(0)
-        item.setText(_translate("Dialog4", "New Column", None))
+        item.setText(_translate("Dialog4", "Ürün Kodu", None))
         item = self.tableWidget.horizontalHeaderItem(1)
-        item.setText(_translate("Dialog4", "New Column", None))
+        item.setText(_translate("Dialog4", "Ürün Adı", None))
         item = self.tableWidget.horizontalHeaderItem(2)
-        item.setText(_translate("Dialog4", "New Column", None))
+        item.setText(_translate("Dialog4", "Satış Adedi", None))
         item = self.tableWidget.horizontalHeaderItem(3)
-        item.setText(_translate("Dialog4", "New Column", None))
+        item.setText(_translate("Dialog4", "Tutar", None))
         item = self.tableWidget.horizontalHeaderItem(4)
-        item.setText(_translate("Dialog4", "New Column", None))
+        item.setText(_translate("Dialog4", "Maliyet", None))
         item = self.tableWidget.horizontalHeaderItem(5)
-        item.setText(_translate("Dialog4", "New Column", None))
+        item.setText(_translate("Dialog4", "Kar Oranı", None))
 
 
 if __name__ == "__main__":
