@@ -395,7 +395,7 @@ def main():
                 print " kaydediliyor"
                 tar=EndDate.strftime('%d%m%Y')
                 
-                sql2="SELECT menu.menuid,hammaddeid,miktar,adet FROM SATDATA inner join menu on urunkod=menukod and DATE(tarih)=%s  inner join recete on  menu.menuid=recete.menuid "
+                sql2="SELECT menu.menukod,hammaddeid,miktar,adet FROM SATDATA inner join menu on urunkod=menukod and DATE(tarih)=%s  inner join recete on  menu.menuid=recete.menuid "
                 bilgi=myddb.cur.execute(sql2,(EndDate.strftime('%Y-%m-%d')))
                 print bilgi
                 if bilgi<>0:
