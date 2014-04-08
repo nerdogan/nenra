@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'maliyet.ui'
 #
-# Created: Sat Apr 05 20:07:36 2014
+# Created: Sat Apr 05 20:34:38 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -60,13 +60,16 @@ class Ui_Dialog4(object):
         self.label_2.setFont(font)
         self.label_2.setObjectName(_fromUtf8("label_2"))
         self.pushButton = QtGui.QPushButton(Dialog4)
-        self.pushButton.setGeometry(QtCore.QRect(10, 180, 161, 51))
+        self.pushButton.setGeometry(QtCore.QRect(10, 220, 161, 51))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.pushButton.setFont(font)
         self.pushButton.setObjectName(_fromUtf8("pushButton"))
         self.pushButton_2 = QtGui.QPushButton(Dialog4)
-        self.pushButton_2.setGeometry(QtCore.QRect(10, 270, 161, 51))
+        self.pushButton_2.setGeometry(QtCore.QRect(10, 300, 161, 51))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.pushButton_2.setFont(font)
         self.pushButton_2.setObjectName(_fromUtf8("pushButton_2"))
         self.tableWidget = QtGui.QTableWidget(Dialog4)
         self.tableWidget.setGeometry(QtCore.QRect(180, 10, 681, 581))
@@ -94,7 +97,7 @@ class Ui_Dialog4(object):
         self.label.setText(_translate("Dialog4", "Başlama Tarihi", None))
         self.label_2.setText(_translate("Dialog4", "Bitiş Tarihi", None))
         self.pushButton.setText(_translate("Dialog4", "Ürün Maliyet Raporu", None))
-        self.pushButton_2.setText(_translate("Dialog4", "PushButton", None))
+        self.pushButton_2.setText(_translate("Dialog4", "PDF Rapor ", None))
         item = self.tableWidget.horizontalHeaderItem(0)
         item.setText(_translate("Dialog4", "Ürün Kodu", None))
         item = self.tableWidget.horizontalHeaderItem(1)

@@ -91,7 +91,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>180</y>
+     <y>220</y>
      <width>161</width>
      <height>51</height>
     </rect>
@@ -109,13 +109,18 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>270</y>
+     <y>300</y>
      <width>161</width>
      <height>51</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
    <property name="text">
-    <string>PushButton</string>
+    <string>PDF Rapor </string>
    </property>
   </widget>
   <widget class="QTableWidget" name="tableWidget">
