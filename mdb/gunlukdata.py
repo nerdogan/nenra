@@ -9,5 +9,11 @@
 # Licence:     <your licence>
 #-------------------------------------------------------------------------------
 import os
+import sys
 
-print os.system("copy z:\\datalar\\gunluk\\*.mdb D:\\aproje\\nenra\\mdb\\datalar")
+print sys.getdefaultencoding()
+print os.getpid()
+print os.system("yap.bat")
+
+
+#print os.system("copy z:\\datalar\\gunluk\\*.mdb D:\\aproje\\nenra\\mdb\\datalar")

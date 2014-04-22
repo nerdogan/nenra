@@ -324,6 +324,7 @@ def main():
             deger11=fatura.tableWidget_2.item(item,3).text()
             deger12=fatura.tableWidget_2.item(item,4).text()
             deger13=fatura.tableWidget_2.item(item,5).text()
+            deger12=kontrol(deger12)
             deger13=kontrol(deger13)
             print deger10
             sql2="insert into cariay (chid,hammaddeid,kdv,miktar,birimfiy) values (%s,%s,%s,%s,%s)"
