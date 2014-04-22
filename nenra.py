@@ -587,8 +587,8 @@ def main():
 
 
 
-    
-    mainWindow.pushButton.setStyleSheet("color: black ;  background-image: url(image.png)")  
+    app.setWindowIcon(QtGui.QIcon('nenra.png'))
+    mainWindow.pushButton.setStyleSheet("color: black ;  background-image: url(image.png)")
     mainWindow.pushButton_2.setStyleSheet("color: black ;  background-image: url(fatura.png)")  
     mainWindow.pushButton_3.setStyleSheet("color: black ;  background-image: url(maliyet.png)")  
     mainWindow.pushButton.clicked.connect(slotpuss)

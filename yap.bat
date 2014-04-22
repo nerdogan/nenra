@@ -1,8 +1,10 @@
+C:\Python27\Lib\site-packages\PyQt4\pyrcc4 -o nenra_rc.py nenra.qrc
 python C:\Python27\Lib\site-packages\PyQt4\uic\pyuic.py -x mainwindow.ui -o ui_mainwindow.py
 python C:\Python27\Lib\site-packages\PyQt4\uic\pyuic.py -x recete.ui -o ui_recete.py
 python C:\Python27\Lib\site-packages\PyQt4\uic\pyuic.py -x recete2.ui -o ui_recete2.py
 python C:\Python27\Lib\site-packages\PyQt4\uic\pyuic.py -x fatura.ui -o ui_fatura.py
 python C:\Python27\Lib\site-packages\PyQt4\uic\pyuic.py -x maliyet.ui -o ui_maliyet.py
+
 
 rem *** Used to create a Python exe 
 

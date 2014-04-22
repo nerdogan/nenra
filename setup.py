@@ -15,8 +15,8 @@ sys.argv.append('py2exe')
 setup(
     name = 'NENRA',
     description = 'Restaurant Automotion',
-    version = '1.1.1',
-	windows=['nenra.py'],
+    version = '1.3.1',
+	windows=[{ 'script':'nenra.py','icon_resources': [(0, 'nenra.ico')] }],
 	options={
     'py2exe': {
     'packages' : ['PyQt4','adodbapi','reportlab',
@@ -36,7 +36,9 @@ setup(
     },
 data_files = [
             ('phonon_backend',  [ 'F:\PortablePython2751\App\Lib\site-packages\PyQt4\plugins\phonon_backend\phonon_ds94.dll' ]),
-            ('datalar', ['F:\\PortablePython2751\\datalar\\18022014.mdb']) ]
+            ('datalar', ['F:\\PortablePython2751\\datalar\\18022014.mdb']),
+            ('imageformats', [ r'C:\\Python27\\Lib\\site-packages\\PyQt4\\plugins\\imageformats\\qico4.dll' ]) 
+            ]
     )
 
 
