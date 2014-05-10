@@ -16,5 +16,5 @@ python setup.py py2exe --includes sip
 D:\aproje\nenra\dist\nenra.exe
 rem **** pause so we can see the exit codes
 rem pause "done...hit a key to exit"
-xcopy D:\aproje\nenra\dist y:\nenra /s /d /y
 xcopy Z:\datalar\gunluk D:\aproje\nenra\mdb\dist\datalar /s /d /y
+xcopy D:\aproje\nenra\dist y:\nenra /s /d /y
