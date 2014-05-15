@@ -11,6 +11,7 @@
 #-------------------------------------------------------------------------------
 
 import sys
+import thread
 import re
 import datetime
 from PyQt4.QtGui import *
@@ -373,6 +374,7 @@ def main():
                 print " kaydediliyor"
                 tar=EndDate.strftime('%d%m%Y')
                 mainWindow.plainTextEdit.appendPlainText(str(tar)+"kaydediliyor")
+                mainWindow.label_2.setText(mainWindow.label_2.text()+str(tar))
                
                 
                 bilgi=mmdb.cekmysql(tar,"satdata")

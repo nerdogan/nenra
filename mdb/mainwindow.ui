@@ -186,14 +186,14 @@
      <rect>
       <x>260</x>
       <y>100</y>
-      <width>171</width>
-      <height>16</height>
+      <width>511</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Verdana</family>
-      <pointsize>12</pointsize>
+      <pointsize>6</pointsize>
      </font>
     </property>
     <property name="text">

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created: Mon May 05 13:28:25 2014
+# Created: Tue May 13 18:28:27 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -114,10 +114,10 @@ class Ui_MainWindow(object):
         self.label.setFont(font)
         self.label.setObjectName(_fromUtf8("label"))
         self.label_2 = QtGui.QLabel(self.centralwidget)
-        self.label_2.setGeometry(QtCore.QRect(260, 100, 171, 16))
+        self.label_2.setGeometry(QtCore.QRect(260, 100, 511, 41))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Verdana"))
-        font.setPointSize(12)
+        font.setPointSize(6)
         self.label_2.setFont(font)
         self.label_2.setObjectName(_fromUtf8("label_2"))
         MainWindow.setCentralWidget(self.centralwidget)
