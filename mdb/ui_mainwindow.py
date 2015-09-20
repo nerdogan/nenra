@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created: Tue May 13 18:28:27 2014
+# Created: Fri Jun 27 17:09:29 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -51,7 +51,7 @@ class Ui_MainWindow(object):
         self.tableWidget.setHorizontalHeaderItem(4, item)
         self.verticalLayout.addWidget(self.tableWidget)
         self.verticalLayoutWidget_2 = QtGui.QWidget(self.centralwidget)
-        self.verticalLayoutWidget_2.setGeometry(QtCore.QRect(10, 140, 421, 361))
+        self.verticalLayoutWidget_2.setGeometry(QtCore.QRect(10, 140, 741, 361))
         self.verticalLayoutWidget_2.setObjectName(_fromUtf8("verticalLayoutWidget_2"))
         self.verticalLayout_2 = QtGui.QVBoxLayout(self.verticalLayoutWidget_2)
         self.verticalLayout_2.setMargin(0)
@@ -114,10 +114,10 @@ class Ui_MainWindow(object):
         self.label.setFont(font)
         self.label.setObjectName(_fromUtf8("label"))
         self.label_2 = QtGui.QLabel(self.centralwidget)
-        self.label_2.setGeometry(QtCore.QRect(260, 100, 511, 41))
+        self.label_2.setGeometry(QtCore.QRect(260, 100, 161, 21))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Verdana"))
-        font.setPointSize(6)
+        font.setPointSize(12)
         self.label_2.setFont(font)
         self.label_2.setObjectName(_fromUtf8("label_2"))
         MainWindow.setCentralWidget(self.centralwidget)
@@ -133,7 +133,7 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(_translate("MainWindow", "ARIA POS TO  SQL DATABASE", None))
+        MainWindow.setWindowTitle(_translate("MainWindow", "ARIA POS TO  SQL DATABASE           AVANGART RESTAURANT  2014                                                      NAMIK ERDOĞAN ", None))
         item = self.tableWidget.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "New Column", None))
         item = self.tableWidget.horizontalHeaderItem(1)
