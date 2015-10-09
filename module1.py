@@ -14,9 +14,9 @@ import sys
 
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
-from PyQt4.QtNetwork import *
 from PyQt4.QtCore import pyqtSlot
-from PyQt4 import QtGui, QtCore
+from PyQt4 import QtGui
+
 from mainwindow import MainWindow
 from mainwindow import Recete
 from mainwindow import Recete2

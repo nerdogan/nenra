@@ -9,25 +9,25 @@
 # Copyright:   (c) NAMIK ERDOĞAN  2014
 # Licence:     <your licence>
 #-------------------------------------------------------------------------------
-import os, sys, subprocess
+import subprocess
 import sys
 import re
 import datetime
+
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
-from PyQt4.QtNetwork import *
 from PyQt4.QtCore import pyqtSlot
 from PyQt4 import QtGui, QtCore
+from reportlab.pdfgen import canvas
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+
 from mainwindow import MainWindow
 from mainwindow import Recete
 from mainwindow import Recete2
 from mainwindow import Fatura
 from mainwindow import Maliyet
 from modulemdb import *
-from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import letter, A4
-from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.ttfonts import TTFont   
 
 
 def main():
