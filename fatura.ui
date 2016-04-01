@@ -68,6 +68,14 @@
      <height>13</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Magneto</family>
+     <pointsize>12</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
    <property name="text">
     <string>Cari </string>
    </property>

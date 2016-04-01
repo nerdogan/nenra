@@ -394,7 +394,7 @@ def main():
         maliyet.dateEdit.setDate(some_date)
         maliyet.dateEdit_2.setDate(some_date)
 
-        StartDate="01/03/14"
+        StartDate="01/03/16"
         
         EndDate = datetime.datetime.strptime(StartDate, "%d/%m/%y")
         now = datetime.datetime.now()- datetime.timedelta(days=1)

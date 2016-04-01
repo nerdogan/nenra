@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'fatura.ui'
 #
-# Created: Tue Aug 19 18:54:30 2014
+# Created: Sat Apr 02 01:00:02 2016
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -42,6 +42,12 @@ class Ui_Dialog3(object):
         self.label.setObjectName(_fromUtf8("label"))
         self.label_2 = QtGui.QLabel(Dialog3)
         self.label_2.setGeometry(QtCore.QRect(20, 40, 46, 13))
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Magneto"))
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_2.setFont(font)
         self.label_2.setObjectName(_fromUtf8("label_2"))
         self.dateEdit = QtGui.QDateEdit(Dialog3)
         self.dateEdit.setGeometry(QtCore.QRect(470, 10, 110, 22))
