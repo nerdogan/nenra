@@ -10,7 +10,7 @@
 #-------------------------------------------------------------------------------
 import os
 
-#print os.system("xcopy z:\\datalar\\gunluk D:\\aproje\\nenra\\datalar /s /d /y")
+print os.system("xcopy z:\\datalar\\gunluk D:\\aproje\\nenra\\datalar /s /d /y")
 
 
-os.startfile("D:\\aproje\\nenra\\datalar\\msaccesstomysql.ini", "print")
+#os.startfile("D:\\aproje\\nenra\\datalar\\msaccesstomysql.ini", "print")

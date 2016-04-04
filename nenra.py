@@ -297,6 +297,8 @@ def main():
         
     @pyqtSlot()
     def slotfaturakaydet():
+        toplam=0
+        kdv=0
         deger0=fatura.label_5.text()
         deger5=fatura.lineEdit.text()
         deger6=fatura.lineEdit_2.text()
@@ -326,11 +328,14 @@ def main():
             deger13=fatura.tableWidget_2.item(item,5).text()
             deger12=kontrol(deger12)
             deger13=kontrol(deger13)
+            toplam +=float(deger12) * float(deger13)
+            kdv +=float(deger11)*float(deger12) * float(deger13)/100
             print deger10
             sql2="insert into cariay (chid,hammaddeid,kdv,miktar,birimfiy) values (%s,%s,%s,%s,%s)"
             myddb.cur.execute(sql2,(sonuc[0][0],deger10,deger11,deger12,deger13))
             
         myddb.conn.commit()
+        fatura.label_6.setText("{0}  {1}".format(str(toplam), str("{0:.2f}".format(kdv+0.01))))
         fatura.lineEdit_3.setFocus(True)
 
 
@@ -389,7 +394,7 @@ def main():
         maliyet.dateEdit.setDate(some_date)
         maliyet.dateEdit_2.setDate(some_date)
 
-        StartDate="01/03/14"
+        StartDate="01/03/16"
         
         EndDate = datetime.datetime.strptime(StartDate, "%d/%m/%y")
         now = datetime.datetime.now()- datetime.timedelta(days=1)

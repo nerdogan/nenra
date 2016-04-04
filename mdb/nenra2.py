@@ -14,6 +14,7 @@ import sys
 import thread
 import re
 import datetime
+import time
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from PyQt4.QtNetwork import *
@@ -21,8 +22,115 @@ from PyQt4.QtCore import pyqtSlot
 from PyQt4 import QtGui, QtCore
 from mainwindow import MainWindow
 
-from modulemdb2 import *
+from modulemdb3 import *
+mmdb=Mmdb()
+myddb=Myddb()
 
+class SimulRunner(QObject):
+    'Object managing the simulation'
+
+
+
+
+    stepIncreased = pyqtSignal(str, name = 'stepIncreased')
+    def __init__(self):
+        super(SimulRunner, self).__init__()
+        self._step = 0
+        self._isRunning = True
+        self._maxSteps = 1
+
+
+    def longRunning(self):
+        while self._step  < self._maxSteps  and self._isRunning == True:
+            self.stepIncreased.emit("Satis bilgisi aliniyor....")
+            self.stepIncreased.emit(" ")
+            StartDate="31/12/13"
+            EndDate = datetime.datetime.strptime(StartDate, "%d/%m/%y")
+            now = datetime.datetime.now()- datetime.timedelta(days=1)
+            dt=now-EndDate
+            print dt.days
+            self.stepIncreased.emit(str(dt.days))
+
+            for i in range(dt.days):
+                EndDate = EndDate + datetime.timedelta(days=1)
+                sql= " select * from satdata where tarih like %s"
+                sonuc=myddb.cur.execute(sql,(EndDate.strftime('%Y-%m-%d')+"%"))
+                if sonuc==0:
+                    print " kaydediliyor"
+                    tar=EndDate.strftime('%d%m%Y')
+                    self.stepIncreased.emit(str(tar)+" kaydediliyor.")
+                    bilgi=mmdb.cekmysql(tar,"satdata")
+                    if bilgi!=1978:
+                        for row1 in bilgi:
+                            sql1="insert into satdata (masaad,konumkod,urunkod,urungrup,yiyic,adisyon,kasiyerkod,kasiyerad,kuver,ikram,fixim,konumad,kdv,saat,tarih,adet,fixmenu,tutarx,tutar) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+                            myddb.cur.execute(sql1,(row1[1],row1[2],row1[3],row1[4],row1[5],row1[6],row1[7],row1[8],row1[10],row1[18],row1[19],row1[29],row1[32],row1[39],EndDate,row1[41],row1[45],row1[46],row1[47]))
+                            myddb.conn.commit()
+                    else:
+                        self.stepIncreased.emit(tar+"  DOSYASI MEVCUT DEGIL!!!. GUNSONU ALINMAMIS OLABILIR")
+                        self.stepIncreased.emit(" ")
+                print EndDate.strftime('%d%m%Y')
+            self.stepIncreased.emit("Satis bilgisi alindi.")
+
+
+            self._step += 1
+
+
+    def stop(self):
+        self._isRunning = False
+
+
+class SimulRunner1(QObject):
+    'Object managing the simulation'
+
+
+
+
+    stepIncreased = pyqtSignal(str, name = 'stepIncreased')
+    def __init__(self):
+        super(SimulRunner1, self).__init__()
+        self._step = 0
+        self._isRunning = True
+        self._maxSteps = 1
+
+
+    def longRunning(self):
+        while self._step  < self._maxSteps  and self._isRunning == True:
+            self.stepIncreased.emit("Odeme bilgisi aliniyor....")
+            self.stepIncreased.emit(" ")
+            StartDate="31/12/13"
+            EndDate = datetime.datetime.strptime(StartDate, "%d/%m/%y")
+            now = datetime.datetime.now()- datetime.timedelta(days=1)
+            dt=now-EndDate
+            print dt.days
+            self.stepIncreased.emit(str(dt.days))
+            for i in range(dt.days):
+                EndDate = EndDate + datetime.timedelta(days=1)
+                sql= " select * from satodeme where odetar like %s"
+                sonuc=myddb.cur.execute(sql,(EndDate.strftime('%Y-%m-%d')+"%"))
+                if sonuc==0:
+                    print " kaydediliyor"
+                    tar=EndDate.strftime('%d%m%Y')
+                    self.stepIncreased.emit(str(tar)+" kaydediliyor.")
+
+                    bilgi=mmdb.cekmysql(tar,"satodeme")
+                    if bilgi!=1978:
+                        for row1 in bilgi:
+                            sql1="insert into satodeme (odemasaad,odeadisyon,odesekli,odecarikod,odekasiyerkod,odekasiyerad,odead,odecariad,indirimoran,odetip,odetutar,odesaat,odetarih,odetar,odecaritip) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+                            myddb.cur.execute(sql1,(row1[1],row1[2],row1[4],row1[5],row1[6],row1[7],row1[8],row1[9],row1[13],row1[14],row1[15],row1[17],row1[21],EndDate,row1[23]))
+                            myddb.conn.commit()
+                    else:
+                        self.stepIncreased.emit(tar+"  DOSYASI MEVCUT DEGIL!!!. GUNSONU ALINMAMIS OLABILIR")
+                        self.stepIncreased.emit(" ")
+                print EndDate.strftime('%d%m%Y')
+
+            self.stepIncreased.emit("Odeme bilgisi alindi....")
+
+
+            self._step += 1
+
+
+    def stop(self):
+        self._isRunning = False
 
 
 
@@ -32,7 +140,10 @@ def main():
 
     mainWindow = MainWindow()
     mmdb=Mmdb()
-   
+    simulRunner = SimulRunner()
+    simulRunner1 = SimulRunner1()
+    simulThread = QThread()
+    simulThread1 = QThread()
 
     myddb=Myddb()
     
@@ -356,6 +467,7 @@ def main():
     def yaz(elmaci):
         mainWindow.plainTextEdit.appendPlainText(elmaci+" kaydediliyor")
 
+
     
     @pyqtSlot()
     def slotpuss(item2):
@@ -366,6 +478,7 @@ def main():
         dt=now-EndDate
         print dt.days
         mainWindow.plainTextEdit.appendPlainText(str(dt.days))
+
         for i in range(dt.days):
             EndDate = EndDate + datetime.timedelta(days=1)
             sql= " select * from satdata where tarih like %s"
@@ -455,7 +568,7 @@ def main():
     def copyFunction():
         print "f10 a bastın"
         abc = QKeyEvent ( QEvent.KeyPress, Qt.Key_Tab, Qt.NoModifier)
-        QCoreApplication.postEvent (fatura, abc)
+        QCoreApplication.postEvent (mainWindow, abc)
 
 
 
@@ -463,8 +576,17 @@ def main():
     mainWindow.pushButton.setStyleSheet("color: black ;  background-image: url(image.png)")  
     mainWindow.pushButton_2.setStyleSheet("color: black ;  background-image: url(fatura.png)")  
     mainWindow.tableWidget.cellClicked.connect(slotItemClicked)
-    mainWindow.pushButton.clicked.connect(slotpuss)
-    mainWindow.pushButton_2.clicked.connect(slotpuss2)
+    mainWindow.pushButton.clicked.connect(simulThread.start)
+    mainWindow.pushButton_2.clicked.connect(simulThread1.start)
+
+
+    simulRunner.moveToThread(simulThread)
+    simulRunner1.moveToThread(simulThread1)
+    simulRunner.stepIncreased.connect(mainWindow.plainTextEdit.appendPlainText)
+    simulRunner1.stepIncreased.connect(mainWindow.plainTextEdit.appendPlainText)
+    # start the execution loop with the thread:
+    simulThread.started.connect(simulRunner.longRunning)
+    simulThread1.started.connect(simulRunner1.longRunning)
     
 
     sh = QtGui.QShortcut(mainWindow)

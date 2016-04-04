@@ -35,8 +35,8 @@ setup(
     }
     },
 data_files = [
-            ('phonon_backend',  [ 'F:\PortablePython2751\App\Lib\site-packages\PyQt4\plugins\phonon_backend\phonon_ds94.dll' ]),
-            ('datalar', ['F:\\PortablePython2751\\datalar\\18022014.mdb']),
+            ('phonon_backend',  [ 'C:\Python27\Lib\site-packages\PyQt4\plugins\phonon_backend\phonon_ds94.dll' ]),
+            ('datalar', ['C:\Python27\Lib\site-packages\PyQt4\plugins\phonon_backend\phonon_ds94.dll']),
             ('imageformats', [ r'C:\\Python27\\Lib\\site-packages\\PyQt4\\plugins\\imageformats\\qico4.dll' ]) 
             ]
     )

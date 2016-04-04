@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'fatura.ui'
 #
-# Created: Mon May 05 13:30:26 2014
+# Created: Sat Apr 02 01:00:02 2016
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -42,6 +42,12 @@ class Ui_Dialog3(object):
         self.label.setObjectName(_fromUtf8("label"))
         self.label_2 = QtGui.QLabel(Dialog3)
         self.label_2.setGeometry(QtCore.QRect(20, 40, 46, 13))
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Magneto"))
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_2.setFont(font)
         self.label_2.setObjectName(_fromUtf8("label_2"))
         self.dateEdit = QtGui.QDateEdit(Dialog3)
         self.dateEdit.setGeometry(QtCore.QRect(470, 10, 110, 22))
@@ -63,7 +69,7 @@ class Ui_Dialog3(object):
         self.tableWidget.setHorizontalHeaderItem(4, item)
         self.tableWidget.horizontalHeader().setVisible(False)
         self.tableWidget_2 = QtGui.QTableWidget(Dialog3)
-        self.tableWidget_2.setGeometry(QtCore.QRect(10, 240, 601, 391))
+        self.tableWidget_2.setGeometry(QtCore.QRect(10, 240, 601, 351))
         self.tableWidget_2.setLineWidth(1)
         self.tableWidget_2.setAlternatingRowColors(True)
         self.tableWidget_2.setObjectName(_fromUtf8("tableWidget_2"))
@@ -111,9 +117,12 @@ class Ui_Dialog3(object):
         self.label_4.setFont(font)
         self.label_4.setObjectName(_fromUtf8("label_4"))
         self.label_5 = QtGui.QLabel(Dialog3)
-        self.label_5.setGeometry(QtCore.QRect(690, 300, 71, 51))
+        self.label_5.setGeometry(QtCore.QRect(630, 50, 151, 51))
         self.label_5.setText(_fromUtf8(""))
         self.label_5.setObjectName(_fromUtf8("label_5"))
+        self.label_6 = QtGui.QLabel(Dialog3)
+        self.label_6.setGeometry(QtCore.QRect(420, 600, 181, 16))
+        self.label_6.setObjectName(_fromUtf8("label_6"))
 
         self.retranslateUi(Dialog3)
         QtCore.QObject.connect(self.pushButton_2, QtCore.SIGNAL(_fromUtf8("clicked()")), Dialog3.close)
@@ -155,6 +164,7 @@ class Ui_Dialog3(object):
         self.pushButton.setText(_translate("Dialog3", "Kaydet", None))
         self.pushButton_2.setText(_translate("Dialog3", "İptal", None))
         self.label_4.setText(_translate("Dialog3", "Ara", None))
+        self.label_6.setText(_translate("Dialog3", "TextLabel", None))
 
 
 if __name__ == "__main__":

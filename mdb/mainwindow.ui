@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>ARIA POS TO  SQL DATABASE</string>
+   <string>ARIA POS TO  SQL DATABASE           AVANGART RESTAURANT  2014                                                      NAMIK ERDOĞAN </string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QWidget" name="verticalLayoutWidget">
@@ -60,7 +60,7 @@
      <rect>
       <x>10</x>
       <y>140</y>
-      <width>421</width>
+      <width>741</width>
       <height>361</height>
      </rect>
     </property>
@@ -186,14 +186,14 @@
      <rect>
       <x>260</x>
       <y>100</y>
-      <width>511</width>
-      <height>41</height>
+      <width>161</width>
+      <height>21</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Verdana</family>
-      <pointsize>6</pointsize>
+      <pointsize>12</pointsize>
      </font>
     </property>
     <property name="text">
