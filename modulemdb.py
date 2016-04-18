@@ -12,14 +12,15 @@
 
 import MySQLdb
 import os
+from socket import *
 
-
+tgtIP = gethostbyname('bishop')
 
 
 class Myddb():
     def __init__(self):
         # connect to the database
-        self.conn = MySQLdb.connect('192.168.2.52', 'nen', '654152', 'test', charset='utf8');
+        self.conn = MySQLdb.connect(tgtIP, 'nen', '654152', 'test', charset='utf8');
 
 
         # create a cursor
@@ -75,7 +76,7 @@ class Myddb():
         print sql
         sql1="delete from "+tablenam+ " where "+colname+" = %s "
         print sql1
-        self.cur.execute(sql1,sql)
+        self.cur.execute(sql1,[sql])
         # show the result
         self.result =  self.cur.lastrowid
         return self.result

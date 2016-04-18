@@ -11,6 +11,7 @@
 #-------------------------------------------------------------------------------
 import subprocess
 import sys
+reload(sys)
 import re
 import datetime
 
@@ -394,7 +395,7 @@ def main():
         maliyet.dateEdit.setDate(some_date)
         maliyet.dateEdit_2.setDate(some_date)
 
-        StartDate="01/03/16"
+        StartDate="01/04/16"
         
         EndDate = datetime.datetime.strptime(StartDate, "%d/%m/%y")
         now = datetime.datetime.now()- datetime.timedelta(days=1)
@@ -404,13 +405,13 @@ def main():
         for i in range(dt.days):
             EndDate = EndDate + datetime.timedelta(days=1)
             sql= " select * from harcanan where tarih like %s"
-            sonuc=myddb.cur.execute(sql,(EndDate.strftime('%Y-%m-%d')+"%"))
+            sonuc=myddb.cur.execute(sql,[(EndDate.strftime('%Y-%m-%d')+"%")])
             if sonuc==0:
                 print " kaydediliyor"
                 tar=EndDate.strftime('%d%m%Y')
                 
                 sql2="SELECT menu.menukod,hammaddeid,miktar,adet FROM SATDATA inner join menu on urunkod=menukod and DATE(tarih)=%s  inner join recete on  menu.menuid=recete.menuid "
-                bilgi=myddb.cur.execute(sql2,(EndDate.strftime('%Y-%m-%d')))
+                bilgi=myddb.cur.execute(sql2,[(EndDate.strftime('%Y-%m-%d'))])
                 print bilgi
                 if bilgi<>0:
                     bilgi2=myddb.cur.fetchall()
@@ -513,7 +514,7 @@ def main():
         toplam=0
         toplam1=0
         toplam2=0
-        item="   ÜRÜN AÇIKLAMA                                              ADET             TUTAR                      MALIYET                     ORAN "
+        item="            ÜRÜN    AÇIKLAMA                                   ADET           TUTAR                MALIYET                     ORAN "
         c.drawString(10,810,item)
         for row1 in bul:
             sql1="select hurunkod,sum(hmiktar*fiyat1),harcanan.tarih from harcanan inner join hammadde on hhammaddeid=hammaddeid where DATE(tarih)>=%s and DATE(tarih)<=%s and hurunkod=%s"
@@ -522,25 +523,29 @@ def main():
 
 
             item=str(row1[0])
-            c.drawString(10,800-(15*(bb+1)),item)
+            c.drawString(45,800-(15*(bb+1)),item)
             maliyet.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
             item=row1[1]
-            c.drawString(35,800-(15*(bb+1)),item)
+            c.drawString(80,800-(15*(bb+1)),item)
             maliyet.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
             item=str(row1[2])
-            c.drawString(240,800-(15*(bb+1)),item)
+            c.drawString(230,800-(15*(bb+1)),item)
             toplam=toplam+row1[2]
             maliyet.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
             item=str(row1[3])
-            c.drawString(320,800-(15*(bb+1)),item)
+            c.drawString(270,800-(15*(bb+1)),item)
             toplam1=toplam1+row1[3]
             maliyet.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
             item=str(bul1[0][1])
             toplam2=toplam2+bul1[0][1]
-            c.drawString(400,800-(15*(bb+1)),item)
+            c.drawString(350,800-(15*(bb+1)),item)
             maliyet.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
-            item="% "+str(int((row1[3]-bul1[0][1])/bul1[0][1]*100))
-            c.drawString(510,800-(15*(bb+1)),item)
+            print row1[3]
+            if int(row1[3])==0:
+                item="% 100"
+            else:
+                item="% "+str(int((bul1[0][1])/row1[3]*100))
+            c.drawString(450,800-(15*(bb+1)),item)
             maliyet.tableWidget.setItem(aa, 5, QtGui.QTableWidgetItem(item))
             
             aa=aa+1
@@ -554,9 +559,10 @@ def main():
                 c.setFont("Verdana", 8)
                 bb=0
         c.setFont("Verdana", 12)
-        c.drawString(240,800-(15*(bb+1)),str(toplam))
-        c.drawString(320,800-(15*(bb+1)),str(toplam1))
-        c.drawString(400,800-(15*(bb+1)),str(toplam2))
+        c.drawString(230,800-(15*(bb+1)),str(toplam))
+        c.drawString(270,800-(15*(bb+1)),str(int(toplam1)))
+        c.drawString(350,800-(15*(bb+1)),str(int(toplam2)))
+        c.drawString(450,800-(15*(bb+1)),"% "+str(int(toplam2/toplam1*100)))
                 
         c.save()
     @pyqtSlot()
@@ -599,6 +605,7 @@ def main():
     mainWindow.pushButton.clicked.connect(slotpuss)
     mainWindow.pushButton_2.clicked.connect(slotpuss2)
     mainWindow.pushButton_3.clicked.connect(slotpuss3)
+    mainWindow.statusbar.showMessage(u"Namık ERDOĞAN © 2016           Bishop Restaurant")
     recete.lineEdit.textChanged.connect(slottextch)
     fatura.lineEdit_3.textChanged.connect(slottextch2)
     fatura.lineEdit_2.textChanged.connect(slotfaturakont)
