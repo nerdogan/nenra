@@ -25,10 +25,12 @@ except AttributeError:
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
-        MainWindow.resize(423, 600)
+        MainWindow.resize(391, 309)
+        MainWindow.setMinimumSize(QtCore.QSize(390, 309))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(_fromUtf8("nenra.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
+        MainWindow.setWindowOpacity(0.95)
         MainWindow.setIconSize(QtCore.QSize(48, 48))
         MainWindow.setToolButtonStyle(QtCore.Qt.ToolButtonIconOnly)
         self.centralwidget = QtGui.QWidget(MainWindow)
@@ -124,10 +126,12 @@ class Ui_MainWindow(object):
         self.label_3.setObjectName(_fromUtf8("label_3"))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 423, 18))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 391, 21))
         self.menubar.setObjectName(_fromUtf8("menubar"))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtGui.QStatusBar(MainWindow)
+        self.statusbar.setAutoFillBackground(False)
+        self.statusbar.setStyleSheet(_fromUtf8("background-color: rgb(255, 251, 202);"))
         self.statusbar.setObjectName(_fromUtf8("statusbar"))
         MainWindow.setStatusBar(self.statusbar)
 

@@ -14,7 +14,7 @@ import sys
 reload(sys)
 import re
 import datetime
-
+import logging
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from PyQt4.QtCore import pyqtSlot
@@ -29,6 +29,17 @@ from mainwindow import Recete2
 from mainwindow import Fatura
 from mainwindow import Maliyet
 from modulemdb import *
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+handler = logging.FileHandler('hello.log')
+handler.setLevel(logging.INFO)
+
+# create a logging format
+
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
+logger.addHandler(handler)
 
 
 def main():
@@ -46,6 +57,7 @@ def main():
 
    
     bul=myddb.cek("select * from menu")
+    logger.info('Program opened954203')
     
     
 
@@ -596,8 +608,8 @@ def main():
         recete2.tableWidget_2.removeRow(bb)
 
 
-
-
+# dosya açmak için dialog
+    # fileName =(QtGui.QFileDialog.getOpenFileName(mainWindow, u"Düzenlenecek dosyayı seçin", ".", u"Metin dosyaları (*.txt)"))
     app.setWindowIcon(QtGui.QIcon('nenra.png'))
     mainWindow.pushButton.setStyleSheet("color: black ;  background-image: url(image.png)")
     mainWindow.pushButton_2.setStyleSheet("color: black ;  background-image: url(fatura.png)")  
@@ -605,7 +617,7 @@ def main():
     mainWindow.pushButton.clicked.connect(slotpuss)
     mainWindow.pushButton_2.clicked.connect(slotpuss2)
     mainWindow.pushButton_3.clicked.connect(slotpuss3)
-    mainWindow.statusbar.showMessage(u"Namık ERDOĞAN © 2016           Bishop Restaurant")
+    mainWindow.statusbar.showMessage(u"Namık ERDOĞAN © 2016                                             Bishop Restaurant")
     recete.lineEdit.textChanged.connect(slottextch)
     fatura.lineEdit_3.textChanged.connect(slottextch2)
     fatura.lineEdit_2.textChanged.connect(slotfaturakont)
@@ -625,7 +637,7 @@ def main():
     fatura.connect(sh, QtCore.SIGNAL("activated()"), copyFunction)
 
 
-
+    mainWindow.move(0,0)
     mainWindow.show()
 
 

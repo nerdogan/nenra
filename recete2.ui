@@ -7,11 +7,18 @@
     <x>0</x>
     <y>0</y>
     <width>813</width>
-    <height>638</height>
+    <height>701</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Reçete</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>nenra.ico</normaloff>nenra.ico</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
   </property>
   <widget class="QLineEdit" name="lineEdit">
    <property name="geometry">
@@ -22,6 +29,12 @@
      <height>20</height>
     </rect>
    </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 251, 202);</string>
+   </property>
   </widget>
   <widget class="QTableWidget" name="tableWidget">
    <property name="geometry">
@@ -29,8 +42,11 @@
      <x>0</x>
      <y>50</y>
      <width>521</width>
-     <height>151</height>
+     <height>181</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">;</string>
    </property>
    <row>
     <property name="text">
@@ -67,9 +83,9 @@
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>210</y>
+     <y>250</y>
      <width>521</width>
-     <height>371</height>
+     <height>431</height>
     </rect>
    </property>
    <column>
@@ -135,7 +151,7 @@
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap>C:/Users/muhasebe-2/Pictures/Adsız.png</pixmap>
+    <pixmap>../../../muhasebe-2/Pictures/Adsız.png</pixmap>
    </property>
    <property name="scaledContents">
     <bool>true</bool>
@@ -144,9 +160,9 @@
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>530</x>
-     <y>510</y>
-     <width>71</width>
+     <x>540</x>
+     <y>520</y>
+     <width>121</width>
      <height>41</height>
     </rect>
    </property>
@@ -157,9 +173,9 @@
   <widget class="QPushButton" name="pushButton_2">
    <property name="geometry">
     <rect>
-     <x>630</x>
-     <y>510</y>
-     <width>71</width>
+     <x>540</x>
+     <y>620</y>
+     <width>121</width>
      <height>41</height>
     </rect>
    </property>
@@ -184,8 +200,8 @@
    <property name="geometry">
     <rect>
      <x>540</x>
-     <y>320</y>
-     <width>101</width>
+     <y>350</y>
+     <width>121</width>
      <height>41</height>
     </rect>
    </property>
@@ -203,7 +219,7 @@
    <property name="geometry">
     <rect>
      <x>530</x>
-     <y>250</y>
+     <y>260</y>
      <width>161</width>
      <height>22</height>
     </rect>

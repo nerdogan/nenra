@@ -10,7 +10,7 @@ rd /S /Q build
 
 rem ***** create the exe
 python setup.py py2exe --includes sip
-D:\aproje\nenra\mdb\dist\nenra2.exe
+rem D:\aproje\nenra\mdb\dist\nenra2.exe
 rem **** pause so we can see the exit codes
 rem pause "done...hit a key to exit"
-xcopy D:\aproje\nenra\mdb\dist y:\nenra2 /s /d /y
+rem xcopy D:\aproje\nenra\mdb\dist y:\nenra2 /s /d /y

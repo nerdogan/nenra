@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>423</width>
-    <height>600</height>
+    <width>391</width>
+    <height>309</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>390</width>
+    <height>309</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Nen Restaurant Automotion</string>
@@ -16,6 +22,9 @@
   <property name="windowIcon">
    <iconset>
     <normaloff>nenra.png</normaloff>nenra.png</iconset>
+  </property>
+  <property name="windowOpacity">
+   <double>0.950000000000000</double>
   </property>
   <property name="iconSize">
    <size>
@@ -233,12 +242,19 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>423</width>
-     <height>18</height>
+     <width>391</width>
+     <height>21</height>
     </rect>
    </property>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QStatusBar" name="statusbar">
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 251, 202);</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

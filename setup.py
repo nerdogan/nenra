@@ -15,7 +15,7 @@ sys.argv.append('py2exe')
 setup(
     name = 'NENRA',
     description = 'Restaurant Automotion',
-    version = '1.3.1',
+    version = '1.4.2',
 	windows=[{ 'script':'nenra.py','icon_resources': [(0, 'nenra.ico')] }],
 	options={
     'py2exe': {
