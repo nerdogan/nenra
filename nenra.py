@@ -42,6 +42,8 @@ handler.setFormatter(formatter)
 logger.addHandler(handler)
 
 
+
+
 def main():
     app =QApplication(sys.argv)
     app.processEvents()
@@ -58,6 +60,7 @@ def main():
    
     bul=myddb.cek("select * from menu")
     logger.info('Program opened954203')
+
     
     
 
@@ -144,6 +147,7 @@ def main():
         i=len(bul)
         j=5
         recete2.tableWidget.setRowCount(i)
+        recete2.tableWidget.setSelectionBehavior(QAbstractItemView.SelectRows)
         aa=0
         toplam=0
         for row1 in bul:
@@ -169,7 +173,7 @@ def main():
         deger2=recete2.tableWidget.item(item,1).text()
         deger3=recete2.tableWidget.item(item,2).text()
         deger4=recete2.tableWidget.item(item,3).text()
-        
+
         i=i+1
         j=5
         recete2.tableWidget_2.setRowCount(i)
@@ -185,8 +189,10 @@ def main():
         recete2.tableWidget_2.setItem(aa, 3, QtGui.QTableWidgetItem(item))
         item='0'
         recete2.tableWidget_2.setItem(aa, 4, QtGui.QTableWidgetItem(item)) 
-        recete2.lineEdit.setFocus(True)
-
+        #recete2.lineEdit.setFocus(True)
+        recete2.tableWidget_2.setFocus()
+        recete2.tableWidget_2.setCurrentCell(aa,4)
+        QSound(r"horn.wav").play()
     @pyqtSlot()
     def slotfaturakont(item2):
         
@@ -366,6 +372,7 @@ def main():
         i=len(bul)
         j=5
         recete.tableWidget.setRowCount(i)
+        recete.tableWidget.setSelectionBehavior(QAbstractItemView.SelectRows)
         aa=0
         toplam=0
         for row1 in bul:
