@@ -369,10 +369,16 @@ def main():
     def slotpuss(item2):
         print "reçete arayüzü açıldı"
         recete.show()
+        recete.setFixedSize(recete.size());  # dialog penceresi boyutu sabit (fixed)
         i=len(bul)
         j=5
         recete.tableWidget.setRowCount(i)
         recete.tableWidget.setSelectionBehavior(QAbstractItemView.SelectRows)
+        recete.tableWidget.setColumnWidth(0,100)
+        recete.tableWidget.setColumnWidth(1,100)
+        recete.tableWidget.setColumnWidth(2,220)
+        recete.tableWidget.setColumnWidth(3,100)
+        # TODO: Sutün genişlikleri ayarlanacak
         aa=0
         toplam=0
         for row1 in bul:
