@@ -1,13 +1,27 @@
 # -*- coding: utf-8 -*-
 '''Post a message to twitter'''
 
-__author__ = 'dewitt@google.com'
 
 import ConfigParser
+import time as ttim
 import getopt
 import os
 import sys
 import twitter
+import json
+import panda as pd
+import matplotlib.pyplot as plt
+from datetime import datetime,timedelta
+import MySQLdb as mdb
+from socket import *
+reload(sys)
+sys.setdefaultencoding('utf8')
+tgtIP = gethostbyname('bishop')
+print tgtIP
+
+conmy = mdb.connect(tgtIP, "nen","654152", "bishop",charset='utf8')
+curmy = conmy.cursor()
+
 
 
 USAGE = '''Usage: tweet [options] message
@@ -15,34 +29,6 @@ USAGE = '''Usage: tweet [options] message
   This script posts a message to Twitter.
 
   Options:
-
-    -h --help : print this help
-    --consumer-key : the twitter consumer key
-    --consumer-secret : the twitter consumer secret
-    --access-key : the twitter access token key
-    --access-secret : the twitter access token secret
-    --encoding : the character set encoding used in input strings, e.g. "utf-8". [optional]
-
-  Documentation:
-
-  If either of the command line flags are not present, the environment
-  variables TWEETUSERNAME and TWEETPASSWORD will then be checked for your
-  consumer_key or consumer_secret, respectively.
-
-  If neither the command line flags nor the environment variables are
-  present, the .tweetrc file, if it exists, can be used to set the
-  default consumer_key and consumer_secret.  The file should contain the
-  following three lines, replacing *consumer_key* with your consumer key, and
-  *consumer_secret* with your consumer secret:
-
-  A skeletal .tweetrc file:
-
-    [Tweet]
-    consumer_key: *consumer_key*
-    consumer_secret: *consumer_password*
-    access_key: *access_key*
-    access_secret: *access_password*
-
 '''
 
 
@@ -124,7 +110,7 @@ def main():
             encoding = a
     message = ' '.join(args)
     if not message:
-        message=" @namikerdogan teşekkür ederiz"
+        message=" "
     rc = TweetRc()
     consumer_key = consumer_keyflag or GetConsumerKeyEnv() or rc.GetConsumerKey()
     consumer_secret = consumer_secretflag or GetConsumerSecretEnv() or rc.GetConsumerSecret()
@@ -137,15 +123,46 @@ def main():
                       input_encoding=encoding)
     try:
         results = api.GetSearch(term='''"I'm at Bishop in"''',count=100)
-        print results[0]
-        #status = api.PostUpdate(message)
+        print len(results)
+        print "-------------------------------------------------------------------"
+        for i in results:
+            print i.text.encode('utf-8')
+            print  i.user.screen_name
+            print i.user.name
+
+            tar=(i.created_at).split(' ',5)
+            tarr=tar[0]+' '+tar[1]+' '+tar[2]+' '+tar[3]+' '+tar[5]
+            date_object = datetime.strptime(tarr, '%a %b %d  %H:%M:%S  %Y')+timedelta(hours=3)
+            tarih=date_object.strftime("%Y-%m-%d %H:%M:%S")
+
+            print tarih
+            select='INSERT INTO twittergc(enrolgc,stringgc,tarih,saat,screen_name) VALUES('+str(i.user.followers_count)+',"'+tarih+'","' + str(date_object.date())+ '","' + str(date_object.time())+ '","' +i.user.screen_name+'") ON DUPLICATE KEY UPDATE saat="'+ str(date_object.time())+'"'
+
+            curmy.execute(select)
+            conmy.commit()
+
 
     except UnicodeDecodeError:
         print "Your message could not be encoded.  Perhaps it contains non-ASCII characters? "
         print "Try explicitly specifying the encoding with the --encoding flag"
         sys.exit(2)
-    print "%s just posted: %s" % (status.user.name, status.text)
+    selectt="SELECT screen_name,saat,tarih FROM twittergc where mail='0' "
+    curmy.execute(selectt)
+    aa=curmy.fetchall()
+    if len(aa)==0:
+        print   "Yeni hareket yok"
 
 
-if __name__ == "__main__":
+    for row in aa:
+        a1='@'+row[0]+' Bizi tercih ettiğiniz için teşekkürler! Bishop Restaurant'
+        print a1
+        status = api.PostUpdate(a1)
+        print "%s şimdi gönderildi: %s" % (status.user.name, status.text)
+    curmy.execute("update twittergc SET mail='1' " )
+    conmy.commit()
+
+
+while True:
+    print "_______________________________________________________________"
+    ttim.sleep(180)
     main()
