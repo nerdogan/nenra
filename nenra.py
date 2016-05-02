@@ -49,20 +49,20 @@ def main():
     app.processEvents()
 
     mainWindow = MainWindow()
-    
+
     recete=Recete()
     recete2=Recete2()
     fatura=Fatura()
     maliyet=Maliyet()
     myddb=Myddb()
-    
 
-   
+
+
     bul=myddb.cek("select * from menu")
     logger.info('Program opened954203')
 
-    
-    
+
+
 
 
     def kontrol(girdi):
@@ -75,13 +75,13 @@ def main():
         return girdi
 
 
-    
+
 
     @pyqtSlot(int,int)
     def slotrecete2(item,item2):
 
-        
-#   recete2 ekranı hazırlanıyor       
+
+#   recete2 ekranı hazırlanıyor
         deger0=recete.tableWidget.item(item,0).text()
         recete2.label_3.setText(deger0)
         file = open(deger0+".txt", "w")
@@ -89,10 +89,10 @@ def main():
 
         deger=recete.tableWidget.item(item,1).text()
         deger1=deger+" "+recete.tableWidget.item(item,2).text()+"  "
-        recete2.label.setText(deger1)   
+        recete2.label.setText(deger1)
 
 # veritabanından bilgi çek
-        
+
         bul2=myddb.cek2(deger0,"recete","menuid")
         bul=myddb.cek("select * from menu where menukod>9000")
         recete2.comboBox.clear()
@@ -128,10 +128,10 @@ def main():
             file.write(item+"\n")
 
         file.close()
-        
+
         recete2.show()
         recete2.lineEdit.setFocus(True)
-        
+
 
     @pyqtSlot()
     def slotrecete2sql(item2):
@@ -143,7 +143,7 @@ def main():
         bul=myddb.cek1(a,"hammadde","hamad")
 
 
-        
+
         i=len(bul)
         j=5
         recete2.tableWidget.setRowCount(i)
@@ -167,7 +167,7 @@ def main():
 
     @pyqtSlot(int,int)
     def slothamclick(item,item2):
-    #   hammadde listesinden çiftklikle tablewidget_2 ye hammadde bilgisini ekliyor.     
+    #   hammadde listesinden çiftklikle tablewidget_2 ye hammadde bilgisini ekliyor.
         i=recete2.tableWidget_2.rowCount()
         deger1=recete2.tableWidget.item(item,0).text()
         deger2=recete2.tableWidget.item(item,1).text()
@@ -183,19 +183,19 @@ def main():
         recete2.tableWidget_2.setItem(aa, 0, QtGui.QTableWidgetItem(item))
         item=deger2
         recete2.tableWidget_2.setItem(aa, 1, QtGui.QTableWidgetItem(item))
-        item=deger3 
+        item=deger3
         recete2.tableWidget_2.setItem(aa, 2, QtGui.QTableWidgetItem(item))
         item=deger4
         recete2.tableWidget_2.setItem(aa, 3, QtGui.QTableWidgetItem(item))
         item='0'
-        recete2.tableWidget_2.setItem(aa, 4, QtGui.QTableWidgetItem(item)) 
+        recete2.tableWidget_2.setItem(aa, 4, QtGui.QTableWidgetItem(item))
         #recete2.lineEdit.setFocus(True)
         recete2.tableWidget_2.setFocus()
         recete2.tableWidget_2.setCurrentCell(aa,4)
         QSound(r"horn.wav").play()
     @pyqtSlot()
     def slotfaturakont(item2):
-        
+
         deger5=fatura.lineEdit.text()
         deger6=fatura.lineEdit_2.text()
         sql="select * from carihar where  serino='"+str(deger5)+"' and sirano='"+str(deger6)+"'"
@@ -206,7 +206,7 @@ def main():
         # some_date = QtCore.QDate(2011,4,22)
         some_date = QtCore.QDate.currentDate()
         fatura.dateEdit.setDate(some_date)
-        
+
 
         if len(sonuc)>0 :
             dt=sonuc[0][4]
@@ -237,23 +237,23 @@ def main():
                     fatura.tableWidget_2.setItem(aa, 1, QtGui.QTableWidgetItem(item))
                     item=bul3[0][3]
                     fatura.tableWidget_2.setItem(aa, 2, QtGui.QTableWidgetItem(item))
-                    item=str(row1[5])                   
+                    item=str(row1[5])
                     fatura.tableWidget_2.setItem(aa, 3, QtGui.QTableWidgetItem(item))
-                    item=str(row1[3])                    
+                    item=str(row1[3])
                     fatura.tableWidget_2.setItem(aa, 4, QtGui.QTableWidgetItem(item))
                     item=str(row1[4])
                     fatura.tableWidget_2.setItem(aa, 5, QtGui.QTableWidgetItem(item))
-                    aa=aa+1   
+                    aa=aa+1
             fatura.lineEdit_3.setFocus(True)
             return
 
-       
+
 
 
     @pyqtSlot(int,int)
     def slotfatura(item,item2):
     #   cari listesinden çiftklikle line edite cari firma bilgisini yazıyor
-        
+
         if len(fatura.label_3.text())<12 :
             deger1=fatura.tableWidget.item(item,0).text()
             deger2=fatura.tableWidget.item(item,1).text()
@@ -264,7 +264,7 @@ def main():
             bul1=str(deger1)
             fatura.lineEdit_3.setText("")
             slotfaturakaydet()
-            
+
 
             return
 
@@ -275,7 +275,7 @@ def main():
             deger2=fatura.tableWidget.item(item,2).text()
             deger3=fatura.tableWidget.item(item,3).text()
             deger4=fatura.tableWidget.item(item,4).text()
-        
+
             i=i+1
             j=5
             fatura.tableWidget_2.setRowCount(i)
@@ -285,19 +285,19 @@ def main():
             fatura.tableWidget_2.setItem(aa, 0, QtGui.QTableWidgetItem(item))
             item=deger2
             fatura.tableWidget_2.setItem(aa, 1, QtGui.QTableWidgetItem(item))
-            item=deger3 
+            item=deger3
             fatura.tableWidget_2.setItem(aa, 2, QtGui.QTableWidgetItem(item))
             item=deger4
             fatura.tableWidget_2.setItem(aa, 3, QtGui.QTableWidgetItem(item))
             item='0'
-            fatura.tableWidget_2.setItem(aa, 4, QtGui.QTableWidgetItem(item)) 
+            fatura.tableWidget_2.setItem(aa, 4, QtGui.QTableWidgetItem(item))
             fatura.lineEdit_3.setFocus(True)
 
-   
- 
 
 
-       
+
+
+
 
 
     @pyqtSlot()
@@ -306,14 +306,14 @@ def main():
         myddb.sil(deger0,"recete","menuid")
         i=recete2.tableWidget_2.rowCount()
         for item in range(i):
-            
+
             deger1=recete2.tableWidget_2.item(item,0).text()
             deger2=recete2.tableWidget_2.item(item,4).text()
             print deger0 , deger1 , deger2
             deger2=kontrol(deger2)
             myddb.kaydet(deger0,deger1,deger2)
         myddb.conn.commit()
-        
+
     @pyqtSlot()
     def slotfaturakaydet():
         toplam=0
@@ -337,8 +337,8 @@ def main():
             myddb.sil(sonuc[0][0],"cariay","chid")
 
 
-       
-        
+
+
         i=fatura.tableWidget_2.rowCount()
         for item in range(i):
             deger10=fatura.tableWidget_2.item(item,0).text()
@@ -352,7 +352,7 @@ def main():
             print deger10
             sql2="insert into cariay (chid,hammaddeid,kdv,miktar,birimfiy) values (%s,%s,%s,%s,%s)"
             myddb.cur.execute(sql2,(sonuc[0][0],deger10,deger11,deger12,deger13))
-            
+
         myddb.conn.commit()
         fatura.label_6.setText("{0}  {1}".format(str(toplam), str("{0:.2f}".format(kdv+0.01))))
         fatura.lineEdit_3.setFocus(True)
@@ -360,11 +360,11 @@ def main():
 
 
 
-        
+
 # veritabanından bilgi çek
 
 
-    
+
     @pyqtSlot()
     def slotpuss(item2):
         print "reçete arayüzü açıldı"
@@ -421,7 +421,7 @@ def main():
         maliyet.dateEdit_2.setDate(some_date)
 
         StartDate="01/04/16"
-        
+
         EndDate = datetime.datetime.strptime(StartDate, "%d/%m/%y")
         now = datetime.datetime.now()- datetime.timedelta(days=1)
         dt=now-EndDate
@@ -434,7 +434,7 @@ def main():
             if sonuc==0:
                 print " kaydediliyor"
                 tar=EndDate.strftime('%d%m%Y')
-                
+
                 sql2="SELECT menu.menukod,hammaddeid,miktar,adet FROM SATDATA inner join menu on urunkod=menukod and DATE(tarih)=%s  inner join recete on  menu.menuid=recete.menuid "
                 bilgi=myddb.cur.execute(sql2,[(EndDate.strftime('%Y-%m-%d'))])
                 print bilgi
@@ -446,11 +446,11 @@ def main():
                         sql1="insert into harcanan (hurunkod,hhammaddeid,hmiktar,fiyat,tarih) values (%s,%s,%s,%s,%s)"
                         myddb.cur.execute(sql1,(row1[0],row1[1],hmikt,"0",EndDate))
                         myddb.conn.commit()
-                
+
             print EndDate.strftime('%d%m%Y')
 
 
-       
+
 
     @pyqtSlot()
     def slottextch(item2):
@@ -461,7 +461,7 @@ def main():
 
         bul=myddb.cek1(a,"menu","menuad")
 
-        
+
         i=len(bul)
         j=5
         recete.tableWidget.setRowCount(i)
@@ -479,9 +479,9 @@ def main():
             item=str(row1[4])
             recete.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
             aa=aa+1
-            
 
-           
+
+
     @pyqtSlot()
     def slottextch2(item2):
         print "fatura"
@@ -494,7 +494,7 @@ def main():
             bul=myddb.cek1(a,"hammadde","hamad")
 
 
-        
+
         i=len(bul)
         j=5
         fatura.tableWidget.setRowCount(i)
@@ -515,7 +515,7 @@ def main():
 
     @pyqtSlot()
     def sloturunmaliyet(item2):
-        
+
         print "urunmaliyet"
         c = canvas.Canvas("maliyet.pdf")
         pdfmetrics.registerFont(TTFont('Verdana', 'Verdana.ttf'))
@@ -525,7 +525,7 @@ def main():
         tar1=deger1.strftime('%Y-%m-%d')
         tar2=deger2.strftime('%Y-%m-%d')
 
-       
+
         sql="SELECT urunkod,menuad,sum(adet),sum(tutar) FROM SATDATA inner join menu on  urunkod=menukod and DATE(tarih)>=%s and DATE(tarih)<=%s group by urunkod order by urunkod asc"
         bul=myddb.cur.execute(sql,(tar1,tar2))
         bul=myddb.cur.fetchall()
@@ -572,7 +572,7 @@ def main():
                 item="% "+str(int((bul1[0][1])/row1[3]*100))
             c.drawString(450,800-(15*(bb+1)),item)
             maliyet.tableWidget.setItem(aa, 5, QtGui.QTableWidgetItem(item))
-            
+
             aa=aa+1
             bb=bb+1
             if (15*(bb+1))>=760:
@@ -588,7 +588,7 @@ def main():
         c.drawString(270,800-(15*(bb+1)),str(int(toplam1)))
         c.drawString(350,800-(15*(bb+1)),str(int(toplam2)))
         c.drawString(450,800-(15*(bb+1)),"% "+str(int(toplam2/toplam1*100)))
-                
+
         c.save()
     @pyqtSlot()
     def sloturunmaliyetpdf(item2):
@@ -599,8 +599,8 @@ def main():
             subprocess.call([opener, "maliyet.pdf"])
 
 
-        
-   
+
+
 
 
 
@@ -625,8 +625,8 @@ def main():
     # fileName =(QtGui.QFileDialog.getOpenFileName(mainWindow, u"Düzenlenecek dosyayı seçin", ".", u"Metin dosyaları (*.txt)"))
     app.setWindowIcon(QtGui.QIcon('nenra.png'))
     mainWindow.pushButton.setStyleSheet("color: black ;  background-image: url(image.png)")
-    mainWindow.pushButton_2.setStyleSheet("color: black ;  background-image: url(fatura.png)")  
-    mainWindow.pushButton_3.setStyleSheet("color: black ;  background-image: url(maliyet.png)")  
+    mainWindow.pushButton_2.setStyleSheet("color: black ;  background-image: url(fatura.png)")
+    mainWindow.pushButton_3.setStyleSheet("color: black ;  background-image: url(maliyet.png)")
     mainWindow.pushButton.clicked.connect(slotpuss)
     mainWindow.pushButton_2.clicked.connect(slotpuss2)
     mainWindow.pushButton_3.clicked.connect(slotpuss3)
