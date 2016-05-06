@@ -24,7 +24,8 @@ class Recete(QtGui.QDialog , Ui_Dialog):
     def __init__(self):
         QtGui.QDialog.__init__(self)
         self.setupUi(self)
-    
+
+
 
 class Recete2(QtGui.QDialog , Ui_Dialog2):
     def __init__(self):

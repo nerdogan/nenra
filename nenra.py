@@ -165,6 +165,7 @@ def main():
 
 
 
+
     @pyqtSlot(int,int)
     def slothamclick(item,item2):
     #   hammadde listesinden çiftklikle tablewidget_2 ye hammadde bilgisini ekliyor.
@@ -481,7 +482,6 @@ def main():
             aa=aa+1
 
 
-
     @pyqtSlot()
     def slottextch2(item2):
         print "fatura"
@@ -644,6 +644,11 @@ def main():
     recete2.pushButton_3.clicked.connect(slotrecete2satirsil)
     maliyet.pushButton.clicked.connect(sloturunmaliyet)
     maliyet.pushButton_2.clicked.connect(sloturunmaliyetpdf)
+
+    recete.setWindowModality(Qt.ApplicationModal)
+    recete2.setWindowModality(Qt.ApplicationModal)
+    fatura.setWindowModality(Qt.ApplicationModal)
+    maliyet.setWindowModality(Qt.ApplicationModal)
 
     sh = QtGui.QShortcut(fatura)
     sh.setKey(Qt.Key_Enter)

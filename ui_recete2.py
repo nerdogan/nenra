@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'recete2.ui'
 #
-# Created: Sun May 01 18:20:52 2016
+# Created: Sat May 07 02:51:09 2016
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -41,9 +41,7 @@ class Ui_Dialog2(object):
         self.tableWidget.setStyleSheet(_fromUtf8(";"))
         self.tableWidget.setObjectName(_fromUtf8("tableWidget"))
         self.tableWidget.setColumnCount(5)
-        self.tableWidget.setRowCount(1)
-        item = QtGui.QTableWidgetItem()
-        self.tableWidget.setVerticalHeaderItem(0, item)
+        self.tableWidget.setRowCount(0)
         item = QtGui.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(0, item)
         item = QtGui.QTableWidgetItem()
@@ -82,7 +80,7 @@ class Ui_Dialog2(object):
         self.label_2 = QtGui.QLabel(Dialog2)
         self.label_2.setGeometry(QtCore.QRect(530, 50, 251, 191))
         self.label_2.setText(_fromUtf8(""))
-        self.label_2.setPixmap(QtGui.QPixmap(_fromUtf8("../../../muhasebe-2/Pictures/Adsız.png")))
+        self.label_2.setPixmap(QtGui.QPixmap(_fromUtf8("../../muhasebe-2/Pictures/Adsız.png")))
         self.label_2.setScaledContents(True)
         self.label_2.setObjectName(_fromUtf8("label_2"))
         self.pushButton = QtGui.QPushButton(Dialog2)
@@ -109,8 +107,6 @@ class Ui_Dialog2(object):
 
     def retranslateUi(self, Dialog2):
         Dialog2.setWindowTitle(_translate("Dialog2", "Reçete", None))
-        item = self.tableWidget.verticalHeaderItem(0)
-        item.setText(_translate("Dialog2", "1", None))
         item = self.tableWidget.horizontalHeaderItem(0)
         item.setText(_translate("Dialog2", "ID", None))
         item = self.tableWidget.horizontalHeaderItem(1)

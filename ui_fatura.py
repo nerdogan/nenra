@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'fatura.ui'
 #
-# Created: Sun May 01 18:20:52 2016
+# Created: Sat May 07 02:51:09 2016
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
