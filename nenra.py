@@ -199,7 +199,7 @@ def main():
 
         deger5=fatura.lineEdit.text()
         deger6=fatura.lineEdit_2.text()
-        sql="select * from carihar where  serino='"+str(deger5)+"' and sirano='"+str(deger6)+"'"
+        sql="select * from cari_har where  serino='"+str(deger5)+"' and sirano='"+str(deger6)+"'"
         sonuc=myddb.cek(sql)
         fatura.label_3.setText("")
         fatura.tableWidget.setRowCount(0)
@@ -210,7 +210,7 @@ def main():
 
 
         if len(sonuc)>0 :
-            dt=sonuc[0][4]
+            dt=sonuc[0][5]
             QMessageBox.information(fatura.tableWidget,
                 "QTableWidget Cell Click",
                 "Text: "+str(dt.year))
@@ -249,8 +249,6 @@ def main():
             return
 
 
-
-
     @pyqtSlot(int,int)
     def slotfatura(item,item2):
     #   cari listesinden çiftklikle line edite cari firma bilgisini yazıyor
@@ -260,7 +258,7 @@ def main():
             deger2=fatura.tableWidget.item(item,1).text()
             deger3=fatura.tableWidget.item(item,2).text()
             deger4=fatura.tableWidget.item(item,3).text()
-            fatura.label_5.setText(deger1)
+            fatura.label_5.setText(deger2)
             fatura.label_3.setText(deger1+" "+deger2+" "+deger3)
             bul1=str(deger1)
             fatura.lineEdit_3.setText("")
@@ -296,11 +294,6 @@ def main():
 
 
 
-
-
-
-
-
     @pyqtSlot()
     def slotrecete2kaydet():
         deger0=recete2.label_3.text()
@@ -323,12 +316,12 @@ def main():
         deger5=fatura.lineEdit.text()
         deger6=fatura.lineEdit_2.text()
         deger7=fatura.dateEdit.date().toPyDate()
-        sql="select * from carihar where  serino='"+str(deger5)+"' and sirano='"+str(deger6)+"'"
+        sql="select * from cari_har where  serino='"+str(deger5)+"' and sirano='"+str(deger6)+"'"
         sonuc=myddb.cek(sql)
         print sonuc
         if len(sonuc)==0:
             print "fatura kaydı yok"
-            sql1="insert into carihar (cariid,serino,sirano,tarih) values (%s,%s,%s,%s)"
+            sql1="insert into cari_har (cariid,serino,sirano,tarih) values (%s,%s,%s,%s)"
             print sql1
             myddb.cur.execute(sql1,(deger0,deger5,deger6,deger7))
             myddb.conn.commit()
@@ -355,16 +348,11 @@ def main():
             myddb.cur.execute(sql2,(sonuc[0][0],deger10,deger11,deger12,deger13))
 
         myddb.conn.commit()
-        fatura.label_6.setText("{0}  {1}".format(str(toplam), str("{0:.2f}".format(kdv+0.01))))
+        fatura.label_6.setText("{0}  {1}".format(str(toplam), str("{0:.2f}".format(kdv))))
         fatura.lineEdit_3.setFocus(True)
 
 
-
-
-
 # veritabanından bilgi çek
-
-
 
     @pyqtSlot()
     def slotpuss(item2):
@@ -398,7 +386,7 @@ def main():
 
 
     @pyqtSlot()
-    def slotpuss2(item2):
+    def slotfatura2(item2):
         print "fatura arayüzü açıldı"
         fatura.lineEdit.setText("")
         fatura.lineEdit_2.setText("")
@@ -449,7 +437,6 @@ def main():
                         myddb.conn.commit()
 
             print EndDate.strftime('%d%m%Y')
-
 
 
 
@@ -601,13 +588,6 @@ def main():
 
 
 
-
-
-
-
-
-
-
     @pyqtSlot()
     def copyFunction():
         print "f10 a bastın"
@@ -621,14 +601,14 @@ def main():
         recete2.tableWidget_2.removeRow(bb)
 
 
-# dosya açmak için dialog
+    # dosya açmak için dialog
     # fileName =(QtGui.QFileDialog.getOpenFileName(mainWindow, u"Düzenlenecek dosyayı seçin", ".", u"Metin dosyaları (*.txt)"))
     app.setWindowIcon(QtGui.QIcon('nenra.png'))
     mainWindow.pushButton.setStyleSheet("color: black ;  background-image: url(image.png)")
     mainWindow.pushButton_2.setStyleSheet("color: black ;  background-image: url(fatura.png)")
     mainWindow.pushButton_3.setStyleSheet("color: black ;  background-image: url(maliyet.png)")
     mainWindow.pushButton.clicked.connect(slotpuss)
-    mainWindow.pushButton_2.clicked.connect(slotpuss2)
+    mainWindow.pushButton_2.clicked.connect(slotfatura2)
     mainWindow.pushButton_3.clicked.connect(slotpuss3)
     mainWindow.statusbar.showMessage(u"Namık ERDOĞAN © 2016                                             Bishop Restaurant")
     recete.lineEdit.textChanged.connect(slottextch)

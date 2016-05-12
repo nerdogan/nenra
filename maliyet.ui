@@ -165,5 +165,22 @@
   </widget>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>dateEdit</sender>
+   <signal>dateChanged(QDate)</signal>
+   <receiver>dateEdit_2</receiver>
+   <slot>setDate(QDate)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>85</x>
+     <y>60</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>85</x>
+     <y>150</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

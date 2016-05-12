@@ -2,8 +2,7 @@
 
 # Form implementation generated from reading ui file 'maliyet.ui'
 #
-# Created: Sat Apr 02 01:00:02 2016
-#      by: PyQt4 UI code generator 4.10.3
+# Created by: PyQt4 UI code generator 4.11.4
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -90,6 +89,7 @@ class Ui_Dialog4(object):
         self.tableWidget.setHorizontalHeaderItem(5, item)
 
         self.retranslateUi(Dialog4)
+        QtCore.QObject.connect(self.dateEdit, QtCore.SIGNAL(_fromUtf8("dateChanged(QDate)")), self.dateEdit_2.setDate)
         QtCore.QMetaObject.connectSlotsByName(Dialog4)
 
     def retranslateUi(self, Dialog4):

@@ -154,7 +154,7 @@ def main():
 
 
     for row in aa:
-        a1='@'+row[0]+' Bizi tercih ettiğiniz için teşekkürler! Bishop Restaurant'
+        a1='@'+row[0]+' Bizi tercih ettiğiniz için teşekkürler! Bishop Restaurant  '+str(row[1])
         print a1
         status = api.PostUpdate(a1)
         print "%s şimdi gönderildi: %s" % (status.user.name, status.text)
@@ -164,5 +164,5 @@ def main():
 
 while True:
     print "_______________________________________________________________"
-    ttim.sleep(180)
     main()
+    ttim.sleep(5000)
