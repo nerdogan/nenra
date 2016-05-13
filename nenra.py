@@ -369,11 +369,12 @@ def main():
         j=5
         recete.tableWidget.setRowCount(i)
         recete.tableWidget.setSelectionBehavior(QAbstractItemView.SelectRows)
-        recete.tableWidget.setColumnWidth(0,100)
-        recete.tableWidget.setColumnWidth(1,100)
+        recete.tableWidget.setColumnWidth(0,50)
+        recete.tableWidget.setColumnWidth(1,50)
         recete.tableWidget.setColumnWidth(2,220)
         recete.tableWidget.setColumnWidth(3,100)
         # TODO: Sutün genişlikleri ayarlanacak
+
         aa=0
         toplam=0
         for row1 in bul:
@@ -384,7 +385,9 @@ def main():
             item=row1[2]
             recete.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
             item=str(row1[3])
-            recete.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
+            proto=QtGui.QTableWidgetItem(item)
+            proto.setTextAlignment(Qt.AlignRight)
+            recete.tableWidget.setItem(aa, 3, proto)
             item=str(row1[4])
             recete.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
             aa=aa+1
@@ -640,6 +643,7 @@ def main():
     sh = QtGui.QShortcut(fatura)
     sh.setKey("Ctrl+H")
     fatura.connect(sh, QtCore.SIGNAL("activated()"), copyFunction)
+
 
 
     mainWindow.move(1377, 10)
