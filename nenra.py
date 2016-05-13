@@ -50,6 +50,7 @@ def main():
 
     mainWindow = MainWindow()
 
+
     recete=Recete()
     recete2=Recete2()
     fatura=Fatura()
@@ -93,7 +94,7 @@ def main():
 
 # veritabanından bilgi çek
 
-        bul2=myddb.cek2(deger0,"recete","menuid")
+        bul2=myddb.cek2(deger0,"recete","menukod")
         bul=myddb.cek("select * from menu where menukod>9000")
         recete2.comboBox.clear()
         i=len(bul)
@@ -107,23 +108,26 @@ def main():
         recete2.tableWidget_2.setRowCount(i)
         aa=0
         toplam=0
+        print bul2
         for row1 in bul2:
 
             item=str(row1[2])
-            file.write(item+" ")
-            recete2.tableWidget_2.setItem(aa, 0, QtGui.QTableWidgetItem(item))
-            bul3=myddb.cek2(item,"hammadde","hammaddeid")
+
+
+            bul3=myddb.cek2(item,"hammadde","hamkod")
+            print bul3
+
             item=str(bul3[0][1])
             file.write(item+" ")
-            recete2.tableWidget_2.setItem(aa, 1, QtGui.QTableWidgetItem(item))
+            recete2.tableWidget_2.setItem(aa, 0, QtGui.QTableWidgetItem(item))
             item=bul3[0][2]
             #file.write(item+" ")
-            recete2.tableWidget_2.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+            recete2.tableWidget_2.setItem(aa, 1, QtGui.QTableWidgetItem(item))
             item=bul3[0][3]
             file.write(item+" ")
-            recete2.tableWidget_2.setItem(aa, 3, QtGui.QTableWidgetItem(item))
+            recete2.tableWidget_2.setItem(aa, 2, QtGui.QTableWidgetItem(item))
             item=str(row1[3])
-            recete2.tableWidget_2.setItem(aa, 4, QtGui.QTableWidgetItem(item))
+            recete2.tableWidget_2.setItem(aa, 3, QtGui.QTableWidgetItem(item))
             aa=aa+1
             file.write(item+"\n")
 
@@ -151,16 +155,14 @@ def main():
         aa=0
         toplam=0
         for row1 in bul:
-            item=str(row1[0])
-            recete2.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
             item=str(row1[1])
-            recete2.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
+            recete2.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
             item=row1[2]
+            recete2.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
+            item=row1[3]
             recete2.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
-            item=str(row1[3])
-            recete2.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
             item=str(row1[4])
-            recete2.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
+            recete2.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
             aa=aa+1
 
 
@@ -173,7 +175,7 @@ def main():
         deger1=recete2.tableWidget.item(item,0).text()
         deger2=recete2.tableWidget.item(item,1).text()
         deger3=recete2.tableWidget.item(item,2).text()
-        deger4=recete2.tableWidget.item(item,3).text()
+
 
         i=i+1
         j=5
@@ -186,14 +188,13 @@ def main():
         recete2.tableWidget_2.setItem(aa, 1, QtGui.QTableWidgetItem(item))
         item=deger3
         recete2.tableWidget_2.setItem(aa, 2, QtGui.QTableWidgetItem(item))
-        item=deger4
+        item = '0'
         recete2.tableWidget_2.setItem(aa, 3, QtGui.QTableWidgetItem(item))
-        item='0'
-        recete2.tableWidget_2.setItem(aa, 4, QtGui.QTableWidgetItem(item))
         #recete2.lineEdit.setFocus(True)
         recete2.tableWidget_2.setFocus()
-        recete2.tableWidget_2.setCurrentCell(aa,4)
+        recete2.tableWidget_2.setCurrentCell(aa,3)
         QSound(r"horn.wav").play()
+
     @pyqtSlot()
     def slotfaturakont(item2):
 
@@ -210,7 +211,8 @@ def main():
 
 
         if len(sonuc)>0 :
-            dt=sonuc[0][5]
+            dt=sonuc[0][6]
+
             QMessageBox.information(fatura.tableWidget,
                 "QTableWidget Cell Click",
                 "Text: "+str(dt.year))
@@ -219,11 +221,13 @@ def main():
                 fatura.dateEdit.setDate(QtCore.QDate(dt.year,dt.month,dt.day))
                 sonuc1=myddb.cek2(item[1],"cari","cariid")
                 for item2 in sonuc1:
-                    deger0=str(item2[0])+" "+item2[1]+" "+item2[2]
+                    print item2
+
+                    deger0=str(item2[1])+" "+item2[2]+" "+item2[3]
                     fatura.label_3.setText(deger0)
                     bul1=str(item[0])
 
-                bul2=myddb.cek2(item[0],"cariay","chid")
+                bul2=myddb.cek2(item[0],"cariay","fisno")
                 print bul2
                 i=len(bul2)
                 j=6
@@ -233,7 +237,7 @@ def main():
                 for row1 in bul2:
                     item=str(row1[2])
                     fatura.tableWidget_2.setItem(aa, 0, QtGui.QTableWidgetItem(item))
-                    bul3=myddb.cek2(item,"hammadde","hammaddeid")
+                    bul3=myddb.cek2(item,"hammadde","hamkod")
                     item=str(bul3[0][2])
                     fatura.tableWidget_2.setItem(aa, 1, QtGui.QTableWidgetItem(item))
                     item=bul3[0][3]
@@ -258,7 +262,7 @@ def main():
             deger2=fatura.tableWidget.item(item,1).text()
             deger3=fatura.tableWidget.item(item,2).text()
             deger4=fatura.tableWidget.item(item,3).text()
-            fatura.label_5.setText(deger2)
+            fatura.label_5.setText(deger1)
             fatura.label_3.setText(deger1+" "+deger2+" "+deger3)
             bul1=str(deger1)
             fatura.lineEdit_3.setText("")
@@ -297,12 +301,12 @@ def main():
     @pyqtSlot()
     def slotrecete2kaydet():
         deger0=recete2.label_3.text()
-        myddb.sil(deger0,"recete","menuid")
+        myddb.sil(deger0,"recete","menukod")
         i=recete2.tableWidget_2.rowCount()
         for item in range(i):
 
             deger1=recete2.tableWidget_2.item(item,0).text()
-            deger2=recete2.tableWidget_2.item(item,4).text()
+            deger2=recete2.tableWidget_2.item(item,3).text()
             print deger0 , deger1 , deger2
             deger2=kontrol(deger2)
             myddb.kaydet(deger0,deger1,deger2)
@@ -321,9 +325,11 @@ def main():
         print sonuc
         if len(sonuc)==0:
             print "fatura kaydı yok"
-            sql1="insert into cari_har (cariid,serino,sirano,tarih) values (%s,%s,%s,%s)"
+            maxfisno=myddb.cek("select max(fisno) from cari_har where fistipi=10")
+            print
+            sql1="insert into cari_har (cariid,serino,sirano,tarih,fistipi,fisno) values (%s,%s,%s,%s,%s,%s)"
             print sql1
-            myddb.cur.execute(sql1,(deger0,deger5,deger6,deger7))
+            myddb.cur.execute(sql1,(deger0,deger5,deger6,deger7,10,maxfisno[0][0]+1))
             myddb.conn.commit()
 
         else:
@@ -488,13 +494,14 @@ def main():
         aa=0
         toplam=0
         for row1 in bul:
-            item=str(row1[0])
-            fatura.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
+
             item=str(row1[1])
-            fatura.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
+            fatura.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
             item=row1[2]
+            fatura.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
+            item=row1[3]
             fatura.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
-            item=str(row1[3])
+            item=row1[4]
             fatura.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
             item=str(row1[5])
             fatura.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
@@ -617,7 +624,7 @@ def main():
     fatura.lineEdit.textChanged.connect(slotfaturakont)
     fatura.pushButton.clicked.connect(slotfaturakaydet)
     fatura.tableWidget.cellClicked.connect(slotfatura)
-    recete.tableWidget.cellDoubleClicked.connect(slotrecete2)
+    recete.tableWidget.cellClicked.connect(slotrecete2)
     recete2.lineEdit.textChanged.connect(slotrecete2sql)
     recete2.tableWidget.cellClicked.connect(slothamclick)
     recete2.pushButton.clicked.connect(slotrecete2kaydet)
@@ -631,11 +638,11 @@ def main():
     maliyet.setWindowModality(Qt.ApplicationModal)
 
     sh = QtGui.QShortcut(fatura)
-    sh.setKey(Qt.Key_Enter)
+    sh.setKey("Ctrl+H")
     fatura.connect(sh, QtCore.SIGNAL("activated()"), copyFunction)
 
 
-    mainWindow.move(0,0)
+    mainWindow.move(1377, 10)
     mainWindow.show()
 
 

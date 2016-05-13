@@ -88,7 +88,7 @@ class Myddb():
         #sql = "select * from %s" % self.tablename
         #sql="'"+ sql +"'"
         
-        sql1="insert into recete (menuid,hammaddeid,miktar) values (%s,%s,%s)"
+        sql1="insert into recete (menukod,hamkod,miktar) values (%s,%s,%s)"
         print sql1
         print self.cur.execute(sql1,(deger0,deger1,deger2))
 

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>813</width>
+    <width>660</width>
     <height>701</height>
    </rect>
   </property>
@@ -41,18 +41,13 @@
     <rect>
      <x>0</x>
      <y>50</y>
-     <width>521</width>
+     <width>451</width>
      <height>181</height>
     </rect>
    </property>
    <property name="styleSheet">
     <string notr="true">;</string>
    </property>
-   <column>
-    <property name="text">
-     <string>ID</string>
-    </property>
-   </column>
    <column>
     <property name="text">
      <string>KOD</string>
@@ -79,15 +74,16 @@
     <rect>
      <x>0</x>
      <y>250</y>
-     <width>521</width>
+     <width>451</width>
      <height>431</height>
     </rect>
    </property>
-   <column>
-    <property name="text">
-     <string>ID</string>
-    </property>
-   </column>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
    <column>
     <property name="text">
      <string>KOD</string>
@@ -112,9 +108,9 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>330</x>
+     <x>240</x>
      <y>10</y>
-     <width>451</width>
+     <width>391</width>
      <height>21</height>
     </rect>
    </property>
@@ -155,7 +151,7 @@
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>540</x>
+     <x>470</x>
      <y>520</y>
      <width>121</width>
      <height>41</height>
@@ -168,8 +164,8 @@
   <widget class="QPushButton" name="pushButton_2">
    <property name="geometry">
     <rect>
-     <x>540</x>
-     <y>620</y>
+     <x>470</x>
+     <y>630</y>
      <width>121</width>
      <height>41</height>
     </rect>
@@ -181,7 +177,7 @@
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>550</x>
+     <x>470</x>
      <y>440</y>
      <width>71</width>
      <height>31</height>
@@ -194,7 +190,7 @@
   <widget class="QPushButton" name="pushButton_3">
    <property name="geometry">
     <rect>
-     <x>540</x>
+     <x>470</x>
      <y>350</y>
      <width>121</width>
      <height>41</height>
@@ -213,7 +209,7 @@
   <widget class="QComboBox" name="comboBox">
    <property name="geometry">
     <rect>
-     <x>530</x>
+     <x>470</x>
      <y>260</y>
      <width>161</width>
      <height>22</height>
