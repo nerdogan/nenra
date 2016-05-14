@@ -30,6 +30,8 @@ from mainwindow import Fatura
 from mainwindow import Maliyet
 from modulemdb import *
 
+sys.setdefaultencoding('utf8')
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 handler = logging.FileHandler('hello.log')
@@ -60,7 +62,7 @@ def main():
 
 
     bul=myddb.cek("select * from menu")
-    logger.info('Program opened954203')
+    logger.info('Program opened'+str(os.getpid()))
 
 
 

@@ -11,6 +11,7 @@
 #-------------------------------------------------------------------------------
 import os,sys
 reload(sys)
+sys.setdefaultencoding('utf8')
 print os.system("xcopy z:\\datalar\\gunluk D:\\aproje\\nenra\\datalar /s /d /y")
 print sys.getdefaultencoding()
 print os.getpid()
