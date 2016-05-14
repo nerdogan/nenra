@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #-------------------------------------------------------------------------------
 # Name:        module1
 # Purpose:
@@ -8,9 +9,10 @@
 # Copyright:   (c) muhasebe-2 2014
 # Licence:     <your licence>
 #-------------------------------------------------------------------------------
-import os
-
+import os,sys
+reload(sys)
 print os.system("xcopy z:\\datalar\\gunluk D:\\aproje\\nenra\\datalar /s /d /y")
-
+print sys.getdefaultencoding()
+print os.getpid()
 
 #os.startfile("D:\\aproje\\nenra\\datalar\\msaccesstomysql.ini", "print")

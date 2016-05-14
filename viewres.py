@@ -59,7 +59,7 @@ class Ui_MainWindow(object):
         self.set_view() 
 
     def set_view(self): 
-        in_folder = "C:\\Users\\muhasebe-2\\Pictures\\ActKey\\ScanToFax" 
+        in_folder = r"C:\Users\muhasebe-2\Desktop\dilek foto"
         chain = in_folder + "\\*" 
         self.images = glob.glob(chain) 
         self.images.sort(cmp=lambda x, y: cmp(x.lower(), y.lower())) 

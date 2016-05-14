@@ -35,11 +35,11 @@ class Myddb():
 
 
     def cek( self , sql):
-        
+
         self.cur.execute(sql)
         # show the result
         self.result = self.cur.fetchall()
-        
+
         return self.result
 
     def cek1( self,sql,tablenam,colname):
@@ -87,7 +87,7 @@ class Myddb():
         # extract all the data
         #sql = "select * from %s" % self.tablename
         #sql="'"+ sql +"'"
-        
+
         sql1="insert into recete (menukod,hamkod,miktar) values (%s,%s,%s)"
         print sql1
         print self.cur.execute(sql1,(deger0,deger1,deger2))
@@ -95,10 +95,9 @@ class Myddb():
         # show the result
         print "Auto Increment ID: %s" % self.cur.lastrowid
         self.result = self.cur.lastrowid
-        
+
         return self.result
 
     def kapat(self):
         self.cur.close()
         self.conn.close()
-

@@ -272,7 +272,7 @@ def main():
             return
 
         if len(fatura.label_3.text())>12 :
-            #   hammadde listesinden çiftklikle tablewidget_2 ye hammadde bilgisini ekliyor.     
+            #   hammadde listesinden çiftklikle tablewidget_2 ye hammadde bilgisini ekliyor.
             i=fatura.tableWidget_2.rowCount()
             deger1=fatura.tableWidget.item(item,0).text()
             deger2=fatura.tableWidget.item(item,2).text()
@@ -646,7 +646,7 @@ def main():
 
 
 
-    mainWindow.move(1377, 10)
+    mainWindow.move(13, 10)
     mainWindow.show()
 
 
