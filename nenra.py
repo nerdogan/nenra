@@ -237,18 +237,19 @@ def main():
                 aa=0
                 toplam=0
                 for row1 in bul2:
-                    item=str(row1[2])
+                    item=str(row1[4])
                     fatura.tableWidget_2.setItem(aa, 0, QtGui.QTableWidgetItem(item))
                     bul3=myddb.cek2(item,"hammadde","hamkod")
+                    print (bul3)
                     item=str(bul3[0][2])
                     fatura.tableWidget_2.setItem(aa, 1, QtGui.QTableWidgetItem(item))
                     item=bul3[0][3]
                     fatura.tableWidget_2.setItem(aa, 2, QtGui.QTableWidgetItem(item))
-                    item=str(row1[5])
+                    item=str(row1[7])
                     fatura.tableWidget_2.setItem(aa, 3, QtGui.QTableWidgetItem(item))
-                    item=str(row1[3])
+                    item=str(row1[5])
                     fatura.tableWidget_2.setItem(aa, 4, QtGui.QTableWidgetItem(item))
-                    item=str(row1[4])
+                    item=str(row1[6])
                     fatura.tableWidget_2.setItem(aa, 5, QtGui.QTableWidgetItem(item))
                     aa=aa+1
             fatura.lineEdit_3.setFocus(True)
@@ -277,8 +278,8 @@ def main():
             #   hammadde listesinden çiftklikle tablewidget_2 ye hammadde bilgisini ekliyor.
             i=fatura.tableWidget_2.rowCount()
             deger1=fatura.tableWidget.item(item,0).text()
-            deger2=fatura.tableWidget.item(item,2).text()
-            deger3=fatura.tableWidget.item(item,3).text()
+            deger2=fatura.tableWidget.item(item,1).text()
+            deger3=fatura.tableWidget.item(item,2).text()
             deger4=fatura.tableWidget.item(item,4).text()
 
             i=i+1
@@ -336,13 +337,15 @@ def main():
 
         else:
             print " fatura kaydı var"
-            myddb.sil(sonuc[0][0],"cariay","chid")
+            myddb.sil(sonuc[0][0],"cariay","fisno")
+            satir=0
 
 
 
 
         i=fatura.tableWidget_2.rowCount()
         for item in range(i):
+            satir += 1
             deger10=fatura.tableWidget_2.item(item,0).text()
             deger11=fatura.tableWidget_2.item(item,3).text()
             deger12=fatura.tableWidget_2.item(item,4).text()
@@ -352,11 +355,11 @@ def main():
             toplam +=float(deger12) * float(deger13)
             kdv +=float(deger11)*float(deger12) * float(deger13)/100
             print deger10
-            sql2="insert into cariay (chid,hammaddeid,kdv,miktar,birimfiy) values (%s,%s,%s,%s,%s)"
-            myddb.cur.execute(sql2,(sonuc[0][0],deger10,deger11,deger12,deger13))
+            sql2="insert into cariay (fisno,fissatir,fistipi,hamkod,kdv,miktar,birimfiy) values (%s,%s,%s,%s,%s,%s,%s)"
+            myddb.cur.execute(sql2,(sonuc[0][0],satir,10,deger10,deger11,deger12,deger13))
 
         myddb.conn.commit()
-        fatura.label_6.setText("{0}  {1}".format(str(toplam), str("{0:.2f}".format(kdv))))
+        fatura.label_6.setText("{0}  {1}".format(str(toplam), str("{0:.3f}".format(kdv))))
         fatura.lineEdit_3.setFocus(True)
 
 
@@ -508,7 +511,7 @@ def main():
             fatura.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
             item=row1[4]
             fatura.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
-            item=str(row1[5])
+            item=str(row1[4])
             fatura.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
             aa=aa+1
 
