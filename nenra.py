@@ -606,8 +606,29 @@ def main():
     @pyqtSlot()
     def copyFunction():
         print "f10 a bastın"
-        abc = QKeyEvent ( QEvent.KeyPress, Qt.Key_Tab, Qt.NoModifier)
-        QCoreApplication.postEvent (fatura, abc)
+
+        elma=fatura.tableWidget_2.currentRow()
+        elma1=fatura.tableWidget_2.rowCount()
+        if elma==-1:
+            abc = QKeyEvent(QEvent.KeyPress, Qt.Key_Tab, Qt.NoModifier)
+            QCoreApplication.postEvent(fatura, abc)
+
+        else:
+            fatura.tableWidget_2.focusNextChild()
+            '''
+
+            if fatura.tableWidget_2.currentColumn()==5:
+                if elma1 == elma + 1:
+                    fatura.pushButton.setFocus()
+                else:
+                    fatura.tableWidget_2.setCurrentCell(elma + 1, 2)
+                print elma '''
+
+
+
+
+
+
 
 
     @pyqtSlot()
@@ -646,13 +667,14 @@ def main():
     maliyet.setWindowModality(Qt.ApplicationModal)
 
     sh = QtGui.QShortcut(fatura)
-    sh.setKey("Ctrl+H")
+    sh.setKey("Enter")
     fatura.connect(sh, QtCore.SIGNAL("activated()"), copyFunction)
 
 
 
     mainWindow.move(13, 10)
     mainWindow.show()
+
 
 
 
