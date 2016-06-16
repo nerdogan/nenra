@@ -43,11 +43,41 @@ formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(messag
 handler.setFormatter(formatter)
 logger.addHandler(handler)
 
+class Login(QtGui.QDialog):
+    def __init__(self, parent=None):
+        super(Login, self).__init__(parent)
+        self.setWindowTitle(u"NENRA 2016 Kullanıcı Girişi      ")
+        self.labelname = QtGui.QLabel(self)
+        self.labelpass = QtGui.QLabel(self)
+        self.textName = QtGui.QLineEdit(self)
+        self.textPass = QtGui.QLineEdit(self)
+        self.labelname.setText(u"Kullanıcı Adı")
+        self.labelpass.setText(u"Parola")
+        self.buttonLogin = QtGui.QPushButton(u'Giriş', self)
+        self.buttonLogin.clicked.connect(self.handleLogin)
+        layout = QtGui.QVBoxLayout(self)
+        layout.addWidget(self.labelname)
+        layout.addWidget(self.textName)
+        layout.addWidget(self.labelpass)
+        layout.addWidget(self.textPass)
+        layout.addWidget(self.buttonLogin)
+        self.elma = 1234
+
+
+
+    def handleLogin(self):
+        if (self.textName.text() == 'demo' and
+            self.textPass.text() == 'demo'):
+            self.accept()
+            self.elma=123
+        else:
+            QtGui.QMessageBox.warning(
+                self, 'Hata', u'Kullanıcı adı yada parola yanlış')
 
 
 
 def main():
-    app =QApplication(sys.argv)
+    #app =QApplication(sys.argv)
     app.processEvents()
 
     mainWindow = MainWindow()
@@ -62,7 +92,7 @@ def main():
 
 
     bul=myddb.cek("select * from menu")
-    logger.info('Program opened'+str(os.getpid()))
+    logger.info('Program opened '+str(os.getpid()))
 
 
 
@@ -135,8 +165,19 @@ def main():
 
         file.close()
 
+        recete2.tableWidget.setColumnWidth(0, 50)
+        recete2.tableWidget.setColumnWidth(1, 270)
+        recete2.tableWidget.setColumnWidth(2, 50)
+        recete2.tableWidget.setColumnWidth(3, 50)
+        recete2.tableWidget_2.setColumnWidth(0, 50)
+        recete2.tableWidget_2.setColumnWidth(1, 270)
+        recete2.tableWidget_2.setColumnWidth(2, 50)
+        recete2.tableWidget_2.setColumnWidth(3, 50)
+
+
         recete2.show()
         recete2.lineEdit.setFocus(True)
+
 
 
     @pyqtSlot()
@@ -154,6 +195,7 @@ def main():
         j=5
         recete2.tableWidget.setRowCount(i)
         recete2.tableWidget.setSelectionBehavior(QAbstractItemView.SelectRows)
+
         aa=0
         toplam=0
         for row1 in bul:
@@ -182,6 +224,8 @@ def main():
         i=i+1
         j=5
         recete2.tableWidget_2.setRowCount(i)
+
+
         aa=i-1
 
         item=deger1
@@ -196,6 +240,7 @@ def main():
         recete2.tableWidget_2.setFocus()
         recete2.tableWidget_2.setCurrentCell(aa,3)
         QSound(r"horn.wav").play()
+
 
     @pyqtSlot()
     def slotfaturakont(item2):
@@ -368,6 +413,8 @@ def main():
     @pyqtSlot()
     def slotpuss(item2):
         print "reçete arayüzü açıldı"
+        mainWindow.statusbar.showMessage(
+            u"Namık ERDOĞAN © 2016         Reçete                            Bishop Restaurant")
         recete.show()
         recete.setFixedSize(recete.size());  # dialog penceresi boyutu sabit (fixed)
         i=len(bul)
@@ -669,6 +716,11 @@ def main():
     sh = QtGui.QShortcut(fatura)
     sh.setKey("Enter")
     fatura.connect(sh, QtCore.SIGNAL("activated()"), copyFunction)
+    if login.elma ==123:
+        mainWindow.statusbar.showMessage(
+            u"Namık ERDOĞAN © 2016              demo                     Bishop Restaurant")
+
+
 
 
 
@@ -681,4 +733,12 @@ def main():
     return app.exec_()
 
 if __name__ == "__main__":
+
+    app = QtGui.QApplication(sys.argv)
+    login = Login()
+
+    if login.exec_() == QtGui.QDialog.Accepted:
+        pass
+
     main()
+
