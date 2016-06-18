@@ -26,7 +26,7 @@ from reportlab.pdfbase.ttfonts import TTFont
 from mainwindow import MainWindow
 from mainwindow import Recete
 from mainwindow import Recete2
-from mainwindow import Fatura
+from fatura import Fatura
 from mainwindow import Maliyet
 from modulemdb import *
 
@@ -242,68 +242,11 @@ def main():
         QSound(r"horn.wav").play()
 
 
-    @pyqtSlot()
-    def slotfaturakont(item2):
-
-        deger5=fatura.lineEdit.text()
-        deger6=fatura.lineEdit_2.text()
-        sql="select * from cari_har where  serino='"+str(deger5)+"' and sirano='"+str(deger6)+"'"
-        sonuc=myddb.cek(sql)
-        fatura.label_3.setText("")
-        fatura.tableWidget.setRowCount(0)
-        fatura.tableWidget_2.setRowCount(0)
-        # some_date = QtCore.QDate(2011,4,22)
-        some_date = QtCore.QDate.currentDate()
-        fatura.dateEdit.setDate(some_date)
-
-
-        if len(sonuc)>0 :
-            dt=sonuc[0][6]
-
-            QMessageBox.information(fatura.tableWidget,
-                "QTableWidget Cell Click",
-                "Text: "+str(dt.year))
-            print sonuc
-            for item in sonuc:
-                fatura.dateEdit.setDate(QtCore.QDate(dt.year,dt.month,dt.day))
-                sonuc1=myddb.cek2(item[1],"cari","cariid")
-                for item2 in sonuc1:
-                    print item2
-
-                    deger0=str(item2[1])+" "+item2[2]+" "+item2[3]
-                    fatura.label_3.setText(deger0)
-                    bul1=str(item[0])
-
-                bul2=myddb.cek2(item[0],"cariay","fisno")
-                print bul2
-                i=len(bul2)
-                j=6
-                fatura.tableWidget_2.setRowCount(i)
-                aa=0
-                toplam=0
-                for row1 in bul2:
-                    item=str(row1[4])
-                    fatura.tableWidget_2.setItem(aa, 0, QtGui.QTableWidgetItem(item))
-                    bul3=myddb.cek2(item,"hammadde","hamkod")
-                    print (bul3)
-                    item=str(bul3[0][2])
-                    fatura.tableWidget_2.setItem(aa, 1, QtGui.QTableWidgetItem(item))
-                    item=bul3[0][3]
-                    fatura.tableWidget_2.setItem(aa, 2, QtGui.QTableWidgetItem(item))
-                    item=str(row1[7])
-                    fatura.tableWidget_2.setItem(aa, 3, QtGui.QTableWidgetItem(item))
-                    item=str(row1[5])
-                    fatura.tableWidget_2.setItem(aa, 4, QtGui.QTableWidgetItem(item))
-                    item=str(row1[6])
-                    fatura.tableWidget_2.setItem(aa, 5, QtGui.QTableWidgetItem(item))
-                    aa=aa+1
-            fatura.lineEdit_3.setFocus(True)
-            return
-
 
     @pyqtSlot(int,int)
     def slotfatura(item,item2):
     #   cari listesinden çiftklikle line edite cari firma bilgisini yazıyor
+        print item,item2
 
         if len(fatura.label_3.text())<12 :
             deger1=fatura.tableWidget.item(item,0).text()
@@ -342,6 +285,8 @@ def main():
             fatura.tableWidget_2.setItem(aa, 3, QtGui.QTableWidgetItem(item))
             item='0'
             fatura.tableWidget_2.setItem(aa, 4, QtGui.QTableWidgetItem(item))
+            item = '0'
+            fatura.tableWidget_2.setItem(aa, 5, QtGui.QTableWidgetItem(item))
             fatura.lineEdit_3.setFocus(True)
 
 
@@ -448,18 +393,7 @@ def main():
 
     @pyqtSlot()
     def slotfatura2(item2):
-        print "fatura arayüzü açıldı"
-        fatura.lineEdit.setText("")
-        fatura.lineEdit_2.setText("")
-        fatura.lineEdit_3.setText("")
-        fatura.label_3.setText("")
-        fatura.tableWidget.setRowCount(0)
-        fatura.tableWidget_2.setRowCount(0)
-        # some_date = QtCore.QDate(2011,4,22)
-        some_date = QtCore.QDate.currentDate()
-        fatura.dateEdit.setDate(some_date)
-        fatura.show()
-        fatura.lineEdit.setFocus(True)
+        fatura.goster()
 
     @pyqtSlot()
     def slotpuss3(item2):
@@ -499,6 +433,10 @@ def main():
 
             print EndDate.strftime('%d%m%Y')
 
+    @pyqtSlot()
+    def slotpuss4(item2):
+        print "maliyet arayüzü açıldı" ,item2
+
 
 
     @pyqtSlot()
@@ -530,37 +468,6 @@ def main():
             aa=aa+1
 
 
-    @pyqtSlot()
-    def slottextch2(item2):
-        print "fatura"
-        a=item2.toUtf8()
-        a=str(a)
-        print a
-        bul=myddb.cek1(a,"cari","cariad")
-
-        if len(fatura.label_3.text())>12 :
-            bul=myddb.cek1(a,"hammadde","hamad")
-
-
-
-        i=len(bul)
-        j=5
-        fatura.tableWidget.setRowCount(i)
-        aa=0
-        toplam=0
-        for row1 in bul:
-
-            item=str(row1[1])
-            fatura.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
-            item=row1[2]
-            fatura.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
-            item=row1[3]
-            fatura.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
-            item=row1[4]
-            fatura.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
-            item=str(row1[4])
-            fatura.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
-            aa=aa+1
 
     @pyqtSlot()
     def sloturunmaliyet(item2):
@@ -695,9 +602,7 @@ def main():
     mainWindow.pushButton_3.clicked.connect(slotpuss3)
     mainWindow.statusbar.showMessage(u"Namık ERDOĞAN © 2016                                             Bishop Restaurant")
     recete.lineEdit.textChanged.connect(slottextch)
-    fatura.lineEdit_3.textChanged.connect(slottextch2)
-    fatura.lineEdit_2.textChanged.connect(slotfaturakont)
-    fatura.lineEdit.textChanged.connect(slotfaturakont)
+
     fatura.pushButton.clicked.connect(slotfaturakaydet)
     fatura.tableWidget.cellClicked.connect(slotfatura)
     recete.tableWidget.cellClicked.connect(slotrecete2)
@@ -716,6 +621,7 @@ def main():
     sh = QtGui.QShortcut(fatura)
     sh.setKey("Enter")
     fatura.connect(sh, QtCore.SIGNAL("activated()"), copyFunction)
+    fatura.connect(fatura,SIGNAL("acac(int)"),slotpuss4)
     if login.elma ==123:
         mainWindow.statusbar.showMessage(
             u"Namık ERDOĞAN © 2016              demo                     Bishop Restaurant")

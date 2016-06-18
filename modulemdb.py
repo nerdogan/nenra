@@ -14,13 +14,13 @@ import MySQLdb
 import os
 from socket import *
 
-tgtIP = gethostbyname('nen.duckdns.org')
+tgtIP = gethostbyname('bishop')
 
 
 class Myddb():
     def __init__(self):
         # connect to the database
-        self.conn = MySQLdb.connect(tgtIP, 'nen', '654152', 'test', charset='utf8',port=30000);
+        self.conn = MySQLdb.connect(tgtIP, 'nen', '654152', 'test', charset='utf8',port=3306);
 
 
         # create a cursor
