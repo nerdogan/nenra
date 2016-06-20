@@ -5,7 +5,7 @@ import os
 Mydata_files=[]
 for file in os.listdir(r"C:\Users\NAMIK\PycharmProjects\nenra"):
     if file.endswith(".png"):
-        f2 = [file]
+        f2 = file
         Mydata_files.append(f2)
 print  Mydata_files
 includefiles = Mydata_files
@@ -19,7 +19,8 @@ if sys.platform == "win32":
     base = "Win32GUI"
 
 setup(  name = "nenra",
-        version = "0.1",
+        version = "0.1003",
         description = "My GUI application!",
         options = {"build_exe": build_exe_options},
-        executables = [Executable("nenra.py", base=base,icon="nenra.ico")])
+        executables = [Executable("nenra.py", base=base,icon="nenra.ico",shortcutName="Nenra",
+            shortcutDir="DesktopFolder")])

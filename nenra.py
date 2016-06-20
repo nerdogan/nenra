@@ -66,10 +66,14 @@ class Login(QtGui.QDialog):
 
 
     def handleLogin(self):
-        if (self.textName.text() == 'demo' and
+        if (self.textName.text() == 'mehmet' and
+                    self.textPass.text() == '1234'):
+            self.accept()
+            self.elma = 123
+        elif (self.textName.text() == 'demo' and
             self.textPass.text() == 'demo'):
             self.accept()
-            self.elma=123
+            self.elma=1234
         else:
             QtGui.QMessageBox.warning(
                 self, 'Hata', u'Kullanıcı adı yada parola yanlış')
@@ -92,7 +96,7 @@ def main():
 
 
     bul=myddb.cek("select * from menu")
-    logger.info('Program opened '+str(os.getpid()))
+    logger.info('Program opened 1003'+str(os.getpid()))
 
 
 
@@ -624,10 +628,14 @@ def main():
     fatura.connect(fatura,SIGNAL("acac(int)"),slotpuss4)
     if login.elma ==123:
         mainWindow.statusbar.showMessage(
-            u"Namık ERDOĞAN © 2016              demo                     Bishop Restaurant")
+            u"Namık ERDOĞAN © 2016              mehmet                   Bishop Restaurant")
+        mainWindow.pushButton.blockSignals(1)
+        mainWindow.pushButton_2.blockSignals(1)
+        mainWindow.pushButton_3.blockSignals(1)
 
-
-
+    if login.elma == 1234:
+        mainWindow.statusbar.showMessage(
+                u"Namık ERDOĞAN © 2016              demo                     Bishop Restaurant")
 
 
     mainWindow.move(13, 10)
@@ -644,7 +652,8 @@ if __name__ == "__main__":
     login = Login()
 
     if login.exec_() == QtGui.QDialog.Accepted:
-        pass
+        main()
 
-    main()
+
+
 

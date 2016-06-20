@@ -118,3 +118,11 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 				    aa = aa + 1
 		    self.lineEdit_3.setFocus(True)
 		    return
+
+
+
+if __name__ == "__main__":
+	app = QtGui.QApplication(sys.argv)
+	fatura1=Fatura()
+	fatura1.show()
+	app.exec_()

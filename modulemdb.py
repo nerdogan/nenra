@@ -14,13 +14,13 @@ import MySQLdb
 import os
 from socket import *
 
-tgtIP = gethostbyname('bishop')
+tgtIP = gethostbyname('nen.duckdns.org')
 
 
 class Myddb():
     def __init__(self):
         # connect to the database
-        self.conn = MySQLdb.connect(tgtIP, 'nen', '654152', 'test', charset='utf8',port=3306);
+        self.conn = MySQLdb.connect(tgtIP, 'nen', '654152', 'test', charset='utf8',port=30000);
 
 
         # create a cursor
@@ -51,7 +51,7 @@ class Myddb():
         if colname=="menuad":
             sql1=sql1+" or menukod like "+sql
         if colname=="hamad":
-            sql1=sql1+" or hamkod like "+sql
+            sql1=sql1+"and kategori<>3 or hamkod like "+sql
         print sql1
         self.cur.execute(sql1)
         # show the result
