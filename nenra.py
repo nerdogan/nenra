@@ -15,6 +15,8 @@ reload(sys)
 import re
 import datetime
 import logging
+import urllib2
+import os
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from PyQt4.QtCore import pyqtSlot
@@ -29,6 +31,7 @@ from mainwindow import Recete2
 from fatura import Fatura
 from mainwindow import Maliyet
 from modulemdb import *
+
 
 sys.setdefaultencoding('utf8')
 
@@ -62,8 +65,8 @@ class Login(QtGui.QDialog):
         layout.addWidget(self.textPass)
         layout.addWidget(self.buttonLogin)
         self.elma = 1234
-
-
+        self.workerthread=WorkerThread()
+        self.workerthread.start()
 
     def handleLogin(self):
         if (self.textName.text() == 'mehmet' and
@@ -78,6 +81,44 @@ class Login(QtGui.QDialog):
             QtGui.QMessageBox.warning(
                 self, 'Hata', u'Kullanıcı adı yada parola yanlış')
 
+class WorkerThread(QThread):
+    acac1 = pyqtSignal(int)
+    def __init__(self,parent=None):
+        super(WorkerThread,self).__init__(parent)
+
+
+
+
+
+    def run(self):
+        with open("ver.png", "r") as dosya:
+            elma1 = dosya.read()
+
+        urlpath = urllib2.urlopen('http://nen.duckdns.org:8080/dist/ver.png')
+        string = urlpath.read()
+        print string, elma1
+        if elma1 == string:
+            print u"aynı"
+        else:
+            self.filename = string
+            rq = urllib2.urlopen('http://nen.duckdns.org:8080/dist/' + self.filename)
+            fSize = int(rq.info()['Content-Length'])
+            fileName = self.filename
+            downloadedChunk = 0
+            blockSize = 2048
+            with open(fileName, "wb") as sura:
+                while True:
+                    chunk = rq.read(blockSize)
+                    if not chunk:
+                        print("\nDownload Complete.")
+                        break
+                    downloadedChunk += len(chunk)
+                    sura.write(chunk)
+                    progress = float(downloadedChunk) / fSize
+                    self.acac1.emit(int(progress*100))
+            with open("ver.png", "w") as dosya:
+                dosya.write(self.filename)
+            os.system(self.filename)
 
 
 def main():
@@ -96,7 +137,7 @@ def main():
 
 
     bul=myddb.cek("select * from menu")
-    logger.info('Program opened 1003'+str(os.getpid()))
+    logger.info('Program opened 1002 '+str(os.getpid()))
 
 
 
@@ -439,7 +480,9 @@ def main():
 
     @pyqtSlot()
     def slotpuss4(item2):
-        print "maliyet arayüzü açıldı" ,item2
+        mainWindow.statusbar.showMessage(u"Namık ERDOĞAN © 2016  GÜNCELLENİYOR %"+str(item2)+"       Bishop Restaurant")
+        if item2==100:
+            os.system('taskkill /PID '+str(os.getpid()))
 
 
 
@@ -625,7 +668,7 @@ def main():
     sh = QtGui.QShortcut(fatura)
     sh.setKey("Enter")
     fatura.connect(sh, QtCore.SIGNAL("activated()"), copyFunction)
-    fatura.connect(fatura,SIGNAL("acac(int)"),slotpuss4)
+    mainWindow.connect(login.workerthread,SIGNAL("acac1(int)"),slotpuss4)
     if login.elma ==123:
         mainWindow.statusbar.showMessage(
             u"Namık ERDOĞAN © 2016              mehmet                   Bishop Restaurant")

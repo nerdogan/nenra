@@ -9,7 +9,9 @@ rd /S /Q build
 
 rem ***** create the exe
 
+
 python setupcx.py bdist_msi
+
 rem D:\aproje\nenra\mdb\dist\nenra2.exe
 rem **** pause so we can see the exit codes
 rem pause "done...hit a key to exit"
