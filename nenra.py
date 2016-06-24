@@ -287,55 +287,6 @@ def main():
         QSound(r"horn.wav").play()
 
 
-
-    @pyqtSlot(int,int)
-    def slotfatura(item,item2):
-    #   cari listesinden çiftklikle line edite cari firma bilgisini yazıyor
-        print item,item2
-
-        if len(fatura.label_3.text())<12 :
-            deger1=fatura.tableWidget.item(item,0).text()
-            deger2=fatura.tableWidget.item(item,1).text()
-            deger3=fatura.tableWidget.item(item,2).text()
-            deger4=fatura.tableWidget.item(item,3).text()
-            fatura.label_5.setText(deger1)
-            fatura.label_3.setText(deger1+" "+deger2+" "+deger3)
-            bul1=str(deger1)
-            fatura.lineEdit_3.setText("")
-            slotfaturakaydet()
-
-
-            return
-
-        if len(fatura.label_3.text())>12 :
-            #   hammadde listesinden çiftklikle tablewidget_2 ye hammadde bilgisini ekliyor.
-            i=fatura.tableWidget_2.rowCount()
-            deger1=fatura.tableWidget.item(item,0).text()
-            deger2=fatura.tableWidget.item(item,1).text()
-            deger3=fatura.tableWidget.item(item,2).text()
-            deger4=fatura.tableWidget.item(item,4).text()
-
-            i=i+1
-            j=5
-            fatura.tableWidget_2.setRowCount(i)
-            aa=i-1
-
-            item=deger1
-            fatura.tableWidget_2.setItem(aa, 0, QtGui.QTableWidgetItem(item))
-            item=deger2
-            fatura.tableWidget_2.setItem(aa, 1, QtGui.QTableWidgetItem(item))
-            item=deger3
-            fatura.tableWidget_2.setItem(aa, 2, QtGui.QTableWidgetItem(item))
-            item=deger4
-            fatura.tableWidget_2.setItem(aa, 3, QtGui.QTableWidgetItem(item))
-            item='0'
-            fatura.tableWidget_2.setItem(aa, 4, QtGui.QTableWidgetItem(item))
-            item = '0'
-            fatura.tableWidget_2.setItem(aa, 5, QtGui.QTableWidgetItem(item))
-            fatura.lineEdit_3.setFocus(True)
-
-
-
     @pyqtSlot()
     def slotrecete2kaydet():
         deger0=recete2.label_3.text()
@@ -349,53 +300,6 @@ def main():
             deger2=kontrol(deger2)
             myddb.kaydet(deger0,deger1,deger2)
         myddb.conn.commit()
-
-    @pyqtSlot()
-    def slotfaturakaydet():
-        toplam=0
-        kdv=0
-        deger0=fatura.label_5.text()
-        deger5=fatura.lineEdit.text()
-        deger6=fatura.lineEdit_2.text()
-        deger7=fatura.dateEdit.date().toPyDate()
-        sql="select * from cari_har where  serino='"+str(deger5)+"' and sirano='"+str(deger6)+"'"
-        sonuc=myddb.cek(sql)
-        print sonuc
-        if len(sonuc)==0:
-            print "fatura kaydı yok"
-            maxfisno=myddb.cek("select max(fisno) from cari_har where fistipi=10")
-            print
-            sql1="insert into cari_har (cariid,serino,sirano,tarih,fistipi,fisno) values (%s,%s,%s,%s,%s,%s)"
-            print sql1
-            myddb.cur.execute(sql1,(deger0,deger5,deger6,deger7,10,maxfisno[0][0]+1))
-            myddb.conn.commit()
-
-        else:
-            print " fatura kaydı var"
-            myddb.sil(sonuc[0][0],"cariay","fisno")
-            satir=0
-
-
-
-
-        i=fatura.tableWidget_2.rowCount()
-        for item in range(i):
-            satir += 1
-            deger10=fatura.tableWidget_2.item(item,0).text()
-            deger11=fatura.tableWidget_2.item(item,3).text()
-            deger12=fatura.tableWidget_2.item(item,4).text()
-            deger13=fatura.tableWidget_2.item(item,5).text()
-            deger12=kontrol(deger12)
-            deger13=kontrol(deger13)
-            toplam +=float(deger12) * float(deger13)
-            kdv +=float(deger11)*float(deger12) * float(deger13)/100
-            print deger10
-            sql2="insert into cariay (fisno,fissatir,fistipi,hamkod,kdv,miktar,birimfiy) values (%s,%s,%s,%s,%s,%s,%s)"
-            myddb.cur.execute(sql2,(sonuc[0][0],satir,10,deger10,deger11,deger12,deger13))
-
-        myddb.conn.commit()
-        fatura.label_6.setText("{0}  {1}".format(str(toplam), str("{0:.3f}".format(kdv))))
-        fatura.lineEdit_3.setFocus(True)
 
 
 # veritabanından bilgi çek
@@ -650,8 +554,8 @@ def main():
     mainWindow.statusbar.showMessage(u"Namık ERDOĞAN © 2016                                             Bishop Restaurant")
     recete.lineEdit.textChanged.connect(slottextch)
 
-    fatura.pushButton.clicked.connect(slotfaturakaydet)
-    fatura.tableWidget.cellClicked.connect(slotfatura)
+
+
     recete.tableWidget.cellClicked.connect(slotrecete2)
     recete2.lineEdit.textChanged.connect(slotrecete2sql)
     recete2.tableWidget.cellClicked.connect(slothamclick)
@@ -671,9 +575,9 @@ def main():
     mainWindow.connect(login.workerthread,SIGNAL("acac1(int)"),slotpuss4)
     if login.elma ==123:
         mainWindow.statusbar.showMessage(
-            u"Namık ERDOĞAN © 2016              mehmet                   Bishop Restaurant")
+            u"Namık ERDOĞAN © 2016       Mehmet TUNCER          Bishop Restaurant")
         mainWindow.pushButton.blockSignals(1)
-        mainWindow.pushButton_2.blockSignals(1)
+
         mainWindow.pushButton_3.blockSignals(1)
 
     if login.elma == 1234:

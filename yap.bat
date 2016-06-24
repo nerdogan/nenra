@@ -15,4 +15,4 @@ python setupcx.py bdist_msi
 rem D:\aproje\nenra\mdb\dist\nenra2.exe
 rem **** pause so we can see the exit codes
 rem pause "done...hit a key to exit"
-rem xcopy D:\aproje\nenra\mdb\dist y:\nenra2 /s /d /y
+xcopy C:\Users\NAMIK\PycharmProjects\nenra\dist  C:\wamp\www\dist /s /d /y

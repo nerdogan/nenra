@@ -19,8 +19,9 @@ if sys.platform == "win32":
     base = "Win32GUI"
 
 setup(  name = "nenra",
-        version = "0.1006",
-        description = "My GUI application!",
+        version = "0.1011",
+        description = "NEN Restaurant Automotion"
+                      "",
         options = {"build_exe": build_exe_options},
         executables = [Executable("nenra.py", base=base,icon="nenra.ico")]
         )
