@@ -89,11 +89,11 @@ class Ui_Dialog3(object):
         self.tableWidget_2.horizontalHeader().setVisible(True)
         self.tableWidget_2.horizontalHeader().setDefaultSectionSize(90)
         self.pushButton = QtGui.QPushButton(Dialog3)
-        self.pushButton.setGeometry(QtCore.QRect(620, 570, 75, 23))
+        self.pushButton.setGeometry(QtCore.QRect(620, 422, 75, 31))
         self.pushButton.setAutoDefault(False)
         self.pushButton.setObjectName(_fromUtf8("pushButton"))
         self.pushButton_2 = QtGui.QPushButton(Dialog3)
-        self.pushButton_2.setGeometry(QtCore.QRect(710, 570, 75, 23))
+        self.pushButton_2.setGeometry(QtCore.QRect(620, 470, 75, 31))
         self.pushButton_2.setAutoDefault(False)
         self.pushButton_2.setDefault(False)
         self.pushButton_2.setFlat(False)
@@ -122,6 +122,12 @@ class Ui_Dialog3(object):
         self.label_6 = QtGui.QLabel(Dialog3)
         self.label_6.setGeometry(QtCore.QRect(420, 600, 181, 16))
         self.label_6.setObjectName(_fromUtf8("label_6"))
+        self.pushButton_3 = QtGui.QPushButton(Dialog3)
+        self.pushButton_3.setGeometry(QtCore.QRect(630, 270, 91, 31))
+        self.pushButton_3.setAutoDefault(False)
+        self.pushButton_3.setDefault(False)
+        self.pushButton_3.setFlat(False)
+        self.pushButton_3.setObjectName(_fromUtf8("pushButton_3"))
 
         self.retranslateUi(Dialog3)
         QtCore.QObject.connect(self.pushButton_2, QtCore.SIGNAL(_fromUtf8("clicked()")), Dialog3.close)
@@ -135,7 +141,7 @@ class Ui_Dialog3(object):
         Dialog3.setTabOrder(self.tableWidget, self.tableWidget_2)
 
     def retranslateUi(self, Dialog3):
-        Dialog3.setWindowTitle(_translate("Dialog3", "Fatura", None))
+        Dialog3.setWindowTitle(_translate("Dialog3", "Fiş Girişi", None))
         self.label.setText(_translate("Dialog3", "Seri/Sıra", None))
         self.label_2.setText(_translate("Dialog3", "Cari ", None))
         item = self.tableWidget.horizontalHeaderItem(0)
@@ -164,6 +170,7 @@ class Ui_Dialog3(object):
         self.pushButton_2.setText(_translate("Dialog3", "İptal", None))
         self.label_4.setText(_translate("Dialog3", "Ara", None))
         self.label_6.setText(_translate("Dialog3", "TextLabel", None))
+        self.pushButton_3.setText(_translate("Dialog3", "Satır Sil", None))
 
 
 if __name__ == "__main__":
