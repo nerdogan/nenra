@@ -158,7 +158,7 @@ def main():
     @pyqtSlot(int,int)
     def slotrecete2(item,item2):
 
-
+        recete2.lineEdit.setText("")
 #   recete2 ekranı hazırlanıyor
         deger0=recete.tableWidget.item(item,0).text()
         recete2.label_3.setText(deger0)
@@ -211,13 +211,13 @@ def main():
         file.close()
 
         recete2.tableWidget.setColumnWidth(0, 50)
-        recete2.tableWidget.setColumnWidth(1, 270)
+        recete2.tableWidget.setColumnWidth(1, 250)
         recete2.tableWidget.setColumnWidth(2, 50)
         recete2.tableWidget.setColumnWidth(3, 50)
         recete2.tableWidget_2.setColumnWidth(0, 50)
-        recete2.tableWidget_2.setColumnWidth(1, 270)
+        recete2.tableWidget_2.setColumnWidth(1, 220)
         recete2.tableWidget_2.setColumnWidth(2, 50)
-        recete2.tableWidget_2.setColumnWidth(3, 50)
+        recete2.tableWidget_2.setColumnWidth(3, 75)
 
 
         recete2.show()
