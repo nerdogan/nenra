@@ -309,6 +309,7 @@ def main():
         print "reçete arayüzü açıldı"
         mainWindow.statusbar.showMessage(
             u"Namık ERDOĞAN © 2016         Reçete                            Bishop Restaurant")
+        recete.move(13, 10)
         recete.show()
         recete.setFixedSize(recete.size());  # dialog penceresi boyutu sabit (fixed)
         i=len(bul)
