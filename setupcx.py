@@ -20,7 +20,7 @@ if sys.platform == "win32":
     base = "Win32GUI"
 
 setup(  name = "nenra",
-        version = "0.1013",
+        version = "0.1015",
         description = "NEN Restaurant Automotion 1013"
                       "",
         options = {"build_exe": build_exe_options},

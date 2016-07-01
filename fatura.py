@@ -14,10 +14,6 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 		QtGui.QDialog.__init__(self)
 		self.setupUi(self)
 		self.myddb = Myddb()
-		self.tableWidget.setColumnWidth(0, 75)
-		self.tableWidget.setColumnWidth(1, 220)
-		self.tableWidget.setColumnWidth(2, 50)
-		self.tableWidget.setColumnWidth(3, 50)
 		self.tableWidget_2.setColumnWidth(0, 75)
 		self.tableWidget_2.setColumnWidth(1, 220)
 		self.tableWidget_2.setColumnWidth(2, 50)
@@ -28,6 +24,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 		self.lineEdit.textChanged.connect(self.slotfaturakont)
 		self.pushButton.clicked.connect(self.slotfaturakaydet)
 		self.tableWidget.cellClicked.connect(self.slotfatura)
+		self.pushButton_3.clicked.connect(self.slotfaturasatirsil)
 
 	def kontrol(self,girdi):
 		girdi = str(girdi)
@@ -62,8 +59,16 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 
 		if len(self.label_3.text()) > 12:
 			bul = self.myddb.cek1(a, "hammadde", "hamad")
+			self.tableWidget.setColumnWidth(0, 75)
+			self.tableWidget.setColumnWidth(1, 220)
+			self.tableWidget.setColumnWidth(2, 50)
+			self.tableWidget.setColumnWidth(3, 50)
 		else:
 			bul = self.myddb.cek1(a, "cari", "cariad")
+			self.tableWidget.setColumnWidth(0, 75)
+			self.tableWidget.setColumnWidth(1, 50)
+			self.tableWidget.setColumnWidth(2, 220)
+			self.tableWidget.setColumnWidth(3, 50)
 
 		i = len(bul)
 		j = 5
@@ -238,6 +243,11 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 		self.myddb.conn.commit()
 		self.label_6.setText("{0}  {1}".format(str(toplam), str("{0:.3f}".format(kdv))))
 		self.lineEdit_3.setFocus(True)
+
+	@pyqtSlot()
+	def slotfaturasatirsil(self):
+		bb = self.tableWidget_2.currentRow()
+		self.tableWidget_2.removeRow(bb)
 
 
 if __name__ == "__main__":

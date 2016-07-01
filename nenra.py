@@ -29,7 +29,7 @@ from mainwindow import MainWindow
 from mainwindow import Recete
 from mainwindow import Recete2
 from fatura import Fatura
-from mainwindow import Maliyet
+from maliyet import Maliyet
 from modulemdb import *
 
 
@@ -73,10 +73,11 @@ class Login(QtGui.QDialog):
                     self.textPass.text() == '1234'):
             self.accept()
             self.elma = 123
-        elif (self.textName.text() == 'demo' and
-            self.textPass.text() == 'demo'):
+
+        elif (self.textName.text() == 'n' and
+                      self.textPass.text() == ''):
             self.accept()
-            self.elma=1234
+            self.elma = 12345
         else:
             QtGui.QMessageBox.warning(
                 self, 'Hata', u'Kullanıcı adı yada parola yanlış')
@@ -342,46 +343,13 @@ def main():
 
 
     @pyqtSlot()
-    def slotfatura2(item2):
+    def slotfatura(item2):
         fatura.goster()
 
     @pyqtSlot()
-    def slotpuss3(item2):
+    def slotmaliyet(item2):
         print "maliyet arayüzü açıldı"
         maliyet.show()
-        maliyet.tableWidget.setRowCount(0)
-        some_date = QtCore.QDate.currentDate()
-        maliyet.dateEdit.setDate(some_date)
-        maliyet.dateEdit_2.setDate(some_date)
-
-        StartDate="01/04/16"
-
-        EndDate = datetime.datetime.strptime(StartDate, "%d/%m/%y")
-        now = datetime.datetime.now()- datetime.timedelta(days=1)
-        dt=now-EndDate
-        print dt.days
-        #mainWindow.plainTextEdit.appendPlainText(str(dt.days))
-        for i in range(dt.days):
-            EndDate = EndDate + datetime.timedelta(days=1)
-            sql= " select * from harcanan where tarih like %s"
-            sonuc=myddb.cur.execute(sql,[(EndDate.strftime('%Y-%m-%d')+"%")])
-            if sonuc==0:
-                print " kaydediliyor"
-                tar=EndDate.strftime('%d%m%Y')
-
-                sql2="SELECT menu.menukod,hammaddeid,miktar,adet FROM SATDATA inner join menu on urunkod=menukod and DATE(tarih)=%s  inner join recete on  menu.menuid=recete.menuid "
-                bilgi=myddb.cur.execute(sql2,[(EndDate.strftime('%Y-%m-%d'))])
-                print bilgi
-                if bilgi<>0:
-                    bilgi2=myddb.cur.fetchall()
-                    for row1 in bilgi2:
-                        hmikt=row1[2]*row1[3]
-                        print hmikt
-                        sql1="insert into harcanan (hurunkod,hhammaddeid,hmiktar,fiyat,tarih) values (%s,%s,%s,%s,%s)"
-                        myddb.cur.execute(sql1,(row1[0],row1[1],hmikt,"0",EndDate))
-                        myddb.conn.commit()
-
-            print EndDate.strftime('%d%m%Y')
 
     @pyqtSlot()
     def slotpuss4(item2):
@@ -550,8 +518,8 @@ def main():
     mainWindow.pushButton_2.setStyleSheet("color: black ;  background-image: url(fatura.png)")
     mainWindow.pushButton_3.setStyleSheet("color: black ;  background-image: url(maliyet.png)")
     mainWindow.pushButton.clicked.connect(slotpuss)
-    mainWindow.pushButton_2.clicked.connect(slotfatura2)
-    mainWindow.pushButton_3.clicked.connect(slotpuss3)
+    mainWindow.pushButton_2.clicked.connect(slotfatura)
+    mainWindow.pushButton_3.clicked.connect(slotmaliyet)
     mainWindow.statusbar.showMessage(u"Namık ERDOĞAN © 2016                                             Bishop Restaurant")
     recete.lineEdit.textChanged.connect(slottextch)
 
