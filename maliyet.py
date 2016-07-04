@@ -19,7 +19,7 @@ class Maliyet(QtGui.QDialog , Ui_Dialog4):
         self.dateEdit.setDate(some_date)
         self.dateEdit_2.setDate(some_date)
 
-        StartDate = "01/06/16"
+        StartDate = "01/07/16"
 
         EndDate = datetime.datetime.strptime(StartDate, "%d/%m/%y")
         now = datetime.datetime.now() - datetime.timedelta(days=1)

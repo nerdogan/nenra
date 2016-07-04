@@ -101,7 +101,13 @@ class WorkerThread(QThread):
         if elma1 == string:
             print u"aynı"
         else:
-            self.filename = string
+            if sys.platform == "win32":
+                self.filename = string
+            elif sys.platform == "linux2":
+                pass
+            else:
+                self.filename = nenra.app
+
             rq = urllib2.urlopen('http://nen.duckdns.org:8080/dist/' + self.filename)
             fSize = int(rq.info()['Content-Length'])
             fileName = self.filename
@@ -138,21 +144,7 @@ def main():
 
 
     bul=myddb.cek("select * from menu")
-    logger.info('Program opened 1002 '+str(os.getpid()))
-
-
-
-
-
-    def kontrol(girdi):
-        girdi = str(girdi)
-        ara = re.search(",", girdi)
-        if ara:
-            derle = re.compile(",")
-            cikti = derle.sub(".",girdi)
-            return cikti
-        return girdi
-
+    logger.info('Program opened 1017 '+str(os.getpid()))
 
 
 
@@ -298,7 +290,7 @@ def main():
             deger1=recete2.tableWidget_2.item(item,0).text()
             deger2=recete2.tableWidget_2.item(item,3).text()
             print deger0 , deger1 , deger2
-            deger2=kontrol(deger2)
+            deger2=fatura.kontrol(deger2)
             myddb.kaydet(deger0,deger1,deger2)
         myddb.conn.commit()
 
@@ -499,12 +491,6 @@ def main():
                 print elma '''
 
 
-
-
-
-
-
-
     @pyqtSlot()
     def slotrecete2satirsil():
         bb=recete2.tableWidget_2.currentRow()
@@ -569,7 +555,3 @@ if __name__ == "__main__":
 
     if login.exec_() == QtGui.QDialog.Accepted:
         main()
-
-
-
-

@@ -20,8 +20,8 @@ if sys.platform == "win32":
     base = "Win32GUI"
 
 setup(  name = "nenra",
-        version = "0.1015",
-        description = "NEN Restaurant Automotion 1013"
+        version = "0.1016",
+        description = "NEN Restaurant Automotion 1016"
                       "",
         options = {"build_exe": build_exe_options},
         executables = [Executable("nenra.py", base=base,icon="nenra.ico")]
