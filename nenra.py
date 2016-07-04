@@ -74,8 +74,7 @@ class Login(QtGui.QDialog):
             self.accept()
             self.elma = 123
 
-        elif (self.textName.text() == 'n' and
-                      self.textPass.text() == ''):
+        elif ((self.textName.text() == 'n' or self.textName.text() == 'N') and    self.textPass.text() == ''):
             self.accept()
             self.elma = 12345
         else:

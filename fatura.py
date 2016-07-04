@@ -14,10 +14,13 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 		QtGui.QDialog.__init__(self)
 		self.setupUi(self)
 		self.myddb = Myddb()
-		self.tableWidget_2.setColumnWidth(0, 75)
-		self.tableWidget_2.setColumnWidth(1, 220)
-		self.tableWidget_2.setColumnWidth(2, 50)
-		self.tableWidget_2.setColumnWidth(3, 50)
+		self.tableWidget_2.setColumnWidth(0, 50)
+		self.tableWidget_2.setColumnWidth(1, 200)
+		self.tableWidget_2.setColumnWidth(2, 40)
+		self.tableWidget_2.setColumnWidth(3, 40)
+		self.tableWidget_2.setColumnWidth(4, 75)
+		self.tableWidget_2.setColumnWidth(5, 75)
+		self.tableWidget_2.setColumnWidth(6, 75)
 
 		self.lineEdit_3.textChanged.connect(self.linechange)
 		self.lineEdit_2.textChanged.connect(self.slotfaturakont)
@@ -25,6 +28,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 		self.pushButton.clicked.connect(self.slotfaturakaydet)
 		self.tableWidget.cellClicked.connect(self.slotfatura)
 		self.pushButton_3.clicked.connect(self.slotfaturasatirsil)
+		self.tableWidget_2.itemChanged.connect(self.toplamdegisti)
 
 	def kontrol(self,girdi):
 		girdi = str(girdi)
@@ -248,6 +252,11 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 	def slotfaturasatirsil(self):
 		bb = self.tableWidget_2.currentRow()
 		self.tableWidget_2.removeRow(bb)
+
+	@pyqtSlot(int,int)
+	def toplamdegisti(self,item):
+		if item.column()==6:
+			self.tableWidget_2.setItem(item.row(),5,QtGui.QTableWidgetItem(str(float(self.kontrol(item.text()))/float(self.tableWidget_2.item(item.row(),4).text()  ))))
 
 
 if __name__ == "__main__":

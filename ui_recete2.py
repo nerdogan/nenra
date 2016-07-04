@@ -93,7 +93,7 @@ class Ui_Dialog2(object):
         self.pushButton_2.setGeometry(QtCore.QRect(500, 440, 121, 41))
         self.pushButton_2.setObjectName(_fromUtf8("pushButton_2"))
         self.label_3 = QtGui.QLabel(Dialog2)
-        self.label_3.setGeometry(QtCore.QRect(500, 320, 71, 31))
+        self.label_3.setGeometry(QtCore.QRect(510, 320, 71, 31))
         self.label_3.setObjectName(_fromUtf8("label_3"))
         self.pushButton_3 = QtGui.QPushButton(Dialog2)
         self.pushButton_3.setGeometry(QtCore.QRect(500, 250, 121, 41))
