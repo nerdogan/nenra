@@ -24,6 +24,7 @@ from PyQt4 import QtGui, QtCore
 from reportlab.pdfgen import canvas
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.rl_settings import *
 
 from mainwindow import MainWindow
 from mainwindow import Recete
@@ -105,7 +106,7 @@ class WorkerThread(QThread):
             elif sys.platform == "linux2":
                 pass
             else:
-                self.filename = nenra.app
+                self.filename = 'nenra.dmg'
 
             rq = urllib2.urlopen('http://nen.duckdns.org:8080/dist/' + self.filename)
             fSize = int(rq.info()['Content-Length'])
@@ -551,6 +552,8 @@ if __name__ == "__main__":
 
     app = QtGui.QApplication(sys.argv)
     login = Login()
+    login.show()
+    login.raise_()
 
     if login.exec_() == QtGui.QDialog.Accepted:
         main()
