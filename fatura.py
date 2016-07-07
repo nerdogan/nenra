@@ -15,7 +15,6 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 		QtGui.QDialog.__init__(self)
 		self.setupUi(self)
 		self.myddb = Myddb()
-		self.myddb.cur.execute('SET AUTOCOMMIT=0;')
 		self.tableWidget_2.setColumnWidth(0, 50)
 		self.tableWidget_2.setColumnWidth(1, 200)
 		self.tableWidget_2.setColumnWidth(2, 40)
