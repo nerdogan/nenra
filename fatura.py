@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 import sys
 import re
 from PyQt4.QtCore import pyqtSlot
@@ -14,6 +15,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 		QtGui.QDialog.__init__(self)
 		self.setupUi(self)
 		self.myddb = Myddb()
+		self.myddb.cur.execute('SET AUTOCOMMIT=0;')
 		self.tableWidget_2.setColumnWidth(0, 50)
 		self.tableWidget_2.setColumnWidth(1, 200)
 		self.tableWidget_2.setColumnWidth(2, 40)
@@ -227,6 +229,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 		else:
 			print " fatura kaydı var"
 			self.myddb.sil(sonuc[0][0], "cariay", "fisno")
+			self.myddb.conn.commit()
 			satir = 0
 
 		i = self.tableWidget_2.rowCount()
@@ -241,8 +244,8 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 			toplam += float(deger12) * float(deger13)
 			kdv += float(deger11) * float(deger12) * float(deger13) / 100
 			print deger10
-			sql2 = "insert into cariay (fisno,fissatir,fistipi,hamkod,kdv,miktar,birimfiy) values (%s,%s,%s,%s,%s,%s,%s)"
-			self.myddb.cur.execute(sql2, (sonuc[0][0], satir, sonuc[0][2], deger10, deger11, deger12, deger13))
+			sql2 = "insert into cariay (fisno,fissatir,fistipi,hamkod,kdv,miktar,birimfiy,tarih) values (%s,%s,%s,%s,%s,%s,%s,%s)"
+			self.myddb.cur.execute(sql2, (sonuc[0][0], satir, sonuc[0][2], deger10, deger11, deger12, deger13,sonuc[0][6]))
 
 		self.myddb.conn.commit()
 		self.label_6.setText("{0}  {1}".format(str(toplam), str("{0:.3f}".format(kdv))))

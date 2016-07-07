@@ -1,4 +1,4 @@
-'''
+
 
 from distutils.core import setup
 import py2app
@@ -33,7 +33,7 @@ print  Mydata_files
 #Mydata_files.append("horn.wav")
 includefiles = Mydata_files
 # Dependencies are automatically detected, but it might need fine tuning.
-build_exe_options = {"packages": ["os"], "excludes": ["tkinter"],'include_files':includefiles}
+build_exe_options = {"packages": ["os"], "excludes": [],'include_files':includefiles}
 
 # GUI applications require a different base on Windows (the default is for a
 # console application).
@@ -46,5 +46,5 @@ setup(  name = "nenra",
         description = "NEN Restaurant Automotion 1016"
                       "",
         options = {"build_exe": build_exe_options},
-        executables = [Executable("nenra.py",icon="nenra.icns")]
-        )
+        executables = [Executable("nenra.py")]
+        ) '''
