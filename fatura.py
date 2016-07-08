@@ -229,6 +229,9 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 			print " fatura kaydı var"
 			self.myddb.sil(sonuc[0][0], "cariay", "fisno")
 			self.myddb.conn.commit()
+			son=self.myddb.cur.execute("select max(caid) from cariay")
+			son1="ALTER TABLE cariay AUTO_INCREMENT ="+str(son)
+			self.myddb.cur.execute(son1)
 			satir = 0
 
 		i = self.tableWidget_2.rowCount()
