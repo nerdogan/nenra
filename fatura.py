@@ -110,9 +110,9 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 		if len(sonuc) > 0:
 			dt = sonuc[0][6]
 
-			QtGui.QMessageBox.information(self.tableWidget,
-									"QTableWidget Cell Click",
-									"Text: " + str(dt.year))
+			#QtGui.QMessageBox.information(self.tableWidget,
+			#						"QTableWidget Cell Click",
+			#						"Text: " + str(dt.year))
 			print sonuc
 			for item in sonuc:
 				self.dateEdit.setDate(QtCore.QDate(dt.year, dt.month, dt.day))
@@ -146,6 +146,8 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 					self.tableWidget_2.setItem(aa, 4, QtGui.QTableWidgetItem(item))
 					item = str(row1[6])
 					self.tableWidget_2.setItem(aa, 5, QtGui.QTableWidgetItem(item))
+					item = str(round((row1[6]*row1[5]),2))
+					self.tableWidget_2.setItem(aa, 6, QtGui.QTableWidgetItem(item))
 					aa = aa + 1
 			self.lineEdit_3.setFocus(True)
 			return
@@ -245,7 +247,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 			deger13 = self.kontrol(deger13)
 			toplam += float(deger12) * float(deger13)
 			kdv += float(deger11) * float(deger12) * float(deger13) / 100
-			print deger10
+			print deger10 , toplam , kdv
 			sql2 = "insert into cariay (fisno,fissatir,fistipi,hamkod,kdv,miktar,birimfiy,tarih) values (%s,%s,%s,%s,%s,%s,%s,%s)"
 			self.myddb.cur.execute(sql2, (sonuc[0][0], satir, sonuc[0][2], deger10, deger11, deger12, deger13,sonuc[0][6]))
 
@@ -262,6 +264,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 	def toplamdegisti(self,item):
 		if item.column()==6:
 			self.tableWidget_2.setItem(item.row(),5,QtGui.QTableWidgetItem(str(float(self.kontrol(item.text()))/float(self.tableWidget_2.item(item.row(),4).text()  ))))
+
 
 
 if __name__ == "__main__":
