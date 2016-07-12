@@ -394,7 +394,7 @@ def main():
         tar2=deger2.strftime('%Y-%m-%d')
 
 
-        sql="SELECT urunkod,menuad,sum(adet),sum(tutar) FROM SATDATA inner join menu on  urunkod=menukod and DATE(tarih)>=%s and DATE(tarih)<=%s group by urunkod order by urunkod asc"
+        sql="SELECT pluno,menuad,sum(adet),sum(tutar) FROM bishop.ciro inner join test.menu on  pluno=menukod and DATE(tarih)>=%s and DATE(tarih)<=%s group by pluno order by pluno asc"
         bul=myddb.cur.execute(sql,(tar1,tar2))
         bul=myddb.cur.fetchall()
 
@@ -410,9 +410,10 @@ def main():
         item="            ÜRÜN    AÇIKLAMA                                   ADET           TUTAR                MALIYET                     ORAN "
         c.drawString(10,810,item)
         for row1 in bul:
-            sql1="select hurunkod,sum(hmiktar*fiyat1),harcanan.tarih from harcanan inner join hammadde on hhammaddeid=hammaddeid where DATE(tarih)>=%s and DATE(tarih)<=%s and hurunkod=%s"
-            bul1=myddb.cur.execute(sql1,(tar1,tar2,str(row1[0])))
+            sql1="select hurunkod,sum(hmiktar*fiyat1),harcanan.tarih from harcanan inner join hammadde on hhammaddeid=hamkod where DATE(tarih)>=%s and DATE(tarih)<=%s and hurunkod=%s"
+            bul1=myddb.cur.execute(sql1,(tar1,tar2,row1[0]))
             bul1=myddb.cur.fetchall()
+
 
 
             item=str(row1[0])
@@ -430,14 +431,15 @@ def main():
             toplam1=toplam1+row1[3]
             maliyet.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
             item=str(bul1[0][1])
-            toplam2=toplam2+bul1[0][1]
+
+            toplam2=toplam2+(bul1[0][1])
             c.drawString(350,800-(15*(bb+1)),item)
             maliyet.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
-            print row1[3]
+
             if int(row1[3])==0:
                 item="% 100"
             else:
-                item="% "+str(int((bul1[0][1])/row1[3]*100))
+                item="% "+str(int((float(bul1[0][1]))/ row1[3]*100))
             c.drawString(450,800-(15*(bb+1)),item)
             maliyet.tableWidget.setItem(aa, 5, QtGui.QTableWidgetItem(item))
 

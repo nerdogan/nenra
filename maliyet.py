@@ -26,10 +26,11 @@ class Maliyet(QtGui.QDialog , Ui_Dialog4):
         dt = now - EndDate
         print dt.days
         # mainWindow.plainTextEdit.appendPlainText(str(dt.days))
-        for i in range(dt.days):
+        for i in range(dt.days+1):
             print EndDate.strftime('%d%m%Y')
             sql = " select * from harcanan where tarih like %s"
             sonuc = self.myddb.cur.execute(sql, [(EndDate.strftime('%Y-%m-%d') + "%")])
+            valnen=[]
             if sonuc == 0:
                 print " kaydediliyor"
                 tar = EndDate.strftime('%d%m%Y')
@@ -37,12 +38,21 @@ class Maliyet(QtGui.QDialog , Ui_Dialog4):
                 sql2 = "SELECT menu.menukod,hamkod,miktar,adet FROM bishop.ciro inner join test.menu on pluno=menukod and DATE(tarih)=%s  inner join test.recete on  menu.menuid=recete.menukod"
                 bilgi = self.myddb.cur.execute(sql2, [(EndDate.strftime('%Y-%m-%d'))])
                 print bilgi
+                valnen=[]
                 if bilgi <> 0:
                     bilgi2 = self.myddb.cur.fetchall()
                     for row1 in bilgi2:
                         hmikt = row1[2] * row1[3]
-                        print hmikt
+
                         sql1 = "insert into harcanan (hurunkod,hhammaddeid,hmiktar,fiyat,tarih) values (%s,%s,%s,%s,%s)"
-                        self.myddb.cur.execute(sql1, (row1[0], row1[1], hmikt, "0", EndDate))
-                        self.myddb.conn.commit()
+                        valnen.append((row1[0], row1[1], hmikt, "0", EndDate))
+                        #self.myddb.cur.execute(sql1, (row1[0], row1[1], hmikt, "0", EndDate))
+
+                    print self.myddb.cur.executemany (sql1, valnen)
+                    self.myddb.conn.commit()
+                    print(valnen)
+
             EndDate = EndDate + datetime.timedelta(days=1)
+
+
+
