@@ -385,21 +385,18 @@ def main():
     def sloturunmaliyet(item2):
 
         print "urunmaliyet"
-        c = canvas.Canvas("maliyet.pdf")
-        pdfmetrics.registerFont(TTFont('Verdana', 'Verdana.ttf'))
-        c.setFont("Verdana", 8)
+        maliyet.tableWidget.clearContents()
         deger1=maliyet.dateEdit.date().toPyDate()
         deger2=maliyet.dateEdit_2.date().toPyDate()
         tar1=deger1.strftime('%Y-%m-%d')
         tar2=deger2.strftime('%Y-%m-%d')
 
+        sql="""SELECT pluno,menuad,sum(adet),sum(tutar) FROM bishop.ciro inner join test.menu on  pluno=menukod and
+        DATE(tarih) >= %s and DATE(tarih) <= %s group by pluno order by pluno asc """
+        bul2=myddb.cur.execute(sql,(tar1,tar2))
 
-        sql="SELECT pluno,menuad,sum(adet),sum(tutar) FROM bishop.ciro inner join test.menu on  pluno=menukod and DATE(tarih)>=%s and DATE(tarih)<=%s group by pluno order by pluno asc"
-        bul=myddb.cur.execute(sql,(tar1,tar2))
         bul=myddb.cur.fetchall()
-
-
-        i=len(bul)
+        i=bul2
         j=5
         maliyet.tableWidget.setRowCount(i)
         aa=0
@@ -407,49 +404,45 @@ def main():
         toplam=0
         toplam1=0
         toplam2=0
-        item="            ÜRÜN    AÇIKLAMA                                   ADET           TUTAR                MALIYET                     ORAN "
-        c.drawString(10,810,item)
         for row1 in bul:
             sql1="select hurunkod,sum(hmiktar*fiyat1),harcanan.tarih from harcanan inner join hammadde on hhammaddeid=hamkod where DATE(tarih)>=%s and DATE(tarih)<=%s and hurunkod=%s"
             bul1=myddb.cur.execute(sql1,(tar1,tar2,row1[0]))
             bul1=myddb.cur.fetchall()
-
-
+            print(bul)
 
             item=str(row1[0])
-            c.drawString(45,800-(15*(bb+1)),item)
             maliyet.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
             item=row1[1]
-            c.drawString(80,800-(15*(bb+1)),item)
             maliyet.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
             item=str(row1[2])
-            c.drawString(230,800-(15*(bb+1)),item)
+        #    c.drawString(230,800-(15*(bb+1)),item)
             toplam=toplam+row1[2]
             maliyet.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
             item=str(row1[3])
-            c.drawString(270,800-(15*(bb+1)),item)
+         #   c.drawString(270,800-(15*(bb+1)),item)
             toplam1=toplam1+row1[3]
             maliyet.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
             item=str(bul1[0][1])
 
             toplam2=toplam2+(bul1[0][1])
-            c.drawString(350,800-(15*(bb+1)),item)
+         #   c.drawString(350,800-(15*(bb+1)),item)
             maliyet.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
 
             if int(row1[3])==0:
                 item="% 100"
             else:
                 item="% "+str(int((float(bul1[0][1]))/ row1[3]*100))
-            c.drawString(450,800-(15*(bb+1)),item)
+          #  c.drawString(450,800-(15*(bb+1)),item)
             maliyet.tableWidget.setItem(aa, 5, QtGui.QTableWidgetItem(item))
 
             aa=aa+1
             bb=bb+1
+            '''
             if (15*(bb+1))>=760:
                 c.setFont("Verdana", 11)
-                c.drawString(240,800-(15*(bb+1)),str(toplam))
-                c.drawString(320,800-(15*(bb+1)),str(toplam1))
-                c.drawString(400,800-(15*(bb+1)),str(toplam2))
+                c.drawString(240,800-(15*(bb+1)), str(toplam))
+                c.drawString(320,800-(15*(bb+1)), str(toplam1))
+                c.drawString(400,800-(15*(bb+1)), str(toplam2))
                 c.showPage()
                 c.setFont("Verdana", 8)
                 bb=0
@@ -457,11 +450,22 @@ def main():
         c.drawString(230,800-(15*(bb+1)),str(toplam))
         c.drawString(270,800-(15*(bb+1)),str(int(toplam1)))
         c.drawString(350,800-(15*(bb+1)),str(int(toplam2)))
-        c.drawString(450,800-(15*(bb+1)),"% "+str(int(toplam2/toplam1*100)))
+        c.drawString(450,800-(15*(bb+1)),"% " + str(int(toplam2/toplam1*100)))
 
-        c.save()
+        c.save() '''
+
     @pyqtSlot()
     def sloturunmaliyetpdf(item2):
+        c = canvas.Canvas("maliyet.pdf")
+        pdfmetrics.registerFont(TTFont('Verdana', 'Verdana.ttf'))
+        c.setFont("Verdana", 8)
+        c.drawString(45,800-(15*(bb+1)),item)
+        item="            ÜRÜN    AÇIKLAMA                                   ADET           TUTAR                MALIYET                     ORAN "
+        c.drawString(10,810,item)
+        c.drawString(80,800-(15*(bb+1)),item)
+
+
+
         if sys.platform == "win32":
             os.startfile("maliyet.pdf")
         else:
