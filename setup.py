@@ -35,7 +35,8 @@ setup(
     'reportlab.lib',
     'reportlab.pdfbase',
     'reportlab.pdfgen',
-    'reportlab.platypus'],
+    'reportlab.platypus',
+    'reportlab.rl_settings'              ],
     'includes':['sip','MySQLdb'],
     'dll_excludes': [''],
     'bundle_files': 1 

@@ -101,6 +101,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 		sql = "select * from cari_har where  serino='" + str(deger5) + "' and sirano='" + str(deger6) + "'"
 		sonuc =self.myddb.cek(sql)
 		self.label_3.setText("")
+		self.tableWidget_2.clearContents()
 		self.tableWidget.setRowCount(0)
 		self.tableWidget_2.setRowCount(0)
 		# some_date = QtCore.QDate(2011,4,22)
@@ -110,21 +111,22 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 		if len(sonuc) > 0:
 			dt = sonuc[0][6]
 
+
 			#QtGui.QMessageBox.information(self.tableWidget,
 			#						"QTableWidget Cell Click",
 			#						"Text: " + str(dt.year))
 			print sonuc
-			for item in sonuc:
+			for item3 in sonuc:
 				self.dateEdit.setDate(QtCore.QDate(dt.year, dt.month, dt.day))
-				sonuc1 = self.myddb.cek2(item[1], "cari", "cariid")
+				sonuc1 = self.myddb.cek2(item3[1], "cari", "cariid")
 				for item2 in sonuc1:
 					print item2
 
 					deger0 = str(item2[1]) + " " + item2[2] + " " + item2[3]
 					self.label_3.setText(deger0)
-					bul1 = str(item[0])
+					bul1 = str(item3[0])
 
-				bul2 = self.myddb.cek2(item[0], "cariay", "fisno")
+				bul2 = self.myddb.cek2(item3[0], "cariay", "fisno")
 				print bul2
 				i = len(bul2)
 				j = 6
@@ -134,9 +136,10 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 				for row1 in bul2:
 					item = str(row1[4])
 					self.tableWidget_2.setItem(aa, 0, QtGui.QTableWidgetItem(item))
-					bul3 = self.myddb.cek2(item, "hammadde", "hamkod")
-					print (bul3)
-					item = str(bul3[0][2])
+					elma=item
+					bul3 = self.myddb.cek2(elma, "hammadde", "hamkod")
+
+					item = bul3[0][2]
 					self.tableWidget_2.setItem(aa, 1, QtGui.QTableWidgetItem(item))
 					item = bul3[0][3]
 					self.tableWidget_2.setItem(aa, 2, QtGui.QTableWidgetItem(item))

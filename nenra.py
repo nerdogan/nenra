@@ -50,7 +50,7 @@ logger.addHandler(handler)
 class Login(QtGui.QDialog):
     def __init__(self, parent=None):
         super(Login, self).__init__(parent)
-        self.setWindowTitle(u"NENRA 2016 Kullanıcı Girişi      ")
+        self.setWindowTitle(u"NENRA 2016 1019 Kullanıcı Girişi ")
         self.labelname = QtGui.QLabel(self)
         self.labelpass = QtGui.QLabel(self)
         self.textName = QtGui.QLineEdit(self)

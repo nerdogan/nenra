@@ -20,7 +20,7 @@ print(tgtIP)
 class Myddb():
     def __init__(self):
         # connect to the database
-        self.conn = MySQLdb.connect('192.168.2.251', 'nen', '654152', 'test', charset='utf8',port=3306);
+        self.conn = MySQLdb.connect(tgtIP, 'nen', '654152', 'test', charset='utf8',port=30000);
 
 
         # create a cursor
