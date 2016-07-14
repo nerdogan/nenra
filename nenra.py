@@ -391,9 +391,10 @@ def main():
         tar1=deger1.strftime('%Y-%m-%d')
         tar2=deger2.strftime('%Y-%m-%d')
 
-        sql="""SELECT pluno,menuad,sum(adet),sum(tutar) FROM bishop.ciro inner join test.menu on  pluno=menukod and
+        sql="""SELECT pluno,menuad,sum(adet),sum(tutar) FROM ciro inner join menu on  pluno=menukod and
         DATE(tarih) >= %s and DATE(tarih) <= %s group by pluno order by pluno asc """
         bul2=myddb.cur.execute(sql,(tar1,tar2))
+        print bul2
 
         bul=myddb.cur.fetchall()
         i=bul2
@@ -408,7 +409,7 @@ def main():
             sql1="select hurunkod,sum(hmiktar*fiyat1),harcanan.tarih from harcanan inner join hammadde on hhammaddeid=hamkod where DATE(tarih)>=%s and DATE(tarih)<=%s and hurunkod=%s"
             bul1=myddb.cur.execute(sql1,(tar1,tar2,row1[0]))
             bul1=myddb.cur.fetchall()
-            print(bul)
+
 
             item=str(row1[0])
             maliyet.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
