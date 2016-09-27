@@ -255,7 +255,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 			self.myddb.cur.execute(sql2, (sonuc[0][0], satir, sonuc[0][2], deger10, deger11, deger12, deger13,sonuc[0][6]))
 
 		self.myddb.conn.commit()
-		self.label_6.setText("{0}  {1}".format(str(toplam), str("{0:.3f}".format(kdv))))
+		self.label_6.setText("{0}  {1}  {2}".format(str("{0:.2f}".format(toplam)), str("{0:.2f}".format(kdv)),str("{0:.2f}".format(toplam+kdv))))
 		self.lineEdit_3.setFocus(True)
 
 	@pyqtSlot()
