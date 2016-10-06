@@ -9,6 +9,7 @@
 # Copyright:   (c) NAMIK ERDOĞAN  2014
 # Licence:     <your licence>
 #-------------------------------------------------------------------------------
+# pyinstaller --clean --win-private-assemblies -F masa.py --distpath="C:\Users\NAMIK\Desktop\masa" -w
 import subprocess
 import sys
 reload(sys)
@@ -50,7 +51,7 @@ logger.addHandler(handler)
 class Login(QtGui.QDialog):
     def __init__(self, parent=None):
         super(Login, self).__init__(parent)
-        self.setWindowTitle(u"NENRA 2016 1019 Kullanıcı Girişi ")
+        self.setWindowTitle(u"NENRA 2016 1038 Kullanıcı Girişi ")
         self.labelname = QtGui.QLabel(self)
         self.labelpass = QtGui.QLabel(self)
         self.textName = QtGui.QLineEdit(self)
@@ -144,7 +145,7 @@ def main():
 
 
     bul=myddb.cek("select * from menu")
-    logger.info('Program opened 1017 '+str(os.getpid()))
+    logger.info('Program opened 1038 '+str(os.getpid()))
 
 
 
@@ -513,7 +514,7 @@ def main():
     mainWindow.pushButton.clicked.connect(slotpuss)
     mainWindow.pushButton_2.clicked.connect(slotfatura)
     mainWindow.pushButton_3.clicked.connect(slotmaliyet)
-    mainWindow.statusbar.showMessage(u"Namık ERDOĞAN © 2016                                             Bishop Restaurant")
+    mainWindow.statusbar.showMessage(u"Namık ERDOĞAN © 2016 1038                                        Bishop Restaurant")
     recete.lineEdit.textChanged.connect(slottextch)
 
 

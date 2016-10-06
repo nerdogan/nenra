@@ -93,7 +93,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 			self.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
 			aa = aa + 1
 		if i==1:
-			delay
+			delay7
 
 	@pyqtSlot()
 	def slotfaturakont(self):
