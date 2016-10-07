@@ -508,9 +508,9 @@ def main():
     # dosya açmak için dialog
     # fileName =(QtGui.QFileDialog.getOpenFileName(mainWindow, u"Düzenlenecek dosyayı seçin", ".", u"Metin dosyaları (*.txt)"))
     app.setWindowIcon(QtGui.QIcon('nenra.png'))
-    mainWindow.pushButton.setStyleSheet("color: black ;  background-image: url(image.png)")
-    mainWindow.pushButton_2.setStyleSheet("color: black ;  background-image: url(fatura.png)")
-    mainWindow.pushButton_3.setStyleSheet("color: black ;  background-image: url(maliyet.png)")
+    mainWindow.pushButton.setStyleSheet("color: black ;  background-image: url(images/image.png)")
+    mainWindow.pushButton_2.setStyleSheet("color: black ;  background-image: url(images/fatura.png)")
+    mainWindow.pushButton_3.setStyleSheet("color: black ;  background-image: url(images/maliyet.png)")
     mainWindow.pushButton.clicked.connect(slotpuss)
     mainWindow.pushButton_2.clicked.connect(slotfatura)
     mainWindow.pushButton_3.clicked.connect(slotmaliyet)
