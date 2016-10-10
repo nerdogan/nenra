@@ -278,7 +278,7 @@ def main():
         #recete2.lineEdit.setFocus(True)
         recete2.tableWidget_2.setFocus()
         recete2.tableWidget_2.setCurrentCell(aa,3)
-        QSound(r"horn.wav").play()
+        QtCore.QSound(r"horn.wav").play()
 
 
     @pyqtSlot()

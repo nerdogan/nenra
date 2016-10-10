@@ -8,7 +8,7 @@ Usage:
 from setuptools import setup
 from glob import glob
 
-APP = ['nenra.py']
+APP = ['espressif.py']
 DATA_FILES = [
     ('images', glob('images/*.png')),
 ]

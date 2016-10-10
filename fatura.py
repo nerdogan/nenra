@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import sys
+import time as ttim
 import re
 from PyQt4.QtCore import pyqtSlot
 from PyQt4 import QtGui, QtCore
@@ -52,6 +53,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 		some_date = QtCore.QDate.currentDate()
 		self.dateEdit.setDate(some_date)
 		self.show()
+		self.raise_()
 		self.lineEdit.setFocus(True)
 		self.emit(QtCore.SIGNAL("acac(int)"), 33)
 
@@ -87,13 +89,14 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 			self.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
 			item = row1[3]
 			self.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
-			item = row1[4]
-			self.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
 			item = str(row1[4])
+			self.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
+			item = str(row1[6])
 			self.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
 			aa = aa + 1
 		if i==1:
-			delay7
+			QtGui.QSound.play(r"boom.wav")
+			self.slotfatura(0,0)
 
 	@pyqtSlot()
 	def slotfaturakont(self):
@@ -181,7 +184,8 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 			deger1 = self.tableWidget.item(item, 0).text()
 			deger2 = self.tableWidget.item(item, 1).text()
 			deger3 = self.tableWidget.item(item, 2).text()
-			deger4 = self.tableWidget.item(item, 4).text()
+			deger4 = self.tableWidget.item(item, 3).text()
+			deger5 = self.tableWidget.item(item, 4).text()
 
 			i = i + 1
 			j = 5
@@ -198,7 +202,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 			self.tableWidget_2.setItem(aa, 3, QtGui.QTableWidgetItem(item))
 			item = '0'
 			self.tableWidget_2.setItem(aa, 4, QtGui.QTableWidgetItem(item))
-			item = '0'
+			item = deger5
 			self.tableWidget_2.setItem(aa, 5, QtGui.QTableWidgetItem(item))
 			self.lineEdit_3.setFocus(True)
 
@@ -269,7 +273,11 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 	def toplamdegisti(self,item):
 		if item.column()==6:
 			self.tableWidget_2.setItem(item.row(),5,QtGui.QTableWidgetItem(str(float(self.kontrol(item.text()))/float(self.tableWidget_2.item(item.row(),4).text()  ))))
-
+		if item.column()==4:
+			self.tableWidget_2.setItem(item.row(),6,QtGui.QTableWidgetItem(str(float(self.kontrol(item.text())) * float(self.tableWidget_2.item(item.row(),5).text()  ))))
+		if item.column() == 5:
+			self.tableWidget_2.setItem(item.row(), 6, QtGui.QTableWidgetItem(
+				str(float(self.kontrol(item.text())) * float(self.tableWidget_2.item(item.row(), 4).text()))))
 
 
 if __name__ == "__main__":
