@@ -48,6 +48,8 @@ formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(messag
 handler.setFormatter(formatter)
 logger.addHandler(handler)
 
+
+
 class Login(QtGui.QDialog):
     def __init__(self, parent=None):
         super(Login, self).__init__(parent)
@@ -67,8 +69,6 @@ class Login(QtGui.QDialog):
         layout.addWidget(self.textPass)
         layout.addWidget(self.buttonLogin)
         self.elma = 1234
-        self.workerthread=WorkerThread()
-        self.workerthread.start()
 
     def handleLogin(self):
         if (self.textName.text() == 'mehmet' and
@@ -87,12 +87,48 @@ class WorkerThread(QThread):
     acac1 = pyqtSignal(int)
     def __init__(self,parent=None):
         super(WorkerThread,self).__init__(parent)
+        self.myddb = Myddb()
 
 
 
 
 
     def run(self):
+        StartDate = "01/10/16"
+
+        EndDate = datetime.datetime.strptime(StartDate, "%d/%m/%y")
+        now = datetime.datetime.now() - datetime.timedelta(days=1)
+        dt = now - EndDate
+        print dt.days
+        # mainWindow.plainTextEdit.appendPlainText(str(dt.days))
+        for i in range(dt.days + 1):
+            print EndDate.strftime('%d%m%Y')
+            sql = " select * from harcanan where tarih like %s"
+            sonuc = self.myddb.cur.execute(sql, [(EndDate.strftime('%Y-%m-%d') + "%")])
+            valnen = []
+            if sonuc == 0:
+                print " kaydediliyor"
+                tar = EndDate.strftime('%d%m%Y')
+
+                sql2 = "SELECT menu.menukod,hamkod,miktar,adet FROM bishop.ciro inner join test.menu on pluno=menukod and DATE(tarih)=%s  inner join test.recete on  menu.menuid=recete.menukod"
+                bilgi = self.myddb.cur.execute(sql2, [(EndDate.strftime('%Y-%m-%d'))])
+                print bilgi
+                valnen = []
+                if bilgi <> 0:
+                    bilgi2 = self.myddb.cur.fetchall()
+                    for row1 in bilgi2:
+                        hmikt = row1[2] * row1[3]
+
+                        sql1 = "insert into harcanan (hurunkod,hhammaddeid,hmiktar,fiyat,tarih) values (%s,%s,%s,%s,%s)"
+                        valnen.append((row1[0], row1[1], hmikt, "0", EndDate))
+                        # self.myddb.cur.execute(sql1, (row1[0], row1[1], hmikt, "0", EndDate))
+
+                    print self.myddb.cur.executemany(sql1, valnen)
+                    self.myddb.conn.commit()
+                    print(valnen)
+
+            EndDate = EndDate + datetime.timedelta(days=1)
+"""
         with open("ver.png", "r") as dosya:
             elma1 = dosya.read()
 
@@ -127,7 +163,7 @@ class WorkerThread(QThread):
             with open("ver.png", "w") as dosya:
                 dosya.write(self.filename)
             os.system(self.filename)
-
+"""
 
 def main():
     #app =QApplication(sys.argv)
@@ -135,17 +171,18 @@ def main():
 
     mainWindow = MainWindow()
 
+    myddb = Myddb()
+
 
     recete=Recete()
     recete2=Recete2()
     fatura=Fatura()
     maliyet=Maliyet()
-    myddb=Myddb()
-
-
+    workerthread = WorkerThread()
+    workerthread.start()
 
     bul=myddb.cek("select * from menu")
-    logger.info('Program opened 1038 '+str(os.getpid()))
+    logger.info('Program opened 1043 '+str(os.getpid()))
 
 
 
@@ -384,6 +421,8 @@ def main():
 
     @pyqtSlot()
     def sloturunmaliyet(item2):
+        myddb1=Myddb()
+
 
         print "urunmaliyet"
         maliyet.tableWidget.clearContents()
@@ -392,12 +431,12 @@ def main():
         tar1=deger1.strftime('%Y-%m-%d')
         tar2=deger2.strftime('%Y-%m-%d')
 
-        sql="""SELECT pluno,menuad,sum(adet),sum(tutar) FROM ciro inner join menu on  pluno=menukod and
+        sql="""SELECT pluno,menuad,sum(adet),sum(tutar) FROM bishop.ciro inner join test.menu on  pluno=menukod and
         DATE(tarih) >= %s and DATE(tarih) <= %s group by pluno order by pluno asc """
-        bul2=myddb.cur.execute(sql,(tar1,tar2))
-        print bul2
+        bul2=myddb1.cur.execute(sql,(tar1,tar2))
+        print bul2 , tar1 ,tar2
 
-        bul=myddb.cur.fetchall()
+        bul=myddb1.cur.fetchall()
         i=bul2
         j=5
         maliyet.tableWidget.setRowCount(i)
@@ -408,8 +447,8 @@ def main():
         toplam2=0
         for row1 in bul:
             sql1="select hurunkod,sum(hmiktar*fiyat1),harcanan.tarih from harcanan inner join hammadde on hhammaddeid=hamkod where DATE(tarih)>=%s and DATE(tarih)<=%s and hurunkod=%s"
-            bul1=myddb.cur.execute(sql1,(tar1,tar2,row1[0]))
-            bul1=myddb.cur.fetchall()
+            bul1=myddb1.cur.execute(sql1,(tar1,tar2,row1[0]))
+            bul1=myddb1.cur.fetchall()
 
 
             item=str(row1[0])
@@ -514,7 +553,7 @@ def main():
     mainWindow.pushButton.clicked.connect(slotpuss)
     mainWindow.pushButton_2.clicked.connect(slotfatura)
     mainWindow.pushButton_3.clicked.connect(slotmaliyet)
-    mainWindow.statusbar.showMessage(u"Namık ERDOĞAN © 2016 1038                                        Bishop Restaurant")
+    mainWindow.statusbar.showMessage(u"Namık ERDOĞAN © 2016 1.043                                        Bishop Restaurant")
     recete.lineEdit.textChanged.connect(slottextch)
 
 
@@ -535,7 +574,7 @@ def main():
     sh = QtGui.QShortcut(fatura)
     sh.setKey("Enter")
     fatura.connect(sh, QtCore.SIGNAL("activated()"), copyFunction)
-    mainWindow.connect(login.workerthread,SIGNAL("acac1(int)"),slotpuss4)
+    mainWindow.connect(workerthread,SIGNAL("acac1(int)"),slotpuss4)
     if login.elma ==123:
         mainWindow.statusbar.showMessage(
             u"Namık ERDOĞAN © 2016       Mehmet TUNCER          Bishop Restaurant")

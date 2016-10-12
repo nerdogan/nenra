@@ -226,7 +226,10 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 			else:
 				maxfisno1=maxfisno[0][0]
 
-			if deger0=="100":
+			if deger0 == "4":
+				self.fistipi1 = 90
+
+			elif deger0=="100":
 				self.fistipi1=22
 			else:
 				self.fistipi1=10
