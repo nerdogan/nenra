@@ -36,6 +36,7 @@ class Login(QtGui.QDialog):
         self.acac1 = pyqtSignal(int)
 
 
+
     def handleLogin(self):
         if (self.textName.text() == 'mehmet' and
                     self.textPass.text() == '1234'):

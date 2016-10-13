@@ -20,7 +20,7 @@ import urllib2
 import os
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
-from PyQt4.QtCore import pyqtSlot
+from PyQt4.QtCore import pyqtSlot,pyqtSignal
 from PyQt4 import QtGui, QtCore
 from reportlab.pdfgen import canvas
 from reportlab.pdfbase import pdfmetrics
@@ -53,10 +53,12 @@ logger.addHandler(handler)
 
 
 class WorkerThread(QThread):
+    acac1 = pyqtSignal(int)
 
     def __init__(self,parent=None):
         super(WorkerThread,self).__init__(parent)
         self.myddb = Myddb()
+        self.acac1 = pyqtSignal(int)
 
 
     def run(self):
@@ -94,6 +96,8 @@ class WorkerThread(QThread):
                     print(valnen)
 
             EndDate = EndDate + datetime.timedelta(days=1)
+
+        self.emit(QtCore.SIGNAL("acac1(int)"), 100)
 """
         with open("ver.png", "r") as dosya:
             elma1 = dosya.read()
@@ -353,18 +357,26 @@ def main():
 
     @pyqtSlot()
     def slotpuss4(item2):
-        mainWindow.statusbar.showMessage(u"Namık ERDOĞAN © 2016  GÜNCELLENİYOR %"+str(item2)+"       Bishop Restaurant")
+        if item2 == 100:
+            mainWindow.statusbar.showMessage(
+                u"Namık ERDOĞAN © 2016    Kullanıcı adı girilmedi !!!    Bishop Restaurant")
+            mainWindow.pushButton.blockSignals(1)
+            mainWindow.pushButton_2.blockSignals(1)
+
+            mainWindow.pushButton_3.blockSignals(1)
+
         if item2 == 123:
             mainWindow.statusbar.showMessage(
                 u"Namık ERDOĞAN © 2016       Mehmet TUNCER          Bishop Restaurant")
-            mainWindow.pushButton.blockSignals(1)
-
-            mainWindow.pushButton_3.blockSignals(1)
+            mainWindow.pushButton_2.blockSignals(0)
 
         if item2 == 1234:
             mainWindow.statusbar.showMessage(
                 u"Namık ERDOĞAN © 2016              demo                     Bishop Restaurant")
+            mainWindow.pushButton.blockSignals(0)
+            mainWindow.pushButton_2.blockSignals(0)
 
+            mainWindow.pushButton_3.blockSignals(0)
 
 
     @pyqtSlot()
@@ -553,19 +565,21 @@ def main():
     sh = QtGui.QShortcut(fatura)
     sh.setKey("Enter")
     fatura.connect(sh, QtCore.SIGNAL("activated()"), copyFunction)
-    mainWindow.connect(login,QtCore.SIGNAL("acac1(int)"),slotpuss4)
-
+    mainWindow.connect(login, QtCore.SIGNAL("acac1(int)"), slotpuss4)
+    mainWindow.connect(workerthread, QtCore.SIGNAL("acac1(int)"), slotpuss4)
 
     mainWindow.move(13, 10)
 
     #mainWindow.setWindowFlags(QtCore.Qt.FramelessWindowHint)
     #mainWindow.raise_()
 
+
     mainWindow.show()
 
 
     #mainWindow.setWindowState(mainWindow.windowState() & ~QtCore.Qt.WindowMinimized | QtCore.Qt.WindowActive)
     #mainWindow.activateWindow()
+    login.setWindowFlags(QtCore.Qt.FramelessWindowHint)
     login.show()
     login.raise_()
 
