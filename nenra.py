@@ -32,6 +32,7 @@ from mainwindow import Recete
 from mainwindow import Recete2
 from fatura import Fatura
 from maliyet import Maliyet
+from login import Login
 from modulemdb import *
 
 
@@ -50,47 +51,12 @@ logger.addHandler(handler)
 
 
 
-class Login(QtGui.QDialog):
-    def __init__(self, parent=None):
-        super(Login, self).__init__(parent)
-        self.setWindowTitle(u"NENRA 2016 1038 Kullanıcı Girişi ")
-        self.labelname = QtGui.QLabel(self)
-        self.labelpass = QtGui.QLabel(self)
-        self.textName = QtGui.QLineEdit(self)
-        self.textPass = QtGui.QLineEdit(self)
-        self.labelname.setText(u"Kullanıcı Adı")
-        self.labelpass.setText(u"Parola")
-        self.buttonLogin = QtGui.QPushButton(u'Giriş', self)
-        self.buttonLogin.clicked.connect(self.handleLogin)
-        layout = QtGui.QVBoxLayout(self)
-        layout.addWidget(self.labelname)
-        layout.addWidget(self.textName)
-        layout.addWidget(self.labelpass)
-        layout.addWidget(self.textPass)
-        layout.addWidget(self.buttonLogin)
-        self.elma = 1234
-
-    def handleLogin(self):
-        if (self.textName.text() == 'mehmet' and
-                    self.textPass.text() == '1234'):
-            self.accept()
-            self.elma = 123
-
-        elif ((self.textName.text() == 'n' or self.textName.text() == 'N') and    self.textPass.text() == ''):
-            self.accept()
-            self.elma = 12345
-        else:
-            QtGui.QMessageBox.warning(
-                self, 'Hata', u'Kullanıcı adı yada parola yanlış')
 
 class WorkerThread(QThread):
-    acac1 = pyqtSignal(int)
+
     def __init__(self,parent=None):
         super(WorkerThread,self).__init__(parent)
         self.myddb = Myddb()
-
-
-
 
 
     def run(self):
@@ -166,10 +132,14 @@ class WorkerThread(QThread):
 """
 
 def main():
-    #app =QApplication(sys.argv)
+    app =QApplication(sys.argv)
     app.processEvents()
 
     mainWindow = MainWindow()
+    login=Login()
+
+
+
 
     myddb = Myddb()
 
@@ -384,8 +354,16 @@ def main():
     @pyqtSlot()
     def slotpuss4(item2):
         mainWindow.statusbar.showMessage(u"Namık ERDOĞAN © 2016  GÜNCELLENİYOR %"+str(item2)+"       Bishop Restaurant")
-        if item2==100:
-            os.system('taskkill /PID '+str(os.getpid()))
+        if item2 == 123:
+            mainWindow.statusbar.showMessage(
+                u"Namık ERDOĞAN © 2016       Mehmet TUNCER          Bishop Restaurant")
+            mainWindow.pushButton.blockSignals(1)
+
+            mainWindow.pushButton_3.blockSignals(1)
+
+        if item2 == 1234:
+            mainWindow.statusbar.showMessage(
+                u"Namık ERDOĞAN © 2016              demo                     Bishop Restaurant")
 
 
 
@@ -553,7 +531,7 @@ def main():
     mainWindow.pushButton.clicked.connect(slotpuss)
     mainWindow.pushButton_2.clicked.connect(slotfatura)
     mainWindow.pushButton_3.clicked.connect(slotmaliyet)
-    mainWindow.statusbar.showMessage(u"Namık ERDOĞAN © 2016 1.043                                        Bishop Restaurant")
+    mainWindow.statusbar.showMessage(u"Namık ERDOĞAN © 2016 1.051                                        Bishop Restaurant")
     recete.lineEdit.textChanged.connect(slottextch)
 
 
@@ -570,25 +548,26 @@ def main():
     recete2.setWindowModality(Qt.ApplicationModal)
     fatura.setWindowModality(Qt.ApplicationModal)
     maliyet.setWindowModality(Qt.ApplicationModal)
+    login.setWindowModality(Qt.ApplicationModal)
 
     sh = QtGui.QShortcut(fatura)
     sh.setKey("Enter")
     fatura.connect(sh, QtCore.SIGNAL("activated()"), copyFunction)
-    mainWindow.connect(workerthread,SIGNAL("acac1(int)"),slotpuss4)
-    if login.elma ==123:
-        mainWindow.statusbar.showMessage(
-            u"Namık ERDOĞAN © 2016       Mehmet TUNCER          Bishop Restaurant")
-        mainWindow.pushButton.blockSignals(1)
-
-        mainWindow.pushButton_3.blockSignals(1)
-
-    if login.elma == 1234:
-        mainWindow.statusbar.showMessage(
-                u"Namık ERDOĞAN © 2016              demo                     Bishop Restaurant")
+    mainWindow.connect(login,QtCore.SIGNAL("acac1(int)"),slotpuss4)
 
 
     mainWindow.move(13, 10)
+
+    #mainWindow.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+    #mainWindow.raise_()
+
     mainWindow.show()
+
+
+    #mainWindow.setWindowState(mainWindow.windowState() & ~QtCore.Qt.WindowMinimized | QtCore.Qt.WindowActive)
+    #mainWindow.activateWindow()
+    login.show()
+    login.raise_()
 
 
 
@@ -596,11 +575,4 @@ def main():
     return app.exec_()
 
 if __name__ == "__main__":
-
-    app = QtGui.QApplication(sys.argv)
-    login = Login()
-    login.show()
-    login.raise_()
-
-    if login.exec_() == QtGui.QDialog.Accepted:
-        main()
+    main()
