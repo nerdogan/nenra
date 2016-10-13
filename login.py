@@ -27,6 +27,7 @@ class Login(QtGui.QDialog):
         self.labelpass.setText(u"Parola")
         self.buttonLogin = QtGui.QPushButton(u'Giriş', self)
         self.buttonLogin.clicked.connect(self.handleLogin)
+
         layout = QtGui.QVBoxLayout(self)
         layout.addWidget(self.labelname)
         layout.addWidget(self.textName)
@@ -52,5 +53,16 @@ class Login(QtGui.QDialog):
         else:
             QtGui.QMessageBox.warning(
                 self, 'Hata', u'Kullanıcı adı yada parola yanlış')
+
+    def elmaa(self):
+        self.emit(QtCore.SIGNAL("acac1(int)"), 101)
+
+    def keyPressEvent(self, event):
+        if  event.key() == QtCore.Qt.Key_Escape:
+            print "Program kapanıyor"
+            self.elmaa()
+            self.close()
+
+
 
 

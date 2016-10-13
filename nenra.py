@@ -370,6 +370,9 @@ def main():
                 u"Namık ERDOĞAN © 2016       Mehmet TUNCER          Bishop Restaurant")
             mainWindow.pushButton_2.blockSignals(0)
 
+        if item2 == 101:
+            mainWindow.close()
+
         if item2 == 1234:
             mainWindow.statusbar.showMessage(
                 u"Namık ERDOĞAN © 2016              demo                     Bishop Restaurant")
