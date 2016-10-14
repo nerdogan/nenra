@@ -109,7 +109,7 @@ class Ui_Dialog4(object):
         item = self.tableWidget.horizontalHeaderItem(4)
         item.setText(_translate("Dialog4", "Maliyet", None))
         item = self.tableWidget.horizontalHeaderItem(5)
-        item.setText(_translate("Dialog4", "Kar Oranı", None))
+        item.setText(_translate("Dialog4", "Maliyet Oranı", None))
 
 
 if __name__ == "__main__":

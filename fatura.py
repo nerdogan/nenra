@@ -55,7 +55,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 		self.show()
 		self.raise_()
 		self.lineEdit.setFocus(True)
-		self.emit(QtCore.SIGNAL("acac(int)"), 33)
+		self.emit(QtCore.SIGNAL("acac(int)"), 34)
 
 	@pyqtSlot(int,str)
 	def linechange(self,item2):
