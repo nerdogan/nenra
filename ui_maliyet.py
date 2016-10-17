@@ -59,13 +59,13 @@ class Ui_Dialog4(object):
         self.label_2.setFont(font)
         self.label_2.setObjectName(_fromUtf8("label_2"))
         self.pushButton = QtGui.QPushButton(Dialog4)
-        self.pushButton.setGeometry(QtCore.QRect(10, 220, 161, 51))
+        self.pushButton.setGeometry(QtCore.QRect(10, 230, 161, 51))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.pushButton.setFont(font)
         self.pushButton.setObjectName(_fromUtf8("pushButton"))
         self.pushButton_2 = QtGui.QPushButton(Dialog4)
-        self.pushButton_2.setGeometry(QtCore.QRect(10, 300, 161, 51))
+        self.pushButton_2.setGeometry(QtCore.QRect(10, 370, 161, 51))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.pushButton_2.setFont(font)
@@ -87,6 +87,12 @@ class Ui_Dialog4(object):
         self.tableWidget.setHorizontalHeaderItem(4, item)
         item = QtGui.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(5, item)
+        self.pushButton_3 = QtGui.QPushButton(Dialog4)
+        self.pushButton_3.setGeometry(QtCore.QRect(10, 300, 161, 51))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.pushButton_3.setFont(font)
+        self.pushButton_3.setObjectName(_fromUtf8("pushButton_3"))
 
         self.retranslateUi(Dialog4)
         QtCore.QObject.connect(self.dateEdit, QtCore.SIGNAL(_fromUtf8("dateChanged(QDate)")), self.dateEdit_2.setDate)
@@ -109,7 +115,8 @@ class Ui_Dialog4(object):
         item = self.tableWidget.horizontalHeaderItem(4)
         item.setText(_translate("Dialog4", "Maliyet", None))
         item = self.tableWidget.horizontalHeaderItem(5)
-        item.setText(_translate("Dialog4", "Maliyet Oranı", None))
+        item.setText(_translate("Dialog4", "Kar Oranı", None))
+        self.pushButton_3.setText(_translate("Dialog4", "Ürün Satış Raporu", None))
 
 
 if __name__ == "__main__":

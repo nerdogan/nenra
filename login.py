@@ -62,7 +62,7 @@ class Login(QtGui.QDialog):
             print "Program kapanıyor"
             self.elmaa()
             self.close()
-
+        super(Login, self).keyPressEvent(event)
 
 
 
