@@ -130,6 +130,12 @@ class Ui_Dialog3(object):
         self.pushButton_3.setDefault(False)
         self.pushButton_3.setFlat(False)
         self.pushButton_3.setObjectName(_fromUtf8("pushButton_3"))
+        self.pushButton_4 = QtGui.QPushButton(Dialog3)
+        self.pushButton_4.setGeometry(QtCore.QRect(680, 10, 91, 41))
+        self.pushButton_4.setAutoDefault(False)
+        self.pushButton_4.setDefault(False)
+        self.pushButton_4.setFlat(False)
+        self.pushButton_4.setObjectName(_fromUtf8("pushButton_4"))
 
         self.retranslateUi(Dialog3)
         QtCore.QObject.connect(self.pushButton_2, QtCore.SIGNAL(_fromUtf8("clicked()")), Dialog3.close)
@@ -175,6 +181,7 @@ class Ui_Dialog3(object):
         self.label_4.setText(_translate("Dialog3", "Ara", None))
         self.label_6.setText(_translate("Dialog3", "TextLabel", None))
         self.pushButton_3.setText(_translate("Dialog3", "Satır Sil", None))
+        self.pushButton_4.setText(_translate("Dialog3", "Fiş Sil", None))
 
 
 if __name__ == "__main__":

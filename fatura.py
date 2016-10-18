@@ -16,6 +16,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 		QtGui.QDialog.__init__(self)
 		self.setupUi(self)
 		self.myddb = Myddb()
+		self.fisno=None
 		self.tableWidget_2.setColumnWidth(0, 50)
 		self.tableWidget_2.setColumnWidth(1, 200)
 		self.tableWidget_2.setColumnWidth(2, 40)
@@ -30,6 +31,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 		self.pushButton.clicked.connect(self.slotfaturakaydet)
 		self.tableWidget.cellClicked.connect(self.slotfatura)
 		self.pushButton_3.clicked.connect(self.slotfaturasatirsil)
+		self.pushButton_4.clicked.connect(self.slotfaturasil)
 		self.tableWidget_2.itemChanged.connect(self.toplamdegisti)
 
 	def kontrol(self,girdi):
@@ -100,6 +102,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 
 	@pyqtSlot()
 	def slotfaturakont(self):
+		self.fisno=None
 
 		deger5 = self.lineEdit.text()
 		deger6 = self.lineEdit_2.text()
@@ -132,6 +135,8 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 					bul1 = str(item3[0])
 
 				bul2 = self.myddb.cek2(item3[0], "cariay", "fisno")
+				self.fisno = item3[0]
+
 				print bul2
 				i = len(bul2)
 				j = 6
@@ -271,6 +276,33 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 	def slotfaturasatirsil(self):
 		bb = self.tableWidget_2.currentRow()
 		self.tableWidget_2.removeRow(bb)
+
+	@pyqtSlot()
+	def slotfaturasil(self):
+		print "fiş silme ekran"
+		if self.fisno is not None:
+			print self.fisno
+			_fromUtf8 = QtCore.QString.fromUtf8
+			msg = QtGui.QMessageBox()
+			msg.setWindowTitle(_fromUtf8("Fiş Silme"))
+			msg.setIcon(QtGui.QMessageBox.Critical)
+
+			msg.setText(_fromUtf8("Fiş Siliniyor !!!"))
+			msg.setInformativeText(_fromUtf8(str(self.fisno)+" nolu fiş silmek istediğinizden eminmisiniz ?"))
+
+			msg.setDetailedText(str(self.fisno) + "Siliniyor !!!")
+			msg.setStandardButtons(QtGui.QMessageBox.Ok | QtGui.QMessageBox.Cancel)
+			#msg.buttonClicked.connect(msgbtn)
+
+			retval = msg.exec_()
+			if retval==1024:
+				print "value of pressed message box button:", retval
+				print self.myddb.sil(self.fisno, "cariay", "fisno")
+				print self.myddb.sil(self.fisno, "cari_har", "fisno")
+				self.myddb.conn.commit()
+				self.tableWidget_2.clearContents()
+				self.tableWidget.setRowCount(0)
+				self.tableWidget_2.setRowCount(0)
 
 	@pyqtSlot(int,int)
 	def toplamdegisti(self,item):

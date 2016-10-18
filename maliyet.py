@@ -28,12 +28,14 @@ class Maliyet(QtGui.QDialog , Ui_Dialog4):
         self.pushButton_3.clicked.connect(self.satisrapor)
         self.pushButton_2.clicked.connect(self.sloturunmaliyetpdf)
         self.tableWidget.setColumnWidth(0, 75)
-        self.tableWidget.setColumnWidth(1, 220)
-        self.tableWidget.setColumnWidth(2, 50)
-        self.tableWidget.setColumnWidth(3, 50)
+        self.tableWidget.setColumnWidth(1, 270)
+        self.tableWidget.setColumnWidth(2, 75)
+        self.tableWidget.setColumnWidth(3, 75)
+        self.tableWidget.setColumnWidth(4, 75)
 
     @pyqtSlot()
     def sloturunmaliyet(self):
+
         myddb1 = Myddb()
 
         print "urunmaliyet"
@@ -50,12 +52,10 @@ class Maliyet(QtGui.QDialog , Ui_Dialog4):
         c.drawString(10, 810, item)
         tar1 = deger1.strftime('%Y-%m-%d')
         tar2 = deger2.strftime('%Y-%m-%d')
-
         sql = """SELECT pluno,menuad,sum(adet),sum(tutar) FROM bishop.ciro inner join test.menu on  pluno=menukod and
             DATE(tarih) >= %s and DATE(tarih) <= %s group by pluno order by pluno asc """
         bul2 = myddb1.cur.execute(sql, (tar1, tar2))
         print bul2, tar1, tar2
-
         bul = myddb1.cur.fetchall()
         i = bul2
         j = 5
@@ -65,6 +65,7 @@ class Maliyet(QtGui.QDialog , Ui_Dialog4):
         toplam = 0.0
         toplam1 = 0.0
         toplam2 = 0.0
+
         for row1 in bul:
             sql1 = "select hurunkod,sum(hmiktar*fiyat1),harcanan.tarih from harcanan inner join hammadde on hhammaddeid=hamkod where DATE(tarih)>=%s and DATE(tarih)<=%s and hurunkod=%s"
             bul1 = myddb1.cur.execute(sql1, (tar1, tar2, row1[0]))
@@ -111,6 +112,7 @@ class Maliyet(QtGui.QDialog , Ui_Dialog4):
                 c.showPage()
                 c.setFont("Verdana", 8)
                 bb = 0
+
         c.setFont("Verdana", 12)
         c.drawString(230, 800 - (15 * (bb + 1)), str(toplam))
         c.drawString(270, 800 - (15 * (bb + 1)), str(int(toplam1)))
