@@ -151,6 +151,7 @@ class Maliyet(QtGui.QDialog , Ui_Dialog4):
         self.tableWidget.setRowCount(i)
         aa = 0
         bb = 0
+        dep=0
         toplam = 0.0
         toplam1 = 0.0
         toplam2 = 0.0
@@ -158,6 +159,19 @@ class Maliyet(QtGui.QDialog , Ui_Dialog4):
             sql1 = "select hurunkod,sum(hmiktar*fiyat1),harcanan.tarih from harcanan inner join hammadde on hhammaddeid=hamkod where DATE(tarih)>=%s and DATE(tarih)<=%s and hurunkod=%s"
             bul1 = myddb1.cur.execute(sql1, (tar1, tar2, row1[1]))
             bul1 = myddb1.cur.fetchall()
+
+            if dep != int(row1[0]):
+                dep = int(row1[0])
+                c.setFont("Verdana", 10)
+                c.drawString(230, 800 - (15 * (bb + 1)), str(toplam))
+                c.drawString(270, 800 - (15 * (bb + 1)), str("{:06.2f}".format(toplam1)))
+                c.drawString(350, 800 - (15 * (bb + 1)), str("{:06.2f}".format(toplam2)))
+                c.showPage()
+                c.setFont("Verdana", 8)
+                bb = 0
+                toplam = 0.0
+                toplam1 = 0.0
+                toplam2 = 0.0
 
             item = str(row1[0])
             self.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
@@ -192,19 +206,21 @@ class Maliyet(QtGui.QDialog , Ui_Dialog4):
             aa = aa + 1
             bb = bb + 1
 
+
             if (15 * (bb + 1)) >= 760:
-                c.setFont("Verdana", 11)
-                c.drawString(240, 800 - (15 * (bb + 1)), str(toplam))
-                c.drawString(320, 800 - (15 * (bb + 1)), str(toplam1))
-                c.drawString(400, 800 - (15 * (bb + 1)), str(toplam2))
+                c.setFont("Verdana", 10)
+                c.drawString(230, 800 - (15 * (bb + 1)), str(toplam))
+                c.drawString(270, 800 - (15 * (bb + 1)), str(toplam1))
+                c.drawString(350, 800 - (15 * (bb + 1)), str(toplam2))
                 c.showPage()
                 c.setFont("Verdana", 8)
                 bb = 0
-        c.setFont("Verdana", 12)
+        c.setFont("Verdana", 10)
         c.drawString(230, 800 - (15 * (bb + 1)), str(toplam))
         c.drawString(270, 800 - (15 * (bb + 1)), str(int(toplam1)))
         c.drawString(350, 800 - (15 * (bb + 1)), str(int(toplam2)))
         c.drawString(450, 800 - (15 * (bb + 1)), "% " + str(int(toplam2 / toplam1 * 100)))
+        #todo genel toplam yazılacak
 
         c.save()
 
