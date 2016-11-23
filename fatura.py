@@ -15,7 +15,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 	def __init__(self):
 		QtGui.QDialog.__init__(self)
 		self.setupUi(self)
-		self.myddb = Myddb()
+
 		self.fisno=None
 		self.tableWidget_2.setColumnWidth(0, 50)
 		self.tableWidget_2.setColumnWidth(1, 200)
@@ -45,6 +45,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 
 	def goster(self):
 		print "fatura arayüzü açıldı"
+		self.myddb = Myddb()
 		self.lineEdit.setText("")
 		self.lineEdit_2.setText("")
 		self.lineEdit_3.setText("")
@@ -96,9 +97,6 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 			item = str(row1[6])
 			self.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
 			aa = aa + 1
-		if i==1:
-			QtGui.QSound.play(r"boom.wav")
-			self.slotfatura(0,0)
 
 	@pyqtSlot()
 	def slotfaturakont(self):
@@ -135,7 +133,8 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 					bul1 = str(item3[0])
 
 				bul2 = self.myddb.cek2(item3[0], "cariay", "fisno")
-				self.fisno = item3[0]
+				self.fisno = item3[3]
+				print self.fisno , "ahada bu"
 
 				print bul2
 				i = len(bul2)
@@ -246,7 +245,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 
 		else:
 			print " fatura kaydı var"
-			self.myddb.sil(sonuc[0][0], "cariay", "fisno")
+			self.myddb.sil(sonuc[0][3], "cariay", "fisno")
 			self.myddb.conn.commit()
 			son=self.myddb.cur.execute("select max(caid) from cariay")
 			son1="ALTER TABLE cariay AUTO_INCREMENT ="+str(son)
@@ -266,7 +265,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 			kdv += float(deger11) * float(deger12) * float(deger13) / 100
 			print deger10 , toplam , kdv
 			sql2 = "insert into cariay (fisno,fissatir,fistipi,hamkod,kdv,miktar,birimfiy,tarih) values (%s,%s,%s,%s,%s,%s,%s,%s)"
-			self.myddb.cur.execute(sql2, (sonuc[0][0], satir, sonuc[0][2], deger10, deger11, deger12, deger13,sonuc[0][6]))
+			self.myddb.cur.execute(sql2, (sonuc[0][3], satir, sonuc[0][2], deger10, deger11, deger12, deger13,sonuc[0][6]))
 
 		self.myddb.conn.commit()
 		self.label_6.setText("{0}  {1}  {2}".format(str("{0:.2f}".format(toplam)), str("{0:.2f}".format(kdv)),str("{0:.2f}".format(toplam+kdv))))
