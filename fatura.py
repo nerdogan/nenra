@@ -132,7 +132,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 					self.label_3.setText(deger0)
 					bul1 = str(item3[0])
 
-				bul2 = self.myddb.cek2(item3[0], "cariay", "fisno")
+				bul2 = self.myddb.cek2(item3[3], "cariay", "fisno")
 				self.fisno = item3[3]
 				print self.fisno , "ahada bu"
 
