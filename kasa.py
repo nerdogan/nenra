@@ -11,7 +11,7 @@ from modulemdb import *
 
 
 
-class Fatura(QtGui.QDialog , Ui_Dialog3):
+class Kasa(QtGui.QDialog , Ui_Dialog3):
     def __init__(self):
         QtGui.QDialog.__init__(self)
         self.setupUi(self)
@@ -140,7 +140,6 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
                 i = len(bul2)
                 j = 6
                 self.tableWidget_2.setRowCount(i)
-
                 aa = 0
                 toplam = 0
                 for row1 in bul2:
@@ -163,7 +162,6 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
                     self.tableWidget_2.setItem(aa, 6, QtGui.QTableWidgetItem(item))
                     aa = aa + 1
             self.lineEdit_3.setFocus(True)
-            self.tableWidget_2.blockSignals(False)
             return
 
     @pyqtSlot(int, int)
@@ -309,7 +307,6 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 
     @pyqtSlot(int,int)
     def toplamdegisti(self,item):
-        self.tableWidget_2.blockSignals(True)
         if item.column()==6:
             self.tableWidget_2.setItem(item.row(),5,QtGui.QTableWidgetItem(str(float(self.kontrol(item.text()))/float(self.tableWidget_2.item(item.row(),4).text()  ))))
         if item.column()==4:
@@ -318,7 +315,6 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
             self.tableWidget_2.setItem(item.row(), 6, QtGui.QTableWidgetItem(
                 str(float(self.kontrol(item.text())) * float(self.tableWidget_2.item(item.row(), 4).text()))))
 
-        self.tableWidget_2.blockSignals(False)
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
