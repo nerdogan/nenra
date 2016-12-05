@@ -40,14 +40,43 @@ sys.exit(exit_code)
 def main():
     app = QtGui.QApplication(sys.argv)
 
-    w = QtGui.QWidget()
+    w = QtGui.QMainWindow()
     w.resize(250, 150)
     w.move(300, 300)
     w.setWindowTitle(ip_address)
+    btn1 = QtGui.QPushButton(" AC KAPAT",w)
+    btn1.resize(150,50)
+    btn1.move(50,50)
+
+
+
+
+
+    btn1.clicked.connect(buttonClicked)
+
+
     w.show()
     w.raise_()
 
     sys.exit(app.exec_())
+
+
+def buttonClicked(self):
+    global onof
+    onof=onof+1
+    import httplib
+    h1 = httplib.HTTPConnection(ip_address)
+    if  (divmod(onof,2))[1]:
+        h1.request("GET", "/LED=OFF")
+
+    else:
+        h1.request("GET", "/LED=ON")
+
+
+    h2 = h1.getresponse()
+    print h2.read()
+    print onof,(divmod(onof,2))[1]
+
 
 def scan_for_hosts(ip_range):
     """Scan the given IP address range using Nmap and return the result
@@ -106,6 +135,7 @@ def find_address_of_type(host_elem, type_):
 if __name__ == '__main__':
     mac_address = '18:FE:34:D5:21:16'
     ip_range = '192.168.1.1-255'
+    onof = 0
 
     xml = scan_for_hosts(ip_range)
     print xml

@@ -122,6 +122,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
             #						"QTableWidget Cell Click",
             #						"Text: " + str(dt.year))
             print sonuc
+            self.tableWidget_2.blockSignals(True)
             for item3 in sonuc:
                 self.dateEdit.setDate(QtCore.QDate(dt.year, dt.month, dt.day))
                 sonuc1 = self.myddb.cek2(item3[1], "cari", "cariid")
@@ -162,8 +163,10 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
                     item = str(round((row1[6]*row1[5]),2))
                     self.tableWidget_2.setItem(aa, 6, QtGui.QTableWidgetItem(item))
                     aa = aa + 1
+
             self.lineEdit_3.setFocus(True)
             self.tableWidget_2.blockSignals(False)
+
             return
 
     @pyqtSlot(int, int)
@@ -180,6 +183,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
             self.label_3.setText(deger1 + " " + deger2 + " " + deger3)
             bul1 = str(deger1)
             self.lineEdit_3.setText("")
+            self.lineEdit_3.setFocus(True)
             self.slotfaturakaydet()
 
             return
@@ -317,7 +321,6 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
         if item.column() == 5:
             self.tableWidget_2.setItem(item.row(), 6, QtGui.QTableWidgetItem(
                 str(float(self.kontrol(item.text())) * float(self.tableWidget_2.item(item.row(), 4).text()))))
-
         self.tableWidget_2.blockSignals(False)
 
 if __name__ == "__main__":

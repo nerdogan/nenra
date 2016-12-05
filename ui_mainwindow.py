@@ -25,7 +25,7 @@ except AttributeError:
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
-        MainWindow.resize(461, 309)
+        MainWindow.resize(773, 504)
         MainWindow.setMinimumSize(QtCore.QSize(390, 309))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(_fromUtf8("nenra.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -126,7 +126,7 @@ class Ui_MainWindow(object):
         self.label_3.setObjectName(_fromUtf8("label_3"))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 461, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 773, 22))
         self.menubar.setObjectName(_fromUtf8("menubar"))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtGui.QStatusBar(MainWindow)
