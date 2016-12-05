@@ -190,6 +190,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 
         if len(self.label_3.text()) > 12:
             #   hammadde listesinden çiftklikle tablewidget_2 ye hammadde bilgisini ekliyor.
+            self.tableWidget_2.blockSignals(True)
             i = self.tableWidget_2.rowCount()
             deger1 = self.tableWidget.item(item, 0).text()
             deger2 = self.tableWidget.item(item, 1).text()
@@ -210,11 +211,14 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
             self.tableWidget_2.setItem(aa, 2, QtGui.QTableWidgetItem(item))
             item = deger4
             self.tableWidget_2.setItem(aa, 3, QtGui.QTableWidgetItem(item))
-            item = '0'
+            item = '1'
             self.tableWidget_2.setItem(aa, 4, QtGui.QTableWidgetItem(item))
             item = deger5
             self.tableWidget_2.setItem(aa, 5, QtGui.QTableWidgetItem(item))
+            item = deger5
+            self.tableWidget_2.setItem(aa, 6, QtGui.QTableWidgetItem(item))
             self.lineEdit_3.setFocus(True)
+            self.tableWidget_2.blockSignals(False)
 
     @pyqtSlot()
     def slotfaturakaydet(self):
