@@ -153,7 +153,7 @@ def main():
     workerthread.start()
 
     bul=myddb.cek("select * from menu")
-    logger.info('Program opened 1043 '+str(os.getpid()))
+    logger.info('Program opened 1118 '+str(os.getpid()))
 
 
 
