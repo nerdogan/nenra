@@ -199,7 +199,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>nenra.ico</normaloff>nenra.ico</iconset>
+     <normaloff>images/nenra.ico</normaloff>images/nenra.ico</iconset>
    </property>
    <property name="autoDefault">
     <bool>false</bool>

@@ -93,7 +93,7 @@ class Ui_Dialog3(object):
         self.pushButton = QtGui.QPushButton(Dialog3)
         self.pushButton.setGeometry(QtCore.QRect(750, 450, 75, 31))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(_fromUtf8("nenra.ico")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(_fromUtf8("images/nenra.ico")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.pushButton.setIcon(icon)
         self.pushButton.setAutoDefault(False)
         self.pushButton.setObjectName(_fromUtf8("pushButton"))
