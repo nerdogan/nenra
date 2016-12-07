@@ -10,7 +10,7 @@ from glob import glob
 
 APP = ['nenra.py']
 DATA_FILES = [
-    ('images', glob('images/*.png')),
+    ('images', glob('images/*.*')),
 ]
 OPTIONS = {'argv_emulation': True}
 
