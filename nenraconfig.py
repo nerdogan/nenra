@@ -16,7 +16,7 @@ import os
 
 def _GetConfig():
     _config = ConfigParser.ConfigParser()
-    _config.read(os.path.expanduser('./images/1.nenra'))
+    _config.read(os.path.expanduser('./images/a.nenra'))
     return _config
 
 def _GetOption( option):
