@@ -10,13 +10,6 @@
 import requests
 url = 'http://nen.duckdns.org:8080/dist/index1.php'
 
-files = {'file': open('nenra.spec', 'rb')}
-r = requests.post(url, files=files)
 
-'''
-files = {'file': open('./dist/nenra-0.1016-win32.msi', 'rb')}
-r = requests.post(url, files=files)
-'''
-
-files = {'file': open('./dist/nenra.rar', 'rb')}
+files = {'file': open('c:\\Users\\NAMIK\\Desktop\\nenra\\nenra.rar', 'rb')}
 r = requests.post(url, files=files)

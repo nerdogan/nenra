@@ -12,6 +12,7 @@ rd /S /Q build
 rem ***** create the e
 pyinstaller  -F nenra.spec --distpath="C:\Users\NAMIK\Desktop\nenra"  -w
 
+"c:\Program Files (x86)\WinRAR\Rar.exe" a -r c:\Users\NAMIK\Desktop\nenra\nenra.rar c:\Users\NAMIK\Desktop\nenra
 rem D:\aproje\nenra\mdb\dist\nenra2.exe
 rem **** pause so we can see the exit codes
 rem pause "done...hit a key to exit"

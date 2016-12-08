@@ -18,7 +18,7 @@ class Login(QtGui.QDialog):
     acac1 = pyqtSignal(int)
     def __init__(self, parent=None):
         super(Login, self).__init__(parent)
-        self.setWindowTitle(u"NENRA 2016 1053 Kullanıcı Girişi ")
+        self.setWindowTitle(u"NENRA 2016 1121 Kullanıcı Girişi ")
         self.labelname = QtGui.QLabel(self)
         self.labelpass = QtGui.QLabel(self)
         self.textName = QtGui.QLineEdit(self)
@@ -64,5 +64,10 @@ class Login(QtGui.QDialog):
             self.close()
         super(Login, self).keyPressEvent(event)
 
-
+if __name__ == "__main__":
+    app = QtGui.QApplication(sys.argv)
+    fatura1=Login()
+    fatura1.setStyleSheet("color:red ; background-color: orange;")
+    fatura1.show()
+    app.exec_()
 

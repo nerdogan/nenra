@@ -441,6 +441,7 @@ def main():
     # dosya açmak için dialog
     # fileName =(QtGui.QFileDialog.getOpenFileName(mainWindow, u"Düzenlenecek dosyayı seçin", ".", u"Metin dosyaları (*.txt)"))
     app.setWindowIcon(QtGui.QIcon('nenra.png'))
+    mainWindow.verticalLayoutWidget_2.setStyleSheet("background-image: url(newyork.png);")
     mainWindow.pushButton.setStyleSheet("color: black ;  background-image: url(images/image.png)")
     mainWindow.pushButton_2.setStyleSheet("color: black ;  background-image: url(images/fatura.png)")
     mainWindow.pushButton_3.setStyleSheet("color: black ;  background-image: url(images/maliyet.png)")
@@ -483,6 +484,7 @@ def main():
     #mainWindow.setWindowState(mainWindow.windowState() & ~QtCore.Qt.WindowMinimized | QtCore.Qt.WindowActive)
     #mainWindow.activateWindow()
     login.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+    login.setStyleSheet("color:red ; background-color: orange;")
     login.show()
     login.raise_()
 
