@@ -42,6 +42,7 @@ def initializeModel(model):
 def createView(title, model):
     view = QtGui.QTableView()
     view.setModel(model)
+
     view.setWindowTitle(title)
     return view
 
@@ -52,8 +53,12 @@ def addrow(i):
     print ret
     model.setQuery('select * from kasa where tutar<0 and posid=2000 and tarih="'+ret+'" ')
     view1.setModel(model)
+
+
 def geridon(i):
-    model.setQuery('select tarih, sum(tutar) from kasa where tutar<0 group by tarih')
+    model.setQuery('select tarih, sum(tutar) from kasa where tutar<0 and posid=2000 group by tarih')
+
+
     view1.setModel(model)
 
 
@@ -79,6 +84,7 @@ if __name__ == '__main__':
     button.clicked.connect(lambda: addrow(view1.currentIndex().row()))
     layout.addWidget(button)
 
+
     btn1 = QtGui.QPushButton(_fromUtf8("Geri Dön "))
     btn1.clicked.connect(geridon)
     layout.addWidget(btn1)
@@ -87,3 +93,8 @@ if __name__ == '__main__':
     dlg.setWindowTitle("Masraflar")
     dlg.show()
     sys.exit(app.exec_())
+
+
+
+
+

@@ -52,7 +52,7 @@ class Maliyet(QtGui.QDialog , Ui_Dialog4):
         c.drawString(10, 810, item)
         tar1 = deger1.strftime('%Y-%m-%d')
         tar2 = deger2.strftime('%Y-%m-%d')
-        sql = """SELECT pluno,menuad,sum(adet),sum(tutar) FROM bishop.ciro inner join test.menu on  pluno=menukod and
+        sql = """SELECT pluno,hamad,sum(adet),sum(tutar) FROM bishop.ciro inner join test.hammadde on  pluno=hamkod and
             DATE(tarih) >= %s and DATE(tarih) <= %s group by pluno order by pluno asc """
         bul2 = myddb1.cur.execute(sql, (tar1, tar2))
         print bul2, tar1, tar2
@@ -140,7 +140,7 @@ class Maliyet(QtGui.QDialog , Ui_Dialog4):
         tar1 = deger1.strftime('%Y-%m-%d')
         tar2 = deger2.strftime('%Y-%m-%d')
 
-        sql = """SELECT departman,pluno,menuad,sum(adet),sum(tutar) FROM bishop.ciro  inner join test.menu on  pluno=menukod and
+        sql = """SELECT departman,pluno,hamad,sum(adet),sum(tutar) FROM bishop.ciro  inner join test.hammadde on  pluno=hamkod and
                 DATE(tarih) >= %s and DATE(tarih) <= %s  group by departman,pluno order by departman asc """
         bul2 = myddb1.cur.execute(sql, (tar1, tar2))
         print bul2, tar1, tar2

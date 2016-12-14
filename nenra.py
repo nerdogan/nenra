@@ -75,7 +75,7 @@ class WorkerThread(QThread):
                 print " kaydediliyor"
                 tar = EndDate.strftime('%d%m%Y')
 
-                sql2 = "SELECT menu.menukod,hamkod,miktar,adet FROM bishop.ciro inner join test.menu on pluno=menukod and DATE(tarih)=%s  inner join test.recete on  menu.menuid=recete.menukod"
+                sql2 = "SELECT hammadde.hamkod,recete.hamkod,miktar,adet FROM bishop.ciro inner join test.hammadde on pluno=hamkod and DATE(tarih)=%s  inner join test.recete on  hammadde.hamkod=recete.menukod"
                 bilgi = self.myddb.cur.execute(sql2, [(EndDate.strftime('%Y-%m-%d'))])
                 print bilgi
                 valnen = []
@@ -152,7 +152,7 @@ def main():
     workerthread = WorkerThread()
     workerthread.start()
 
-    bul=myddb.cek("select * from menu")
+    bul=myddb.cek("select * from hammadde where kategori=2 or kategori=3 order by hamkod")
     logger.info('Program opened 1118 '+str(os.getpid()))
 
 
@@ -162,7 +162,7 @@ def main():
 
         recete2.lineEdit.setText("")
 #   recete2 ekranı hazırlanıyor
-        deger0=recete.tableWidget.item(item,0).text()
+        deger0=recete.tableWidget.item(item,1).text()
         recete2.label_3.setText(deger0)
         file = open(deger0+".txt", "w")
 
@@ -174,7 +174,7 @@ def main():
 # veritabanından bilgi çek
 
         bul2=myddb.cek2(deger0,"recete","menukod")
-        bul=myddb.cek("select * from menu where menukod>9000")
+        bul=myddb.cek("select * from hammadde where hamkod>9000")
         recete2.comboBox.clear()
         i=len(bul)
         for xx1 in range(i):
@@ -383,10 +383,14 @@ def main():
     def slottextch(item2):
         print "kjkljlk reçete"
         a=item2.toUtf8()
-        a=str(a)
+        a='%'+str(a)+'%'
         print a
 
-        bul=myddb.cek1(a,"menu","menuad")
+
+        sql3 = "select * from hammadde where (kategori=2 or kategori=3) and  ( hamkod like '"+a+"' or hamad like '"+a+"'  ) order by hamkod"
+
+        myddb.cur.execute(sql3)
+        bul=myddb.cur.fetchall()
 
 
         i=len(bul)

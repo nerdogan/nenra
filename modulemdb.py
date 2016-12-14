@@ -24,7 +24,7 @@ print(tgtIP)
 class Myddb():
     def __init__(self):
         # connect to the database
-        self.conn = MySQLdb.connect(tgtIP, nenraconfig._GetOption('user'), nenraconfig._GetOption('password'), 'test', charset='utf8',port=30000);
+        self.conn = MySQLdb.connect(tgtIP, nenraconfig._GetOption('user'), nenraconfig._GetOption('password'), 'test', charset='utf8',port=int(nenraconfig._GetOption('port')));
 
 
         # create a cursor
@@ -52,8 +52,6 @@ class Myddb():
         sql=" '%"+ sql +"%'"
         print sql
         sql1="select * from "+tablenam+ " where "+colname+" like "+sql
-        if colname=="menuad":
-            sql1=sql1+" or menukod like "+sql
         if colname=="hamad":
             sql1=sql1+"and kategori<>3 or hamkod like "+sql
         print sql1
