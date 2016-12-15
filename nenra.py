@@ -372,7 +372,7 @@ def main():
 
         if item2 == 1234:
             mainWindow.statusbar.showMessage(
-                u"Namık ERDOĞAN © 2016              demo                     Bishop Restaurant")
+                u"Namık ERDOĞAN © 2016      Yönetici                  Bishop Restaurant")
             mainWindow.pushButton.blockSignals(0)
             mainWindow.pushButton_2.blockSignals(0)
 
@@ -452,7 +452,7 @@ def main():
     mainWindow.pushButton.clicked.connect(slotpuss)
     mainWindow.pushButton_2.clicked.connect(slotfatura)
     mainWindow.pushButton_3.clicked.connect(slotmaliyet)
-    mainWindow.statusbar.showMessage(u"Namık ERDOĞAN © 2016 1.051                                        Bishop Restaurant")
+    mainWindow.statusbar.showMessage(u"Namık ERDOĞAN © 2016 1.201                                        Bishop Restaurant")
     recete.lineEdit.textChanged.connect(slottextch)
 
 

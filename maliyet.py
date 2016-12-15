@@ -106,15 +106,15 @@ class Maliyet(QtGui.QDialog , Ui_Dialog4):
 
             if (15 * (bb + 1)) >= 760:
                 c.setFont("Verdana", 11)
-                c.drawString(240, 800 - (15 * (bb + 1)), str(toplam))
-                c.drawString(320, 800 - (15 * (bb + 1)), str(toplam1))
-                c.drawString(400, 800 - (15 * (bb + 1)), str(toplam2))
+                c.drawString(210, 800 - (15 * (bb + 1)), str(toplam))
+                c.drawString(270, 800 - (15 * (bb + 1)), str(toplam1))
+                c.drawString(350, 800 - (15 * (bb + 1)), str(toplam2))
                 c.showPage()
                 c.setFont("Verdana", 8)
                 bb = 0
 
         c.setFont("Verdana", 12)
-        c.drawString(230, 800 - (15 * (bb + 1)), str(toplam))
+        c.drawString(210, 800 - (15 * (bb + 1)), str(toplam))
         c.drawString(270, 800 - (15 * (bb + 1)), str(int(toplam1)))
         c.drawString(350, 800 - (15 * (bb + 1)), str(int(toplam2)))
         c.drawString(450, 800 - (15 * (bb + 1)), "% " + str(int(toplam2 / toplam1 * 100)))
@@ -140,8 +140,8 @@ class Maliyet(QtGui.QDialog , Ui_Dialog4):
         tar1 = deger1.strftime('%Y-%m-%d')
         tar2 = deger2.strftime('%Y-%m-%d')
 
-        sql = """SELECT departman,pluno,hamad,sum(adet),sum(tutar) FROM bishop.ciro  inner join test.hammadde on  pluno=hamkod and
-                DATE(tarih) >= %s and DATE(tarih) <= %s  group by departman,pluno order by departman asc """
+        sql = """SELECT ciro.departman,pluno,hamad,sum(adet),sum(tutar) FROM bishop.ciro  inner join test.hammadde on  pluno=hamkod and
+                DATE(tarih) >= %s and DATE(tarih) <= %s  group by ciro.departman,pluno order by ciro.departman asc """
         bul2 = myddb1.cur.execute(sql, (tar1, tar2))
         print bul2, tar1, tar2
 
@@ -163,7 +163,7 @@ class Maliyet(QtGui.QDialog , Ui_Dialog4):
             if dep != int(row1[0]):
                 dep = int(row1[0])
                 c.setFont("Verdana", 10)
-                c.drawString(230, 800 - (15 * (bb + 1)), str(toplam))
+                c.drawString(210, 800 - (15 * (bb + 1)), str(toplam))
                 c.drawString(270, 800 - (15 * (bb + 1)), str("{:06.2f}".format(toplam1)))
                 c.drawString(350, 800 - (15 * (bb + 1)), str("{:06.2f}".format(toplam2)))
                 c.showPage()
@@ -209,7 +209,7 @@ class Maliyet(QtGui.QDialog , Ui_Dialog4):
 
             if (15 * (bb + 1)) >= 760:
                 c.setFont("Verdana", 10)
-                c.drawString(230, 800 - (15 * (bb + 1)), str(toplam))
+                c.drawString(210, 800 - (15 * (bb + 1)), str(toplam))
                 c.drawString(270, 800 - (15 * (bb + 1)), str(toplam1))
                 c.drawString(350, 800 - (15 * (bb + 1)), str(toplam2))
                 c.showPage()
