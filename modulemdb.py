@@ -65,7 +65,7 @@ class Myddb():
         #sql="'"+ sql +"'"
         print sql
         sql1="select * from "+tablenam+ " where "+colname+" = %s "
-        print sql1
+
         self.cur.execute(sql1,[sql])
         # show the result
         self.result = self.cur.fetchall()

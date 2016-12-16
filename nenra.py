@@ -330,6 +330,7 @@ def main():
             item=str(row1[0])
             recete.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
             item=str(row1[1])
+            bul2 = myddb.cek2(item, "recete", "menukod")
             recete.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
             item=row1[2]
             recete.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
@@ -339,6 +340,10 @@ def main():
             recete.tableWidget.setItem(aa, 3, proto)
             item=str(row1[4])
             recete.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
+            if len(bul2) == 0:
+
+                recete.tableWidget.item(aa, 2).setBackground(QtGui.QColor('red'))
+
             aa=aa+1
         recete.lineEdit.setFocus(True)
 
