@@ -245,7 +245,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 
             elif deger0=="100":
                 self.fistipi1=22
-            elif deger5 == "tah":
+            elif deger5 == "ted":
                 self.fistipi1 = 11
 
             else:
