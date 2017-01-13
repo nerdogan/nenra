@@ -22,7 +22,7 @@ except AttributeError:
 appcore=QtCore.QCoreApplication(sys.argv)
 db = QtSql.QSqlDatabase.addDatabase('QMYSQL')
 db.setHostName('192.168.2.251')
-db.setDatabaseName('bishop')
+db.setDatabaseName('test')
 db.setUserName('nen')
 db.setPassword('654152')
 
@@ -31,7 +31,7 @@ if db.open() == False:
 
 
 def initializeModel(model):
-    model.setQuery('select tarih, sum(tutar) from kasa where tutar<0 and posid=2000 group by tarih')
+    model.setQuery("select * from cari_har where  fistipi=10 and tarih between '2016-12-01' and '2016-12-31'")
 
 
     model.setHeaderData(0, QtCore.Qt.Horizontal, " ")

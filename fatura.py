@@ -136,6 +136,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
                 bul2 = self.myddb.cek2(item3[3], "cariay", "fisno")
                 self.fisno = item3[3]
                 print self.fisno , "ahada bu"
+                self.setWindowTitle(QtCore.QString.fromUtf8("Fiş Girişi " + str(self.fisno)))
 
                 print bul2
                 i = len(bul2)
@@ -253,6 +254,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 
             sql1 = "insert into cari_har (cariid,serino,sirano,tarih,fistipi,fisno) values (%s,%s,%s,%s,%s,%s)"
             print sql1
+            self.setWindowTitle(QtCore.QString.fromUtf8("Fiş Girişi " + str(maxfisno1 + 1)))
             self.myddb.cur.execute(sql1, (deger0, deger5, deger6, deger7, self.fistipi1, maxfisno1 + 1))
             self.myddb.conn.commit()
 
