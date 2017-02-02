@@ -31,3 +31,6 @@ class Updater():
 			with open("ver.png", "w") as dosya:
 				dosya.write(filename)
 			os.system(filename)
+rq = urllib2.urlopen('http://nen.duckdns.org:8080/dist/' + self.filename)
+            fSize = int(rq.info()['Content-Length'])
+            print rq.info()['Last-Modified'

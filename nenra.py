@@ -114,6 +114,7 @@ class WorkerThread(QThread):
 
             rq = urllib2.urlopen('http://nen.duckdns.org:8080/dist/' + self.filename)
             fSize = int(rq.info()['Content-Length'])
+            print rq.info()['Last-Modified']
             fileName = self.filename
             downloadedChunk = 0
             blockSize = 2048

@@ -146,12 +146,13 @@ class Maliyet(QtGui.QDialog , Ui_Dialog4):
         print bul2, tar1, tar2
 
         bul = myddb1.cur.fetchall()
+
         i = bul2
         j = 5
         self.tableWidget.setRowCount(i)
         aa = 0
         bb = 0
-        dep=0
+        dep=1
         toplam = 0.0
         toplam1 = 0.0
         toplam2 = 0.0
@@ -159,6 +160,7 @@ class Maliyet(QtGui.QDialog , Ui_Dialog4):
             sql1 = "select hurunkod,sum(hmiktar*fiyat1),harcanan.tarih from harcanan inner join hammadde on hhammaddeid=hamkod where DATE(tarih)>=%s and DATE(tarih)<=%s and hurunkod=%s"
             bul1 = myddb1.cur.execute(sql1, (tar1, tar2, row1[1]))
             bul1 = myddb1.cur.fetchall()
+
 
             if dep != int(row1[0]):
                 dep = int(row1[0])
