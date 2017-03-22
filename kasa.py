@@ -318,6 +318,6 @@ class Kasa(QtGui.QDialog , Ui_Dialog3):
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
-    fatura1=Fatura()
+    fatura1=Kasa()
     fatura1.goster()
     app.exec_()

@@ -28,6 +28,7 @@ from mainwindow import Recete
 from mainwindow import Recete2
 from fatura import Fatura
 from maliyet import Maliyet
+from cari import Cari
 from login import Login
 from modulemdb import *
 
@@ -59,7 +60,7 @@ class WorkerThread(QThread):
 
     def run(self):
         self.emit(QtCore.SIGNAL("acac1(int)"), 100)
-        StartDate = "01/01/17"
+        StartDate = "01/03/17"
 
         EndDate = datetime.datetime.strptime(StartDate, "%d/%m/%y")
         now = datetime.datetime.now() - datetime.timedelta(days=1)
@@ -150,6 +151,7 @@ def main():
     recete2=Recete2()
     fatura=Fatura()
     maliyet=Maliyet()
+    cari = Cari()
     workerthread = WorkerThread()
     workerthread.start()
 
@@ -359,6 +361,11 @@ def main():
         maliyet.show()
 
     @pyqtSlot()
+    def slotcari(item2):
+        print "cari arayüzü açıldı"
+        cari.show()
+
+    @pyqtSlot()
     def slotpuss4(item2):
         if item2 == 100:
             mainWindow.statusbar.showMessage(
@@ -458,6 +465,7 @@ def main():
     mainWindow.pushButton.clicked.connect(slotpuss)
     mainWindow.pushButton_2.clicked.connect(slotfatura)
     mainWindow.pushButton_3.clicked.connect(slotmaliyet)
+    mainWindow.pushButton_4.clicked.connect(slotcari)
     mainWindow.statusbar.showMessage(u"Namık ERDOĞAN © 2016 1.201                                        Bishop Restaurant")
     recete.lineEdit.textChanged.connect(slottextch)
 

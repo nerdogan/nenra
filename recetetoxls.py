@@ -75,6 +75,8 @@ class recetetoxls():
         for row1 in bul:
             self.ws1.write(self.satir, 0, row1[1],self.style1)
             self.ws1.write(self.satir, 1, row1[2], self.style1)
+            self.ws1.write(self.satir, 2, "", self.style1)
+            self.ws1.write(self.satir, 3, "", self.style1)
 
             self.satir = self.satir + 1
 

@@ -51,7 +51,7 @@ def addrow(i):
     i=model.index(i,0)
     ret = (str(model.data(i).toString()))
     print ret
-    model.setQuery('select * from kasa where tutar<0 and posid=2000 and tarih="'+ret+'" ')
+    model.setQuery('select * from cariay where  fisno="'+ret+'" ')
     view1.setModel(model)
 
 
