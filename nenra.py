@@ -462,6 +462,7 @@ def main():
     mainWindow.pushButton.setStyleSheet("color: black ;  background-image: url(images/image.png)")
     mainWindow.pushButton_2.setStyleSheet("color: black ;  background-image: url(images/fatura.png)")
     mainWindow.pushButton_3.setStyleSheet("color: black ;  background-image: url(images/maliyet.png)")
+    mainWindow.pushButton_4.setStyleSheet("color: black ;  background-image: url(images/nenra.png)")
     mainWindow.pushButton.clicked.connect(slotpuss)
     mainWindow.pushButton_2.clicked.connect(slotfatura)
     mainWindow.pushButton_3.clicked.connect(slotmaliyet)
