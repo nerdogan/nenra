@@ -98,6 +98,11 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
             self.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
             aa = aa + 1
 
+        if (aa==1 and self.label_5.text()=="4"):
+            self.slotfatura(0,0)
+            self.lineEdit_3.setText("")
+            self.tableWidget_2.scrollToBottom()
+
     @pyqtSlot()
     def slotfaturakont(self):
         self.fisno=None
@@ -128,6 +133,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
                 sonuc1 = self.myddb.cek2(item3[1], "cari", "cariid")
                 for item2 in sonuc1:
                     print item2
+                    self.label_5.setText(str(item2[1]))
 
                     deger0 = str(item2[1]) + " " + item2[2] + " " + item2[3]
                     self.label_3.setText(deger0)
@@ -165,7 +171,9 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
                     self.tableWidget_2.setItem(aa, 6, QtGui.QTableWidgetItem(item))
                     aa = aa + 1
 
+
             self.lineEdit_3.setFocus(True)
+
             self.tableWidget_2.blockSignals(False)
 
             return
