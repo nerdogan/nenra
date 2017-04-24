@@ -4,7 +4,7 @@ import sys
 import time as ttim
 import re
 from PyQt4.QtCore import pyqtSlot
-from PyQt4 import QtGui, QtCore
+from PyQt4 import QtGui, QtCore,Qt
 from ui_fatura import Ui_Dialog3
 
 from modulemdb import *
@@ -118,6 +118,12 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
         # some_date = QtCore.QDate(2011,4,22)
         some_date = QtCore.QDate.currentDate()
         self.dateEdit.setDate(some_date)
+        # tediye fişi ted olunca otomatik sıra numarası veriyor
+        if ( deger5=="ted" or deger5=="TED") and deger6=="":
+            maxbelgeno = self.myddb.cek("select max(sirano) from cari_har where serino='" + str(deger5) + "' ")
+            deger6 = str(maxbelgeno[0][0] + 1)
+            self.lineEdit_2.setText(deger6)
+
 
         if len(sonuc) > 0:
             dt = sonuc[0][6]
@@ -166,8 +172,15 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
                     item = str(row1[5])
                     self.tableWidget_2.setItem(aa, 4, QtGui.QTableWidgetItem(item))
                     item = str(row1[6])
-                    self.tableWidget_2.setItem(aa, 5, QtGui.QTableWidgetItem(item))
+                    item=QtGui.QTableWidgetItem(item)
+                    if self.label_5.text()=="100":
+                        item.setFlags( QtCore.Qt.ItemIsEditable)
+                    self.tableWidget_2.setItem(aa, 5, item)
                     item = str(round((row1[6]*row1[5]),2))
+                    item = QtGui.QTableWidgetItem(item)
+                    if self.label_5.text() == "100":
+                        item.setFlags(QtCore.Qt.ItemIsEditable)
+
                     self.tableWidget_2.setItem(aa, 6, QtGui.QTableWidgetItem(item))
                     aa = aa + 1
 
@@ -223,8 +236,16 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
             item = '1'
             self.tableWidget_2.setItem(aa, 4, QtGui.QTableWidgetItem(item))
             item = deger5
+            item = QtGui.QTableWidgetItem(item)
+            if self.label_5.text() == "100":
+                item.setFlags(QtCore.Qt.ItemIsEditable)
+
             self.tableWidget_2.setItem(aa, 5, QtGui.QTableWidgetItem(item))
             item = deger5
+            item = QtGui.QTableWidgetItem(item)
+            if self.label_5.text() == "100":
+                item.setFlags(QtCore.Qt.ItemIsEditable)
+
             self.tableWidget_2.setItem(aa, 6, QtGui.QTableWidgetItem(item))
             self.lineEdit_3.setFocus(True)
             self.tableWidget_2.blockSignals(False)
@@ -256,6 +277,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
                 self.fistipi1=22
             elif deger5 == "ted":
                 self.fistipi1 = 11
+
 
             else:
                 self.fistipi1=10
@@ -290,7 +312,9 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
             sql2 = "insert into cariay (fisno,fissatir,fistipi,hamkod,kdv,miktar,birimfiy,tarih) values (%s,%s,%s,%s,%s,%s,%s,%s)"
             self.myddb.cur.execute(sql2, (sonuc[0][3], satir, sonuc[0][2], deger10, deger11, deger12, deger13,sonuc[0][6]))
         sql3 = "UPDATE cari_har SET tutar=%s where fisno=%s "
+        sql4="update cariay targetTable  left join hammadde sourceTable on   targetTable.hamkod= sourceTable.hamkod set  targetTable.muhkod  = sourceTable.muhkod "
         print sql3
+        self.myddb.cur.execute(sql4)
         self.myddb.cur.execute(sql3, ((toplam+kdv),sonuc[0][3]))
         self.myddb.conn.commit()
         self.label_6.setText("{0}  {1}  {2}".format(str("{0:.2f}".format(toplam)), str("{0:.2f}".format(kdv)),str("{0:.2f}".format(toplam+kdv))))
