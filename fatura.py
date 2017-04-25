@@ -58,7 +58,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
         self.show()
         self.raise_()
         self.lineEdit.setFocus(True)
-        self.emit(QtCore.SIGNAL("acac(int)"), 34)
+
 
     @pyqtSlot(int,str)
     def linechange(self,item2):
@@ -312,11 +312,14 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
             sql2 = "insert into cariay (fisno,fissatir,fistipi,hamkod,kdv,miktar,birimfiy,tarih) values (%s,%s,%s,%s,%s,%s,%s,%s)"
             self.myddb.cur.execute(sql2, (sonuc[0][3], satir, sonuc[0][2], deger10, deger11, deger12, deger13,sonuc[0][6]))
         sql3 = "UPDATE cari_har SET tutar=%s where fisno=%s "
-        sql4="update cariay targetTable  left join hammadde sourceTable on   targetTable.hamkod= sourceTable.hamkod set  targetTable.muhkod  = sourceTable.muhkod "
+        sql4 = "update cariay targetTable  left join hammadde sourceTable on targetTable.hamkod = sourceTable.hamkod set  targetTable.muhkod = sourceTable.muhkod "
         print sql3
-        self.myddb.cur.execute(sql4)
+
         self.myddb.cur.execute(sql3, ((toplam+kdv),sonuc[0][3]))
         self.myddb.conn.commit()
+        SQL5= self.myddb.cur.execute(sql4)
+        self.myddb.conn.commit()
+        self.emit(QtCore.SIGNAL("acac"), SQL5)
         self.label_6.setText("{0}  {1}  {2}".format(str("{0:.2f}".format(toplam)), str("{0:.2f}".format(kdv)),str("{0:.2f}".format(toplam+kdv))))
         self.lineEdit_3.setFocus(True)
 

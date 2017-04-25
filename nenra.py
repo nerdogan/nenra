@@ -156,7 +156,7 @@ def main():
     workerthread.start()
 
     bul=myddb.cek("select * from hammadde where kategori=2 or kategori=3 order by hamkod")
-    logger.info('Program opened 1118 '+str(os.getpid()))
+    logger.info('Program opened 20170424 '+str(os.getpid()))
 
 
 
@@ -375,13 +375,16 @@ def main():
 
             mainWindow.pushButton_3.blockSignals(1)
 
-        if item2 == 123:
+        if item2 == 12345:
             mainWindow.statusbar.showMessage(
-                u"Namık ERDOĞAN © 2016       Mehmet TUNCER          Bishop Restaurant")
+                u"Namık ERDOĞAN © 2016       Mutfak Şef          Bishop Restaurant")
             mainWindow.pushButton_2.blockSignals(0)
 
         if item2 == 101:
             mainWindow.close()
+
+
+
 
         if item2 == 1234:
             mainWindow.statusbar.showMessage(
@@ -391,6 +394,10 @@ def main():
 
             mainWindow.pushButton_3.blockSignals(0)
 
+    @pyqtSlot()
+    def slotpuss5(item2):
+        logger.info(item2)
+        print "shdfhdfdjhfg"
 
     @pyqtSlot()
     def slottextch(item2):
@@ -490,6 +497,7 @@ def main():
     fatura.connect(sh, QtCore.SIGNAL("activated()"), copyFunction)
     mainWindow.connect(login, QtCore.SIGNAL("acac1(int)"), slotpuss4)
     mainWindow.connect(workerthread, QtCore.SIGNAL("acac1(int)"), slotpuss4)
+    mainWindow.connect(fatura,QtCore.SIGNAL("acac"),slotpuss5)
 
     mainWindow.move(13, 10)
 
