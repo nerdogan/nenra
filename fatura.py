@@ -25,6 +25,8 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
         self.tableWidget_2.setColumnWidth(5, 75)
         self.tableWidget_2.setColumnWidth(6, 75)
 
+        self.lineEdit_4.textChanged.connect(self.vadeartir)
+
         self.lineEdit_3.textChanged.connect(self.linechange)
         self.lineEdit_2.textChanged.connect(self.slotfaturakont)
         self.lineEdit.textChanged.connect(self.slotfaturakont)
@@ -55,10 +57,16 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
         # some_date = QtCore.QDate(2011,4,22)
         some_date = QtCore.QDate.currentDate()
         self.dateEdit.setDate(some_date)
+        self.dateEdit_2.setDate(some_date)
         self.show()
         self.raise_()
         self.lineEdit.setFocus(True)
 
+    @pyqtSlot(int, str)
+    def vadeartir(self, item2):
+        if len(item2)>0:
+            some_date=self.dateEdit.date()
+            self.dateEdit_2.setDate(some_date.addDays(int(item2)))
 
     @pyqtSlot(int,str)
     def linechange(self,item2):
@@ -127,7 +135,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 
         if len(sonuc) > 0:
             dt = sonuc[0][6]
-
+            dt1 = sonuc[0][9]
 
             #QtGui.QMessageBox.information(self.tableWidget,
             #						"QTableWidget Cell Click",
@@ -136,6 +144,8 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
             self.tableWidget_2.blockSignals(True)
             for item3 in sonuc:
                 self.dateEdit.setDate(QtCore.QDate(dt.year, dt.month, dt.day))
+                self.dateEdit_2.setDate(QtCore.QDate(dt1.year, dt1.month, dt1.day))
+                self.lineEdit_4.setText(str((dt1-dt).days))
                 sonuc1 = self.myddb.cek2(item3[1], "cari", "cariid")
                 for item2 in sonuc1:
                     print item2
@@ -258,6 +268,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
         deger5 = self.lineEdit.text()
         deger6 = self.lineEdit_2.text()
         deger7 = self.dateEdit.date().toPyDate()
+        self.deger8 = self.dateEdit_2.date().toPyDate()
         sql = "select * from cari_har where  serino='" + str(deger5) + "' and sirano='" + str(deger6) + "'"
         sonuc = self.myddb.cek(sql)
         print sonuc
@@ -282,10 +293,10 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
             else:
                 self.fistipi1=10
 
-            sql1 = "insert into cari_har (cariid,serino,sirano,tarih,fistipi,fisno) values (%s,%s,%s,%s,%s,%s)"
+            sql1 = "insert into cari_har (cariid,serino,sirano,tarih,fistipi,fisno,vade) values (%s,%s,%s,%s,%s,%s,%s)"
             print sql1
             self.setWindowTitle(QtCore.QString.fromUtf8("Fiş Girişi " + str(maxfisno1 + 1)))
-            self.myddb.cur.execute(sql1, (deger0, deger5, deger6, deger7, self.fistipi1, maxfisno1 + 1))
+            self.myddb.cur.execute(sql1, (deger0, deger5, deger6, deger7, self.fistipi1, maxfisno1 + 1,self.deger8))
             self.myddb.conn.commit()
 
         else:
