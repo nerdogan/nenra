@@ -3,10 +3,11 @@
 import sys
 import time as ttim
 
-from modulemdb import *
+from modulemdb import Myddb
 import re
 import xlwt
 import datetime
+from xlrd import open_workbook
 
 data=[]
 
@@ -22,7 +23,8 @@ class recetetoxls():
         self.ws1 = self.wb.add_sheet("recete")
         self.style1 = xlwt.easyxf('pattern: pattern solid, fore_colour red;')
 
-    
+
+
     def kontrol(girdi):
         girdi = str(girdi)
         ara = re.search("\.", girdi)
@@ -64,16 +66,15 @@ class recetetoxls():
         self.ws1.write(self.satir+1, 0, " ")
         self.satir+=2
 
-
     def goster(self):
         print "*toxls arayüzü açıldı"
         # some_date = QtCore.QDate(2011,4,22)
         self.myddb = Myddb()
         bul = self.myddb.cek("select * from hammadde where kategori=2 or kategori=3 order by hamkod")
-        self.satir=0
+        self.satir = 0
 
         for row1 in bul:
-            self.ws1.write(self.satir, 0, row1[1],self.style1)
+            self.ws1.write(self.satir, 0, row1[1], self.style1)
             self.ws1.write(self.satir, 1, row1[2], self.style1)
             self.ws1.write(self.satir, 2, "", self.style1)
             self.ws1.write(self.satir, 3, "", self.style1)
@@ -82,6 +83,30 @@ class recetetoxls():
 
             self.yaz(row1[1])
 
+    def goster1(self):
+        print "*toxls arayüzü nnn açıldı"
+        # some_date = QtCore.QDate(2011,4,22)
+        self.myddb = Myddb()
+        self.satir = 1
+        path = 'C:\\Users\\NAMIK\\Google Drive\\bishop\\PERSONEL\\ARCHBISHOP.xls'
+        wb = open_workbook(path, formatting_info=True)
+        sheet = wb.sheet_by_name("HAMMADDE")
+        for i in range(sheet.nrows):
+            cell = sheet.cell(i, 2)  # The first cell
+            print(cell.xf_index, sheet.cell(rowx=i, colx=2).value, str(sheet.cell(rowx=i, colx=3).value))
+            bul = self.myddb.cek("select * from hammadde where hamad like '" + str(sheet.cell(rowx=i, colx=3).value) + "'")
+
+            if len(bul)==0:
+                self.ws1.write(self.satir, 0, str(sheet.cell(rowx=i, colx=3).value), self.style1)
+                self.satir=self.satir+1
+
+            for row1 in bul:
+                self.ws1.write(self.satir, 0, row1[1], self.style1)
+                self.ws1.write(self.satir, 1, row1[2], self.style1)
+                self.ws1.write(self.satir, 2, row1[3], self.style1)
+                self.ws1.write(self.satir, 3, "", self.style1)
+
+                self.satir = self.satir + 1
 
         self.wb.save(self.dest_filename)
 
@@ -89,4 +114,5 @@ class recetetoxls():
 
 if __name__ == "__main__":
     fatura1=recetetoxls()
-    fatura1.goster()
+   # fatura1.goster()
+    fatura1.goster1()

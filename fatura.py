@@ -26,6 +26,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
         self.tableWidget_2.setColumnWidth(6, 75)
 
         self.lineEdit_4.textChanged.connect(self.vadeartir)
+        self.pushButton_5.clicked.connect(self.fisgetir)
 
         self.lineEdit_3.textChanged.connect(self.linechange)
         self.lineEdit_2.textChanged.connect(self.slotfaturakont)
@@ -67,6 +68,14 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
         if len(item2)>0:
             some_date=self.dateEdit.date()
             self.dateEdit_2.setDate(some_date.addDays(int(item2)))
+
+    @pyqtSlot(int, str)
+    def fisgetir(self, item2):
+        if self.lineEdit_5.text()!="":
+            sql = "select serino,sirano from cari_har where  fisno='" + str(self.lineEdit_5.text())  + "'"
+            sonuc = self.myddb.cek(sql)
+            self.lineEdit.setText(str(sonuc[0][0]))
+            self.lineEdit_2.setText(str(sonuc[0][1]))
 
     @pyqtSlot(int,str)
     def linechange(self,item2):
