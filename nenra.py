@@ -156,7 +156,7 @@ def main():
     workerthread.start()
 
     bul=myddb.cek("select * from hammadde where kategori=2 or kategori=3 order by hamkod")
-    logger.info('Program opened 20170424 '+str(os.getpid()))
+    logger.info('Program opened 20170518 '+str(os.getpid()))
 
 
 
@@ -474,7 +474,7 @@ def main():
     mainWindow.pushButton_2.clicked.connect(slotfatura)
     mainWindow.pushButton_3.clicked.connect(slotmaliyet)
     mainWindow.pushButton_4.clicked.connect(slotcari)
-    mainWindow.statusbar.showMessage(u"Namık ERDOĞAN © 2016 1.201                                        Bishop Restaurant")
+    mainWindow.statusbar.showMessage(u"Namık ERDOĞAN © 2016 1.0518                                        Bishop Restaurant")
     recete.lineEdit.textChanged.connect(slottextch)
 
 

@@ -21,6 +21,7 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         QtGui.QDialog.__init__(self)
         self.setupUi(self)
         #self.myddb = Myddb()
+        self.kontrol=0
         self.tableWidget.setRowCount(0)
         some_date = QtCore.QDate.currentDate()
         self.dateEdit.setDate(QtCore.QDate(2017,01,01))
@@ -39,6 +40,7 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
     def sloturunmaliyet(self):
 
         myddb1 = Myddb()
+        self.kontrol=1
 
         print "caribakiye listesi"
         self.tableWidget.clearContents()
@@ -130,7 +132,8 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
 
     @pyqtSlot(int, int)
     def slotekstre(self, item, item2):
-
+        if self.kontrol==0:
+            return
         myddb1 = Myddb()
         carikod=self.tableWidget.item(item, 0).text()
 
@@ -248,6 +251,7 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
 
         c.save()
         self.wb.save(self.dest_filename)
+        self.kontrol=0
 
     @pyqtSlot()
     def sloturunmaliyetpdf(self):
