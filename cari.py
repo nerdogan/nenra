@@ -28,6 +28,7 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         self.pushButton.clicked.connect(self.sloturunmaliyet)
         self.pushButton_3.clicked.connect(self.sloturunmaliyetxls)
         self.pushButton_2.clicked.connect(self.sloturunmaliyetpdf)
+        self.tableWidget.cellClicked.connect(self.slotekstre)
         self.tableWidget.setColumnWidth(0, 75)
         self.tableWidget.setColumnWidth(1, 300)
         self.tableWidget.setColumnWidth(2, 75)
@@ -41,6 +42,12 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
 
         print "caribakiye listesi"
         self.tableWidget.clearContents()
+        self.tableWidget.setColumnWidth(0, 75)
+        self.tableWidget.setColumnWidth(1, 300)
+        self.tableWidget.setColumnWidth(2, 75)
+        self.tableWidget.setColumnWidth(3, 75)
+        self.tableWidget.setColumnWidth(4, 75)
+
         deger1 = self.dateEdit.date().toPyDate()
         deger2 = self.dateEdit_2.date().toPyDate()
         tar1 = deger1.strftime('%d%m%Y')
@@ -50,7 +57,7 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         self.dest_filename = "EKSTRE" + tar1 + tar2 + ".xls"
         date_format = xlwt.XFStyle()
         date_format.num_format_str = u'#,##0.00₺'
-        date_xf = xlwt.easyxf(num_format_str='DD/MM/YYYY')
+        date_xf = xlwt.easyxf(num_format_str='DD-MM-YYYY')
         self.ws1 = self.wb.add_sheet("ekstre")
         self.style1 = xlwt.easyxf('pattern: pattern solid, fore_colour red;')
 
@@ -62,7 +69,7 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         c.drawString(10, 810, item)
         tar1 = deger1.strftime('%Y-%m-%d')
         tar2 = deger2.strftime('%Y-%m-%d')
-        sql = """select `c2`.`cariid` AS `cariid`,`c2`.`cariad` AS `cariad`,sum(`c1`.`tutar`) AS `TUTAR` from (`test`.`cari_har` `c1` join `test`.`cari` `c2`) where ((`c1`.`cariid` = `c2`.`cariid`) and (`c1`.`tarih` >=%s ) and (`c1`.`tarih` <=%s )) group by `c2`.`cariad`   order by TUTAR asc """
+        sql = """select `c2`.`cariid` AS `cariid`,`c2`.`cariad` AS `cariad`,sum(`c1`.`tutar`) AS `TUTAR` from (`test`.`cari_har` `c1` join `test`.`cari` `c2`) where ((`c1`.`cariid` = `c2`.`cariid`) and (`c1`.`tarih` >=%s ) and (`c1`.`tarih` <=%s ) and (`c1`.`fistipi`=10 or `c1`.`fistipi`=11)) group by `c2`.`cariad`   order by TUTAR asc """
         bul2 = myddb1.cur.execute(sql, (tar1, tar2))
         print bul2, tar1, tar2
         bul = myddb1.cur.fetchall()
@@ -89,6 +96,7 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
 
             toplam = toplam + float(row1[2])
             self.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+
             c.drawRightString( 380, 800 - (15 * (bb + 1)), "{:10.2f}".format(row1[2]))
             self.ws1.write(aa, 2, float(row1[2]))
 
@@ -111,6 +119,7 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         c.drawString(210, 800 - (15 * (bb + 1)), "Genel Toplam")
         c.drawString(320, 800 - (15 * (bb + 1)), str(toplam))
         c.drawString(550, 800 - (15 * (bb + 1)), ".")
+        self.ws1.write(aa + 1, 2, toplam)
 
         c.save()
         self.wb.save(self.dest_filename)
@@ -119,28 +128,49 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
     def cariekstre(self):
         print "elma"
 
-    @pyqtSlot()
-    def satisrapor(self):
-        myddb1 = Myddb()
+    @pyqtSlot(int, int)
+    def slotekstre(self, item, item2):
 
-        print "satisrapor"
+        myddb1 = Myddb()
+        carikod=self.tableWidget.item(item, 0).text()
+
+        print "ekstrerapor"
         self.tableWidget.clearContents()
+        self.tableWidget.setColumnWidth(0, 60)
+        self.tableWidget.setColumnWidth(1, 100)
+        self.tableWidget.setColumnWidth(2, 300)
+        self.tableWidget.setColumnWidth(3, 75)
+        self.tableWidget.setColumnWidth(4, 75)
+
         deger1 = self.dateEdit.date().toPyDate()
         deger2 = self.dateEdit_2.date().toPyDate()
         tar1 = deger1.strftime('%d%m%Y')
         tar2 = deger2.strftime('%d%m%Y')
+
+        self.wb = xlwt.Workbook(encoding="utf-8")
+        self.dest_filename = "EKSTRE" + tar1 + tar2 + ".xls"
+        date_format = xlwt.XFStyle()
+        date_format.num_format_str = u'#,##0.00₺'
+        date_xf = xlwt.easyxf(num_format_str='DD/MM/YYYY')
+        self.ws1 = self.wb.add_sheet("ekstre")
+        self.style1 = xlwt.easyxf('pattern: pattern solid, fore_colour red;')
+
         c = canvas.Canvas("EKSTRE" + tar1 + tar2 + ".pdf")
         pdfmetrics.registerFont(TTFont('Verdana', 'Verdana.ttf'))
         c.setFont("Verdana", 8)
 
-        item = "            ÜRÜN    AÇIKLAMA                                   ADET           TUTAR                 "
+        item = "         FİŞ NO       TARİH                AÇIKLAMA                             BORÇ                  ALACAK                    BAKİYE                      "
         c.drawString(10, 810, item)
         tar1 = deger1.strftime('%Y-%m-%d')
         tar2 = deger2.strftime('%Y-%m-%d')
 
-        sql = """SELECT ciro.departman,pluno,hamad,sum(adet),sum(tutar) FROM bishop.ciro  inner join test.hammadde on  pluno=hamkod and
-                DATE(tarih) >= %s and DATE(tarih) <= %s  group by ciro.departman,pluno order by ciro.departman asc """
-        bul2 = myddb1.cur.execute(sql, (tar1, tar2))
+        sql = """select `c1`.`fistipi`,`c1`.`tarih` AS `tarih`,`c1`.`fisno` AS `fisno`,concat(`c1`.`serino`,'_',`c1`.`sirano`,' nolu Fatura'), `c1`.`tutar` AS `TUTAR` 
+        from (`test`.`cari_har` `c1` join `test`.`cari` `c2`) 
+        where ((`c1`.`cariid` = `c2`.`cariid`) and (`c1`.`cariid`=%s) 
+        and  (`c1`.`tarih` >=%s ) and (`c1`.`tarih` <=%s ) 
+        and (`c1`.`fistipi`=10 or `c1`.`fistipi`=11))  order by `c1`.`tarih` asc """
+
+        bul2 = myddb1.cur.execute(sql, (carikod,tar1, tar2))
         print bul2, tar1, tar2
 
         bul = myddb1.cur.fetchall()
@@ -154,51 +184,44 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         toplam1 = 0.0
         toplam2 = 0.0
         for row1 in bul:
-            sql1 = "select hurunkod,sum(hmiktar*fiyat1),harcanan.tarih from harcanan inner join hammadde on hhammaddeid=hamkod where DATE(tarih)>=%s and DATE(tarih)<=%s and hurunkod=%s"
-            bul1 = myddb1.cur.execute(sql1, (tar1, tar2, row1[1]))
-            bul1 = myddb1.cur.fetchall()
 
-            if dep != int(row1[0]):
-                dep = int(row1[0])
-                c.setFont("Verdana", 10)
-                c.drawString(210, 800 - (15 * (bb + 1)), str(toplam))
-                c.drawString(270, 800 - (15 * (bb + 1)), str("{:06.2f}".format(toplam1)))
-                c.drawString(350, 800 - (15 * (bb + 1)), str("{:06.2f}".format(toplam2)))
-                c.showPage()
-                c.setFont("Verdana", 8)
-                bb = 0
-                toplam = 0.0
-                toplam1 = 0.0
-                toplam2 = 0.0
-
-            item = str(row1[0])
+            item = str(row1[2])
+            self.ws1.write(aa, 0, item)
             self.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
             c.drawString(45, 800 - (15 * (bb + 1)), item)
-            item = row1[2]
+            item = (row1[1]).strftime("%d-%m-%Y")
+            self.ws1.write(aa, 1, item)
             c.drawString(80, 800 - (15 * (bb + 1)), item)
             self.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
             item = str(row1[3])
-
-            toplam = toplam + float(row1[3])
+            self.ws1.write(aa, 2, item)
             self.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
-            c.drawString(230, 800 - (15 * (bb + 1)), item)
-            item = str(row1[4])
-            c.drawString(270, 800 - (15 * (bb + 1)), item)
-            toplam1 = toplam1 + float(row1[4])
-            self.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
-            item = "0"
-            if (bul1[0][1]) is not None:
-                toplam2 = toplam2 + float(bul1[0][1])
-                item = str("{:06.2f}".format(float(bul1[0][1])))
-            c.drawString(350, 800 - (15 * (bb + 1)), item)
-            self.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
+            c.drawString(150, 800 - (15 * (bb + 1)), item)
 
-            if int(row1[4]) == 0:
-                item = "% 100"
-            else:
-                if (bul1[0][1]) is not None:
-                    item = "% " + str(int((float(bul1[0][1])) / row1[4] * 100))
-                    c.drawString(450, 800 - (15 * (bb + 1)), item)
+            if row1[0]==10:
+                item = str(row1[4])
+                self.ws1.write(aa, 3, float(row1[4]))
+                c.drawRightString(310, 800 - (15 * (bb + 1)), item)
+                toplam = toplam + float(row1[4])
+                toplam2=toplam2+float(row1[4])
+                self.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
+                item= ""
+                c.drawRightString(390, 800 - (15 * (bb + 1)), item)
+                self.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
+
+            if row1[0]==11:
+                item = str(row1[4])
+                self.ws1.write(aa, 4, float(row1[4]))
+                c.drawString(350, 800 - (15 * (bb + 1)), item)
+                toplam1 = toplam1 + float(row1[4])
+                toplam2=toplam2+float(row1[4])
+                self.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
+                item= ""
+                c.drawString(270, 800 - (15 * (bb + 1)), item)
+                self.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
+
+            item = toplam2
+            self.ws1.write(aa, 5, item)
             self.tableWidget.setItem(aa, 5, QtGui.QTableWidgetItem(item))
 
             aa = aa + 1
@@ -214,13 +237,17 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
                 c.setFont("Verdana", 8)
                 bb = 0
         c.setFont("Verdana", 10)
-        c.drawString(230, 800 - (15 * (bb + 1)), str(toplam))
-        c.drawString(270, 800 - (15 * (bb + 1)), str(int(toplam1)))
-        c.drawString(350, 800 - (15 * (bb + 1)), str(int(toplam2)))
-        c.drawString(450, 800 - (15 * (bb + 1)), "% " + str(int(toplam2 / toplam1 * 100)))
+        self.ws1.write(aa+1, 3, toplam)
+        self.ws1.write(aa+1, 4, toplam1)
+        self.ws1.write(aa+1, 5, toplam2)
+        c.drawString(270, 800 - (15 * (bb + 1)), str(toplam))
+        c.drawString(350, 800 - (15 * (bb + 1)), str(int(toplam1)))
+        c.drawString(430, 800 - (15 * (bb + 1)), str(int(toplam2)))
+
         #todo genel toplam yazılacak
 
         c.save()
+        self.wb.save(self.dest_filename)
 
     @pyqtSlot()
     def sloturunmaliyetpdf(self):
