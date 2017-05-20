@@ -64,6 +64,7 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         self.style1 = xlwt.easyxf('pattern: pattern solid, fore_colour red;')
 
         c = canvas.Canvas("EKSTRE" + tar1 + tar2 + ".pdf")
+
         pdfmetrics.registerFont(TTFont('Verdana', 'Verdana.ttf'))
         c.setFont("Verdana", 8)
 
@@ -123,6 +124,21 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         c.drawString(550, 800 - (15 * (bb + 1)), ".")
         self.ws1.write(aa + 1, 2, toplam)
 
+        c.setFont("Courier", 60)
+        # This next setting with make the text of our
+        # watermark gray, nice touch for a watermark.
+        c.setFillGray(0.3, 0.3)
+        # Set up our watermark document. Our watermark
+        # will be rotated 45 degrees from the direction
+        # of our underlying document.
+        c.saveState()
+        c.translate(500, 100)
+        c.rotate(45)
+        c.drawCentredString(0, 0, "BISHOP NEN ©")
+        c.drawCentredString(0, 300, "BISHOP NEN ©")
+        c.drawCentredString(0, 600, "BISHOP NEN ©")
+        c.restoreState()
+
         c.save()
         self.wb.save(self.dest_filename)
 
@@ -167,7 +183,7 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         tar1 = deger1.strftime('%Y-%m-%d')
         tar2 = deger2.strftime('%Y-%m-%d')
 
-        sql = """select `c1`.`fistipi`,`c1`.`tarih` AS `tarih`,`c1`.`fisno` AS `fisno`,concat(`c1`.`serino`,'_',`c1`.`sirano`,' nolu Fatura'), `c1`.`tutar` AS `TUTAR` 
+        sql = """select `c1`.`fistipi`,`c1`.`tarih` AS `tarih`,`c1`.`fisno` AS `fisno`,concat(`c1`.`serino`,'_',`c1`.`sirano`,' nolu '), `c1`.`tutar` AS `TUTAR` 
         from (`test`.`cari_har` `c1` join `test`.`cari` `c2`) 
         where ((`c1`.`cariid` = `c2`.`cariid`) and (`c1`.`cariid`=%s) 
         and  (`c1`.`tarih` >=%s ) and (`c1`.`tarih` <=%s ) 
@@ -196,12 +212,13 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
             self.ws1.write(aa, 1, item)
             c.drawString(80, 800 - (15 * (bb + 1)), item)
             self.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
-            item = str(row1[3])
-            self.ws1.write(aa, 2, item)
-            self.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
-            c.drawString(150, 800 - (15 * (bb + 1)), item)
 
             if row1[0]==10:
+                item = str(row1[3])+"Fatura "
+                self.ws1.write(aa, 2, item)
+                self.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+                c.drawString(150, 800 - (15 * (bb + 1)), item)
+
                 item = str(row1[4])
                 self.ws1.write(aa, 3, float(row1[4]))
                 c.drawRightString(310, 800 - (15 * (bb + 1)), item)
@@ -213,6 +230,11 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
                 self.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
 
             if row1[0]==11:
+                item = row1[3]+u" Ödeme"
+                self.ws1.write(aa, 2, item)
+                self.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+                c.drawString(150, 800 - (15 * (bb + 1)), item)
+
                 item = str(row1[4])
                 self.ws1.write(aa, 4, float(row1[4]))
                 c.drawString(350, 800 - (15 * (bb + 1)), item)
@@ -248,6 +270,20 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         c.drawString(430, 800 - (15 * (bb + 1)), str(int(toplam2)))
 
         #todo genel toplam yazılacak
+        c.setFont("Courier", 60)
+        # This next setting with make the text of our
+        # watermark gray, nice touch for a watermark.
+        c.setFillGray(0.3, 0.3)
+        # Set up our watermark document. Our watermark
+        # will be rotated 45 degrees from the direction
+        # of our underlying document.
+        c.saveState()
+        c.translate(500, 100)
+        c.rotate(45)
+        c.drawCentredString(0, 0, "BISHOP NEN ©")
+        c.drawCentredString(0, 300, "BISHOP NEN ©")
+        c.drawCentredString(0, 600, "BISHOP NEN ©")
+        c.restoreState()
 
         c.save()
         self.wb.save(self.dest_filename)

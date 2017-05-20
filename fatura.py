@@ -274,7 +274,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
         toplam = 0
         kdv = 0
         deger0 = self.label_5.text()
-        deger5 = self.lineEdit.text()
+        deger5 = str(self.lineEdit.text()).upper()
         deger6 = self.lineEdit_2.text()
         deger7 = self.dateEdit.date().toPyDate()
         self.deger8 = self.dateEdit_2.date().toPyDate()
