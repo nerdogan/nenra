@@ -157,9 +157,10 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         self.tableWidget.clearContents()
         self.tableWidget.setColumnWidth(0, 60)
         self.tableWidget.setColumnWidth(1, 100)
-        self.tableWidget.setColumnWidth(2, 300)
+        self.tableWidget.setColumnWidth(2, 200)
         self.tableWidget.setColumnWidth(3, 75)
         self.tableWidget.setColumnWidth(4, 75)
+        self.tableWidget.setColumnWidth(5, 75)
 
         deger1 = self.dateEdit.date().toPyDate()
         deger2 = self.dateEdit_2.date().toPyDate()
@@ -245,9 +246,12 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
                 c.drawString(270, 800 - (15 * (bb + 1)), item)
                 self.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
 
-            item = toplam2
-            self.ws1.write(aa, 5, item)
+
+            item = str(toplam2)
+            self.ws1.write(aa, 5, toplam2)
             self.tableWidget.setItem(aa, 5, QtGui.QTableWidgetItem(item))
+            c.drawString(430, 800 - (15 * (bb + 1)), str(int(toplam2)))
+
 
             aa = aa + 1
             bb = bb + 1

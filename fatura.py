@@ -295,7 +295,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 
             elif deger0=="100":
                 self.fistipi1=22
-            elif deger5 == "ted":
+            elif deger5 == "TED":
                 self.fistipi1 = 11
 
 
@@ -325,6 +325,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
             deger12 = self.tableWidget_2.item(item, 4).text()
             deger13 = self.tableWidget_2.item(item, 5).text()
             deger12 = self.kontrol(deger12)
+
             deger13 = self.kontrol(deger13)
             toplam += float(deger12) * float(deger13)
             kdv += float(deger11) * float(deger12) * float(deger13) / 100
