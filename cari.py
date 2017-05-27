@@ -7,6 +7,7 @@ from PyQt4.QtCore import pyqtSlot
 from PyQt4 import QtGui, QtCore
 from ui_cari import Ui_Dialog5
 import xlwt
+from decimal import *
 
 from modulemdb import *
 from reportlab.pdfgen import canvas
@@ -31,10 +32,11 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         self.pushButton_2.clicked.connect(self.sloturunmaliyetpdf)
         self.tableWidget.cellClicked.connect(self.slotekstre)
         self.tableWidget.setColumnWidth(0, 75)
-        self.tableWidget.setColumnWidth(1, 300)
+        self.tableWidget.setColumnWidth(1, 340)
         self.tableWidget.setColumnWidth(2, 75)
         self.tableWidget.setColumnWidth(3, 75)
         self.tableWidget.setColumnWidth(4, 75)
+        getcontext().prec = 12
 
     @pyqtSlot()
     def sloturunmaliyet(self):
@@ -68,7 +70,7 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         pdfmetrics.registerFont(TTFont('Verdana', 'Verdana.ttf'))
         c.setFont("Verdana", 8)
 
-        item = "           KOD         FİRMA ADI                                                                         BAKİYE                      "
+        item = "           KOD         FİRMA ADI                                                                            BAKİYE                      "
         c.drawString(10, 810, item)
         tar1 = deger1.strftime('%Y-%m-%d')
         tar2 = deger2.strftime('%Y-%m-%d')
@@ -83,7 +85,7 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         bb = 0
         toplam = 0.0
         toplam1 = 0.0
-        toplam2 = 0.0
+        toplam2 = 0.0000
 
         for row1 in bul:
 
@@ -202,7 +204,7 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         dep=0
         toplam = 0.0
         toplam1 = 0.0
-        toplam2 = 0.0
+        toplam2 = 0.0000
         for row1 in bul:
 
             item = str(row1[2])
@@ -224,7 +226,7 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
                 self.ws1.write(aa, 3, float(row1[4]))
                 c.drawRightString(310, 800 - (15 * (bb + 1)), item)
                 toplam = toplam + float(row1[4])
-                toplam2=toplam2+float(row1[4])
+                toplam2=Decimal(toplam2)+(row1[4])
                 self.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
                 item= ""
                 c.drawRightString(390, 800 - (15 * (bb + 1)), item)
@@ -240,17 +242,21 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
                 self.ws1.write(aa, 4, float(row1[4]))
                 c.drawString(350, 800 - (15 * (bb + 1)), item)
                 toplam1 = toplam1 + float(row1[4])
-                toplam2=toplam2+float(row1[4])
+                toplam2=Decimal(toplam2)+ (row1[4])
                 self.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
                 item= ""
                 c.drawString(270, 800 - (15 * (bb + 1)), item)
                 self.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
 
 
+
+
             item = str(toplam2)
+            print item
+            print toplam2
             self.ws1.write(aa, 5, toplam2)
             self.tableWidget.setItem(aa, 5, QtGui.QTableWidgetItem(item))
-            c.drawString(430, 800 - (15 * (bb + 1)), str(int(toplam2)))
+            c.drawRightString(470, 800 - (15 * (bb + 1)), str(toplam2))
 
 
             aa = aa + 1
@@ -270,8 +276,8 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         self.ws1.write(aa+1, 4, toplam1)
         self.ws1.write(aa+1, 5, toplam2)
         c.drawString(270, 800 - (15 * (bb + 1)), str(toplam))
-        c.drawString(350, 800 - (15 * (bb + 1)), str(int(toplam1)))
-        c.drawString(430, 800 - (15 * (bb + 1)), str(int(toplam2)))
+        c.drawString(350, 800 - (15 * (bb + 1)), str(toplam1))
+        c.drawString(430, 800 - (15 * (bb + 1)), str(toplam2))
 
         #todo genel toplam yazılacak
         c.setFont("Courier", 60)
