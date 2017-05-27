@@ -18,7 +18,7 @@ class Login(QtGui.QDialog):
     acac1 = pyqtSignal(int)
     def __init__(self, parent=None):
         super(Login, self).__init__(parent)
-        self.setWindowTitle(u"NENRA 2016 1121 Kullanıcı Girişi ")
+        self.setWindowTitle(u"NENRA 2016 20170526 Kullanıcı Girişi ")
         self.labelname = QtGui.QLabel(self)
         self.labelpass = QtGui.QLabel(self)
         self.textName = QtGui.QLineEdit(self)

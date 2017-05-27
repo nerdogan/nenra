@@ -72,7 +72,7 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         c.drawString(10, 810, item)
         tar1 = deger1.strftime('%Y-%m-%d')
         tar2 = deger2.strftime('%Y-%m-%d')
-        sql = """select `c2`.`cariid` AS `cariid`,`c2`.`cariad` AS `cariad`,sum(`c1`.`tutar`) AS `TUTAR` from (`test`.`cari_har` `c1` join `test`.`cari` `c2`) where ((`c1`.`cariid` = `c2`.`cariid`) and (`c1`.`tarih` >=%s ) and (`c1`.`tarih` <=%s ) and (`c1`.`fistipi`=10 or `c1`.`fistipi`=11)) group by `c2`.`cariad`   order by TUTAR asc """
+        sql = """select `c2`.`cariid` AS `cariid`,`c2`.`cariad` AS `cariad`,sum(`c1`.`tutar`) AS `TUTAR` from (`test`.`cari_har` `c1` join `test`.`cari` `c2`) where ((`c1`.`cariid` = `c2`.`cariid`) and (`c1`.`tarih` >=%s ) and (`c1`.`tarih` <=%s ) and (`c1`.`fistipi`=10 or `c1`.`fistipi`=11)) group by `c2`.`cariad`   order by TUTAR DESC """
         bul2 = myddb1.cur.execute(sql, (tar1, tar2))
         print bul2, tar1, tar2
         bul = myddb1.cur.fetchall()

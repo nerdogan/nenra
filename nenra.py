@@ -495,6 +495,10 @@ def main():
     sh = QtGui.QShortcut(fatura)
     sh.setKey("Enter")
     fatura.connect(sh, QtCore.SIGNAL("activated()"), copyFunction)
+    sh1 = QtGui.QShortcut(fatura)
+    sh1.setKey(QtCore.Qt.Key_Down)
+    fatura.connect(sh1, QtCore.SIGNAL("activated()"), copyFunction)
+
     mainWindow.connect(login, QtCore.SIGNAL("acac1(int)"), slotpuss4)
     mainWindow.connect(workerthread, QtCore.SIGNAL("acac1(int)"), slotpuss4)
     mainWindow.connect(fatura,QtCore.SIGNAL("acac"),slotpuss5)
