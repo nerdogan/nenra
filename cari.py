@@ -32,10 +32,10 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         self.pushButton_2.clicked.connect(self.sloturunmaliyetpdf)
         self.tableWidget.cellClicked.connect(self.slotekstre)
         self.tableWidget.setColumnWidth(0, 75)
-        self.tableWidget.setColumnWidth(1, 340)
+        self.tableWidget.setColumnWidth(1, 400)
         self.tableWidget.setColumnWidth(2, 75)
-        self.tableWidget.setColumnWidth(3, 75)
-        self.tableWidget.setColumnWidth(4, 75)
+        self.tableWidget.setColumnWidth(3, 25)
+        self.tableWidget.setColumnWidth(4, 25)
         getcontext().prec = 12
 
     @pyqtSlot()
@@ -47,10 +47,10 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         print "caribakiye listesi"
         self.tableWidget.clearContents()
         self.tableWidget.setColumnWidth(0, 75)
-        self.tableWidget.setColumnWidth(1, 300)
+        self.tableWidget.setColumnWidth(1, 400)
         self.tableWidget.setColumnWidth(2, 75)
-        self.tableWidget.setColumnWidth(3, 75)
-        self.tableWidget.setColumnWidth(4, 75)
+        self.tableWidget.setColumnWidth(3, 25)
+        self.tableWidget.setColumnWidth(4, 25)
 
         deger1 = self.dateEdit.date().toPyDate()
         deger2 = self.dateEdit_2.date().toPyDate()
@@ -148,9 +148,11 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
     def cariekstre(self):
         print "elma"
 
-    @pyqtSlot(int, int)
-    def slotekstre(self, item, item2):
+    @pyqtSlot(int,int)
+    def slotekstre(self, item,item2):
         if self.kontrol==0:
+            fisno = self.tableWidget.item(item, 0).text()
+            self.emit(QtCore.SIGNAL("fisac"), fisno)
             return
         myddb1 = Myddb()
         carikod=self.tableWidget.item(item, 0).text()
@@ -252,8 +254,6 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
 
 
             item = str(toplam2)
-            print item
-            print toplam2
             self.ws1.write(aa, 5, toplam2)
             self.tableWidget.setItem(aa, 5, QtGui.QTableWidgetItem(item))
             c.drawRightString(470, 800 - (15 * (bb + 1)), str(toplam2))

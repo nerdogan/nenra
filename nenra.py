@@ -400,6 +400,14 @@ def main():
         print "shdfhdfdjhfg"
 
     @pyqtSlot()
+    def slotpuss6(item2):
+        logger.info(item2)
+        print "fisac"+item2
+        fatura.goster()
+        fatura.lineEdit_5.setText(item2)
+        fatura.fisgetir("bir")
+
+    @pyqtSlot()
     def slottextch(item2):
         print "kjkljlk reçete"
         a=item2.toUtf8()
@@ -501,7 +509,9 @@ def main():
 
     mainWindow.connect(login, QtCore.SIGNAL("acac1(int)"), slotpuss4)
     mainWindow.connect(workerthread, QtCore.SIGNAL("acac1(int)"), slotpuss4)
-    mainWindow.connect(fatura,QtCore.SIGNAL("acac"),slotpuss5)
+    mainWindow.connect(fatura, QtCore.SIGNAL("acac"), slotpuss5)
+    mainWindow.connect(cari, QtCore.SIGNAL("fisac"), slotpuss6)
+
 
     mainWindow.move(13, 10)
 
