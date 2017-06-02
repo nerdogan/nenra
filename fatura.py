@@ -17,6 +17,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
         self.setupUi(self)
 
         self.fisno=None
+        self.comb={}
         self.tableWidget_2.setColumnWidth(0, 50)
         self.tableWidget_2.setColumnWidth(1, 200)
         self.tableWidget_2.setColumnWidth(2, 40)
@@ -45,6 +46,18 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
             cikti = derle.sub(".", girdi)
             return cikti
         return girdi
+
+    def addcomb(self, row, col):
+        #if self.old_row >= 0:
+        #    self.table.setCellWidget(self.old_row, self.old_col, None)
+        self.old_row = row
+        self.old_col = col
+
+        comb1 = QtGui.QComboBox()
+        self.comb[row]=comb1
+
+
+        self.tableWidget_2.setCellWidget(row, col, self.comb[row])
 
     def goster(self):
         print "fatura arayüzü açıldı"
@@ -186,6 +199,11 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
                     self.tableWidget_2.setItem(aa, 1, QtGui.QTableWidgetItem(item))
                     item = bul3[0][3]
                     self.tableWidget_2.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+                    self.addcomb(aa,2)
+                    self.comb[aa].addItem(item)
+
+                    self.connect(self.comb[aa], QtCore.SIGNAL("currentIndexChanged(const QString&)"), self.toplamdegisti)
+
                     item = str(row1[7])
                     self.tableWidget_2.setItem(aa, 3, QtGui.QTableWidgetItem(item))
                     item = str(row1[5])

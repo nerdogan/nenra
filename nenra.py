@@ -29,6 +29,7 @@ from mainwindow import Recete2
 from fatura import Fatura
 from maliyet import Maliyet
 from cari import Cari
+from stok import Stok
 from login import Login
 from modulemdb import *
 
@@ -152,6 +153,7 @@ def main():
     fatura=Fatura()
     maliyet=Maliyet()
     cari = Cari()
+    stok = Stok()
     workerthread = WorkerThread()
     workerthread.start()
 
@@ -366,6 +368,11 @@ def main():
         cari.show()
 
     @pyqtSlot()
+    def slotstok(item2):
+        print "stok arayüzü açıldı"
+        stok.show()
+
+    @pyqtSlot()
     def slotpuss4(item2):
         if item2 == 100:
             mainWindow.statusbar.showMessage(
@@ -478,10 +485,12 @@ def main():
     mainWindow.pushButton_2.setStyleSheet("color: black ;  background-image: url(images/fatura.png)")
     mainWindow.pushButton_3.setStyleSheet("color: black ;  background-image: url(images/maliyet.png)")
     mainWindow.pushButton_4.setStyleSheet("color: black ;  background-image: url(images/nenra.png)")
+    mainWindow.pushButton_4.setStyleSheet("color: black ;  background-image: url(images/nenra.png)")
     mainWindow.pushButton.clicked.connect(slotpuss)
     mainWindow.pushButton_2.clicked.connect(slotfatura)
     mainWindow.pushButton_3.clicked.connect(slotmaliyet)
     mainWindow.pushButton_4.clicked.connect(slotcari)
+    mainWindow.pushButton_5.clicked.connect(slotstok)
     mainWindow.statusbar.showMessage(u"Namık ERDOĞAN © 2016 1.0518                                        Bishop Restaurant")
     recete.lineEdit.textChanged.connect(slottextch)
 
