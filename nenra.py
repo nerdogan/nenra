@@ -38,7 +38,7 @@ sys.setdefaultencoding('utf8')
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-handler = logging.FileHandler('hello.log')
+handler = logging.FileHandler('hello.log',encoding = "UTF-8")
 handler.setLevel(logging.INFO)
 
 # create a logging format
@@ -408,11 +408,11 @@ def main():
 
     @pyqtSlot()
     def slotpuss6(item2):
-        logger.info(item2)
-        print "fisac"+item2
+        logger.info(item2+u"nolu fişi göster")
+
         fatura.goster()
         fatura.lineEdit_5.setText(item2)
-        fatura.fisgetir("bir")
+        fatura.fisgetir(item2)
 
     @pyqtSlot()
     def slottextch(item2):
