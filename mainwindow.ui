@@ -325,9 +325,51 @@
      <x>0</x>
      <y>0</y>
      <width>773</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuDosya">
+    <property name="title">
+     <string>Dosya</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuRe_ete">
+    <property name="title">
+     <string>Reçete</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuCari">
+    <property name="title">
+     <string>Cari</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuStok">
+    <property name="title">
+     <string>Stok</string>
+    </property>
+    <addaction name="actionStok_Tan_mlama"/>
+    <addaction name="actionStok_Listesi"/>
+   </widget>
+   <widget class="QMenu" name="menuFatura">
+    <property name="title">
+     <string>Fatura</string>
+    </property>
+    <addaction name="actionFatura_Giri_Fi_i"/>
+    <addaction name="actionYemek_k_Fi_i"/>
+    <addaction name="actionTediye_Fi_i"/>
+    <addaction name="actionSay_m_Fi_i"/>
+   </widget>
+   <widget class="QMenu" name="menuBanka">
+    <property name="title">
+     <string>Banka</string>
+    </property>
+   </widget>
+   <addaction name="menuDosya"/>
+   <addaction name="menuRe_ete"/>
+   <addaction name="menuCari"/>
+   <addaction name="menuStok"/>
+   <addaction name="menuFatura"/>
+   <addaction name="menuBanka"/>
   </widget>
   <widget class="QStatusBar" name="statusbar">
    <property name="autoFillBackground">
@@ -337,6 +379,39 @@
     <string notr="true">background-color: rgb(255, 251, 202);</string>
    </property>
   </widget>
+  <action name="actionStok_Tan_mlama">
+   <property name="text">
+    <string>Stok Tanımlama</string>
+   </property>
+  </action>
+  <action name="actionStok_Listesi">
+   <property name="text">
+    <string>Stok Listesi</string>
+   </property>
+  </action>
+  <action name="actionFatura_Giri_Fi_i">
+   <property name="text">
+    <string>Fatura Giriş Fişi</string>
+   </property>
+  </action>
+  <action name="actionYemek_k_Fi_i">
+   <property name="text">
+    <string>Yemek Çıkış Fişi</string>
+   </property>
+   <property name="shortcut">
+    <string>Meta+Shift+F</string>
+   </property>
+  </action>
+  <action name="actionTediye_Fi_i">
+   <property name="text">
+    <string>Tediye Fişi</string>
+   </property>
+  </action>
+  <action name="actionSay_m_Fi_i">
+   <property name="text">
+    <string>Sayım Fişi</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

@@ -61,7 +61,7 @@ class WorkerThread(QThread):
 
     def run(self):
         self.emit(QtCore.SIGNAL("acac1(int)"), 100)
-        StartDate = "01/05/17"
+        StartDate = "01/06/17"
 
         EndDate = datetime.datetime.strptime(StartDate, "%d/%m/%y")
         now = datetime.datetime.now() - datetime.timedelta(days=1)
@@ -358,6 +358,11 @@ def main():
         fatura.goster()
 
     @pyqtSlot()
+    def slottediye(item2):
+        fatura.goster()
+        fatura.lineEdit.setText(item2)
+
+    @pyqtSlot()
     def slotmaliyet(item2):
         print "maliyet arayüzü açıldı"
         maliyet.show()
@@ -485,12 +490,14 @@ def main():
     mainWindow.pushButton_2.setStyleSheet("color: black ;  background-image: url(images/fatura.png)")
     mainWindow.pushButton_3.setStyleSheet("color: black ;  background-image: url(images/maliyet.png)")
     mainWindow.pushButton_4.setStyleSheet("color: black ;  background-image: url(images/nenra.png)")
-    mainWindow.pushButton_4.setStyleSheet("color: black ;  background-image: url(images/nenra.png)")
+    mainWindow.pushButton_5.setStyleSheet("color: black ;  background-image: url(images/nenra.png)")
     mainWindow.pushButton.clicked.connect(slotpuss)
     mainWindow.pushButton_2.clicked.connect(slotfatura)
     mainWindow.pushButton_3.clicked.connect(slotmaliyet)
     mainWindow.pushButton_4.clicked.connect(slotcari)
     mainWindow.pushButton_5.clicked.connect(slotstok)
+    mainWindow.actionTediye_Fi_i.triggered.connect(lambda:slottediye("TED"))
+    mainWindow.actionSay_m_Fi_i.triggered.connect(lambda: slottediye("SAY"))
     mainWindow.statusbar.showMessage(u"Namık ERDOĞAN © 2016 1.0518                                        Bishop Restaurant")
     recete.lineEdit.textChanged.connect(slottextch)
 

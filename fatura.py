@@ -150,7 +150,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
         some_date = QtCore.QDate.currentDate()
         self.dateEdit.setDate(some_date)
         # tediye fişi ted olunca otomatik sıra numarası veriyor
-        if ( deger5=="ted" or deger5=="TED") and deger6=="":
+        if ( deger5=="ted" or deger5=="TED" or deger5=="say" or deger5=="SAY") and deger6=="":
             maxbelgeno = self.myddb.cek("select max(sirano) from cari_har where serino='" + str(deger5) + "' ")
             deger6 = str(maxbelgeno[0][0] + 1)
             self.lineEdit_2.setText(deger6)
