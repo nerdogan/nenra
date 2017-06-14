@@ -158,7 +158,7 @@ def main():
     workerthread.start()
 
     bul=myddb.cek("select * from hammadde where kategori=2 or kategori=3 order by hamkod")
-    logger.info('Program opened 20170518 '+str(os.getpid()))
+    logger.info('Program opened 20170614 '+str(os.getpid()))
 
 
 

@@ -31,6 +31,7 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         self.pushButton_3.clicked.connect(self.sloturunmaliyetxls)
         self.pushButton_2.clicked.connect(self.sloturunmaliyetpdf)
         self.tableWidget.cellClicked.connect(self.slotekstre)
+        self.lineEdit.textChanged.connect(self.sloturunmaliyet)
         self.tableWidget.setColumnWidth(0, 75)
         self.tableWidget.setColumnWidth(1, 400)
         self.tableWidget.setColumnWidth(2, 75)
@@ -40,7 +41,8 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
 
     @pyqtSlot()
     def sloturunmaliyet(self):
-
+        firma="%"+self.lineEdit.text()+"%"
+        print "firma ",firma
         myddb1 = Myddb()
         self.kontrol=1
 
@@ -48,7 +50,7 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         self.tableWidget.clearContents()
         self.tableWidget.setColumnWidth(0, 75)
         self.tableWidget.setColumnWidth(1, 400)
-        self.tableWidget.setColumnWidth(2, 75)
+        self.tableWidget.setColumnWidth(2, 100)
         self.tableWidget.setColumnWidth(3, 25)
         self.tableWidget.setColumnWidth(4, 25)
 
@@ -74,8 +76,10 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         c.drawString(10, 810, item)
         tar1 = deger1.strftime('%Y-%m-%d')
         tar2 = deger2.strftime('%Y-%m-%d')
-        sql = """select `c2`.`cariid` AS `cariid`,`c2`.`cariad` AS `cariad`,sum(`c1`.`tutar`) AS `TUTAR` from (`test`.`cari_har` `c1` join `test`.`cari` `c2`) where ((`c1`.`cariid` = `c2`.`cariid`) and (`c1`.`tarih` >=%s ) and (`c1`.`tarih` <=%s ) and (`c1`.`fistipi`=10 or `c1`.`fistipi`=11)) group by `c2`.`cariad`   order by TUTAR DESC """
-        bul2 = myddb1.cur.execute(sql, (tar1, tar2))
+        sql = """select `c2`.`cariid` AS `cariid`,`c2`.`cariad` AS `cariad`,sum(`c1`.`tutar`) AS `TUTAR` from (`test`.`cari_har` `c1` join `test`.`cari` `c2`) 
+        where ((`c1`.`cariid` = `c2`.`cariid`) and (`c1`.`tarih` >=%s ) and (`c1`.`tarih` <=%s ) and (`c1`.`fistipi`=10 or `c1`.`fistipi`=11))
+         and  `c2`.`cariad` like %s group by `c2`.`cariad`   order by TUTAR DESC """
+        bul2 = myddb1.cur.execute(sql, (tar1, tar2,firma))
         print bul2, tar1, tar2
         bul = myddb1.cur.fetchall()
         i = bul2
@@ -88,6 +92,9 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         toplam2 = 0.0000
 
         for row1 in bul:
+            if row1[2]==0:
+                continue
+
 
             item = str(row1[0])
             self.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
@@ -119,7 +126,11 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
                 c.showPage()
                 c.setFont("Verdana", 8)
                 bb = 0
-
+        self.tableWidget.setRowCount(aa+2)
+        font = QtGui.QFont("Courier New", 11)
+        self.tableWidget.setItem(aa+1,2,QtGui.QTableWidgetItem(str(toplam)))
+        self.tableWidget.item(aa + 1, 2).setBackground(QtGui.QColor(255, 128, 128))
+        self.tableWidget.item(aa + 1, 2).setFont(font)
         c.setFont("Verdana", 11)
         c.drawString(210, 800 - (15 * (bb + 1)), "Genel Toplam")
         c.drawString(320, 800 - (15 * (bb + 1)), str(toplam))
