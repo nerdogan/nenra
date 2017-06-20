@@ -159,6 +159,146 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
     def cariekstre(self):
         print "elma"
 
+    @pyqtSlot()
+    def slotcarivade(self):
+        firma = "%" + self.lineEdit.text() + "%"
+        print "firma ", firma
+        myddb1 = Myddb()
+        self.kontrol = 1
+
+        print "cari vade listesi"
+        self.tableWidget.clearContents()
+        self.tableWidget.setColumnWidth(0, 60)
+        self.tableWidget.setColumnWidth(1, 400)
+        self.tableWidget.setColumnWidth(2, 100)
+        self.tableWidget.setColumnWidth(3, 100)
+        self.tableWidget.setColumnWidth(4, 25)
+
+        deger1 = self.dateEdit.date().toPyDate()
+        deger2 = self.dateEdit_2.date().toPyDate()
+        tar1 = deger1.strftime('%d%m%Y')
+        tar2 = deger2.strftime('%d%m%Y')
+
+
+        self.wb = xlwt.Workbook(encoding="utf-8")
+        self.dest_filename = "EKSTRE" + tar1 + tar2 + ".xls"
+        date_format = xlwt.XFStyle()
+        date_format.num_format_str = u'#,##0.00₺'
+        date_xf = xlwt.easyxf(num_format_str='DD-MM-YYYY')
+        self.ws1 = self.wb.add_sheet("ekstre")
+        self.style1 = xlwt.easyxf('pattern: pattern solid, fore_colour red;')
+
+        c = canvas.Canvas("EKSTRE" + tar1 + tar2 + ".pdf")
+
+        pdfmetrics.registerFont(TTFont('Verdana', 'Verdana.ttf'))
+        c.setFont("Verdana", 8)
+
+        item = "           KOD         FİRMA ADI                                                                            VADESİ GELEN               TOPLAM"
+        c.drawString(10, 810, item)
+        tar1 = deger1.strftime('%Y-%m-%d')
+        tar2 = deger2.strftime('%Y-%m-%d')
+        myddb1.cur.execute("drop table if exists test.table3 ")
+        myddb1.cur.execute("drop table if exists test.table4 ")
+        myddb1.cur.execute(
+            """ CREATE TEMPORARY TABLE  test.table3 AS (select `cariid` AS `cariid`,sum(`tutar`) AS `tutar` from cari_har where ( (tarih > '2016-12-31')) and (fistipi=10 or fistipi=11) group by cariid )""")
+        myddb1.cur.execute(""" CREATE TEMPORARY TABLE  test.table4 AS (select cariid,sum(tutar) as tutar from cari_har where vade < %s and (tarih > '2016-12-31') group by cariid )""",(tar2,))
+
+        sql = """select a.cariid,a.cariad , ifnull( b.tutar,0) as giriş ,ifnull(c.tutar,0) as çıkış, (ifnull( b.tutar,0)-ifnull(c.tutar,0)) as fark from cari a  left join table3 b on a.cariid=b.cariid left join table4 c on a.cariid=c.cariid where b.tutar>0 and a.cariad like %s order by çıkış desc """
+        bul2 = myddb1.cur.execute(sql, ( firma,))
+        print bul2, tar1, tar2
+        bul = myddb1.cur.fetchall()
+        i = bul2
+        j = 5
+        self.tableWidget.setRowCount(i)
+        aa = 0
+        bb = 0
+        dep = 0
+        toplam = 0.0
+        toplam1 = 0.0
+        toplam2 = 0.0000
+        for row1 in bul:
+
+            item = str(row1[0])
+            self.ws1.write(aa, 0, item)
+            self.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
+            c.drawString(45, 800 - (15 * (bb + 1)), item)
+            item = (row1[1])
+            self.ws1.write(aa, 1, item)
+            c.drawString(80, 800 - (15 * (bb + 1)), item)
+            self.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
+
+            if row1[3] > 0:
+                item = str(row1[3])
+                self.ws1.write(aa, 2, item)
+                self.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+                c.drawRightString(400, 800 - (15 * (bb + 1)), item)
+
+                item = str(row1[2])
+                self.ws1.write(aa, 3, float(row1[4]))
+                c.drawRightString(470, 800 - (15 * (bb + 1)), item)
+                toplam = toplam + float(row1[3])
+                toplam2 = Decimal(toplam2) + (row1[2])
+                self.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
+
+            if row1[3] <= 0:
+                item = "0"
+                self.ws1.write(aa, 2, item)
+                self.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+                c.drawRightString(400, 800 - (15 * (bb + 1)), item)
+
+                item = str(row1[2])
+                self.ws1.write(aa, 3, float(row1[4]))
+                c.drawRightString(470, 800 - (15 * (bb + 1)), item)
+
+                toplam2 = Decimal(toplam2) + (row1[2])
+                self.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
+
+
+            aa = aa + 1
+            bb = bb + 1
+
+            if (15 * (bb + 1)) >= 760:
+                c.setFont("Verdana", 10)
+                c.drawString(210, 800 - (15 * (bb + 1)), str(toplam))
+                c.drawString(270, 800 - (15 * (bb + 1)), str(toplam1))
+                c.drawString(350, 800 - (15 * (bb + 1)), str(toplam2))
+                c.showPage()
+                c.setFont("Verdana", 8)
+                bb = 0
+        self.tableWidget.setRowCount(aa + 2)
+        font = QtGui.QFont("Courier New", 11)
+        self.tableWidget.setItem(aa + 1, 2, QtGui.QTableWidgetItem(str(toplam)))
+        self.tableWidget.item(aa + 1, 2).setBackground(QtGui.QColor(255, 128, 128))
+        self.tableWidget.item(aa + 1, 2).setFont(font)
+
+        c.setFont("Verdana", 10)
+        self.ws1.write(aa + 1, 3, toplam)
+        self.ws1.write(aa + 1, 4, toplam1)
+        self.ws1.write(aa + 1, 5, toplam2)
+        c.drawString(350, 800 - (15 * (bb + 1)), str(toplam))
+        c.drawString(420, 800 - (15 * (bb + 1)), str(toplam2))
+        #c.drawString(430, 800 - (15 * (bb + 1)), str(toplam2))
+
+        # todo genel toplam yazılacak
+        c.setFont("Courier", 60)
+        # This next setting with make the text of our
+        # watermark gray, nice touch for a watermark.
+        c.setFillGray(0.3, 0.3)
+        # Set up our watermark document. Our watermark
+        # will be rotated 45 degrees from the direction
+        # of our underlying document.
+        c.saveState()
+        c.translate(500, 100)
+        c.rotate(45)
+        c.drawCentredString(0, 0, "BISHOP NEN ©")
+        c.drawCentredString(0, 300, "BISHOP NEN ©")
+        c.drawCentredString(0, 600, "BISHOP NEN ©")
+        c.restoreState()
+
+        c.save()
+        self.wb.save(self.dest_filename)
+        self.kontrol = 0
+
     @pyqtSlot(int,int)
     def slotekstre(self, item,item2):
         if self.kontrol==0:

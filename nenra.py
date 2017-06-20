@@ -356,11 +356,17 @@ def main():
     @pyqtSlot()
     def slotfatura(item2):
         fatura.goster()
+        fatura.lineEdit.setText(item2)
 
     @pyqtSlot()
     def slottediye(item2):
-        fatura.goster()
-        fatura.lineEdit.setText(item2)
+        if item2=="VADE":
+            cari.show()
+            cari.slotcarivade()
+
+
+
+
 
     @pyqtSlot()
     def slotmaliyet(item2):
@@ -496,8 +502,9 @@ def main():
     mainWindow.pushButton_3.clicked.connect(slotmaliyet)
     mainWindow.pushButton_4.clicked.connect(slotcari)
     mainWindow.pushButton_5.clicked.connect(slotstok)
-    mainWindow.actionTediye_Fi_i.triggered.connect(lambda:slottediye("TED"))
-    mainWindow.actionSay_m_Fi_i.triggered.connect(lambda: slottediye("SAY"))
+    mainWindow.actionTediye_Fi_i.triggered.connect(lambda:slotfatura("TED"))
+    mainWindow.actionSay_m_Fi_i.triggered.connect(lambda: slotfatura("SAY"))
+    mainWindow.actionStok_Tan_mlama.triggered.connect(lambda:slottediye("VADE"))
     mainWindow.statusbar.showMessage(u"Namık ERDOĞAN © 2016 1.0518                                        Bishop Restaurant")
     recete.lineEdit.textChanged.connect(slottextch)
 
