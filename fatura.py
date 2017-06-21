@@ -201,9 +201,11 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
                     item = bul3[0][3]
                     self.tableWidget_2.setItem(aa, 2, QtGui.QTableWidgetItem(item))
                     self.addcomb(aa,2)
+                    self.comb[aa].setProperty("row",aa)
+                    self.comb[aa].addItem(item)
                     self.comb[aa].addItem(item)
 
-                    self.connect(self.comb[aa], QtCore.SIGNAL("currentIndexChanged(const QString&)"), self.toplamdegisti)
+                    self.connect(self.comb[aa], QtCore.SIGNAL("currentIndexChanged(const QString&)"), self.birimdegisti)
 
                     item = str(row1[7])
                     self.tableWidget_2.setItem(aa, 3, QtGui.QTableWidgetItem(item))
@@ -397,15 +399,27 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 
     @pyqtSlot(int,int)
     def toplamdegisti(self,item):
+
         self.tableWidget_2.blockSignals(True)
+
         if item.column()==6:
             self.tableWidget_2.setItem(item.row(),5,QtGui.QTableWidgetItem(str(float(self.kontrol(item.text()))/float(self.tableWidget_2.item(item.row(),4).text()  ))))
         if item.column()==4:
-            self.tableWidget_2.setItem(item.row(),6,QtGui.QTableWidgetItem(str(float(self.kontrol(item.text())) * float(self.tableWidget_2.item(item.row(),5).text()  ))))
+            self.tableWidget_2.setItem(item.row(),5,QtGui.QTableWidgetItem(str(float(self.tableWidget_2.item(item.row(),6).text())/float(self.kontrol(item.text()) ))))
         if item.column() == 5:
             self.tableWidget_2.setItem(item.row(), 6, QtGui.QTableWidgetItem(
                 str(float(self.kontrol(item.text())) * float(self.tableWidget_2.item(item.row(), 4).text()))))
         self.tableWidget_2.blockSignals(False)
+
+    @pyqtSlot()
+    def birimdegisti(self,item):
+        bb = self.sender().property('row').toInt()[0]
+
+
+        print bb,item
+        self.tableWidget_2.setItem(bb,4,QtGui.QTableWidgetItem(str(float(self.tableWidget_2.item(bb,4).text()  )/1000)))
+
+
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
