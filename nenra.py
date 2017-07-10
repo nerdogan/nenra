@@ -61,7 +61,7 @@ class WorkerThread(QThread):
 
     def run(self):
         self.emit(QtCore.SIGNAL("acac1(int)"), 100)
-        StartDate = "01/06/17"
+        StartDate = "01/07/17"
 
         EndDate = datetime.datetime.strptime(StartDate, "%d/%m/%y")
         now = datetime.datetime.now() - datetime.timedelta(days=1)
@@ -526,9 +526,6 @@ def main():
     sh = QtGui.QShortcut(fatura)
     sh.setKey("Enter")
     fatura.connect(sh, QtCore.SIGNAL("activated()"), copyFunction)
-    sh1 = QtGui.QShortcut(fatura)
-    sh1.setKey(QtCore.Qt.Key_Down)
-    fatura.connect(sh1, QtCore.SIGNAL("activated()"), copyFunction)
 
     mainWindow.connect(login, QtCore.SIGNAL("acac1(int)"), slotpuss4)
     mainWindow.connect(workerthread, QtCore.SIGNAL("acac1(int)"), slotpuss4)
