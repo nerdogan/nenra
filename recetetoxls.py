@@ -22,6 +22,7 @@ class recetetoxls():
         date_xf = xlwt.easyxf(num_format_str='DD/MM/YYYY')
         self.ws1 = self.wb.add_sheet("recete")
         self.style1 = xlwt.easyxf('pattern: pattern solid, fore_colour red;')
+        self.style2 = xlwt.easyxf('pattern: pattern solid, fore_colour yellow;')
 
 
 
@@ -96,11 +97,13 @@ class recetetoxls():
             cell = sheet.cell(i, 0)  # The first cell
             print(cell.xf_index, sheet.cell(rowx=i, colx=0).value, str(sheet.cell(rowx=i, colx=1).value))
             bul = self.myddb.cek("select * from hammadde where hamad like '" + str(sheet.cell(rowx=i, colx=0).value) + "'")
-
-            self.ws1.write(self.satir, 0, str(sheet.cell(rowx=i, colx=0).value), self.style1)
+            if cell.xf_index==23:
+                self.ws1.write(self.satir, 0, str(sheet.cell(rowx=i, colx=0).value), self.style2)
+            else:
+                self.ws1.write(self.satir, 0, str(sheet.cell(rowx=i, colx=0).value), self.style1)
             self.satir=self.satir+1
             if len(bul)==0:
-                self.ws1.write(self.satir, 5, str(self.elma), self.style1)
+                self.ws1.write(self.satir-1, 5, str(self.elma), self.style1)
                 self.elma=self.elma+1
 
 
