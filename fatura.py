@@ -202,8 +202,12 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
                     self.tableWidget_2.setItem(aa, 2, QtGui.QTableWidgetItem(item))
                     self.addcomb(aa,2)
                     self.comb[aa].setProperty("row",aa)
-                    self.comb[aa].addItem(item)
-                    self.comb[aa].addItem(item)
+                    self.comb[aa].setProperty("old", 1)
+                    self.myddb.cur.execute("select birim,katsayi from birim where hamkod=%s order by katsayi",[elma])
+                    bul4 = self.myddb.cur.fetchall()
+                    for satirr in  bul4:
+                        self.comb[aa].addItem(satirr[0])
+                        self.comb[aa].setProperty(satirr[0],satirr[1] )
 
                     self.connect(self.comb[aa], QtCore.SIGNAL("currentIndexChanged(const QString&)"), self.birimdegisti)
 
@@ -271,6 +275,18 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
             self.tableWidget_2.setItem(aa, 1, QtGui.QTableWidgetItem(item))
             item = deger3
             self.tableWidget_2.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+
+            self.addcomb(aa, 2)
+            self.comb[aa].setProperty("row", aa)
+            self.comb[aa].setProperty("old", 1)
+            self.myddb.cur.execute("select birim,katsayi from birim where hamkod=%s order by katsayi", [deger1])
+            bul4 = self.myddb.cur.fetchall()
+            for satirr in bul4:
+                self.comb[aa].addItem(satirr[0])
+                self.comb[aa].setProperty(satirr[0], satirr[1])
+
+            self.connect(self.comb[aa], QtCore.SIGNAL("currentIndexChanged(const QString&)"), self.birimdegisti)
+
             item = deger4
             self.tableWidget_2.setItem(aa, 3, QtGui.QTableWidgetItem(item))
             item = '1'
@@ -405,7 +421,8 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
         if item.column()==6:
             self.tableWidget_2.setItem(item.row(),5,QtGui.QTableWidgetItem(str(float(self.kontrol(item.text()))/float(self.tableWidget_2.item(item.row(),4).text()  ))))
         if item.column()==4:
-            self.tableWidget_2.setItem(item.row(),5,QtGui.QTableWidgetItem(str(float(self.tableWidget_2.item(item.row(),6).text())/float(self.kontrol(item.text()) ))))
+            self.tableWidget_2.setItem(item.row(), 6, QtGui.QTableWidgetItem(
+                str(float(self.kontrol(item.text())) * float(self.tableWidget_2.item(item.row(), 5).text()))))
         if item.column() == 5:
             self.tableWidget_2.setItem(item.row(), 6, QtGui.QTableWidgetItem(
                 str(float(self.kontrol(item.text())) * float(self.tableWidget_2.item(item.row(), 4).text()))))
@@ -414,11 +431,14 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
     @pyqtSlot()
     def birimdegisti(self,item):
         bb = self.sender().property('row').toInt()[0]
+        cc = self.sender().property(item).toInt()[0]
+        dd = self.sender().property('old').toInt()[0]
+        self.sender().setProperty('old',cc)
+
+        print bb,item,cc ,dd
 
 
-        print bb,item
-        self.tableWidget_2.setItem(bb,4,QtGui.QTableWidgetItem(str(float(self.tableWidget_2.item(bb,4).text()  )/1000)))
-
+        self.tableWidget_2.setItem(bb,5,QtGui.QTableWidgetItem(str(float(self.tableWidget_2.item(bb,5).text()  )*(float(cc)/float(dd)))))
 
 
 if __name__ == "__main__":
