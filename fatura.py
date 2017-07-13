@@ -37,6 +37,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
         self.pushButton_3.clicked.connect(self.slotfaturasatirsil)
         self.pushButton_4.clicked.connect(self.slotfaturasil)
         self.tableWidget_2.itemChanged.connect(self.toplamdegisti)
+        self.comboBox.currentIndexChanged.connect(self.odemeyap)
 
     def kontrol(self,girdi):
         girdi = str(girdi)
@@ -81,6 +82,12 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
         if len(item2)>0:
             some_date=self.dateEdit.date()
             self.dateEdit_2.setDate(some_date.addDays(int(item2)))
+
+    @pyqtSlot(int, str)
+    def odemeyap(self, item2):
+        self.lineEdit_2.setText("")
+        self.lineEdit.setText("TED")
+        print (self.toplam)
 
     @pyqtSlot(int, str)
     def fisgetir(self, item2):
@@ -232,6 +239,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
             self.lineEdit_3.setFocus(True)
 
             self.tableWidget_2.blockSignals(False)
+            self.toplamgoster()
 
             return
 
@@ -378,13 +386,34 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
         SQL5= self.myddb.cur.execute(sql4)
         self.myddb.conn.commit()
         self.emit(QtCore.SIGNAL("acac"), SQL5)
-        self.label_6.setText("{0}  {1}  {2}".format(str("{0:.2f}".format(toplam)), str("{0:.2f}".format(kdv)),str("{0:.2f}".format(toplam+kdv))))
+        self.label_6.setText("{0}  {1}  {2}".format(str("{0:.2f}".format(toplam)), str("{0:.2f}".format(kdv)),
+                                                    str("{0:.2f}".format(toplam + kdv))))
         self.lineEdit_3.setFocus(True)
 
     @pyqtSlot()
     def slotfaturasatirsil(self):
         bb = self.tableWidget_2.currentRow()
         self.tableWidget_2.removeRow(bb)
+
+    def toplamgoster(self):
+        i = self.tableWidget_2.rowCount()
+        toplam=0
+        kdv=0
+        for item in range(i):
+
+            deger10 = self.tableWidget_2.item(item, 0).text()
+            deger11 = self.tableWidget_2.item(item, 3).text()
+            deger12 = self.tableWidget_2.item(item, 4).text()
+            deger13 = self.tableWidget_2.item(item, 5).text()
+            deger12 = self.kontrol(deger12)
+
+            deger13 = self.kontrol(deger13)
+            toplam += float(deger12) * float(deger13)
+            kdv += float(deger11) * float(deger12) * float(deger13) / 100
+            print deger10, toplam, kdv
+            self.toplam="{0:.2f}".format(toplam + kdv)
+            self.label_6.setText("{0}  {1}  {2}".format(str("{0:.2f}".format(toplam)), str("{0:.2f}".format(kdv)),
+                                                        str("{0:.2f}".format(toplam + kdv))))
 
     @pyqtSlot()
     def slotfaturasil(self):
@@ -427,6 +456,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
             self.tableWidget_2.setItem(item.row(), 6, QtGui.QTableWidgetItem(
                 str(float(self.kontrol(item.text())) * float(self.tableWidget_2.item(item.row(), 4).text()))))
         self.tableWidget_2.blockSignals(False)
+        self.toplamgoster()
 
     @pyqtSlot()
     def birimdegisti(self,item):
