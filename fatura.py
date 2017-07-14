@@ -85,14 +85,30 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 
     @pyqtSlot(int, str)
     def odemeyap(self, item2):
+        elma = self.toplam
+        elma1 = self.cari
+
         self.lineEdit_2.setText("")
         self.lineEdit.setText("TED")
-        print (self.toplam)
 
 
-        self.linechange(QtCore.QString(" "))
 
-        self.slotfatura(int(self.label_5.text())-2,0)
+        self.linechange(QtCore.QString(elma1))
+
+        self.slotfatura(0, 0)
+        if self.comboBox.currentIndex()==1:
+            self.linechange(QtCore.QString("NAKIT"))
+        elif self.comboBox.currentIndex()==2:
+            self.linechange(QtCore.QString("DENIZBANK"))
+        elif self.comboBox.currentIndex()==3:
+            self.linechange(QtCore.QString("YKB"))
+        self.slotfatura(0, 0)
+        self.tableWidget_2.setItem(0, 4, QtGui.QTableWidgetItem("-1"))
+        self.tableWidget_2.setItem(0, 5, QtGui.QTableWidgetItem(elma))
+        self.comboBox.blockSignals(True)
+        self.comboBox.setCurrentIndex(0)
+        self.comboBox.blockSignals(False)
+
 
 
 
@@ -190,6 +206,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
                     self.label_5.setText(str(item2[1]))
 
                     deger0 = str(item2[1]) + " " + item2[2] + " " + item2[3]
+                    self.cari=item2[3]
                     self.label_3.setText(deger0)
                     bul1 = str(item3[0])
 
@@ -371,6 +388,8 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
             satir = 0
 
         i = self.tableWidget_2.rowCount()
+        if i==0:
+            return
         for item in range(i):
             satir += 1
             deger10 = self.tableWidget_2.item(item, 0).text()

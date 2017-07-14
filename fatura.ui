@@ -429,6 +429,11 @@
    </property>
    <item>
     <property name="text">
+     <string>ÖDEME YAP</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
      <string>Nakit Ödeme</string>
     </property>
    </item>
