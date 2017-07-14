@@ -4,7 +4,7 @@ import sys
 import time as ttim
 import re
 from PyQt4.QtCore import pyqtSlot
-from PyQt4 import QtGui, QtCore,Qt
+from PyQt4 import QtGui, QtCore,QtTest
 from ui_fatura import Ui_Dialog3
 
 from modulemdb import *
@@ -88,6 +88,14 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
         self.lineEdit_2.setText("")
         self.lineEdit.setText("TED")
         print (self.toplam)
+
+
+        self.linechange(QtCore.QString(" "))
+
+        self.slotfatura(int(self.label_5.text())-2,0)
+
+
+
 
     @pyqtSlot(int, str)
     def fisgetir(self, item2):
