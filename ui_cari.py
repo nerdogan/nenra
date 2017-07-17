@@ -107,6 +107,9 @@ class Ui_Dialog5(object):
         font.setWeight(75)
         self.label_3.setFont(font)
         self.label_3.setObjectName(_fromUtf8("label_3"))
+        self.checkBox = QtGui.QCheckBox(Dialog5)
+        self.checkBox.setGeometry(QtCore.QRect(10, 380, 161, 17))
+        self.checkBox.setObjectName(_fromUtf8("checkBox"))
 
         self.retranslateUi(Dialog5)
         QtCore.QMetaObject.connectSlotsByName(Dialog5)
@@ -131,6 +134,7 @@ class Ui_Dialog5(object):
         item.setText(_translate("Dialog5", ".", None))
         self.pushButton_3.setText(_translate("Dialog5", "XLS", None))
         self.label_3.setText(_translate("Dialog5", "Firma Adı", None))
+        self.checkBox.setText(_translate("Dialog5", "Bakiyesi olmayanları gösterme", None))
 
 
 if __name__ == "__main__":
