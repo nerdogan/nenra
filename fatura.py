@@ -87,15 +87,16 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
     def odemeyap(self, item2):
         elma = self.toplam
         elma1 = self.cari
+        some_date = self.dateEdit.date()
 
         self.lineEdit_2.setText("")
         self.lineEdit.setText("TED")
-
-
+        self.dateEdit.setDate(some_date)
 
         self.linechange(QtCore.QString(elma1))
 
         self.slotfatura(0, 0)
+
         if self.comboBox.currentIndex()==1:
             self.linechange(QtCore.QString("NAKIT"))
         elif self.comboBox.currentIndex()==2:
@@ -116,6 +117,10 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
     @pyqtSlot(int, str)
     def fisgetir(self, item2):
         print item2,"elmaarmut kelmahmut"
+        self.comboBox.blockSignals(True)
+        self.comboBox.setCurrentIndex(0)
+        self.comboBox.blockSignals(False)
+
         if self.lineEdit_5.text()!="":
             sql = "select serino,sirano from cari_har where  fisno='" + str(self.lineEdit_5.text())  + "'"
             sonuc = self.myddb.cek(sql)

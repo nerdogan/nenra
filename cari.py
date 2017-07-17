@@ -92,7 +92,7 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         toplam2 = 0.0000
 
         for row1 in bul:
-            if row1[2]==0:
+            if row1[2]==0 and self.checkBox.isChecked():
                 continue
 
 
