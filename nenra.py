@@ -51,16 +51,15 @@ logger.addHandler(handler)
 
 
 class WorkerThread(QThread):
-    acac1 = pyqtSignal(int)
+
 
     def __init__(self,parent=None):
         super(WorkerThread,self).__init__(parent)
         self.myddb = Myddb()
-        self.acac1 = pyqtSignal(int)
 
 
     def run(self):
-        self.emit(QtCore.SIGNAL("acac1(int)"), 100)
+
         StartDate = "17/07/17"
 
         EndDate = datetime.datetime.strptime(StartDate, "%d/%m/%y")
@@ -385,18 +384,29 @@ def main():
 
     @pyqtSlot()
     def slotpuss4(item2):
+        print item2
         if item2 == 100:
             mainWindow.statusbar.showMessage(
                 u"Namık ERDOĞAN © 2016    Kullanıcı adı girilmedi !!!    Bishop Restaurant")
             mainWindow.pushButton.blockSignals(1)
             mainWindow.pushButton_2.blockSignals(1)
-
             mainWindow.pushButton_3.blockSignals(1)
+            mainWindow.pushButton_4.blockSignals(1)
+            mainWindow.pushButton_5.blockSignals(1)
+            mainWindow.pushButton_3.blockSignals(1)
+
+            mainWindow.actionTediye_Fi_i.setEnabled(0)
+            mainWindow.actionSay_m_Fi_i.setEnabled(0)
+            mainWindow.actionStok_Tan_mlama.setEnabled(0)
 
         if item2 == 12345:
             mainWindow.statusbar.showMessage(
                 u"Namık ERDOĞAN © 2016       Mutfak Şef          Bishop Restaurant")
             mainWindow.pushButton_2.blockSignals(0)
+        if item2 == 123456:
+            mainWindow.statusbar.showMessage(
+                u"Namık ERDOĞAN © 2016       Kasiyer          Bishop Restaurant")
+            mainWindow.pushButton_5.blockSignals(0)
 
         if item2 == 101:
             mainWindow.close()
@@ -409,8 +419,13 @@ def main():
                 u"Namık ERDOĞAN © 2016      Yönetici                  Bishop Restaurant")
             mainWindow.pushButton.blockSignals(0)
             mainWindow.pushButton_2.blockSignals(0)
-
             mainWindow.pushButton_3.blockSignals(0)
+            mainWindow.pushButton_4.blockSignals(0)
+            mainWindow.pushButton_5.blockSignals(0)
+
+            mainWindow.actionTediye_Fi_i.setEnabled(1)
+            mainWindow.actionSay_m_Fi_i.setEnabled(1)
+            mainWindow.actionStok_Tan_mlama.setEnabled(1)
 
     @pyqtSlot()
     def slotpuss5(item2):
@@ -505,7 +520,7 @@ def main():
     mainWindow.actionTediye_Fi_i.triggered.connect(lambda:slotfatura("TED"))
     mainWindow.actionSay_m_Fi_i.triggered.connect(lambda: slotfatura("SAY"))
     mainWindow.actionStok_Tan_mlama.triggered.connect(lambda:slottediye("VADE"))
-    mainWindow.statusbar.showMessage(u"Namık ERDOĞAN © 2016 1.0518                                        Bishop Restaurant")
+    mainWindow.statusbar.showMessage(u"Namık ERDOĞAN © 2016 v 1.2123                                   Bishop Restaurant")
     recete.lineEdit.textChanged.connect(slottextch)
 
 
@@ -528,7 +543,7 @@ def main():
     fatura.connect(sh, QtCore.SIGNAL("activated()"), copyFunction)
 
     mainWindow.connect(login, QtCore.SIGNAL("acac1(int)"), slotpuss4)
-    mainWindow.connect(workerthread, QtCore.SIGNAL("acac1(int)"), slotpuss4)
+    slotpuss4(100)
     mainWindow.connect(fatura, QtCore.SIGNAL("acac"), slotpuss5)
     mainWindow.connect(cari, QtCore.SIGNAL("fisac"), slotpuss6)
 

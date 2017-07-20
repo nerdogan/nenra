@@ -29,6 +29,9 @@
      <bold>true</bold>
     </font>
    </property>
+   <property name="calendarPopup">
+    <bool>true</bool>
+   </property>
   </widget>
   <widget class="QDateEdit" name="dateEdit_2">
    <property name="geometry">
@@ -45,6 +48,9 @@
      <weight>75</weight>
      <bold>true</bold>
     </font>
+   </property>
+   <property name="calendarPopup">
+    <bool>true</bool>
    </property>
   </widget>
   <widget class="QLabel" name="label">

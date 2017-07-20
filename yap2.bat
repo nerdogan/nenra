@@ -5,6 +5,8 @@ python C:\Python27\Lib\site-packages\PyQt4\uic\pyuic.py -x fatura.ui -o ui_fatur
 python C:\Python27\Lib\site-packages\PyQt4\uic\pyuic.py -x maliyet.ui -o ui_maliyet.py
 python C:\Python27\Lib\site-packages\PyQt4\uic\pyuic.py -x cari.ui -o ui_cari.py
 python C:\Python27\Lib\site-packages\PyQt4\uic\pyuic.py -x stok.ui -o ui_stok.py
+python C:\Python27\Lib\site-packages\PyQt4\uic\pyuic.py -x rapor.ui -o ui_rapor.py
+
 rem *** Used to create a Python exe 
 
 rem ***** get rid of all the old files in the build folder
