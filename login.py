@@ -38,11 +38,17 @@ class Login(QtGui.QDialog):
 
 
 
+
     def handleLogin(self):
         if (self.textName.text() == 'mutfak' and
                     self.textPass.text() == '1234'):
             self.accept()
             self.emit(QtCore.SIGNAL("acac1(int)"), 12345)
+
+        if (self.textName.text() == 'kasa' and
+                    self.textPass.text() == '12345'):
+            self.accept()
+            self.emit(QtCore.SIGNAL("acac1(int)"), 123456)
 
 
         elif ((self.textName.text() == 'n' or self.textName.text() == 'N') and    self.textPass.text() == ''):
