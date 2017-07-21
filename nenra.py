@@ -555,6 +555,7 @@ def main():
 
 
     mainWindow.show()
+    mainWindow.setStyleSheet(" background-color: orange;")
 
 
     #mainWindow.setWindowState(mainWindow.windowState() & ~QtCore.Qt.WindowMinimized | QtCore.Qt.WindowActive)
