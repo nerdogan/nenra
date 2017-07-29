@@ -14,15 +14,13 @@ import MySQLdb as mdb
 
 import requests
 
-from escpos.printer import Network
-p = Network("192.168.2.223")
-import sys
-import re
+from escpos.printer import Network,Dummy
+
 from datetime import datetime,timedelta
 import subprocess
 from PyQt4.QtCore import pyqtSlot
 from PyQt4 import QtGui, QtCore
-from ui_rapor import Ui_Dialog6
+from ui_rapor import Ui_Dialog7
 import xlwt
 from decimal import *
 
@@ -34,7 +32,7 @@ from reportlab.rl_settings import *
 
 
 
-class Rapor(QtGui.QDialog , Ui_Dialog6):
+class Rapor(QtGui.QDialog , Ui_Dialog7):
     def __init__(self):
         QtGui.QDialog.__init__(self)
         self.setupUi(self)
@@ -49,10 +47,11 @@ class Rapor(QtGui.QDialog , Ui_Dialog6):
         self.pushButton.clicked.connect(self.sloturunmaliyet)
         self.pushButton_3.clicked.connect(self.sloturunmaliyetxls)
         self.pushButton_2.clicked.connect(self.sloturunmaliyetpdf)
-        self.tableWidget.cellClicked.connect(self.slotekstre)
-        self.tableWidget.setColumnWidth(0, 75)
-        self.tableWidget.setColumnWidth(1, 400)
-        self.tableWidget.setColumnWidth(2, 75)
+        self.pushButton_4.clicked.connect(self.slotekstre)
+        self.pushButton_5.clicked.connect(self.cariekstre)
+        self.tableWidget.setColumnWidth(0, 50)
+        self.tableWidget.setColumnWidth(1, 50)
+        self.tableWidget.setColumnWidth(2, 450)
         self.tableWidget.setColumnWidth(3, 25)
         self.tableWidget.setColumnWidth(4, 25)
         getcontext().prec = 12
@@ -61,20 +60,26 @@ class Rapor(QtGui.QDialog , Ui_Dialog6):
     def sloturunmaliyet(self):
 
         myddb1 = Myddb()
+        self.d = Dummy()
         self.kontrol=1
+        self.d.set(font='a', align='left', height=1, width=1)
+        
+
+
 
         print "caribakiye listesi"
         self.tableWidget.clearContents()
-        self.tableWidget.setColumnWidth(0, 75)
-        self.tableWidget.setColumnWidth(1, 200)
-        self.tableWidget.setColumnWidth(2, 35)
-        self.tableWidget.setColumnWidth(3, 75)
-        self.tableWidget.setColumnWidth(4, 75)
+        self.tableWidget.setColumnWidth(0, 50)
+        self.tableWidget.setColumnWidth(1, 50)
+        self.tableWidget.setColumnWidth(2, 400)
+        self.tableWidget.setColumnWidth(3, 50)
+        self.tableWidget.setColumnWidth(4, 50)
 
         deger1 = self.dateEdit.date().toPyDate()
         deger2 = self.dateEdit_2.date().toPyDate()
-        tar1 = deger1.strftime('%d%m%Y')
-        tar2 = deger2.strftime('%d%m%Y')
+        tar1 = deger1.strftime('%d_%m_%Y')
+        tar2 = deger2.strftime('%d_%m_%Y')
+        self.d.text("  "+tar1+ "  " +tar2 +" Urun Rapor"+" \n")
 
         self.wb = xlwt.Workbook(encoding="utf-8")
         self.dest_filename = "EKSTRE" + tar1 + tar2 + ".xls"
@@ -94,19 +99,19 @@ class Rapor(QtGui.QDialog , Ui_Dialog6):
         tar1 = deger1.strftime('%Y-%m-%d')
         tar2 = deger2.strftime('%Y-%m-%d')
 
-        myddb1.cur.execute("drop table if exists test.table1 ")
-        myddb1.cur.execute("drop table if exists test.table2 ")
-        myddb1.cur.execute(""" CREATE TEMPORARY TABLE  test.table1 AS (select hamkod,sum(miktar) miktar1 from cariay a where fistipi=10 and date(tarih) between %s and %s group by hamkod)""",(tar1,tar2))
-        myddb1.cur.execute(""" CREATE TEMPORARY TABLE  test.table2 AS (select hhammaddeid,sum(hmiktar) miktar2 from harcanan a where  date(tarih) between %s and %s group by hhammaddeid)""",(tar1,tar2,))
+        myddb1.cur.execute("drop table if exists test.table3 ")
 
-        sql = """select a.hamkod,a.hamad,a.birim , ifnull( b.miktar1,0) as giriş ,ifnull(c.miktar2,0) as çıkış, (ifnull( b.miktar1,0)-ifnull(c.miktar2,0)) as fark from hammadde a  left join table1 b on a.hamkod=b.hamkod left join table2 c on a.hamkod=c.hhammaddeid where departman="BAR" order by a.hamkod; """
+        myddb1.cur.execute(""" CREATE TEMPORARY TABLE  test.table3 AS (SELECT ciro.departman,pluno,hamad,sum(adet),sum(tutar) FROM bishop.ciro  inner join test.hammadde on  pluno=hamkod and
+ date(tarih) between %s and %s and hesap IS NULL group by ciro.departman,pluno order by ciro.departman asc)""",(tar1,tar2))
+
+        sql = """select * from table3 ; """
 
         bul2 = myddb1.cur.execute(sql)
         print bul2, tar1, tar2
         bul = myddb1.cur.fetchall()
         i = bul2
         j = 5
-        self.tableWidget.setRowCount(i)
+        self.tableWidget.setRowCount(i + 2)
         aa = 0
         bb = 0
         toplam = 0.0
@@ -119,13 +124,17 @@ class Rapor(QtGui.QDialog , Ui_Dialog6):
             self.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
             c.drawString(5, 800 - (15 * (bb + 1)), item)
             self.ws1.write(aa,0,item)
-            item = row1[1]
+
+            item = str(row1[1])
             c.drawString(50, 800 - (15 * (bb + 1)), item)
             self.ws1.write(aa, 1, item)
+            self.d.text(item)
+            self.d.text(" ")
             self.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
             item = row1[2]
             c.drawString(400, 800 - (15 * (bb + 1)), item)
             self.ws1.write(aa, 2, item)
+            self.d.text(item.ljust(30))
             self.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
 
             item = str(row1[3])
@@ -135,6 +144,9 @@ class Rapor(QtGui.QDialog , Ui_Dialog6):
 
             #c.drawRightString( 440, 800 - (15 * (bb + 1)), "{:10.2f}".format(row1[3]))
             self.ws1.write(aa, 3, float(row1[3]))
+            self.d.text(item)
+            self.d.text("  ")
+
 
             item = str(row1[4])
 
@@ -143,14 +155,8 @@ class Rapor(QtGui.QDialog , Ui_Dialog6):
 
             c.drawRightString(510, 800 - (15 * (bb + 1)), "{:10.2f}".format(row1[4]))
             self.ws1.write(aa, 4, float(row1[4]))
+            self.d.text(item.rjust(8)+"\n")
 
-            item = str(row1[5])
-
-            toplam2 = toplam2 + float(row1[5])
-            self.tableWidget.setItem(aa, 5, QtGui.QTableWidgetItem(item))
-
-            c.drawRightString(580, 800 - (15 * (bb + 1)), "{:10.2f}".format(row1[5]))
-            self.ws1.write(aa, 5, float(row1[5]))
 
             aa = aa + 1
             bb = bb + 1
@@ -190,32 +196,50 @@ class Rapor(QtGui.QDialog , Ui_Dialog6):
         c.save()
         self.wb.save(self.dest_filename)
 
+        myddb1.cur.execute(
+            """  SELECT sum(tutar) FROM bishop.ciro  where  date(tarih) between %s and %s and hesap IS NULL """,
+            (tar1, tar2))
+        bul3=myddb1.cur.fetchall()
+        print bul3[0][0]
+        self.d.text("Toplam :      "+(str(toplam1)).rjust(30)+"\n")
+
+        self.d.text("Indirim :     "+(str(toplam1-bul3[0][0])).rjust(30)+"\n")
+        self.d.text("Genel Toplam :"+(str(bul3[0][0])).rjust(30)+"\n")
+        self.d.cut()
+
     @pyqtSlot()
     def cariekstre(self):
+        p = Network("192.168.2.222")
+        p._raw(self.d.output)
         print "elma"
+        p=None
+        print p
+
+ #       z._raw(self.d.output)
 
     @pyqtSlot(int,int)
-    def slotekstre(self, item,item2):
+    def slotekstre(self, item):
         if self.kontrol==0:
-            fisno = self.tableWidget.item(item, 0).text()
-            self.emit(QtCore.SIGNAL("fisac"), fisno)
-            return
+            print " kasa"
         myddb1 = Myddb()
-        carikod=self.tableWidget.item(item, 0).text()
+        self.d = Dummy()
+        self.kontrol = 1
+        self.d.set(font='a', align='left', height=1, width=1)
 
         print "ekstrerapor"
         self.tableWidget.clearContents()
-        self.tableWidget.setColumnWidth(0, 60)
+        self.tableWidget.setColumnWidth(0, 150)
         self.tableWidget.setColumnWidth(1, 100)
-        self.tableWidget.setColumnWidth(2, 200)
+        self.tableWidget.setColumnWidth(2, 75)
         self.tableWidget.setColumnWidth(3, 75)
         self.tableWidget.setColumnWidth(4, 75)
         self.tableWidget.setColumnWidth(5, 75)
 
         deger1 = self.dateEdit.date().toPyDate()
         deger2 = self.dateEdit_2.date().toPyDate()
-        tar1 = deger1.strftime('%d%m%Y')
-        tar2 = deger2.strftime('%d%m%Y')
+        tar1 = deger1.strftime('%d_%m_%Y')
+        tar2 = deger2.strftime('%d_%m_%Y')
+        self.d.text("  " + tar1 + "  " + tar2 + " Kasa Raporu " + " \n")
 
         self.wb = xlwt.Workbook(encoding="utf-8")
         self.dest_filename = "EKSTRE" + tar1 + tar2 + ".xls"
@@ -234,19 +258,15 @@ class Rapor(QtGui.QDialog , Ui_Dialog6):
         tar1 = deger1.strftime('%Y-%m-%d')
         tar2 = deger2.strftime('%Y-%m-%d')
 
-        sql = """select `c1`.`fistipi`,`c1`.`tarih` AS `tarih`,`c1`.`fisno` AS `fisno`,concat(`c1`.`serino`,'_',`c1`.`sirano`,' nolu '), `c1`.`tutar` AS `TUTAR` 
-        from (`test`.`cari_har` `c1` join `test`.`cari` `c2`) 
-        where ((`c1`.`cariid` = `c2`.`cariid`) and (`c1`.`cariid`=%s) 
-        and  (`c1`.`tarih` >=%s ) and (`c1`.`tarih` <=%s ) 
-        and (`c1`.`fistipi`=10 or `c1`.`fistipi`=11))  order by `c1`.`tarih` asc """
+        sql = """select kasano,sum(tutar) from kasa where date(tarih) between %s and %s  group by kasano; """
 
-        bul2 = myddb1.cur.execute(sql, (carikod,tar1, tar2))
+        bul2 = myddb1.cur.execute(sql, (tar1, tar2))
         print bul2, tar1, tar2
 
         bul = myddb1.cur.fetchall()
         i = bul2
         j = 5
-        self.tableWidget.setRowCount(i)
+        self.tableWidget.setRowCount(i+5)
         aa = 0
         bb = 0
         dep=0
@@ -255,54 +275,101 @@ class Rapor(QtGui.QDialog , Ui_Dialog6):
         toplam2 = 0.0000
         for row1 in bul:
 
-            item = str(row1[2])
-            self.ws1.write(aa, 0, item)
-            self.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
-            c.drawString(45, 800 - (15 * (bb + 1)), item)
-            item = (row1[1]).strftime("%d-%m-%Y")
-            self.ws1.write(aa, 1, item)
-            c.drawString(80, 800 - (15 * (bb + 1)), item)
-            self.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
 
-            if row1[0]==10:
-                item = str(row1[3])+"Fatura "
-                self.ws1.write(aa, 2, item)
-                self.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+            if row1[0]==100:
+                item = str(row1[0])+" Nakit "
+                self.ws1.write(aa, 0, item)
+                self.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
                 c.drawString(150, 800 - (15 * (bb + 1)), item)
-
-                item = str(row1[4])
-                self.ws1.write(aa, 3, float(row1[4]))
+                self.d.text(item.ljust(30) + " ")
+                item = str(row1[1])
+                self.d.text(item.rjust(10) + " \n")
+                self.ws1.write(aa, 3, float(row1[1]))
                 c.drawRightString(310, 800 - (15 * (bb + 1)), item)
-                toplam = toplam + float(row1[4])
-                toplam2=Decimal(toplam2)+(row1[4])
-                self.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
+                toplam = Decimal(toplam) + (row1[1])
+
+                toplam1 = Decimal(toplam1) + (row1[1])
+                self.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
                 item= ""
                 c.drawRightString(390, 800 - (15 * (bb + 1)), item)
-                self.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
-
-            if row1[0]==11:
-                item = row1[3]+u" Ödeme"
-                self.ws1.write(aa, 2, item)
                 self.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+
+            if row1[0]==101:
+                print "ind"
+                aa=aa-1
+            if row1[0]==102:
+                item = str(row1[0])+" Servis "
+                self.ws1.write(aa, 0, item)
+                self.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
+                c.drawString(150, 800 - (15 * (bb + 1)), item)
+                self.d.text(item.ljust(30) + " ")
+
+                item = str(row1[1])
+                self.d.text(item.rjust(10)+ " \n")
+                self.ws1.write(aa, 3, float(row1[1]))
+                c.drawRightString(310, 800 - (15 * (bb + 1)), item)
+                toplam = Decimal(toplam) + (row1[1])
+                self.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
+                item= ""
+                c.drawRightString(390, 800 - (15 * (bb + 1)), item)
+                self.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+
+            if row1[0]==105:
+                item = str(row1[0])+" Denizbank "
+                self.ws1.write(aa, 0, item)
+                self.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
+                c.drawString(150, 800 - (15 * (bb + 1)), item)
+                self.d.text(item.ljust(30) + " ")
+
+                item = str(row1[1])
+                self.ws1.write(aa, 3, float(row1[1]))
+                c.drawRightString(310, 800 - (15 * (bb + 1)), item)
+                toplam2=Decimal(toplam2)+(row1[1])
+                toplam1 = Decimal(toplam1) + (row1[1])
+                self.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
+                self.d.text(item.rjust(10)+ " \n")
+
+                item= ""
+                c.drawRightString(390, 800 - (15 * (bb + 1)), item)
+                self.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+
+            if row1[0]==106:
+                item = str(row1[0])+" Yapi Kredi "
+                self.ws1.write(aa, 0, item)
+                self.d.text(item.ljust(30) + " ")
+                self.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
                 c.drawString(150, 800 - (15 * (bb + 1)), item)
 
-                item = str(row1[4])
-                self.ws1.write(aa, 4, float(row1[4]))
-                c.drawString(350, 800 - (15 * (bb + 1)), item)
-                toplam1 = toplam1 + float(row1[4])
-                toplam2=Decimal(toplam2)+ (row1[4])
-                self.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
+                item = str(row1[1])
+                self.d.text(item.rjust(10)+ " \n")
+                self.ws1.write(aa, 3, float(row1[1]))
+                c.drawRightString(310, 800 - (15 * (bb + 1)), item)
+                toplam2=Decimal(toplam2)+(row1[1])
+                toplam1 = Decimal(toplam1) + (row1[1])
+                self.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
                 item= ""
-                c.drawString(270, 800 - (15 * (bb + 1)), item)
-                self.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
+                c.drawRightString(390, 800 - (15 * (bb + 1)), item)
+                self.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+
+            if row1[0]==111:
+                item = str(row1[0])+" Harcamalar "
+                self.ws1.write(aa, 0, item)
+                self.d.text(item.ljust(30) + " ")
+                self.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
+                c.drawString(150, 800 - (15 * (bb + 1)), item)
+
+                item = str(row1[1])
+                self.d.text(item.rjust(10)+ " \n")
+                self.ws1.write(aa, 3, float(row1[1]))
+                c.drawRightString(310, 800 - (15 * (bb + 1)), item)
+                toplam = Decimal(toplam) + (row1[1])
+                self.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
+                item= ""
+                c.drawRightString(390, 800 - (15 * (bb + 1)), item)
+                self.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
 
 
 
-
-            item = str(toplam2)
-            self.ws1.write(aa, 5, toplam2)
-            self.tableWidget.setItem(aa, 5, QtGui.QTableWidgetItem(item))
-            c.drawRightString(470, 800 - (15 * (bb + 1)), str(toplam2))
 
 
             aa = aa + 1
@@ -344,6 +411,27 @@ class Rapor(QtGui.QDialog , Ui_Dialog6):
         c.save()
         self.wb.save(self.dest_filename)
         self.kontrol=0
+
+        item = "Genel Toplam "
+        self.d.text(item.ljust(30) + " ")
+        self.tableWidget.setItem(aa + 1, 0, QtGui.QTableWidgetItem(item))
+        item = str(toplam1)
+        self.d.text(item.rjust(10)+ " \n")
+        self.tableWidget.setItem(aa + 1, 1, QtGui.QTableWidgetItem(item))
+
+        item = "Kasa Kalan Nakit "
+        self.d.text(item.ljust(30) + " ")
+        self.tableWidget.setItem(aa + 1, 0, QtGui.QTableWidgetItem(item))
+        item = str(toplam)
+        self.d.text(item.rjust(10) + " \n")
+        self.tableWidget.setItem(aa + 1, 1, QtGui.QTableWidgetItem(item))
+
+        item = "Kredi Kart Toplam "
+        self.d.text(item.ljust(30) + " ")
+        self.tableWidget.setItem(aa + 3, 0, QtGui.QTableWidgetItem(item))
+        item = str(toplam2)
+        self.d.text(item.rjust(10)+ " \n")
+        self.tableWidget.setItem(aa + 3, 1, QtGui.QTableWidgetItem(item))
 
     @pyqtSlot()
     def sloturunmaliyetpdf(self):
