@@ -10,7 +10,7 @@
 # Licence:     
 #-------------------------------------------------------------------------------
 
-import MySQLdb as mdb
+import sys
 
 import requests
 
@@ -289,10 +289,14 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
                 toplam = Decimal(toplam) + (row1[1])
 
                 toplam1 = Decimal(toplam1) + (row1[1])
-                self.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
+                item=QtGui.QTableWidgetItem(item)
+                item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignRight)
+                self.tableWidget.setItem(aa, 1, item)
+
                 item= ""
                 c.drawRightString(390, 800 - (15 * (bb + 1)), item)
                 self.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+
 
             if row1[0]==101:
                 print "ind"
@@ -328,6 +332,7 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
                 toplam1 = Decimal(toplam1) + (row1[1])
                 self.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
                 self.d.text(item.rjust(10)+ " \n")
+                self.tableWidget.item(aa, 1).setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignRight)
 
                 item= ""
                 c.drawRightString(390, 800 - (15 * (bb + 1)), item)
@@ -421,10 +426,10 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
 
         item = "Kasa Kalan Nakit "
         self.d.text(item.ljust(30) + " ")
-        self.tableWidget.setItem(aa + 1, 0, QtGui.QTableWidgetItem(item))
+        self.tableWidget.setItem(aa + 2, 0, QtGui.QTableWidgetItem(item))
         item = str(toplam)
         self.d.text(item.rjust(10) + " \n")
-        self.tableWidget.setItem(aa + 1, 1, QtGui.QTableWidgetItem(item))
+        self.tableWidget.setItem(aa + 2, 1, QtGui.QTableWidgetItem(item))
 
         item = "Kredi Kart Toplam "
         self.d.text(item.ljust(30) + " ")
