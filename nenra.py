@@ -31,6 +31,7 @@ from maliyet import Maliyet
 from cari import Cari
 from stok import Stok
 from login import Login
+from rapor import Rapor
 from modulemdb import *
 
 
@@ -153,6 +154,7 @@ def main():
     maliyet=Maliyet()
     cari = Cari()
     stok = Stok()
+    rapor = Rapor()
     workerthread = WorkerThread()
     workerthread.start()
 
@@ -383,6 +385,11 @@ def main():
         stok.show()
 
     @pyqtSlot()
+    def slotkasa(item2):
+        print "kasa arayüzü açıldı"
+        rapor.show()
+
+    @pyqtSlot()
     def slotpuss4(item2):
         print item2
         if item2 == 100:
@@ -512,11 +519,13 @@ def main():
     mainWindow.pushButton_3.setStyleSheet("color: black ;  background-image: url(images/maliyet.png)")
     mainWindow.pushButton_4.setStyleSheet("color: black ;  background-image: url(images/nenra.png)")
     mainWindow.pushButton_5.setStyleSheet("color: black ;  background-image: url(images/nenra.png)")
+    mainWindow.pushButton_6.setStyleSheet("color: black ;  background-image: url(images/maliyet.png)")
     mainWindow.pushButton.clicked.connect(slotpuss)
     mainWindow.pushButton_2.clicked.connect(slotfatura)
     mainWindow.pushButton_3.clicked.connect(slotmaliyet)
     mainWindow.pushButton_4.clicked.connect(slotcari)
     mainWindow.pushButton_5.clicked.connect(slotstok)
+    mainWindow.pushButton_6.clicked.connect(slotkasa)
     mainWindow.actionTediye_Fi_i.triggered.connect(lambda:slotfatura("TED"))
     mainWindow.actionSay_m_Fi_i.triggered.connect(lambda: slotfatura("SAY"))
     mainWindow.actionStok_Tan_mlama.triggered.connect(lambda:slottediye("VADE"))
