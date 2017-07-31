@@ -224,7 +224,7 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
         myddb1 = Myddb()
         self.d = Dummy()
         self.kontrol = 1
-        self.d.set(font='a', align='left', height=2, width=2)
+        self.d.set(font='a', align='left', height=2, width=1)
 
         print "ekstrerapor"
         self.tableWidget.clearContents()
@@ -478,7 +478,7 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
             self.tableWidget.setItem(aa, 1, item)
 
             aa=aa+1
-
+        self.d.cut()
         c.save()
         self.wb.save(self.dest_filename)
 
