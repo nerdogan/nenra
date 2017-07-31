@@ -224,7 +224,7 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
         myddb1 = Myddb()
         self.d = Dummy()
         self.kontrol = 1
-        self.d.set(font='a', align='left', height=1, width=1)
+        self.d.set(font='a', align='left', height=2, width=2)
 
         print "ekstrerapor"
         self.tableWidget.clearContents()
@@ -413,8 +413,6 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
         c.drawCentredString(0, 600, "BISHOP NEN ©")
         c.restoreState()
 
-        c.save()
-        self.wb.save(self.dest_filename)
         self.kontrol=0
 
         item = "Genel Toplam "
@@ -437,6 +435,52 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
         item = str(toplam2)
         self.d.text(item.rjust(10)+ " \n")
         self.tableWidget.setItem(aa + 3, 1, QtGui.QTableWidgetItem(item))
+
+        aa=aa+5
+
+        sql = """select
+        aciklama, tutar
+        from kasa where
+        tutar < 0 and posid = 2000 and tarih
+        between %s and %s """
+
+        bul2 = myddb1.cur.execute(sql, (tar1, tar2))
+        print bul2, tar1, tar2
+
+        bul = myddb1.cur.fetchall()
+        print bul
+        i = bul2
+        j = 5
+        self.tableWidget.setRowCount(i + aa+4)
+
+        bb = 0
+        dep = 0
+        toplam = 0.0
+        toplam1 = 0.0
+        toplam2 = 0.0000
+        for row1 in bul:
+
+
+            item = (row1[0])
+      #      self.ws1.write(aa, 0, item)
+            self.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
+            c.drawString(150, 800 - (15 * (bb + 1)), item)
+            self.d.text(item.ljust(30) + " ")
+            item = str(row1[1])
+            self.d.text(item.rjust(10) + " \n")
+       #     self.ws1.write(aa, 3, float(row1[1]))
+            c.drawRightString(310, 800 - (15 * (bb + 1)), item)
+            toplam = Decimal(toplam) + (row1[1])
+
+            toplam1 = Decimal(toplam1) + (row1[1])
+            item = QtGui.QTableWidgetItem(item)
+            item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignRight)
+            self.tableWidget.setItem(aa, 1, item)
+
+            aa=aa+1
+
+        c.save()
+        self.wb.save(self.dest_filename)
 
     @pyqtSlot()
     def sloturunmaliyetpdf(self):
