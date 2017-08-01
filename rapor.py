@@ -223,6 +223,10 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
             print " kasa"
         myddb1 = Myddb()
         self.d = Dummy()
+        self.d.text(chr(27))
+        self.d.text(chr(116))
+        self.d.text(chr(61))
+
         self.kontrol = 1
         self.d.set(font='a', align='left', height=2, width=1)
 
@@ -309,7 +313,7 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
                 self.d.text(item.rjust(10) + " \n")
                 self.ws1.write(aa, 3, float(row1[1]))
                 c.drawRightString(310, 800 - (15 * (bb + 1)), item)
-                toplam = Decimal(toplam) + (row1[1])
+
                 self.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
                 item = ""
                 c.drawRightString(390, 800 - (15 * (bb + 1)), item)
@@ -326,7 +330,7 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
                 self.d.text(item.rjust(10)+ " \n")
                 self.ws1.write(aa, 3, float(row1[1]))
                 c.drawRightString(310, 800 - (15 * (bb + 1)), item)
-                toplam = Decimal(toplam) + (row1[1])
+                toplam = Decimal(toplam) - (row1[1])
                 self.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
                 item= ""
                 c.drawRightString(390, 800 - (15 * (bb + 1)), item)
@@ -467,7 +471,7 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
         print bul
         i = bul2
         j = 5
-        self.tableWidget.setRowCount(i + aa+4)
+        self.tableWidget.setRowCount(i + aa+1)
 
         bb = 0
         dep = 0
