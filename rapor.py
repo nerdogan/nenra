@@ -62,7 +62,13 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
         myddb1 = Myddb()
         self.d = Dummy()
         self.kontrol=1
+
+        self.d.text(chr(27))
+        self.d.text(chr(116))
+        self.d.text(chr(61))
+
         self.d.set(font='a', align='left', height=1, width=1)
+
         
 
 
@@ -196,15 +202,9 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
         c.save()
         self.wb.save(self.dest_filename)
 
-        myddb1.cur.execute(
-            """  SELECT sum(tutar) FROM bishop.ciro  where  date(tarih) between %s and %s and hesap IS NULL """,
-            (tar1, tar2))
-        bul3=myddb1.cur.fetchall()
-        print bul3[0][0]
-        self.d.text("Toplam :      "+(str(toplam1)).rjust(30)+"\n")
+        self.d.text("\n")
+        self.d.text("Toplam :      "+(str(toplam)).rjust(20)+(str(toplam1)).rjust(10)+"\n")
 
-        self.d.text("Indirim :     "+(str(toplam1-bul3[0][0])).rjust(30)+"\n")
-        self.d.text("Genel Toplam :"+(str(bul3[0][0])).rjust(30)+"\n")
         self.d.cut()
 
     @pyqtSlot()
@@ -239,7 +239,7 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
         deger2 = self.dateEdit_2.date().toPyDate()
         tar1 = deger1.strftime('%d_%m_%Y')
         tar2 = deger2.strftime('%d_%m_%Y')
-        self.d.text("  " + tar1 + "  " + tar2 + " Kasa Raporu " + " \n")
+        self.d.text("  " + tar1 + "  " + tar2 + " Kasa Raporu " + " \n\n")
 
         self.wb = xlwt.Workbook(encoding="utf-8")
         self.dest_filename = "EKSTRE" + tar1 + tar2 + ".xls"
@@ -299,8 +299,22 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
 
 
             if row1[0]==101:
-                print "ind"
-                aa=aa-1
+                item = str(row1[0]) + " Indirim "
+                self.ws1.write(aa, 0, item)
+                self.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
+                c.drawString(150, 800 - (15 * (bb + 1)), item)
+                self.d.text(item.ljust(30) + " ")
+
+                item = str(row1[1])
+                self.d.text(item.rjust(10) + " \n")
+                self.ws1.write(aa, 3, float(row1[1]))
+                c.drawRightString(310, 800 - (15 * (bb + 1)), item)
+                toplam = Decimal(toplam) + (row1[1])
+                self.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
+                item = ""
+                c.drawRightString(390, 800 - (15 * (bb + 1)), item)
+                self.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+
             if row1[0]==102:
                 item = str(row1[0])+" Servis "
                 self.ws1.write(aa, 0, item)
@@ -414,6 +428,7 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
         c.restoreState()
 
         self.kontrol=0
+        self.d.text("\n\n")
 
         item = "Genel Toplam "
         self.d.text(item.ljust(30) + " ")
@@ -437,6 +452,7 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
         self.tableWidget.setItem(aa + 3, 1, QtGui.QTableWidgetItem(item))
 
         aa=aa+5
+        self.d.text(u"\n\n\n Ödemeler \n")
 
         sql = """select
         aciklama, tutar
@@ -478,6 +494,10 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
             self.tableWidget.setItem(aa, 1, item)
 
             aa=aa+1
+
+
+        self.d.barcode(tar1, "CODE39", 80, 3)
+        self.d.text(u"\n\n\n İmza : \n")
         self.d.cut()
         c.save()
         self.wb.save(self.dest_filename)
