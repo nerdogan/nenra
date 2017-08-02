@@ -564,6 +564,7 @@ def main():
 
 
     mainWindow.show()
+    mainWindow.menubar.setStyleSheet("    QMenuBar {    background-color: orange;   } QMenuBar::item {    background-color: orange;   } ")
     mainWindow.setStyleSheet(" background-color: orange;")
 
 
