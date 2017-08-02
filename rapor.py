@@ -120,13 +120,25 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
         self.tableWidget.setRowCount(i + 2)
         aa = 0
         bb = 0
+        dep=1
         toplam = 0.0
         toplam1 = 0.0
         toplam2 = 0.0000
+        bolum = 0
+        bolum1 = 0
 
         for row1 in bul:
 
             item = str(row1[0])
+            if dep!=row1[0]:
+                aa=aa+1
+                self.d.text("\n")
+                self.d.text("Toplam :      " + (str(bolum)).rjust(20) + (str(bolum1)).rjust(10) + "\n")
+                self.d.text("\n")
+                bolum = 0
+                bolum1 = 0
+
+            dep=row1[0]
             self.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
             c.drawString(5, 800 - (15 * (bb + 1)), item)
             self.ws1.write(aa,0,item)
@@ -146,6 +158,7 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
             item = str(row1[3])
 
             toplam = toplam + float(row1[3])
+            bolum=bolum+ float(row1[3])
             self.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
 
             #c.drawRightString( 440, 800 - (15 * (bb + 1)), "{:10.2f}".format(row1[3]))
@@ -157,6 +170,7 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
             item = str(row1[4])
 
             toplam1 = toplam1 + float(row1[4])
+            bolum1=bolum1+ float(row1[4])
             self.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
 
             c.drawRightString(510, 800 - (15 * (bb + 1)), "{:10.2f}".format(row1[4]))
@@ -201,9 +215,11 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
 
         c.save()
         self.wb.save(self.dest_filename)
+        self.d.text("\n")
+        self.d.text("Toplam :      " + (str(bolum)).rjust(20) + (str(bolum1)).rjust(10) + "\n")
 
         self.d.text("\n")
-        self.d.text("Toplam :      "+(str(toplam)).rjust(20)+(str(toplam1)).rjust(10)+"\n")
+        self.d.text("Genel Toplam :      "+(str(toplam)).rjust(20)+(str(toplam1)).rjust(10)+"\n")
 
         self.d.cut()
 
@@ -501,7 +517,8 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
 
 
         self.d.barcode(tar1, "CODE39", 80, 3)
-        self.d.text(u"\n\n\n İmza : \n")
+        self.d.set(font='a', align='left', height=1, width=1)
+        self.d.text(u"\n\n\n  İmza : \n")
         self.d.cut()
         c.save()
         self.wb.save(self.dest_filename)
