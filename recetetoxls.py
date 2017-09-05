@@ -99,9 +99,24 @@ class recetetoxls():
             bul = self.myddb.cek("select * from hammadde where hamad like '" + str(sheet.cell(rowx=i, colx=0).value) + "'")
             if cell.xf_index==23:
                 self.ws1.write(self.satir, 0, str(sheet.cell(rowx=i, colx=0).value), self.style2)
+                if len(bul) != 0:
+                    menukod=bul[0][1]
+                    sql2="delete from recete where menukod = %s "
+                    self.myddb.cur.execute(sql2,(menukod,))
+                    self.myddb.conn.commit()
+
+
+
             else:
                 self.ws1.write(self.satir, 0, str(sheet.cell(rowx=i, colx=0).value), self.style1)
+                if len(bul) != 0:
+                    print menukod,bul[0][1],str(sheet.cell(rowx=i, colx=1).value)
+                    sql1 = "insert into recete (menukod,hamkod,miktar) values (%s,%s,%s)"
+                    self.myddb.cur.execute(sql1, (menukod,bul[0][1],str(sheet.cell(rowx=i, colx=1).value)))
+                    self.myddb.conn.commit()
+
             self.satir=self.satir+1
+
             if len(bul)==0:
                 self.ws1.write(self.satir-1, 5, str(self.elma), self.style1)
                 self.elma=self.elma+1

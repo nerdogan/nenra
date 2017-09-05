@@ -61,7 +61,7 @@ class WorkerThread(QThread):
 
     def run(self):
 
-        StartDate = "17/07/17"
+        StartDate = "01/09/17"
 
         EndDate = datetime.datetime.strptime(StartDate, "%d/%m/%y")
         now = datetime.datetime.now() - datetime.timedelta(days=1)
