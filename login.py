@@ -45,7 +45,7 @@ class Login(QtGui.QDialog):
             self.accept()
             self.emit(QtCore.SIGNAL("acac1(int)"), 12345)
 
-        if (self.textName.text() == 'kasa' and
+        elif (self.textName.text() == 'kasa' and
                     self.textPass.text() == '1234'):
             self.accept()
             self.emit(QtCore.SIGNAL("acac1(int)"), 123456)
