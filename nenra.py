@@ -400,7 +400,7 @@ def main():
             mainWindow.pushButton_3.blockSignals(1)
             mainWindow.pushButton_4.blockSignals(1)
             mainWindow.pushButton_5.blockSignals(1)
-            mainWindow.pushButton_3.blockSignals(1)
+            mainWindow.pushButton_6.blockSignals(1)
 
             mainWindow.actionTediye_Fi_i.setEnabled(0)
             mainWindow.actionSay_m_Fi_i.setEnabled(0)
@@ -429,6 +429,7 @@ def main():
             mainWindow.pushButton_3.blockSignals(0)
             mainWindow.pushButton_4.blockSignals(0)
             mainWindow.pushButton_5.blockSignals(0)
+            mainWindow.pushButton_6.blockSignals(0)
 
             mainWindow.actionTediye_Fi_i.setEnabled(1)
             mainWindow.actionSay_m_Fi_i.setEnabled(1)
