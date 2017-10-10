@@ -50,10 +50,16 @@ class Myddb():
         # extract all the data
         #sql = "select * from %s" % self.tablename
         sql=" '%"+ sql +"%'"
+        sql2=sql
         print sql
+        sql88="select hamkod1 from hambarkod where barkodno like "+sql
+        bul=self.cur.execute(sql88)
+        if bul :
+            sql2=(self.cur.fetchone())[0]
+            print sql2
         sql1="select * from "+tablenam+ " where "+colname+" like "+sql
         if colname=="hamad":
-            sql1=sql1+"and kategori<>3 or hamkod like "+sql +" or barkod1 like "+sql
+            sql1=sql1+"and kategori<>3 or hamkod like "+sql +" or hamkod like "+str(sql2)
         print sql1
         self.cur.execute(sql1)
         # show the result

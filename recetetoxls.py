@@ -62,6 +62,12 @@ class recetetoxls():
             self.ws1.write(self.satir, 2, item + " ")
             item = int(row1[3])
             self.ws1.write(self.satir, 3, item )
+
+            item = 0
+            if row1[4]!=None:
+                item= float(row1[4])
+            self.ws1.write(self.satir, 4, item)
+
             self.satir = self.satir + 1
 
         self.ws1.write(self.satir+1, 0, " ")
@@ -83,6 +89,7 @@ class recetetoxls():
             self.satir = self.satir + 1
 
             self.yaz(row1[1])
+        self.wb.save(self.dest_filename)
 
     def goster1(self):
         print "*toxls arayüzü nnn açıldı"
@@ -137,4 +144,4 @@ class recetetoxls():
 if __name__ == "__main__":
     fatura1=recetetoxls()
    # fatura1.goster()
-    fatura1.goster1()
+    fatura1.goster()

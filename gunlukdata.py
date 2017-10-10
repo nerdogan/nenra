@@ -31,7 +31,7 @@ if db.open() == False:
 
 
 def initializeModel(model):
-    model.setQuery("select * from cari_har where  fistipi=10 and tarih between '2016-12-01' and '2016-12-31'")
+    model.setQuery("select * from cari_har where  fistipi=10 and tarih between '2017-09-01' and '2017-09-31'")
 
 
     model.setHeaderData(0, QtCore.Qt.Horizontal, " ")

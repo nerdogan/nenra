@@ -173,6 +173,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
     @pyqtSlot()
     def slotfaturakont(self):
         self.fisno=None
+        self.label_5.setText("")
 
         deger5 = self.lineEdit.text()
         deger6 = self.lineEdit_2.text()
@@ -404,6 +405,8 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
             deger12 = self.kontrol(deger12)
 
             deger13 = self.kontrol(deger13)
+            print deger12
+            print deger13
             toplam += float(deger12) * float(deger13)
             kdv += float(deger11) * float(deger12) * float(deger13) / 100
             print deger10 , toplam , kdv
