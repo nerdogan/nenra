@@ -61,7 +61,7 @@ class WorkerThread(QThread):
 
     def run(self):
 
-        StartDate = "01/09/17"
+        StartDate = "19/10/17"
 
         EndDate = datetime.datetime.strptime(StartDate, "%d/%m/%y")
         now = datetime.datetime.now() - datetime.timedelta(days=1)
@@ -168,6 +168,7 @@ def main():
 
         recete2.lineEdit.setText("")
 #   recete2 ekranı hazırlanıyor
+
         deger0=recete.tableWidget.item(item,1).text()
         recete2.label_3.setText(deger0)
         file = open(deger0+".txt", "w")
@@ -193,6 +194,7 @@ def main():
         recete2.tableWidget_2.setRowCount(i)
         aa=0
         toplam=0
+        topelma=0
         print bul2
         for row1 in bul2:
 
@@ -213,8 +215,21 @@ def main():
             recete2.tableWidget_2.setItem(aa, 2, QtGui.QTableWidgetItem(item))
             item=str(row1[3])
             recete2.tableWidget_2.setItem(aa, 3, QtGui.QTableWidgetItem(item))
+            file.write(item + " ")
+
+            item = str(bul3[0][6])
+            file.write(item + "\n")
+            recete2.tableWidget_2.setItem(aa, 4, QtGui.QTableWidgetItem(item))
+
+            elma=(bul3[0][6])*(row1[3])*(100+(bul3[0][4]))/100
+            topelma=topelma+elma
+            item =  str(elma)
+            file.write(item + "\n")
+            recete2.tableWidget_2.setItem(aa, 5, QtGui.QTableWidgetItem(item))
+
             aa=aa+1
-            file.write(item+"\n")
+
+        recete2.label_4.setText(str(topelma))
 
         file.close()
 
@@ -223,9 +238,11 @@ def main():
         recete2.tableWidget.setColumnWidth(2, 50)
         recete2.tableWidget.setColumnWidth(3, 50)
         recete2.tableWidget_2.setColumnWidth(0, 50)
-        recete2.tableWidget_2.setColumnWidth(1, 220)
+        recete2.tableWidget_2.setColumnWidth(1, 150)
         recete2.tableWidget_2.setColumnWidth(2, 50)
-        recete2.tableWidget_2.setColumnWidth(3, 75)
+        recete2.tableWidget_2.setColumnWidth(3, 60)
+        recete2.tableWidget_2.setColumnWidth(4, 60)
+        recete2.tableWidget_2.setColumnWidth(5, 60)
 
 
         recete2.show()
