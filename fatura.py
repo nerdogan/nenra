@@ -20,7 +20,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
         self.comb={}
         self.tableWidget_2.setColumnWidth(0, 50)
         self.tableWidget_2.setColumnWidth(1, 200)
-        self.tableWidget_2.setColumnWidth(2, 40)
+        self.tableWidget_2.setColumnWidth(2, 55)
         self.tableWidget_2.setColumnWidth(3, 40)
         self.tableWidget_2.setColumnWidth(4, 75)
         self.tableWidget_2.setColumnWidth(5, 75)
@@ -258,8 +258,9 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
                     if self.label_5.text()=="100":
                         item.setFlags( QtCore.Qt.ItemIsEditable)
                     self.tableWidget_2.setItem(aa, 5, item)
-                    item = str(round((row1[6]*row1[5]),2))
+                    item = str("{:.2f}".format((row1[6]*row1[5])))
                     item = QtGui.QTableWidgetItem(item)
+                    item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignRight)
                     if self.label_5.text() == "100":
                         item.setFlags(QtCore.Qt.ItemIsEditable)
 
@@ -485,11 +486,16 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
         if item.column()==6:
             self.tableWidget_2.setItem(item.row(),5,QtGui.QTableWidgetItem(str(float(self.kontrol(item.text()))/float(self.tableWidget_2.item(item.row(),4).text()  ))))
         if item.column()==4:
-            self.tableWidget_2.setItem(item.row(), 6, QtGui.QTableWidgetItem(
-                str(float(self.kontrol(item.text())) * float(self.tableWidget_2.item(item.row(), 5).text()))))
+            item1 = QtGui.QTableWidgetItem(
+                str("{:06.2f}".format((float(self.kontrol(item.text())) * float(self.tableWidget_2.item(item.row(), 5).text())))))
+            item1.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignRight)
+
+            self.tableWidget_2.setItem(item.row(), 6, item1)
+
         if item.column() == 5:
-            self.tableWidget_2.setItem(item.row(), 6, QtGui.QTableWidgetItem(
-                str(float(self.kontrol(item.text())) * float(self.tableWidget_2.item(item.row(), 4).text()))))
+            elma=("{:06.2f}".format((float(self.kontrol(item.text())) * float(self.tableWidget_2.item(item.row(), 4).text()))))
+            print elma
+            self.tableWidget_2.setItem(item.row(), 6, QtGui.QTableWidgetItem(elma))
         self.tableWidget_2.blockSignals(False)
         self.toplamgoster()
 

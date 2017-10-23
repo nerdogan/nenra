@@ -225,11 +225,15 @@ def main():
             topelma=topelma+elma
             item =  str(elma)
             file.write(item + "\n")
+            item = str("{:.2f}".format(elma))
+            item = QtGui.QTableWidgetItem(item)
+            item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignRight)
+
             recete2.tableWidget_2.setItem(aa, 5, QtGui.QTableWidgetItem(item))
 
             aa=aa+1
 
-        recete2.label_4.setText(str(topelma))
+        recete2.label_4.setText(str("{:.2f}".format(topelma)))
 
         file.close()
 
@@ -240,8 +244,8 @@ def main():
         recete2.tableWidget_2.setColumnWidth(0, 50)
         recete2.tableWidget_2.setColumnWidth(1, 150)
         recete2.tableWidget_2.setColumnWidth(2, 50)
-        recete2.tableWidget_2.setColumnWidth(3, 60)
-        recete2.tableWidget_2.setColumnWidth(4, 60)
+        recete2.tableWidget_2.setColumnWidth(3, 75)
+        recete2.tableWidget_2.setColumnWidth(4, 75)
         recete2.tableWidget_2.setColumnWidth(5, 60)
 
 
