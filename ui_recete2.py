@@ -108,7 +108,7 @@ class Ui_Dialog2(object):
         self.comboBox.setGeometry(QtCore.QRect(570, 250, 161, 22))
         self.comboBox.setObjectName(_fromUtf8("comboBox"))
         self.label_4 = QtGui.QLabel(Dialog2)
-        self.label_4.setGeometry(QtCore.QRect(430, 560, 111, 21))
+        self.label_4.setGeometry(QtCore.QRect(500, 560, 81, 21))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.label_4.setFont(font)
