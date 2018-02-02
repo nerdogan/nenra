@@ -79,7 +79,6 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         sql = """select `c2`.`cariid` AS `cariid`,`c2`.`cariad` AS `cariad`,sum(`c1`.`tutar`) AS `TUTAR` from (`test`.`cari_har` `c1` join `test`.`cari` `c2`) 
         where ((`c1`.`cariid` = `c2`.`cariid`) and (`c1`.`tarih` >=%s ) and (`c1`.`tarih` <=%s ) and (`c1`.`fistipi`=10 or `c1`.`fistipi`=11))
          and  `c2`.`cariad` like %s group by `c2`.`cariad`   order by TUTAR DESC """
-
         myddb1.conn.commit()
         bul2 = myddb1.cur.execute(sql, (tar1, tar2,firma))
         print bul2, tar1, tar2
