@@ -49,8 +49,6 @@ handler.setFormatter(formatter)
 logger.addHandler(handler)
 
 
-
-
 class WorkerThread(QThread):
 
 
