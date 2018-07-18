@@ -157,7 +157,7 @@ def main():
     workerthread.start()
 
     bul=myddb.cek("select * from hammadde where kategori=2 or kategori=3 order by hamkod")
-    logger.info('Program opened 20170614 '+str(os.getpid()))
+    logger.info('Program opened  '+str(os.getpid()))
 
 
 
@@ -549,7 +549,7 @@ def main():
     mainWindow.actionTediye_Fi_i.triggered.connect(lambda:slotfatura("TED"))
     mainWindow.actionSay_m_Fi_i.triggered.connect(lambda: slotfatura("SAY"))
     mainWindow.actionStok_Tan_mlama.triggered.connect(lambda:slottediye("VADE"))
-    mainWindow.statusbar.showMessage(u"Namık ERDOĞAN © 2016 v 1.2123                                   Bishop Restaurant")
+    mainWindow.statusbar.showMessage(u"Namık ERDOĞAN © 2016 v 1.513                                   Bishop Restaurant")
     recete.lineEdit.textChanged.connect(slottextch)
 
 
