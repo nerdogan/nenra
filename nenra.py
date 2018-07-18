@@ -34,6 +34,7 @@ from login import Login
 from rapor import Rapor
 from modulemdb import *
 
+
 sys.setdefaultencoding('utf8')
 
 logging.basicConfig(level=logging.INFO)
