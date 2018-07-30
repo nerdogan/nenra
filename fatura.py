@@ -88,7 +88,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
         elma = self.toplam
         elma1 = self.cari
         some_date = self.dateEdit.date()
-
+        self.lineEdit.setText("")
         self.lineEdit_2.setText("")
         self.lineEdit.setText("TED")
         self.dateEdit.setDate(some_date)
@@ -188,7 +188,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
         self.dateEdit.setDate(some_date)
         # tediye fişi ted olunca otomatik sıra numarası veriyor
         if ( deger5=="ted" or deger5=="TED" or deger5=="ZZ" or deger5=="say" or deger5=="SAY") and deger6=="":
-            maxbelgeno = self.myddb.cek("select max(sirano) from cari_har where serino='" + str(deger5) + "' ")
+            maxbelgeno = self.myddb.cek("select  max(sirano) from cari_har where serino='" + str(deger5) + "' ")
             deger6 = str(maxbelgeno[0][0] + 1)
             self.lineEdit_2.setText(deger6)
 
