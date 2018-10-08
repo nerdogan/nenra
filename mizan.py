@@ -8,6 +8,7 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.rl_settings import *
 
 toplam=0
+toplam1=0
 
 #  hammadde son fiyatları geçici  tabloya yazar
 # CREATE TEMPORARY TABLE IF NOT EXISTS table2 AS (SELECT a.hamkod, a.`tarih`, a.`birimfiy`
@@ -16,8 +17,8 @@ toplam=0
 #     FROM cariay where fistipi=10
 #     GROUP BY hamkod ) as x left join cariay a on a.tarih=x.tarih and a.hamkod=x.hamkod order by hamkod )
 
-tarih1="2018-08-01"
-tarih2="2018-08-31"
+tarih1="2018-07-01"
+tarih2="2018-07-31"
 
 satis="SELECT departman,sum(adet),SUM(TUTAR) FROM bishop.CIRO  where tarih between %s  and %s and departman!=0 group by 1"
 myddb = Myddb()
@@ -43,5 +44,10 @@ for row in bul:
     sql="insert into bishop.genelrapor (rkod,aciklama,miktar1,tarih) values (%s,%s,%s,%s)"
     myddb.cur.execute(sql,(elma,row[0],row[1], tarih2))
     elma=elma+1
+    toplam1 = toplam1 + row[1]
+
+sql="insert into bishop.genelrapor (rkod,aciklama,miktar1,tarih) values (%s,%s,%s,%s)"
+myddb.cur.execute(sql,(99,"gider",toplam1,tarih2))
+myddb.conn.commit()
 
 myddb.conn.commit()
