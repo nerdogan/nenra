@@ -187,7 +187,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
         some_date = QtCore.QDate.currentDate()
         self.dateEdit.setDate(some_date)
         # tediye fişi ted olunca otomatik sıra numarası veriyor
-        if ( deger5=="ted" or deger5=="TED" or deger5=="ZZ" or deger5=="say" or deger5=="SAY") and deger6=="":
+        if ( deger5=="ted" or deger5=="TED" or deger5=="ZZ" or deger5=="say" or deger5=="SAY" or deger5=="MAS" ) and deger6=="":
             maxbelgeno = self.myddb.cek("select  max(sirano) from cari_har where serino='" + str(deger5) + "' ")
             deger6 = str(maxbelgeno[0][0] + 1)
             self.lineEdit_2.setText(deger6)
@@ -233,8 +233,9 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
                     self.tableWidget_2.setItem(aa, 0, QtGui.QTableWidgetItem(item))
                     elma=item
                     bul3 = self.myddb.cek2(elma, "hammadde", "hamkod")
-
                     item = bul3[0][2]
+                    if row1[10] is not None:
+                        item=(row1[10])
                     self.tableWidget_2.setItem(aa, 1, QtGui.QTableWidgetItem(item))
                     item = bul3[0][3]
                     self.tableWidget_2.setItem(aa, 2, QtGui.QTableWidgetItem(item))
@@ -355,6 +356,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
         deger6 = self.lineEdit_2.text()
         deger7 = self.dateEdit.date().toPyDate()
         self.deger8 = self.dateEdit_2.date().toPyDate()
+
         sql = "select * from cari_har where  serino='" + str(deger5) + "' and sirano='" + str(deger6) + "'"
         sonuc = self.myddb.cek(sql)
         print sonuc
@@ -403,16 +405,18 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
             deger11 = self.tableWidget_2.item(item, 3).text()
             deger12 = self.tableWidget_2.item(item, 4).text()
             deger13 = self.tableWidget_2.item(item, 5).text()
-            deger12 = self.kontrol(deger12)
+            deger14 = self.tableWidget_2.item(item,1).text().toUpper().toUtf8()
+           # deger14  = u' '.join((str(deger14))).encode('utf-8').strip()
 
+            deger12 = self.kontrol(deger12)
             deger13 = self.kontrol(deger13)
             print deger12
             print deger13
             toplam += float(deger12) * float(deger13)
             kdv += float(deger11) * float(deger12) * float(deger13) / 100
             print deger10 , toplam , kdv
-            sql2 = "insert into cariay (fisno,fissatir,fistipi,hamkod,kdv,miktar,birimfiy,tarih) values (%s,%s,%s,%s,%s,%s,%s,%s)"
-            self.myddb.cur.execute(sql2, (sonuc[0][3], satir, sonuc[0][2], deger10, deger11, deger12, deger13,sonuc[0][6]))
+            sql2 = "insert into cariay (fisno,fissatir,fistipi,hamkod,kdv,miktar,birimfiy,tarih,aciklama) values (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+            self.myddb.cur.execute(sql2, (sonuc[0][3], satir, sonuc[0][2], deger10, deger11, deger12, deger13,sonuc[0][6],deger14))
         sql3 = "UPDATE cari_har SET tutar=%s where fisno=%s "
         sql4 = "update cariay targetTable  left join hammadde sourceTable on targetTable.hamkod = sourceTable.hamkod set  targetTable.muhkod = sourceTable.muhkod "
         print sql3
