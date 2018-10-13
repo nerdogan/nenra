@@ -533,7 +533,7 @@ def main():
     # dosya açmak için dialog
     # fileName =(QtGui.QFileDialog.getOpenFileName(mainWindow, u"Düzenlenecek dosyayı seçin", ".", u"Metin dosyaları (*.txt)"))
     app.setWindowIcon(QtGui.QIcon('nenra.png'))
-    mainWindow.verticalLayoutWidget_2.setStyleSheet("background-image: url(newyork.png);")
+    mainWindow.verticalLayoutWidget_2.setStyleSheet("background-image: url(images/newyork.png);")
     mainWindow.pushButton.setStyleSheet("color: black ;  background-image: url(images/image.png)")
     mainWindow.pushButton_2.setStyleSheet("color: black ;  background-image: url(images/fatura.png)")
     mainWindow.pushButton_3.setStyleSheet("color: black ;  background-image: url(images/maliyet.png)")
@@ -566,6 +566,7 @@ def main():
     fatura.setWindowModality(Qt.ApplicationModal)
     maliyet.setWindowModality(Qt.ApplicationModal)
     login.setWindowModality(Qt.ApplicationModal)
+    rapor.setWindowModality(Qt.ApplicationModal)
 
     sh = QtGui.QShortcut(fatura)
     sh.setKey("Enter")
