@@ -49,10 +49,10 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>30</x>
+     <x>20</x>
      <y>10</y>
-     <width>46</width>
-     <height>13</height>
+     <width>61</width>
+     <height>16</height>
     </rect>
    </property>
    <property name="text">
@@ -321,9 +321,9 @@
   <widget class="QPushButton" name="pushButton_4">
    <property name="geometry">
     <rect>
-     <x>780</x>
+     <x>760</x>
      <y>10</y>
-     <width>91</width>
+     <width>111</width>
      <height>41</height>
     </rect>
    </property>
@@ -392,67 +392,60 @@
     <string>Gün</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_5">
+  <widget class="QWidget" name="verticalLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>790</x>
-     <y>60</y>
-     <width>71</width>
-     <height>20</height>
+     <x>720</x>
+     <y>80</y>
+     <width>160</width>
+     <height>99</height>
     </rect>
    </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton_5">
-   <property name="geometry">
-    <rect>
-     <x>770</x>
-     <y>90</y>
-     <width>101</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Fiş Getir</string>
-   </property>
-   <property name="autoDefault">
-    <bool>false</bool>
-   </property>
-   <property name="default">
-    <bool>false</bool>
-   </property>
-   <property name="flat">
-    <bool>false</bool>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="comboBox">
-   <property name="geometry">
-    <rect>
-     <x>770</x>
-     <y>150</y>
-     <width>101</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <item>
-    <property name="text">
-     <string>ÖDEME YAP</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Nakit Ödeme</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Denizbank </string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Yapı Kredi</string>
-    </property>
-   </item>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QLineEdit" name="lineEdit_5"/>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_5">
+      <property name="text">
+       <string>Fiş Getir</string>
+      </property>
+      <property name="autoDefault">
+       <bool>false</bool>
+      </property>
+      <property name="default">
+       <bool>false</bool>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QComboBox" name="comboBox">
+      <item>
+       <property name="text">
+        <string>ÖDEME YAP</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Nakit Ödeme</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Denizbank </string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Yapı Kredi</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <tabstops>
@@ -466,7 +459,6 @@
   <tabstop>pushButton</tabstop>
   <tabstop>pushButton_2</tabstop>
   <tabstop>lineEdit_5</tabstop>
-  <tabstop>pushButton_5</tabstop>
   <tabstop>pushButton_3</tabstop>
   <tabstop>pushButton_4</tabstop>
   <tabstop>dateEdit_2</tabstop>

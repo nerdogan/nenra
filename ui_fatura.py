@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'fatura.ui'
 #
-# Created by: PyQt4 UI code generator 4.12
+# Created by: PyQt4 UI code generator 4.12.1
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -37,7 +37,7 @@ class Ui_Dialog3(object):
         self.lineEdit_3.setGeometry(QtCore.QRect(50, 70, 561, 20))
         self.lineEdit_3.setObjectName(_fromUtf8("lineEdit_3"))
         self.label = QtGui.QLabel(Dialog3)
-        self.label.setGeometry(QtCore.QRect(30, 10, 46, 13))
+        self.label.setGeometry(QtCore.QRect(20, 10, 61, 16))
         self.label.setObjectName(_fromUtf8("label"))
         self.label_2 = QtGui.QLabel(Dialog3)
         self.label_2.setGeometry(QtCore.QRect(20, 40, 46, 13))
@@ -135,7 +135,7 @@ class Ui_Dialog3(object):
         self.pushButton_3.setFlat(False)
         self.pushButton_3.setObjectName(_fromUtf8("pushButton_3"))
         self.pushButton_4 = QtGui.QPushButton(Dialog3)
-        self.pushButton_4.setGeometry(QtCore.QRect(780, 10, 91, 41))
+        self.pushButton_4.setGeometry(QtCore.QRect(760, 10, 111, 41))
         self.pushButton_4.setAutoFillBackground(False)
         self.pushButton_4.setAutoDefault(False)
         self.pushButton_4.setDefault(False)
@@ -154,22 +154,28 @@ class Ui_Dialog3(object):
         self.label_8 = QtGui.QLabel(Dialog3)
         self.label_8.setGeometry(QtCore.QRect(570, 40, 31, 16))
         self.label_8.setObjectName(_fromUtf8("label_8"))
-        self.lineEdit_5 = QtGui.QLineEdit(Dialog3)
-        self.lineEdit_5.setGeometry(QtCore.QRect(790, 60, 71, 20))
+        self.verticalLayoutWidget = QtGui.QWidget(Dialog3)
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(720, 80, 160, 99))
+        self.verticalLayoutWidget.setObjectName(_fromUtf8("verticalLayoutWidget"))
+        self.verticalLayout = QtGui.QVBoxLayout(self.verticalLayoutWidget)
+        self.verticalLayout.setMargin(0)
+        self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
+        self.lineEdit_5 = QtGui.QLineEdit(self.verticalLayoutWidget)
         self.lineEdit_5.setObjectName(_fromUtf8("lineEdit_5"))
-        self.pushButton_5 = QtGui.QPushButton(Dialog3)
-        self.pushButton_5.setGeometry(QtCore.QRect(770, 90, 101, 31))
+        self.verticalLayout.addWidget(self.lineEdit_5)
+        self.pushButton_5 = QtGui.QPushButton(self.verticalLayoutWidget)
         self.pushButton_5.setAutoDefault(False)
         self.pushButton_5.setDefault(False)
         self.pushButton_5.setFlat(False)
         self.pushButton_5.setObjectName(_fromUtf8("pushButton_5"))
-        self.comboBox = QtGui.QComboBox(Dialog3)
-        self.comboBox.setGeometry(QtCore.QRect(770, 150, 101, 22))
+        self.verticalLayout.addWidget(self.pushButton_5)
+        self.comboBox = QtGui.QComboBox(self.verticalLayoutWidget)
         self.comboBox.setObjectName(_fromUtf8("comboBox"))
         self.comboBox.addItem(_fromUtf8(""))
         self.comboBox.addItem(_fromUtf8(""))
         self.comboBox.addItem(_fromUtf8(""))
         self.comboBox.addItem(_fromUtf8(""))
+        self.verticalLayout.addWidget(self.comboBox)
 
         self.retranslateUi(Dialog3)
         QtCore.QObject.connect(self.pushButton_2, QtCore.SIGNAL(_fromUtf8("clicked()")), Dialog3.close)
@@ -183,8 +189,7 @@ class Ui_Dialog3(object):
         Dialog3.setTabOrder(self.tableWidget_2, self.pushButton)
         Dialog3.setTabOrder(self.pushButton, self.pushButton_2)
         Dialog3.setTabOrder(self.pushButton_2, self.lineEdit_5)
-        Dialog3.setTabOrder(self.lineEdit_5, self.pushButton_5)
-        Dialog3.setTabOrder(self.pushButton_5, self.pushButton_3)
+        Dialog3.setTabOrder(self.lineEdit_5, self.pushButton_3)
         Dialog3.setTabOrder(self.pushButton_3, self.pushButton_4)
         Dialog3.setTabOrder(self.pushButton_4, self.dateEdit_2)
 
