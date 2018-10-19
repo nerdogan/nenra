@@ -77,8 +77,8 @@ class Stok(QtGui.QDialog , Ui_Dialog6):
 
         myddb1.cur.execute("drop table if exists test.table1 ")
         myddb1.cur.execute("drop table if exists test.table2 ")
-        myddb1.cur.execute(""" CREATE TEMPORARY TABLE  test.table1 AS (select hamkod,sum(miktar) miktar1 from cariay a where fistipi=10 and date(tarih) between %s and %s group by hamkod)""",(tar1,tar2))
-        myddb1.cur.execute(""" CREATE TEMPORARY TABLE  test.table2 AS (select hhammaddeid,sum(hmiktar) miktar2 from harcanan a where  date(tarih) between %s and %s group by hhammaddeid)""",(tar1,tar2,))
+        myddb1.cur.execute(""" CREATE  TABLE  test.table1 AS (select hamkod,sum(miktar) miktar1 from cariay a where fistipi=10 and date(tarih) between %s and %s group by hamkod)""",(tar1,tar2))
+        myddb1.cur.execute(""" CREATE  TABLE  test.table2 AS (select hhammaddeid,sum(hmiktar) miktar2 from harcanan a where  date(tarih) between %s and %s group by hhammaddeid)""",(tar1,tar2,))
 
         sql = """select a.hamkod,a.hamad,a.birim , ifnull( b.miktar1,0) as giriş ,ifnull(c.miktar2,0) as çıkış, (ifnull( b.miktar1,0)-ifnull(c.miktar2,0)) as fark from hammadde a  left join table1 b on a.hamkod=b.hamkod left join table2 c on a.hamkod=c.hhammaddeid where departman="BAR" or departman="mutfak" order by a.hamkod; """
 
