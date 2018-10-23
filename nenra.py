@@ -403,6 +403,7 @@ def main():
     def slotstok(item2):
         print "stok arayüzü açıldı"
         stok.show()
+        stok.raise_()
 
     @pyqtSlot()
     def slotkasa(item2):
