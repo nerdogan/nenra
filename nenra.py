@@ -181,6 +181,7 @@ def main():
 
         bul2=myddb.cek2(deger0,"recete","menukod")
         bul=myddb.cek("select * from hammadde where hamkod>9000")
+        myddb.conn.commit()
         recete2.comboBox.clear()
         i=len(bul)
         for xx1 in range(i):
@@ -201,6 +202,7 @@ def main():
 
 
             bul3=myddb.cek2(item,"hammadde","hamkod")
+            myddb.conn.commit()
             print bul3
 
             item=str(bul3[0][1])
@@ -569,6 +571,7 @@ def main():
     maliyet.setWindowModality(Qt.ApplicationModal)
     login.setWindowModality(Qt.ApplicationModal)
     rapor.setWindowModality(Qt.ApplicationModal)
+    stok.setWindowModality(Qt.ApplicationModal)
 
     sh = QtGui.QShortcut(fatura)
     sh.setKey("Enter")

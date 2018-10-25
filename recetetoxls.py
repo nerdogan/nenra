@@ -89,18 +89,20 @@ class recetetoxls():
         self.myddb = Myddb()
         self.satir = 1
         self.elma = 1
-        path = 'C:\\Users\\NAMIK\\Google Drive\\bishop\\PERSONEL\\ARCBISHOP1.xls'
+        path = 'ARCBISHOP1.xls'
         wb = open_workbook(path, formatting_info=True)
         sheet = wb.sheet_by_name("RECETE")
         for i in range(sheet.nrows):
             cell = sheet.cell(i, 0)  # The first cell
+            if sheet.cell(i,5).value!="":
+                print sheet.cell(i,5).value
             print(cell.xf_index, sheet.cell(rowx=i, colx=0).value, str(sheet.cell(rowx=i, colx=1).value))
             bul = self.myddb.cek("select * from hammadde where hamad like '" + str(sheet.cell(rowx=i, colx=0).value) + "'")
 
             self.ws1.write(self.satir, 0, str(sheet.cell(rowx=i, colx=0).value), self.style1)
             self.satir=self.satir+1
             if len(bul)==0:
-                self.ws1.write(self.satir, 5, str(self.elma), self.style1)
+                self.ws1.write(self.satir-1, 5, str(self.elma), self.style1)
                 self.elma=self.elma+1
 
 
