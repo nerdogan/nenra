@@ -58,6 +58,7 @@ class WorkerThread(QThread):
         self.myddb = Myddb()
 
 
+
     def run(self):
 
         StartDate = "01/08/18"
@@ -167,20 +168,22 @@ def main():
 
         recete2.lineEdit.setText("")
 #   recete2 ekranı hazırlanıyor
+        selfdeger=item
+
 
         deger0=recete.tableWidget.item(item,1).text()
         recete2.label_3.setText(deger0)
         file = open(deger0+".txt", "w")
 
 
-        deger=recete.tableWidget.item(item,1).text()
-        deger1=deger+" "+recete.tableWidget.item(item,2).text()+"  "
+        deger0=recete.tableWidget.item(item,1).text()
+        deger1=deger0+" "+recete.tableWidget.item(item,2).text()+"  "
         recete2.label.setText(deger1)
 
 # veritabanından bilgi çek
 
         bul2=myddb.cek2(deger0,"recete","menukod")
-        bul=myddb.cek("select * from hammadde where hamkod>9000")
+        bul=myddb.cek("select * from hammadde where kategori=2")
         myddb.conn.commit()
         recete2.comboBox.clear()
         i=len(bul)
@@ -330,6 +333,9 @@ def main():
             deger2=fatura.kontrol(deger2)
             myddb.kaydet(deger0,deger1,deger2)
         myddb.conn.commit()
+        recete2.close()
+        slotrecete2(selfdeger,0)
+
 
 
 # veritabanından bilgi çek
@@ -592,6 +598,8 @@ def main():
     mainWindow.show()
     mainWindow.menubar.setStyleSheet("    QMenuBar {    background-color: orange;   } QMenuBar::item {    background-color: orange;   } ")
     mainWindow.setStyleSheet(" background-color: orange;")
+
+    selfdeger = 0
 
 
     #mainWindow.setWindowState(mainWindow.windowState() & ~QtCore.Qt.WindowMinimized | QtCore.Qt.WindowActive)
