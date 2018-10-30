@@ -50,6 +50,7 @@ handler.setFormatter(formatter)
 logger.addHandler(handler)
 
 
+
 class WorkerThread(QThread):
 
 
@@ -61,7 +62,7 @@ class WorkerThread(QThread):
 
     def run(self):
 
-        StartDate = "01/08/18"
+        StartDate = "01/09/18"
 
         EndDate = datetime.datetime.strptime(StartDate, "%d/%m/%y")
         now = datetime.datetime.now() - datetime.timedelta(days=1)
@@ -168,7 +169,8 @@ def main():
 
         recete2.lineEdit.setText("")
 #   recete2 ekranı hazırlanıyor
-        selfdeger=item
+        recete2.label_2.setText(str(item))
+
 
 
         deger0=recete.tableWidget.item(item,1).text()
@@ -334,7 +336,7 @@ def main():
             myddb.kaydet(deger0,deger1,deger2)
         myddb.conn.commit()
         recete2.close()
-        slotrecete2(selfdeger,0)
+        slotrecete2(int(recete2.label_2.text()),0)
 
 
 
@@ -599,7 +601,7 @@ def main():
     mainWindow.menubar.setStyleSheet("    QMenuBar {    background-color: orange;   } QMenuBar::item {    background-color: orange;   } ")
     mainWindow.setStyleSheet(" background-color: orange;")
 
-    selfdeger = 0
+
 
 
     #mainWindow.setWindowState(mainWindow.windowState() & ~QtCore.Qt.WindowMinimized | QtCore.Qt.WindowActive)
