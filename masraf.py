@@ -65,6 +65,7 @@ class Masraf(QtGui.QDialog , Ui_Masraf):
         sql="select islemid,aciklama,tutar from kasa where kasano=111 and tarih= %s"
         bul1=self.mydbb.cur.execute(sql,(self.tar1,))
         bul=self.mydbb.cur.fetchall()
+
         i=bul1
         aa=0
         aaa=0

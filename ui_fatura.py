@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'fatura.ui'
 #
-# Created by: PyQt4 UI code generator 4.12.1
+# Created by: PyQt4 UI code generator 4.11.4
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -158,7 +158,6 @@ class Ui_Dialog3(object):
         self.verticalLayoutWidget.setGeometry(QtCore.QRect(720, 80, 160, 99))
         self.verticalLayoutWidget.setObjectName(_fromUtf8("verticalLayoutWidget"))
         self.verticalLayout = QtGui.QVBoxLayout(self.verticalLayoutWidget)
-        self.verticalLayout.setMargin(0)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
         self.lineEdit_5 = QtGui.QLineEdit(self.verticalLayoutWidget)
         self.lineEdit_5.setObjectName(_fromUtf8("lineEdit_5"))
