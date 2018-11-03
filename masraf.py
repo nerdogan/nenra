@@ -16,6 +16,7 @@ from datetime import datetime,timedelta
 from PyQt4.QtCore import pyqtSlot
 from PyQt4 import QtGui, QtCore
 from ui_masraf import Ui_Masraf
+from fatura import Fatura
 
 from modulemdb import *
 
@@ -29,6 +30,7 @@ class Masraf(QtGui.QDialog , Ui_Masraf):
         self.setupUi(self)
         self.mydbb=Myddb()
         self.led={}
+        self.deger=0
         self.dt = datetime.now() - timedelta(hours=5)
         self.tar1 = (self.dt).strftime('%Y-%m-%d')
         self.dt = QtCore.QDate.fromString(str(self.dt.date()), 'yyyy-MM-dd')
@@ -37,7 +39,8 @@ class Masraf(QtGui.QDialog , Ui_Masraf):
         self.dateEdit.setDate(self.dt)
         self.pushButton.clicked.connect(lambda :self.slotilerigeri("geri"))
         self.pushButton_2.clicked.connect(lambda :self.slotilerigeri("ileri"))
-        self.tableWidget_2.itemChanged.connect(self.ara)
+        self.tableWidget.cellClicked.connect(self.slotmasraf)
+
 
         self.tableWidget.clearContents()
         self.tableWidget.setColumnWidth(0, 50)
@@ -82,33 +85,68 @@ class Masraf(QtGui.QDialog , Ui_Masraf):
                 aaa = aaa + 1
             #lineedit ekleniyor
             led=QtGui.QLineEdit()
-            led.setObjectName('Line%d 4' % aa)
+            led.setObjectName('0%d' % bb)
             self.led[bb]=led
             self.tableWidget_2.setCellWidget(aa,3,self.led[bb])
 
             self.connect(self.led[bb],QtCore.SIGNAL("textChanged(const QString&)"),self.linechanged)
+
             led1=QtGui.QLineEdit()
+            led1.setObjectName('000%d' % (bb+1))
             self.led[bb+1]=led1
             self.tableWidget_2.setCellWidget(aa,4,self.led[bb+1])
+
+            self.connect(self.led[bb+1], QtCore.SIGNAL("textChanged(const QString&)"), self.linechanged)
+
             bb=bb+2
             aa=aa+1
             aaa=0
 
     def linechanged(self):
-        elma=str(self.sender().text().toUtf8())
+        a=str(self.sender().text().toUtf8())
         print self.sender().objectName()
-        print len(self.mydbb.cek1(elma,"hammadde","hamad"))
+        self.deger=int(self.sender().objectName())
 
+        if len(self.sender().objectName()) < 4:
+            bul = self.mydbb.cek1(a, "hammadde", "hamad")
+            self.tableWidget.setColumnWidth(0, 75)
+            self.tableWidget.setColumnWidth(1, 220)
+            self.tableWidget.setColumnWidth(2, 50)
+            self.tableWidget.setColumnWidth(3, 50)
+        else:
+            bul = self.mydbb.cek1(a, "cari", "cariad")
+            self.tableWidget.setColumnWidth(0, 75)
+            self.tableWidget.setColumnWidth(1, 50)
+            self.tableWidget.setColumnWidth(2, 220)
+            self.tableWidget.setColumnWidth(3, 50)
 
-    @pyqtSlot(int,int)
-    def ara(self,item):
-        if item.column()==3:
-            print "hammadde"
-        elif item.column()==4:
-            print "firma"
+        i = len(bul)
+        j = 5
+        self.tableWidget.setRowCount(i)
+        aa = 0
+        toplam = 0
+        for row1 in bul:
+            item = str(row1[1])
+            self.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
+            item = row1[2]
+            self.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
+            item = row1[3]
+            self.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+            item = str(row1[4])
+            self.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
+            item = str(row1[6])
+            self.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
+            aa = aa + 1
 
+    @pyqtSlot(int, int)
+    def slotmasraf(self, item, item2):
+        #   cari listesinden çiftklikle line edite cari firma bilgisini yazıyor
+        print item, item2
+        print self.deger
+        self.tableWidget_2.blockSignals(True)
+        self.led[self.deger].setText(self.tableWidget.item(item,0).text())
 
-
+        self.tableWidget_2.blockSignals(False)
 
 
 
@@ -117,6 +155,9 @@ if __name__ == "__main__":
     masraf=Masraf()
     masraf.show()
     masraf.raise_()
+
+    fatura = Fatura()
+    fatura.goster()
 
 
     app.exec_()
