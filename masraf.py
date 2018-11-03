@@ -37,9 +37,11 @@ class Masraf(QtGui.QDialog , Ui_Masraf):
 
         self.tableWidget.setRowCount(0)
         self.dateEdit.setDate(self.dt)
+
         self.pushButton.clicked.connect(lambda :self.slotilerigeri("geri"))
         self.pushButton_2.clicked.connect(lambda :self.slotilerigeri("ileri"))
         self.tableWidget.cellClicked.connect(self.slotmasraf)
+        self.pushButton_3.clicked.connect(self.masrafkaydet)
 
 
         self.tableWidget.clearContents()
@@ -149,6 +151,14 @@ class Masraf(QtGui.QDialog , Ui_Masraf):
         self.tableWidget_2.blockSignals(False)
 
 
+    @pyqtSlot(int, int)
+    def masrafkaydet(self, ):
+        fatura = Fatura()
+        fatura.goster()
+        fatura.lineEdit
+
+        pass
+
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
@@ -156,8 +166,6 @@ if __name__ == "__main__":
     masraf.show()
     masraf.raise_()
 
-    fatura = Fatura()
-    fatura.goster()
 
 
     app.exec_()
