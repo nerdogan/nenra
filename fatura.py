@@ -363,6 +363,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
         if len(sonuc) == 0:
             print "fatura kaydı yok"
             maxfisno = self.myddb.cek("select max(fisno) from cari_har ")
+            self.myddb.conn.commit()
 
             if maxfisno[0][0] is None:
                 maxfisno1=0
@@ -394,6 +395,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
             son=self.myddb.cur.execute("select max(caid) from cariay")
             son1="ALTER TABLE cariay AUTO_INCREMENT ="+str(son)
             self.myddb.cur.execute(son1)
+            self.myddb.conn.commit()
             satir = 0
 
         i = self.tableWidget_2.rowCount()

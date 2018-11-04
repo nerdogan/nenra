@@ -12,7 +12,9 @@
 
 
 import sys
+import re
 from datetime import datetime,timedelta
+import  time
 from PyQt4.QtCore import pyqtSlot
 from PyQt4 import QtGui, QtCore
 from ui_masraf import Ui_Masraf
@@ -50,6 +52,17 @@ class Masraf(QtGui.QDialog , Ui_Masraf):
         self.tableWidget.setColumnWidth(2, 400)
         self.tableWidget.setColumnWidth(3, 50)
         self.tableWidget.setColumnWidth(4, 50)
+
+
+
+    def kontrol(self,girdi):
+        girdi = str(girdi)
+        ara = re.search(",", girdi)
+        if ara:
+            derle = re.compile(",")
+            cikti = derle.sub(".", girdi)
+            return cikti
+        return girdi
 
 
 
@@ -153,11 +166,50 @@ class Masraf(QtGui.QDialog , Ui_Masraf):
 
     @pyqtSlot(int, int)
     def masrafkaydet(self, ):
+        dur=0.05
         fatura = Fatura()
         fatura.goster()
-        fatura.lineEdit
+        fatura.lineEdit.setText('ZZ')
+        self.dt = self.dateEdit.date().toPyDate()
+        self.dt = QtCore.QDate.fromString(str(self.dt), 'yyyy-MM-dd')
+        fatura.dateEdit.setDate(self.dt)
+        fatura.dateEdit_2.setDate(self.dt)
+        fatura.lineEdit_3.setText("onur")
+        time.sleep(dur)
+        fatura.slotfatura(0, 0)
+        time.sleep(dur)
+        satir=0
+        onur=0
 
-        pass
+        i = self.tableWidget_2.rowCount()
+        if i == 0:
+            return
+        for item in range(i):
+
+
+            deger10 = self.tableWidget_2.item(item, 0).text()
+            deger11 = self.led[satir].text()
+            deger12 = self.led[satir+1].text()
+            deger13 = self.tableWidget_2.item(item, 2).text()
+            deger14 = self.tableWidget_2.item(item, 1).text().toUtf8()
+            # deger14  = u' '.join((str(deger14))).encode('utf-8').strip()
+            deger13 = self.kontrol(deger13)
+            if deger12=="17":
+                print "onur"
+                fatura.lineEdit_3.setText(deger11)
+                time.sleep(dur)
+                fatura.slotfatura(0, 0)
+                time.sleep(dur)
+                fatura.tableWidget_2.setItem(onur, 6, QtGui.QTableWidgetItem(str(float(deger13)*(-1))))
+                fatura.tableWidget_2.setItem(onur,1,QtGui.QTableWidgetItem(str(deger14)))
+                fatura.tableWidget_2.setItem(onur,3,QtGui.QTableWidgetItem("0"))
+                time.sleep(dur)
+                onur+=1
+
+            else :
+                print "başka"
+
+            satir += 2
 
 
 if __name__ == "__main__":
