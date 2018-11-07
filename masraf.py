@@ -83,6 +83,7 @@ class Masraf(QtGui.QDialog , Ui_Masraf):
         sql="select islemid,aciklama,tutar from kasa where kasano=111 and tarih= %s"
         bul1=self.mydbb.cur.execute(sql,(self.tar1,))
         bul=self.mydbb.cur.fetchall()
+        self.mydbb.conn.commit()
 
         i=bul1
         aa=0
@@ -191,7 +192,7 @@ class Masraf(QtGui.QDialog , Ui_Masraf):
             deger11 = self.led[satir].text()
             deger12 = self.led[satir+1].text()
             deger13 = self.tableWidget_2.item(item, 2).text()
-            deger14 = self.tableWidget_2.item(item, 1).text().toUtf8()
+            deger14 = self.tableWidget_2.item(item, 1).text()
             # deger14  = u' '.join((str(deger14))).encode('utf-8').strip()
             deger13 = self.kontrol(deger13)
             if deger12=="17":
@@ -201,10 +202,13 @@ class Masraf(QtGui.QDialog , Ui_Masraf):
                 fatura.slotfatura(0, 0)
                 time.sleep(dur)
                 fatura.tableWidget_2.setItem(onur, 6, QtGui.QTableWidgetItem(str(float(deger13)*(-1))))
-                fatura.tableWidget_2.setItem(onur,1,QtGui.QTableWidgetItem(str(deger14)))
+                fatura.tableWidget_2.setItem(onur,1,QtGui.QTableWidgetItem((deger14)))
                 fatura.tableWidget_2.setItem(onur,3,QtGui.QTableWidgetItem("0"))
                 time.sleep(dur)
                 onur+=1
+                fatura.slotfaturakaydet()
+                self.mydbb.cur.execute("""update kasa set muhkod=1 where islemid=%s""",(deger10,))
+                self.mydbb.conn.commit()
 
             else :
                 print "başka"
