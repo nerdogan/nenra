@@ -38,6 +38,12 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
         self.pushButton_4.clicked.connect(self.slotfaturasil)
         self.tableWidget_2.itemChanged.connect(self.toplamdegisti)
         self.comboBox.currentIndexChanged.connect(self.odemeyap)
+        self.connect(self, QtCore.SIGNAL('triggered()'), self.closeEvent)
+
+    def closeEvent(self, event):
+        print "Closing"
+        self.myddb.kapat()
+
 
     def kontrol(self,girdi):
         girdi = str(girdi)
@@ -523,3 +529,4 @@ if __name__ == "__main__":
     fatura1=Fatura()
     fatura1.goster()
     app.exec_()
+    print "fatura kapandı"
