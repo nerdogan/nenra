@@ -195,13 +195,15 @@ class Masraf(QtGui.QDialog , Ui_Masraf):
             deger14 = self.tableWidget_2.item(item, 1).text()
             # deger14  = u' '.join((str(deger14))).encode('utf-8').strip()
             deger13 = self.kontrol(deger13)
+            if float(deger13)<0:
+                deger13=float(deger13)*-1
             if deger12=="17":
                 print "onur"
                 fatura.lineEdit_3.setText(deger11)
                 time.sleep(dur)
                 fatura.slotfatura(0, 0)
                 time.sleep(dur)
-                fatura.tableWidget_2.setItem(onur, 6, QtGui.QTableWidgetItem(str(float(deger13)*(-1))))
+                fatura.tableWidget_2.setItem(onur, 6, QtGui.QTableWidgetItem(str(deger13)))
                 fatura.tableWidget_2.setItem(onur,1,QtGui.QTableWidgetItem((deger14)))
                 fatura.tableWidget_2.setItem(onur,3,QtGui.QTableWidgetItem("0"))
                 time.sleep(dur)
@@ -232,7 +234,7 @@ class Masraf(QtGui.QDialog , Ui_Masraf):
                 time.sleep(dur)
                 fatura1.slotfatura(0, 0)
                 time.sleep(dur)
-                fatura1.tableWidget_2.setItem(0, 6, QtGui.QTableWidgetItem(str(float(deger13)*(-1) )))
+                fatura1.tableWidget_2.setItem(0, 6, QtGui.QTableWidgetItem(str(deger13)))
                 fatura1.tableWidget_2.setItem(0, 1, QtGui.QTableWidgetItem((deger14)))
                 fatura1.tableWidget_2.setItem(0, 4, QtGui.QTableWidgetItem("-1"))
                 time.sleep(dur)
