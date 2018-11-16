@@ -207,13 +207,45 @@ class Masraf(QtGui.QDialog , Ui_Masraf):
                 time.sleep(dur)
                 onur+=1
                 fatura.slotfaturakaydet()
+
                 self.mydbb.cur.execute("""update kasa set muhkod=1 where islemid=%s""",(deger10,))
                 self.mydbb.conn.commit()
 
             else :
-                print "başka"
+                dur = 0.05
+                self.mydbb.cur.execute("""select cariad from cari  where cariid=%s""", (deger12,))
+                cariadd =self.mydbb.cur.fetchone()
+                print cariadd[0]
+                self.mydbb.conn.commit()
+                fatura1 = Fatura()
+                fatura1.goster()
+                fatura1.lineEdit.setText('TED')
+                self.dt = self.dateEdit.date().toPyDate()
+                self.dt = QtCore.QDate.fromString(str(self.dt), 'yyyy-MM-dd')
+                fatura1.dateEdit.setDate(self.dt)
+                fatura1.dateEdit_2.setDate(self.dt)
+                fatura1.lineEdit_3.setText(cariadd[0])
+                time.sleep(dur)
+                fatura1.slotfatura(0, 0)
+                time.sleep(dur)
+                fatura1.lineEdit_3.setText("NAKIT")
+                time.sleep(dur)
+                fatura1.slotfatura(0, 0)
+                time.sleep(dur)
+                fatura1.tableWidget_2.setItem(0, 6, QtGui.QTableWidgetItem(str(float(deger13)*(-1) )))
+                fatura1.tableWidget_2.setItem(0, 1, QtGui.QTableWidgetItem((deger14)))
+                fatura1.tableWidget_2.setItem(0, 4, QtGui.QTableWidgetItem("-1"))
+                time.sleep(dur)
+                fatura1.slotfaturakaydet()
+                time.sleep(dur)
+                time.sleep(dur)
+                fatura1.close()
+
+                self.mydbb.cur.execute("""update kasa set muhkod=1 where islemid=%s""", (deger10,))
+                self.mydbb.conn.commit()
 
             satir += 2
+        fatura.slotfaturakont()
 
 
 if __name__ == "__main__":
