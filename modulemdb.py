@@ -44,6 +44,7 @@ class Myddb():
         # show the result
         self.result = self.cur.fetchall()
 
+
         return self.result
 
     def cek1( self,sql,tablenam,colname):
@@ -81,8 +82,8 @@ class Myddb():
         print sql1
         self.cur.execute(sql1,[sql])
         # show the result
-        self.result =  self.cur.lastrowid
-        return self.result
+        #self.result =  self.cur.lastrowid
+        #return self.result
 
 
 

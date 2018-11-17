@@ -126,12 +126,19 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
         self.comboBox.blockSignals(True)
         self.comboBox.setCurrentIndex(0)
         self.comboBox.blockSignals(False)
+        self.lineEdit.setText("")
 
-        if self.lineEdit_5.text()!="":
-            sql = "select serino,sirano from cari_har where  fisno='" + str(self.lineEdit_5.text())  + "'"
+        sql = "select serino,sirano from cari_har where  fisno='" + str(item2) + "'"
+        try:
+            print self.myddb.conn.sqlstate()
             sonuc = self.myddb.cek(sql)
-            self.lineEdit.setText(str(sonuc[0][0]))
-            self.lineEdit_2.setText(str(sonuc[0][1]))
+        except self.myddb.cur.OperationalError:
+            self.myddb=Myddb()
+            sonuc = self.myddb.cek(sql)
+
+        self.myddb.conn.commit()
+        self.lineEdit.setText(str(sonuc[0][0]))
+        self.lineEdit_2.setText(str(sonuc[0][1]))
 
     @pyqtSlot(int,str)
     def linechange(self,item2):
@@ -185,6 +192,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
         deger6 = self.lineEdit_2.text()
         sql = "select * from cari_har where  serino='" + str(deger5) + "' and sirano='" + str(deger6) + "'"
         sonuc =self.myddb.cek(sql)
+        self.myddb.conn.commit()
         self.label_3.setText("")
         self.tableWidget_2.clearContents()
         self.tableWidget.setRowCount(0)
@@ -195,6 +203,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
         # tediye fişi ted olunca otomatik sıra numarası veriyor
         if ( deger5=="ted" or deger5=="TED" or deger5=="ZZ" or deger5=="say" or deger5=="SAY" or deger5=="MAS" ) and deger6=="":
             maxbelgeno = self.myddb.cek("select  max(sirano) from cari_har where serino='" + str(deger5) + "' ")
+            self.myddb.conn.commit()
             deger6 = str(maxbelgeno[0][0] + 1)
             self.lineEdit_2.setText(deger6)
 
@@ -223,6 +232,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
                     bul1 = str(item3[0])
 
                 bul2 = self.myddb.cek2(item3[3], "cariay", "fisno")
+                self.myddb.conn.commit()
                 self.fisno = item3[3]
                 print self.fisno , "ahada bu"
                 self.setWindowTitle(QtCore.QString.fromUtf8("Fiş Girişi " + str(self.fisno)))
@@ -365,6 +375,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 
         sql = "select * from cari_har where  serino='" + str(deger5) + "' and sirano='" + str(deger6) + "'"
         sonuc = self.myddb.cek(sql)
+        self.myddb.conn.commit()
         print sonuc
         if len(sonuc) == 0:
             print "fatura kaydı yok"
@@ -398,10 +409,10 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
             print " fatura kaydı var"
             self.myddb.sil(sonuc[0][3], "cariay", "fisno")
             self.myddb.conn.commit()
-            son=self.myddb.cur.execute("select max(caid) from cariay")
-            son1="ALTER TABLE cariay AUTO_INCREMENT ="+str(son)
-            self.myddb.cur.execute(son1)
-            self.myddb.conn.commit()
+            #son=self.myddb.cur.execute("select max(caid) from cariay")
+            #son1="ALTER TABLE cariay AUTO_INCREMENT ="+str(son)
+            #self.myddb.cur.execute(son1)
+            #self.myddb.conn.commit()
             satir = 0
 
         i = self.tableWidget_2.rowCount()
@@ -425,6 +436,8 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
             print deger10 , toplam , kdv
             sql2 = "insert into cariay (fisno,fissatir,fistipi,hamkod,kdv,miktar,birimfiy,tarih,aciklama) values (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
             self.myddb.cur.execute(sql2, (sonuc[0][3], satir, sonuc[0][2], deger10, deger11, deger12, deger13,sonuc[0][6],deger14))
+
+
         sql3 = "UPDATE cari_har SET tutar=%s where fisno=%s "
         sql4 = "update cariay targetTable  left join hammadde sourceTable on targetTable.hamkod = sourceTable.hamkod set  targetTable.muhkod = sourceTable.muhkod "
         print sql3
@@ -437,6 +450,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
         self.label_6.setText("{0}  {1}  {2}".format(str("{0:.2f}".format(toplam)), str("{0:.2f}".format(kdv)),
                                                     str("{0:.2f}".format(toplam + kdv))))
         self.lineEdit_3.setFocus(True)
+        self.slotfaturakont()
 
     @pyqtSlot()
     def slotfaturasatirsil(self):

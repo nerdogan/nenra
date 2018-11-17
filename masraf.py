@@ -239,15 +239,14 @@ class Masraf(QtGui.QDialog , Ui_Masraf):
                 fatura1.tableWidget_2.setItem(0, 4, QtGui.QTableWidgetItem("-1"))
                 time.sleep(dur)
                 fatura1.slotfaturakaydet()
-                time.sleep(dur)
-                time.sleep(dur)
-                fatura1.close()
+
 
                 self.mydbb.cur.execute("""update kasa set muhkod=1 where islemid=%s""", (deger10,))
                 self.mydbb.conn.commit()
 
             satir += 2
         fatura.slotfaturakont()
+
 
 
 if __name__ == "__main__":
