@@ -27,6 +27,7 @@ class Ui_Dialog3(object):
         Dialog3.setObjectName(_fromUtf8("Dialog3"))
         Dialog3.resize(800, 600)
         Dialog3.setMinimumSize(QtCore.QSize(800, 600))
+        Dialog3.setMaximumSize(QtCore.QSize(820, 16777215))
         self.gridLayout_4 = QtGui.QGridLayout(Dialog3)
         self.gridLayout_4.setObjectName(_fromUtf8("gridLayout_4"))
         self.gridLayout = QtGui.QGridLayout()
