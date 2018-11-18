@@ -62,7 +62,7 @@ class WorkerThread(QThread):
 
     def run(self):
 
-        StartDate = "01/09/18"
+        StartDate = "01/11/18"
 
         EndDate = datetime.datetime.strptime(StartDate, "%d/%m/%y")
         now = datetime.datetime.now() - datetime.timedelta(days=1)
@@ -581,9 +581,7 @@ def main():
     rapor.setWindowModality(Qt.ApplicationModal)
     stok.setWindowModality(Qt.ApplicationModal)
 
-    sh = QtGui.QShortcut(fatura)
-    sh.setKey("Enter")
-    fatura.connect(sh, QtCore.SIGNAL("activated()"), copyFunction)
+    fatura.connect(QtGui.QShortcut(QtGui.QKeySequence(Qt.Key_Enter), fatura), QtCore.SIGNAL('activated()'), copyFunction)
 
     mainWindow.connect(login, QtCore.SIGNAL("acac1(int)"), slotpuss4)
     slotpuss4(100)

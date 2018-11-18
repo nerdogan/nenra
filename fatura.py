@@ -3,6 +3,7 @@
 import sys
 import time as ttim
 import re
+from hesapmak import Hesap
 from PyQt4.QtCore import pyqtSlot
 from PyQt4 import QtGui, QtCore,QtTest
 from ui_fatura import Ui_Dialog3
@@ -15,6 +16,8 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
     def __init__(self):
         QtGui.QDialog.__init__(self)
         self.setupUi(self)
+        self.hesapla=Hesap()
+
 
         self.fisno=None
         self.comb={}
@@ -39,6 +42,9 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
         self.tableWidget_2.itemChanged.connect(self.toplamdegisti)
         self.comboBox.currentIndexChanged.connect(self.odemeyap)
         self.connect(self, QtCore.SIGNAL('triggered()'), self.closeEvent)
+        self.connect(QtGui.QShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Equal), self.tableWidget_2), QtCore.SIGNAL('activated()'), self.slothesapmakgoster)
+        self.connect(self.hesapla, QtCore.SIGNAL("acac"), self.slotitemyaz)
+
 
     def closeEvent(self, event):
         print "Closing"
@@ -536,6 +542,18 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 
 
         self.tableWidget_2.setItem(bb,5,QtGui.QTableWidgetItem(str(float(self.tableWidget_2.item(bb,5).text()  )*(float(cc)/float(dd)))))
+
+    @pyqtSlot()
+    def slothesapmakgoster(self):
+        self.hesapla.goster()
+        self.a = self.tableWidget_2.currentRow()
+        self.b = self.tableWidget_2.currentColumn()
+
+    @pyqtSlot(int,str)
+    def slotitemyaz(self,sonuc):
+
+        print sonuc
+        self.tableWidget_2.setItem(self.a,self.b,QtGui.QTableWidgetItem(sonuc))
 
 
 if __name__ == "__main__":
