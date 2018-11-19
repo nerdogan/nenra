@@ -25,7 +25,7 @@ class Hesap(QtGui.QDialog , Ui_Dialog):
 
     def closeEvent(self, event):
         print "hesapmak Closing"
-        self.myddb.kapat()
+
 
 
     def kontrol(self,girdi):
@@ -41,7 +41,6 @@ class Hesap(QtGui.QDialog , Ui_Dialog):
 
     def goster(self):
         print "fatura arayüzü açıldı"
-        self.myddb = Myddb()
         self.lineEdit.setText("")
         self.lineEdit_2.setText("")
         self.show()

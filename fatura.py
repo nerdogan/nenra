@@ -545,12 +545,14 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 
     @pyqtSlot()
     def slothesapmakgoster(self):
+        self.hide()
         self.hesapla.goster()
         self.a = self.tableWidget_2.currentRow()
         self.b = self.tableWidget_2.currentColumn()
 
     @pyqtSlot(int,str)
     def slotitemyaz(self,sonuc):
+        self.show()
 
         print sonuc
         self.tableWidget_2.setItem(self.a,self.b,QtGui.QTableWidgetItem(sonuc))
