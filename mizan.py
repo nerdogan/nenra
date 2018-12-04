@@ -17,8 +17,8 @@ toplam1=0
 #     FROM cariay where fistipi=10
 #     GROUP BY hamkod ) as x left join cariay a on a.tarih=x.tarih and a.hamkod=x.hamkod order by hamkod )
 
-tarih1="2018-10-01"
-tarih2="2018-10-31"
+tarih1="2018-09-01"
+tarih2="2018-09-30"
 
 satis="SELECT departman,sum(adet),SUM(TUTAR) FROM bishop.CIRO  where tarih between %s  and %s and departman!=0 group by 1"
 myddb = Myddb()

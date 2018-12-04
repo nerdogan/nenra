@@ -199,6 +199,7 @@ class Masraf(QtGui.QDialog , Ui_Masraf):
                 deger13=float(deger13)*-1
             if deger12=="17":
                 print "onur"
+                fatura.lineEdit_3.setText("")
                 fatura.lineEdit_3.setText(deger11)
                 time.sleep(dur)
                 fatura.slotfatura(0, 0)
