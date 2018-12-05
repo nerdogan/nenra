@@ -175,7 +175,7 @@ class Masraf(QtGui.QDialog , Ui_Masraf):
         self.dt = QtCore.QDate.fromString(str(self.dt), 'yyyy-MM-dd')
         fatura.dateEdit.setDate(self.dt)
         fatura.dateEdit_2.setDate(self.dt)
-        fatura.lineEdit_3.setText("onur")
+        fatura.lineEdit_3.setText("kasa")
         time.sleep(dur)
         fatura.slotfatura(0, 0)
         time.sleep(dur)
@@ -197,6 +197,11 @@ class Masraf(QtGui.QDialog , Ui_Masraf):
             deger13 = self.kontrol(deger13)
             if float(deger13)<0:
                 deger13=float(deger13)*-1
+
+            if deger12=="":
+                print "cari yok"
+                satir+=2
+                continue
             if deger12=="17":
                 print "onur"
                 fatura.lineEdit_3.setText("")
