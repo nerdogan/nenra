@@ -80,7 +80,7 @@ class Masraf(QtGui.QDialog , Ui_Masraf):
         self.dt = QtCore.QDate.fromString(str(self.dt), 'yyyy-MM-dd')
         self.dateEdit.setDate(self.dt)
 
-        sql="select islemid,aciklama,tutar from kasa where (kasano=111 or kasano=102) and tarih= %s"
+        sql="select islemid,aciklama,tutar from kasa where (kasano=111 or kasano=102) and muhkod<>1 and tarih= %s"
         bul1=self.mydbb.cur.execute(sql,(self.tar1,))
         bul=self.mydbb.cur.fetchall()
         self.mydbb.conn.commit()
@@ -220,7 +220,7 @@ class Masraf(QtGui.QDialog , Ui_Masraf):
                 self.mydbb.conn.commit()
 
             else :
-                dur = 0.05
+                dur = 0.02
                 self.mydbb.cur.execute("""select cariad from cari  where cariid=%s""", (deger12,))
                 cariadd =self.mydbb.cur.fetchone()
                 print cariadd[0]

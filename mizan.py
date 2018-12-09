@@ -16,15 +16,21 @@ toplam1=0
 #     SELECT hamkod, MAX(tarih) as tarih, birimfiy
 #     FROM cariay where fistipi=10
 #     GROUP BY hamkod ) as x left join cariay a on a.tarih=x.tarih and a.hamkod=x.hamkod order by hamkod )
-
+"""
 tarih1="2018-09-01"
 tarih2="2018-09-30"
-
+"""
+tarih1="2018-10-01"
+tarih2="2018-10-31"
+"""
+tarih1="2018-11-01"
+tarih2="2018-11-30"
+"""
 satis="SELECT departman,sum(adet),SUM(TUTAR) FROM bishop.CIRO  where tarih between %s  and %s and departman!=0 group by 1"
 myddb = Myddb()
 print myddb.cur.execute(satis,(tarih1,tarih2))
 bul=myddb.cur.fetchall()
-
+myddb.cur.execute("delete from bishop.genelrapor  where tarih between %s  and %s ",(tarih1,tarih2))
 for row in bul:
     sql="insert into bishop.genelrapor (rkod,aciklama,miktar1,tarih) values (%s,%s,%s,%s)"
     myddb.cur.execute(sql,(row[0],"600.0"+str(row[0]),row[2],tarih2))
