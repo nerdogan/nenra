@@ -16,16 +16,25 @@ toplam1=0
 #     SELECT hamkod, MAX(tarih) as tarih, birimfiy
 #     FROM cariay where fistipi=10
 #     GROUP BY hamkod ) as x left join cariay a on a.tarih=x.tarih and a.hamkod=x.hamkod order by hamkod )
-"""
-tarih1="2018-09-01"
-tarih2="2018-09-30"
-"""
-tarih1="2018-10-01"
-tarih2="2018-10-31"
-"""
-tarih1="2018-11-01"
-tarih2="2018-11-30"
-"""
+
+#tarih1="2018-09-01"
+#tarih2="2018-09-30"
+
+#tarih1="2018-10-01"
+#tarih2="2018-10-31"
+
+#tarih1="2018-11-01"
+#tarih2="2018-11-30"
+
+#tarih1="2019-01-01"
+#tarih2="2019-01-31"
+
+tarih1="2019-02-01"
+tarih2="2019-02-28"
+
+tarih1="2019-03-01"
+tarih2="2019-03-31"
+
 satis="SELECT departman,sum(adet),SUM(TUTAR) FROM bishop.CIRO  where tarih between %s  and %s and departman!=0 group by 1"
 myddb = Myddb()
 print myddb.cur.execute(satis,(tarih1,tarih2))

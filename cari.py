@@ -2,6 +2,7 @@
 import sys
 import re
 import datetime
+import locale
 import subprocess
 from PyQt4.QtCore import pyqtSlot
 from PyQt4 import QtGui, QtCore
@@ -22,6 +23,8 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         QtGui.QDialog.__init__(self)
         self.setupUi(self)
         #self.myddb = Myddb()
+        locale.setlocale(locale.LC_ALL, 'tr_TR')
+
         self.kontrol=0
         self.tableWidget.setRowCount(0)
         some_date = QtCore.QDate.currentDate()
@@ -58,6 +61,7 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         deger2 = self.dateEdit_2.date().toPyDate()
         tar1 = deger1.strftime('%d%m%Y')
         tar2 = deger2.strftime('%d%m%Y')
+        tar3 = deger2.strftime('%B %Y')
 
         self.wb = xlwt.Workbook(encoding="utf-8")
         self.dest_filename = "EKSTRE" + tar1 + tar2 + ".xls"
@@ -70,10 +74,15 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         c = canvas.Canvas("EKSTRE" + tar1 + tar2 + ".pdf")
 
         pdfmetrics.registerFont(TTFont('Verdana', 'Verdana.ttf'))
+        c.setFont("Verdana", 12)
+
+        item = "BISHOP CARİ BAKİYE LİSTESİ     "+ tar3
+        c.drawString(55, 815, item)
         c.setFont("Verdana", 8)
 
         item = "           KOD         FİRMA ADI                                                                            BAKİYE                      "
-        c.drawString(10, 810, item)
+        c.drawString(10, 800, item)
+
         tar1 = deger1.strftime('%Y-%m-%d')
         tar2 = deger2.strftime('%Y-%m-%d')
         sql = """select `c2`.`cariid` AS `cariid`,`c2`.`cariad` AS `cariad`,sum(`c1`.`tutar`) AS `TUTAR` from (`test`.`cari_har` `c1` join `test`.`cari` `c2`) 
@@ -93,7 +102,7 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         toplam2 = 0.0000
 
         for row1 in bul:
-            if row1[2]==0 and self.checkBox.isChecked():
+            if row1[2]<10 and self.checkBox.isChecked():
                 continue
 
 
@@ -478,6 +487,13 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
 
 
 
+if __name__ == "__main__":
+    app = QtGui.QApplication(sys.argv)
+    fatura1=Cari()
+    fatura1.show()
+    fatura1.raise_()
+    app.exec_()
+    print "fatura kapandı"
 
 
 
