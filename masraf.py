@@ -263,6 +263,7 @@ class Masraf(QtGui.QDialog , Ui_Masraf):
 
 
 if __name__ == "__main__":
+
     app = QtGui.QApplication(sys.argv)
     masraf=Masraf()
     masraf.show()
