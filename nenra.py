@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#-------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
 # Name:        module1
 # Purpose:
 #
@@ -8,7 +8,7 @@
 # Created:     22.01.2014
 # Copyright:   (c) NAMIK ERDOĞAN  2014
 # Licence:     <your licence>
-#-------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
 # pyinstaller --clean --win-private-assemblies -F masa.py --distpath="C:\Users\NAMIK\Desktop\masa" -w
 import subprocess
 import sys
@@ -62,7 +62,7 @@ class WorkerThread(QThread):
 
     def run(self):
 
-        StartDate = "01/01/19"
+        StartDate = "01/05/19"
 
         EndDate = datetime.datetime.strptime(StartDate, "%d/%m/%y")
         now = datetime.datetime.now() - datetime.timedelta(days=1)
@@ -454,7 +454,7 @@ def main():
 
         if item2 == 1234:
             mainWindow.statusbar.showMessage(
-                u"Namık ERDOĞAN © 2016  3010   Yönetici                  Bishop Restaurant")
+                u"Namık ERDOĞAN © 2016  02062019   Yönetici                  Bishop Restaurant")
             mainWindow.pushButton.blockSignals(0)
             mainWindow.pushButton_2.blockSignals(0)
             mainWindow.pushButton_3.blockSignals(0)

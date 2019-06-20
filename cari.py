@@ -23,7 +23,7 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         QtGui.QDialog.__init__(self)
         self.setupUi(self)
         #self.myddb = Myddb()
-        locale.setlocale(locale.LC_ALL, 'tr_TR')
+        #locale.setlocale(locale.LC_ALL, 'turkish')
 
         self.kontrol=0
         self.tableWidget.setRowCount(0)

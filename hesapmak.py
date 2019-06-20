@@ -62,6 +62,10 @@ class Hesap(QtGui.QDialog , Ui_Dialog):
 
 
 if __name__ == "__main__":
+    import locale
+
+    for x in locale.windows_locale.values():
+        print(x.replace('_', '-'))
     app = QtGui.QApplication(sys.argv)
     hesap=Hesap()
     hesap.goster()
