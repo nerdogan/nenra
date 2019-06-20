@@ -580,6 +580,7 @@ def main():
     login.setWindowModality(Qt.ApplicationModal)
     rapor.setWindowModality(Qt.ApplicationModal)
     stok.setWindowModality(Qt.ApplicationModal)
+    cari.setWindowModality(Qt.ApplicationModal)
 
     fatura.connect(QtGui.QShortcut(QtGui.QKeySequence(Qt.Key_Enter), fatura), QtCore.SIGNAL('activated()'), copyFunction)
 
