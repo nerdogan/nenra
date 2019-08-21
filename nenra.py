@@ -160,7 +160,6 @@ def main():
     workerthread = WorkerThread()
     workerthread.start()
 
-    bul=myddb.cek("select * from hammadde where kategori=2 or kategori=3 order by hamkod")
     logger.info('Program opened  '+str(os.getpid()))
 
 
@@ -346,8 +345,10 @@ def main():
     @pyqtSlot()
     def slotpuss(item2):
         print "reçete arayüzü açıldı"
+        bul = myddb.cek("select * from hammadde where kategori=2 or kategori=3 order by hamkod")
+
         mainWindow.statusbar.showMessage(
-            u"Namık ERDOĞAN © 2016         Reçete                            Bishop Restaurant")
+            u"Namık ERDOĞAN © 2016         Reçete 1.20                         Bishop Restaurant")
         recete.move(13, 10)
         recete.show()
         recete.setFixedSize(recete.size());  # dialog penceresi boyutu sabit (fixed)
