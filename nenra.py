@@ -78,7 +78,7 @@ class WorkerThread(QThread):
                 print " kaydediliyor"
                 tar = EndDate.strftime('%d%m%Y')
 
-                sql2 = "SELECT hammadde.hamkod,recete.hamkod,miktar,adet FROM bishop.ciro inner join test.hammadde on pluno=hamkod and DATE(tarih)=%s  inner join test.recete on  hammadde.hamkod=recete.menukod"
+                sql2 = "SELECT hammadde.hamkod,recete.hamkod,miktar,adet FROM bishop.ciro inner join hammadde on pluno=hamkod and DATE(tarih)=%s  inner join recete on  hammadde.hamkod=recete.menukod"
                 bilgi = self.myddb.cur.execute(sql2, [(EndDate.strftime('%Y-%m-%d'))])
                 print bilgi
                 valnen = []

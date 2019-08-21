@@ -19,7 +19,7 @@ excel = win32.gencache.EnsureDispatch('Excel.Application') #uses current instanc
 app = QtGui.QApplication(sys.argv)
 mydb=Myddb()
 fname = unicode(QtGui.QFileDialog.getOpenFileName())
-print fname
+#print fname.encode("utf-8")
 openfile=fname
 
 if fname.endswith("s"):
