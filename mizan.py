@@ -32,8 +32,8 @@ toplam1=0
 #tarih1="2019-02-01"
 #tarih2="2019-02-28"
 
-tarih1="2019-07-01"
-tarih2="2019-07-31"
+tarih1="2019-03-01"
+tarih2="2019-03-31"
 
 satis="SELECT departman,sum(adet),SUM(TUTAR) FROM bishop.CIRO  where tarih between %s  and %s and departman!=0 group by 1"
 myddb = Myddb()

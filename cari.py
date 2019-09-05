@@ -23,7 +23,11 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         QtGui.QDialog.__init__(self)
         self.setupUi(self)
         #self.myddb = Myddb()
-        #locale.setlocale(locale.LC_ALL, 'turkish')
+
+        if sys.platform == "win32":
+            pass
+        else:
+            locale.setlocale(locale.LC_ALL, 'TR_tr')
 
         self.kontrol=0
         self.tableWidget.setRowCount(0)
@@ -62,6 +66,8 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         tar1 = deger1.strftime('%d%m%Y')
         tar2 = deger2.strftime('%d%m%Y')
         tar3 = deger2.strftime('%B %Y')
+        if sys.platform=="win32":
+            tar3=unicode(tar3,'cp1254')
 
         self.wb = xlwt.Workbook(encoding="utf-8")
         self.dest_filename = "EKSTRE" + tar1 + tar2 + ".xls"
@@ -494,8 +500,6 @@ if __name__ == "__main__":
     fatura1.raise_()
     app.exec_()
     print "fatura kapandı"
-
-
 
 
 
