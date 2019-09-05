@@ -69,7 +69,8 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         tar3 = deger2.strftime('%B %Y')
         if sys.platform=="win32":
             tar3=unicode(tar3,'cp1254')
-            print tar3
+        else:
+            tar3=unicode(tar3,'utf-8')
 
         self.wb = xlwt.Workbook(encoding="utf-8")
         self.dest_filename = "EKSTRE" + tar1 + tar2 + ".xls"
