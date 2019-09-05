@@ -25,7 +25,8 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         #self.myddb = Myddb()
 
         if sys.platform == "win32":
-            pass
+            locale.setlocale(locale.LC_ALL, 'turkish')
+
         else:
             locale.setlocale(locale.LC_ALL, 'TR_tr')
 
@@ -68,6 +69,7 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         tar3 = deger2.strftime('%B %Y')
         if sys.platform=="win32":
             tar3=unicode(tar3,'cp1254')
+            print tar3
 
         self.wb = xlwt.Workbook(encoding="utf-8")
         self.dest_filename = "EKSTRE" + tar1 + tar2 + ".xls"
@@ -82,7 +84,7 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         pdfmetrics.registerFont(TTFont('Verdana', 'Verdana.ttf'))
         c.setFont("Verdana", 12)
 
-        item = "BISHOP CARİ BAKİYE LİSTESİ     "+ tar3
+        item = u"BISHOP CARİ BAKİYE LİSTESİ     "+ tar3
         c.drawString(55, 815, item)
         c.setFont("Verdana", 8)
 
