@@ -10,6 +10,7 @@ from ui_fatura import Ui_Dialog3
 
 from modulemdb import *
 
+
 print "lemar"
 
 class Fatura(QtGui.QDialog , Ui_Dialog3):
