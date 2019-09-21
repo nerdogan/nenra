@@ -9,7 +9,7 @@ from PyQt4 import QtGui, QtCore,QtTest
 from ui_fatura import Ui_Dialog3
 
 from modulemdb import *
-
+print " master"
 
 
 class Fatura(QtGui.QDialog , Ui_Dialog3):
