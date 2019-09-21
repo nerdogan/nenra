@@ -47,7 +47,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 
 
     def closeEvent(self, event):
-        print "Closing"
+        print    "Closing"
         self.myddb.kapat()
 
 
