@@ -62,6 +62,7 @@ class WorkerThread(QThread):
 
     def run(self):
 
+
         StartDate = "01/05/19"
 
         EndDate = datetime.datetime.strptime(StartDate, "%d/%m/%y")
