@@ -9,8 +9,8 @@ from PyQt4 import QtGui, QtCore,QtTest
 from ui_fatura import Ui_Dialog3
 
 from modulemdb import *
-print " master"
 
+print "lemine"
 
 class Fatura(QtGui.QDialog , Ui_Dialog3):
     def __init__(self):
@@ -47,7 +47,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 
 
     def closeEvent(self, event):
-        print "Closing"
+        print    "Closing"
         self.myddb.kapat()
 
 
