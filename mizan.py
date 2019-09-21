@@ -63,6 +63,12 @@ for row in bul:
 
 sql="insert into bishop.genelrapor (rkod,aciklama,miktar1,tarih) values (%s,%s,%s,%s)"
 myddb.cur.execute(sql,(99,"gider",toplam1,tarih2))
+
+
+
+
+
+
 myddb.conn.commit()
 
 
