@@ -10,7 +10,7 @@ from ui_fatura import Ui_Dialog3
 
 from modulemdb import *
 
-print "lemine"
+print " master"
 
 class Fatura(QtGui.QDialog , Ui_Dialog3):
     def __init__(self):
