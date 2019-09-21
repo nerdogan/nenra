@@ -22,7 +22,6 @@ class recetetoxls():
         date_xf = xlwt.easyxf(num_format_str='DD/MM/YYYY')
         self.ws1 = self.wb.add_sheet("recete")
         self.style1 = xlwt.easyxf('pattern: pattern solid, fore_colour red;')
-        self.style2 = xlwt.easyxf('pattern: pattern solid, fore_colour yellow;')
 
 
 
@@ -62,12 +61,6 @@ class recetetoxls():
             self.ws1.write(self.satir, 2, item + " ")
             item = int(row1[3])
             self.ws1.write(self.satir, 3, item )
-
-            item = 0
-            if row1[4]!=None:
-                item= float(row1[4])
-            self.ws1.write(self.satir, 4, item)
-
             self.satir = self.satir + 1
 
         self.ws1.write(self.satir+1, 0, " ")
@@ -89,7 +82,6 @@ class recetetoxls():
             self.satir = self.satir + 1
 
             self.yaz(row1[1])
-        self.wb.save(self.dest_filename)
 
     def goster1(self):
         print "*toxls arayüzü nnn açıldı"
@@ -97,35 +89,18 @@ class recetetoxls():
         self.myddb = Myddb()
         self.satir = 1
         self.elma = 1
-        path = 'C:\\Users\\NAMIK\\Google Drive\\bishop\\PERSONEL\\RECETECOST.xls'
+        path = 'ARCBISHOP1.xls'
         wb = open_workbook(path, formatting_info=True)
-        sheet = wb.sheet_by_name("MUTFAK")
-        menukod=999999
+        sheet = wb.sheet_by_name("RECETE")
         for i in range(sheet.nrows):
             cell = sheet.cell(i, 0)  # The first cell
+            if sheet.cell(i,5).value!="":
+                print sheet.cell(i,5).value
             print(cell.xf_index, sheet.cell(rowx=i, colx=0).value, str(sheet.cell(rowx=i, colx=1).value))
             bul = self.myddb.cek("select * from hammadde where hamad like '" + str(sheet.cell(rowx=i, colx=0).value) + "'")
 
-            if cell.xf_index==22:
-                self.ws1.write(self.satir, 0, str(sheet.cell(rowx=i, colx=0).value), self.style2)
-                if len(bul) != 0:
-                    menukod=bul[0][1]
-                    sql2="delete from recete where menukod = %s "
-                    self.myddb.cur.execute(sql2,(menukod,))
-                    self.myddb.conn.commit()
-
-
-
-            else:
-                self.ws1.write(self.satir, 0, str(sheet.cell(rowx=i, colx=0).value), self.style1)
-                if len(bul) != 0:
-                    print menukod,bul[0][1],str(sheet.cell(rowx=i, colx=1).value)
-                    sql1 = "insert into recete (menukod,hamkod,miktar) values (%s,%s,%s)"
-                    self.myddb.cur.execute(sql1, (menukod,bul[0][1],str(sheet.cell(rowx=i, colx=1).value)))
-                    self.myddb.conn.commit()
-
+            self.ws1.write(self.satir, 0, str(sheet.cell(rowx=i, colx=0).value), self.style1)
             self.satir=self.satir+1
-
             if len(bul)==0:
                 self.ws1.write(self.satir-1, 5, str(self.elma), self.style1)
                 self.elma=self.elma+1

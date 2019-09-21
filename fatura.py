@@ -3,6 +3,7 @@
 import sys
 import time as ttim
 import re
+from hesapmak import Hesap
 from PyQt4.QtCore import pyqtSlot
 from PyQt4 import QtGui, QtCore,QtTest
 from ui_fatura import Ui_Dialog3
@@ -15,6 +16,8 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
     def __init__(self):
         QtGui.QDialog.__init__(self)
         self.setupUi(self)
+        self.hesapla=Hesap()
+
 
         self.fisno=None
         self.comb={}
@@ -38,6 +41,15 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
         self.pushButton_4.clicked.connect(self.slotfaturasil)
         self.tableWidget_2.itemChanged.connect(self.toplamdegisti)
         self.comboBox.currentIndexChanged.connect(self.odemeyap)
+        self.connect(self, QtCore.SIGNAL('triggered()'), self.closeEvent)
+        self.connect(QtGui.QShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Equal), self.tableWidget_2), QtCore.SIGNAL('activated()'), self.slothesapmakgoster)
+        self.connect(self.hesapla, QtCore.SIGNAL("acac"), self.slotitemyaz)
+
+
+    def closeEvent(self, event):
+        print "Closing"
+        self.myddb.kapat()
+
 
     def kontrol(self,girdi):
         girdi = str(girdi)
@@ -88,7 +100,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
         elma = self.toplam
         elma1 = self.cari
         some_date = self.dateEdit.date()
-
+        self.lineEdit.setText("")
         self.lineEdit_2.setText("")
         self.lineEdit.setText("TED")
         self.dateEdit.setDate(some_date)
@@ -120,12 +132,19 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
         self.comboBox.blockSignals(True)
         self.comboBox.setCurrentIndex(0)
         self.comboBox.blockSignals(False)
+        self.lineEdit.setText("")
 
-        if self.lineEdit_5.text()!="":
-            sql = "select serino,sirano from cari_har where  fisno='" + str(self.lineEdit_5.text())  + "'"
+        sql = "select serino,sirano from cari_har where  fisno='" + str(item2) + "'"
+        try:
+            print self.myddb.conn.sqlstate()
             sonuc = self.myddb.cek(sql)
-            self.lineEdit.setText(str(sonuc[0][0]))
-            self.lineEdit_2.setText(str(sonuc[0][1]))
+        except self.myddb.cur.OperationalError:
+            self.myddb=Myddb()
+            sonuc = self.myddb.cek(sql)
+
+        self.myddb.conn.commit()
+        self.lineEdit.setText(str(sonuc[0][0]))
+        self.lineEdit_2.setText(str(sonuc[0][1]))
 
     @pyqtSlot(int,str)
     def linechange(self,item2):
@@ -179,6 +198,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
         deger6 = self.lineEdit_2.text()
         sql = "select * from cari_har where  serino='" + str(deger5) + "' and sirano='" + str(deger6) + "'"
         sonuc =self.myddb.cek(sql)
+        self.myddb.conn.commit()
         self.label_3.setText("")
         self.tableWidget_2.clearContents()
         self.tableWidget.setRowCount(0)
@@ -187,8 +207,9 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
         some_date = QtCore.QDate.currentDate()
         self.dateEdit.setDate(some_date)
         # tediye fişi ted olunca otomatik sıra numarası veriyor
-        if ( deger5=="ted" or deger5=="TED" or deger5=="say" or deger5=="SAY") and deger6=="":
-            maxbelgeno = self.myddb.cek("select max(sirano) from cari_har where serino='" + str(deger5) + "' ")
+        if ( deger5=="ted" or deger5=="TED" or deger5=="ZZ" or deger5=="say" or deger5=="SAY" or deger5=="MAS" ) and deger6=="":
+            maxbelgeno = self.myddb.cek("select  max(sirano) from cari_har where serino='" + str(deger5) + "' ")
+            self.myddb.conn.commit()
             deger6 = str(maxbelgeno[0][0] + 1)
             self.lineEdit_2.setText(deger6)
 
@@ -217,6 +238,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
                     bul1 = str(item3[0])
 
                 bul2 = self.myddb.cek2(item3[3], "cariay", "fisno")
+                self.myddb.conn.commit()
                 self.fisno = item3[3]
                 print self.fisno , "ahada bu"
                 self.setWindowTitle(QtCore.QString.fromUtf8("Fiş Girişi " + str(self.fisno)))
@@ -233,8 +255,9 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
                     self.tableWidget_2.setItem(aa, 0, QtGui.QTableWidgetItem(item))
                     elma=item
                     bul3 = self.myddb.cek2(elma, "hammadde", "hamkod")
-
                     item = bul3[0][2]
+                    if row1[10] is not None:
+                        item=(row1[10])
                     self.tableWidget_2.setItem(aa, 1, QtGui.QTableWidgetItem(item))
                     item = bul3[0][3]
                     self.tableWidget_2.setItem(aa, 2, QtGui.QTableWidgetItem(item))
@@ -355,12 +378,15 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
         deger6 = self.lineEdit_2.text()
         deger7 = self.dateEdit.date().toPyDate()
         self.deger8 = self.dateEdit_2.date().toPyDate()
+
         sql = "select * from cari_har where  serino='" + str(deger5) + "' and sirano='" + str(deger6) + "'"
         sonuc = self.myddb.cek(sql)
+        self.myddb.conn.commit()
         print sonuc
         if len(sonuc) == 0:
             print "fatura kaydı yok"
             maxfisno = self.myddb.cek("select max(fisno) from cari_har ")
+            self.myddb.conn.commit()
 
             if maxfisno[0][0] is None:
                 maxfisno1=0
@@ -389,9 +415,10 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
             print " fatura kaydı var"
             self.myddb.sil(sonuc[0][3], "cariay", "fisno")
             self.myddb.conn.commit()
-            son=self.myddb.cur.execute("select max(caid) from cariay")
-            son1="ALTER TABLE cariay AUTO_INCREMENT ="+str(son)
-            self.myddb.cur.execute(son1)
+            #son=self.myddb.cur.execute("select max(caid) from cariay")
+            #son1="ALTER TABLE cariay AUTO_INCREMENT ="+str(son)
+            #self.myddb.cur.execute(son1)
+            #self.myddb.conn.commit()
             satir = 0
 
         i = self.tableWidget_2.rowCount()
@@ -403,16 +430,20 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
             deger11 = self.tableWidget_2.item(item, 3).text()
             deger12 = self.tableWidget_2.item(item, 4).text()
             deger13 = self.tableWidget_2.item(item, 5).text()
-            deger12 = self.kontrol(deger12)
+            deger14 = self.tableWidget_2.item(item,1).text().toUpper().toUtf8()
+           # deger14  = u' '.join((str(deger14))).encode('utf-8').strip()
 
+            deger12 = self.kontrol(deger12)
             deger13 = self.kontrol(deger13)
             print deger12
             print deger13
             toplam += float(deger12) * float(deger13)
             kdv += float(deger11) * float(deger12) * float(deger13) / 100
             print deger10 , toplam , kdv
-            sql2 = "insert into cariay (fisno,fissatir,fistipi,hamkod,kdv,miktar,birimfiy,tarih) values (%s,%s,%s,%s,%s,%s,%s,%s)"
-            self.myddb.cur.execute(sql2, (sonuc[0][3], satir, sonuc[0][2], deger10, deger11, deger12, deger13,sonuc[0][6]))
+            sql2 = "insert into cariay (fisno,fissatir,fistipi,hamkod,kdv,miktar,birimfiy,tarih,aciklama) values (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+            self.myddb.cur.execute(sql2, (sonuc[0][3], satir, sonuc[0][2], deger10, deger11, deger12, deger13,sonuc[0][6],deger14))
+
+
         sql3 = "UPDATE cari_har SET tutar=%s where fisno=%s "
         sql4 = "update cariay targetTable  left join hammadde sourceTable on targetTable.hamkod = sourceTable.hamkod set  targetTable.muhkod = sourceTable.muhkod "
         print sql3
@@ -425,6 +456,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
         self.label_6.setText("{0}  {1}  {2}".format(str("{0:.2f}".format(toplam)), str("{0:.2f}".format(kdv)),
                                                     str("{0:.2f}".format(toplam + kdv))))
         self.lineEdit_3.setFocus(True)
+        self.slotfaturakont()
 
     @pyqtSlot()
     def slotfaturasatirsil(self):
@@ -511,9 +543,24 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 
         self.tableWidget_2.setItem(bb,5,QtGui.QTableWidgetItem(str(float(self.tableWidget_2.item(bb,5).text()  )*(float(cc)/float(dd)))))
 
+    @pyqtSlot()
+    def slothesapmakgoster(self):
+        self.hide()
+        self.hesapla.goster()
+        self.a = self.tableWidget_2.currentRow()
+        self.b = self.tableWidget_2.currentColumn()
+
+    @pyqtSlot(int,str)
+    def slotitemyaz(self,sonuc):
+        self.show()
+
+        print sonuc
+        self.tableWidget_2.setItem(self.a,self.b,QtGui.QTableWidgetItem(sonuc))
+
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
     fatura1=Fatura()
     fatura1.goster()
     app.exec_()
+    print "fatura kapandı"

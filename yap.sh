@@ -6,9 +6,9 @@ pyuic4-2.7  -x recete.ui -o ui_recete.py
 pyuic4-2.7  -x recete2.ui -o ui_recete2.py
 pyuic4-2.7  -x fatura.ui -o ui_fatura.py
 pyuic4-2.7  -x maliyet.ui -o ui_maliyet.py
-pyuic4-2.7  -x nenraweb.ui -o ui_nenraweb.py
+echo "pyuic4-2.7  -x nenraweb.ui -o ui_nenraweb.py"
 pyuic4-2.7  -x stok.ui -o ui_stok.py
-
+pyuic4-2.7  -x masraf.ui -o ui_masraf.py
 echo "***** build klasöründeki eski dosyalar siliniyor"
 
 rm -rf build dist

@@ -2,6 +2,7 @@
 import sys
 import re
 import datetime
+import locale
 import subprocess
 from PyQt4.QtCore import pyqtSlot
 from PyQt4 import QtGui, QtCore
@@ -22,6 +23,13 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         QtGui.QDialog.__init__(self)
         self.setupUi(self)
         #self.myddb = Myddb()
+
+        if sys.platform == "win32":
+            locale.setlocale(locale.LC_ALL, 'turkish')
+
+        else:
+            locale.setlocale(locale.LC_ALL, 'TR_tr')
+
         self.kontrol=0
         self.tableWidget.setRowCount(0)
         some_date = QtCore.QDate.currentDate()
@@ -58,6 +66,11 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         deger2 = self.dateEdit_2.date().toPyDate()
         tar1 = deger1.strftime('%d%m%Y')
         tar2 = deger2.strftime('%d%m%Y')
+        tar3 = deger2.strftime('%B %Y')
+        if sys.platform=="win32":
+            tar3=unicode(tar3,'cp1254')
+        else:
+            tar3=unicode(tar3,'utf-8')
 
         self.wb = xlwt.Workbook(encoding="utf-8")
         self.dest_filename = "EKSTRE" + tar1 + tar2 + ".xls"
@@ -70,13 +83,18 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         c = canvas.Canvas("EKSTRE" + tar1 + tar2 + ".pdf")
 
         pdfmetrics.registerFont(TTFont('Verdana', 'Verdana.ttf'))
+        c.setFont("Verdana", 12)
+
+        item = u"BISHOP CARİ BAKİYE LİSTESİ     "+ tar3
+        c.drawString(55, 815, item)
         c.setFont("Verdana", 8)
 
         item = "           KOD         FİRMA ADI                                                                            BAKİYE                      "
-        c.drawString(10, 810, item)
+        c.drawString(10, 800, item)
+
         tar1 = deger1.strftime('%Y-%m-%d')
         tar2 = deger2.strftime('%Y-%m-%d')
-        sql = """select `c2`.`cariid` AS `cariid`,`c2`.`cariad` AS `cariad`,sum(`c1`.`tutar`) AS `TUTAR` from (`test`.`cari_har` `c1` join `test`.`cari` `c2`) 
+        sql = """select `c2`.`cariid` AS `cariid`,`c2`.`cariad` AS `cariad`,sum(`c1`.`tutar`) AS `TUTAR` from (`cari_har` `c1` join `cari` `c2`) 
         where ((`c1`.`cariid` = `c2`.`cariid`) and (`c1`.`tarih` >=%s ) and (`c1`.`tarih` <=%s ) and (`c1`.`fistipi`=10 or `c1`.`fistipi`=11))
          and  `c2`.`cariad` like %s group by `c2`.`cariad`   order by TUTAR DESC """
         myddb1.conn.commit()
@@ -93,7 +111,7 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         toplam2 = 0.0000
 
         for row1 in bul:
-            if row1[2]==0 and self.checkBox.isChecked():
+            if row1[2]<10 and self.checkBox.isChecked():
                 continue
 
 
@@ -198,11 +216,11 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         c.drawString(10, 810, item)
         tar1 = deger1.strftime('%Y-%m-%d')
         tar2 = deger2.strftime('%Y-%m-%d')
-        myddb1.cur.execute("drop table if exists test.table3 ")
-        myddb1.cur.execute("drop table if exists test.table4 ")
+        myddb1.cur.execute("drop table if exists table3 ")
+        myddb1.cur.execute("drop table if exists table4 ")
         myddb1.cur.execute(
-            """ CREATE TEMPORARY TABLE  test.table3 AS (select `cariid` AS `cariid`,sum(`tutar`) AS `tutar` from cari_har where ( (tarih > '2016-12-31')) and (fistipi=10 or fistipi=11) group by cariid )""")
-        myddb1.cur.execute(""" CREATE TEMPORARY TABLE  test.table4 AS (select cariid,sum(tutar) as tutar from cari_har where vade < %s and (tarih > '2016-12-31') group by cariid )""",(tar2,))
+            """ CREATE TEMPORARY TABLE  table3 AS (select `cariid` AS `cariid`,sum(`tutar`) AS `tutar` from cari_har where ( (tarih > '2016-12-31')) and (fistipi=10 or fistipi=11) group by cariid )""")
+        myddb1.cur.execute(""" CREATE TEMPORARY TABLE  table4 AS (select cariid,sum(tutar) as tutar from cari_har where vade < %s and (tarih > '2016-12-31') group by cariid )""",(tar2,))
 
         sql = """select a.cariid,a.cariad , ifnull( b.tutar,0) as giriş ,ifnull(c.tutar,0) as çıkış, (ifnull( b.tutar,0)-ifnull(c.tutar,0)) as fark from cari a  left join table3 b on a.cariid=b.cariid left join table4 c on a.cariid=c.cariid where b.tutar>0 and a.cariad like %s order by çıkış desc """
         bul2 = myddb1.cur.execute(sql, ( firma,))
@@ -341,7 +359,7 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         tar2 = deger2.strftime('%Y-%m-%d')
 
         sql = """select `c1`.`fistipi`,`c1`.`tarih` AS `tarih`,`c1`.`fisno` AS `fisno`,concat(`c1`.`serino`,'_',`c1`.`sirano`,' nolu '), `c1`.`tutar` AS `TUTAR` 
-        from (`test`.`cari_har` `c1` join `test`.`cari` `c2`) 
+        from (`cari_har` `c1` join `cari` `c2`) 
         where ((`c1`.`cariid` = `c2`.`cariid`) and (`c1`.`cariid`=%s) 
         and  (`c1`.`tarih` >=%s ) and (`c1`.`tarih` <=%s ) 
         and (`c1`.`fistipi`=10 or `c1`.`fistipi`=11))  order by `c1`.`tarih` asc """
@@ -478,8 +496,13 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
 
 
 
-
-
+if __name__ == "__main__":
+    app = QtGui.QApplication(sys.argv)
+    fatura1=Cari()
+    fatura1.show()
+    fatura1.raise_()
+    app.exec_()
+    print "fatura kapandı"
 
 
 

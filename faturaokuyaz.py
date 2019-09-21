@@ -10,18 +10,18 @@ import re,sys
 import xlwt
 import datetime , time
 from modulemdb import *
-#import win32com.client  as win32
+import win32com.client  as win32
 
-#excel = win32.gencache.EnsureDispatch('Excel.Application') #uses current instance of excel
+excel = win32.gencache.EnsureDispatch('Excel.Application') #uses current instance of excel
 
 
 
 app = QtGui.QApplication(sys.argv)
 mydb=Myddb()
 fname = unicode(QtGui.QFileDialog.getOpenFileName())
-print fname
+#print fname.encode("utf-8")
 openfile=fname
-"""
+
 if fname.endswith("s"):
     fname=os.path.normpath(fname)
     wb=excel.Workbooks.Open(fname)
@@ -29,7 +29,6 @@ if fname.endswith("s"):
     wb.Close()                               #FileFormat = 56 is for .xls extension
     openfile = fname + "x"
 excel.Application.Quit()
-"""
 
 def kontrol(girdi):
         girdi = str(girdi)

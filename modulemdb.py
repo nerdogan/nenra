@@ -44,6 +44,7 @@ class Myddb():
         # show the result
         self.result = self.cur.fetchall()
 
+
         return self.result
 
     def cek1( self,sql,tablenam,colname):
@@ -54,7 +55,7 @@ class Myddb():
         print sql
         sql1="select * from "+tablenam+ " where "+colname+" like "+sql
         if colname=="hamad":
-            sql1=sql1+"and kategori<>3 or hamkod like "+sql
+            sql1=sql1+" and kategori<>3 or hamkod like "+sql
         print sql1
         self.cur.execute(sql1)
         # show the result
@@ -81,8 +82,8 @@ class Myddb():
         print sql1
         self.cur.execute(sql1,[sql])
         # show the result
-        self.result =  self.cur.lastrowid
-        return self.result
+        #self.result =  self.cur.lastrowid
+        #return self.result
 
 
 

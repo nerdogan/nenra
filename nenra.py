@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#-------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
 # Name:        module1
 # Purpose:
 #
@@ -8,7 +8,7 @@
 # Created:     22.01.2014
 # Copyright:   (c) NAMIK ERDOĞAN  2014
 # Licence:     <your licence>
-#-------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
 # pyinstaller --clean --win-private-assemblies -F masa.py --distpath="C:\Users\NAMIK\Desktop\masa" -w
 import subprocess
 import sys
@@ -32,6 +32,7 @@ from cari import Cari
 from stok import Stok
 from login import Login
 from rapor import Rapor
+from masraf import Masraf
 from modulemdb import *
 
 
@@ -49,6 +50,7 @@ handler.setFormatter(formatter)
 logger.addHandler(handler)
 
 
+
 class WorkerThread(QThread):
 
 
@@ -57,9 +59,11 @@ class WorkerThread(QThread):
         self.myddb = Myddb()
 
 
+
     def run(self):
 
-        StartDate = "01/05/18"
+
+        StartDate = "01/05/19"
 
         EndDate = datetime.datetime.strptime(StartDate, "%d/%m/%y")
         now = datetime.datetime.now() - datetime.timedelta(days=1)
@@ -75,7 +79,7 @@ class WorkerThread(QThread):
                 print " kaydediliyor"
                 tar = EndDate.strftime('%d%m%Y')
 
-                sql2 = "SELECT hammadde.hamkod,recete.hamkod,miktar,adet FROM bishop.ciro inner join test.hammadde on pluno=hamkod and DATE(tarih)=%s  inner join test.recete on  hammadde.hamkod=recete.menukod"
+                sql2 = "SELECT hammadde.hamkod,recete.hamkod,miktar,adet FROM bishop.ciro inner join hammadde on pluno=hamkod and DATE(tarih)=%s  inner join recete on  hammadde.hamkod=recete.menukod"
                 bilgi = self.myddb.cur.execute(sql2, [(EndDate.strftime('%Y-%m-%d'))])
                 print bilgi
                 valnen = []
@@ -153,11 +157,11 @@ def main():
     cari = Cari()
     stok = Stok()
     rapor = Rapor()
+    masraf = Masraf()
     workerthread = WorkerThread()
     workerthread.start()
 
-    bul=myddb.cek("select * from hammadde where kategori=2 or kategori=3 order by hamkod")
-    logger.info('Program opened 20170614 '+str(os.getpid()))
+    logger.info('Program opened  '+str(os.getpid()))
 
 
 
@@ -166,20 +170,24 @@ def main():
 
         recete2.lineEdit.setText("")
 #   recete2 ekranı hazırlanıyor
+        recete2.label_2.setText(str(item))
+
+
 
         deger0=recete.tableWidget.item(item,1).text()
         recete2.label_3.setText(deger0)
         file = open(deger0+".txt", "w")
 
 
-        deger=recete.tableWidget.item(item,1).text()
-        deger1=deger+" "+recete.tableWidget.item(item,2).text()+"  "
+        deger0=recete.tableWidget.item(item,1).text()
+        deger1=deger0+" "+recete.tableWidget.item(item,2).text()+"  "
         recete2.label.setText(deger1)
 
 # veritabanından bilgi çek
 
         bul2=myddb.cek2(deger0,"recete","menukod")
-        bul=myddb.cek("select * from hammadde where hamkod>9000")
+        bul=myddb.cek("select * from hammadde where kategori=2")
+        myddb.conn.commit()
         recete2.comboBox.clear()
         i=len(bul)
         for xx1 in range(i):
@@ -200,6 +208,7 @@ def main():
 
 
             bul3=myddb.cek2(item,"hammadde","hamkod")
+            myddb.conn.commit()
             print bul3
 
             item=str(bul3[0][1])
@@ -327,6 +336,9 @@ def main():
             deger2=fatura.kontrol(deger2)
             myddb.kaydet(deger0,deger1,deger2)
         myddb.conn.commit()
+        recete2.close()
+        slotrecete2(int(recete2.label_2.text()),0)
+
 
 
 # veritabanından bilgi çek
@@ -334,8 +346,10 @@ def main():
     @pyqtSlot()
     def slotpuss(item2):
         print "reçete arayüzü açıldı"
+        bul = myddb.cek("select * from hammadde where kategori=2 or kategori=3 order by hamkod")
+
         mainWindow.statusbar.showMessage(
-            u"Namık ERDOĞAN © 2016         Reçete                            Bishop Restaurant")
+            u"Namık ERDOĞAN © 2016         Reçete 1.20                         Bishop Restaurant")
         recete.move(13, 10)
         recete.show()
         recete.setFixedSize(recete.size());  # dialog penceresi boyutu sabit (fixed)
@@ -402,11 +416,17 @@ def main():
     def slotstok(item2):
         print "stok arayüzü açıldı"
         stok.show()
+        stok.raise_()
 
     @pyqtSlot()
     def slotkasa(item2):
         print "kasa arayüzü açıldı"
         rapor.show()
+
+    @pyqtSlot()
+    def slotmasraf(item2):
+        print "masraf arayüzü açıldı"
+        masraf.show()
 
     @pyqtSlot()
     def slotpuss4(item2):
@@ -442,7 +462,7 @@ def main():
 
         if item2 == 1234:
             mainWindow.statusbar.showMessage(
-                u"Namık ERDOĞAN © 2016      Yönetici                  Bishop Restaurant")
+                u"Namık ERDOĞAN © 2016  02062019   Yönetici                  Bishop Restaurant")
             mainWindow.pushButton.blockSignals(0)
             mainWindow.pushButton_2.blockSignals(0)
             mainWindow.pushButton_3.blockSignals(0)
@@ -533,23 +553,28 @@ def main():
     # dosya açmak için dialog
     # fileName =(QtGui.QFileDialog.getOpenFileName(mainWindow, u"Düzenlenecek dosyayı seçin", ".", u"Metin dosyaları (*.txt)"))
     app.setWindowIcon(QtGui.QIcon('nenra.png'))
-    mainWindow.verticalLayoutWidget_2.setStyleSheet("background-image: url(newyork.png);")
+    mainWindow.verticalLayoutWidget_2.setStyleSheet("background-image: url(images/newyork.png);")
     mainWindow.pushButton.setStyleSheet("color: black ;  background-image: url(images/image.png)")
     mainWindow.pushButton_2.setStyleSheet("color: black ;  background-image: url(images/fatura.png)")
     mainWindow.pushButton_3.setStyleSheet("color: black ;  background-image: url(images/maliyet.png)")
     mainWindow.pushButton_4.setStyleSheet("color: black ;  background-image: url(images/nenra.png)")
     mainWindow.pushButton_5.setStyleSheet("color: black ;  background-image: url(images/nenra.png)")
     mainWindow.pushButton_6.setStyleSheet("color: black ;  background-image: url(images/maliyet.png)")
+    mainWindow.pushButton_7.setStyleSheet("color: black ;  background-image: url(images/masraf.png)")
+
+
     mainWindow.pushButton.clicked.connect(slotpuss)
     mainWindow.pushButton_2.clicked.connect(slotfatura)
     mainWindow.pushButton_3.clicked.connect(slotmaliyet)
     mainWindow.pushButton_4.clicked.connect(slotcari)
     mainWindow.pushButton_5.clicked.connect(slotstok)
     mainWindow.pushButton_6.clicked.connect(slotkasa)
+    mainWindow.pushButton_7.clicked.connect(slotmasraf)
+
     mainWindow.actionTediye_Fi_i.triggered.connect(lambda:slotfatura("TED"))
     mainWindow.actionSay_m_Fi_i.triggered.connect(lambda: slotfatura("SAY"))
     mainWindow.actionStok_Tan_mlama.triggered.connect(lambda:slottediye("VADE"))
-    mainWindow.statusbar.showMessage(u"Namık ERDOĞAN © 2016 v 1.2123                                   Bishop Restaurant")
+    mainWindow.statusbar.showMessage(u"Namık ERDOĞAN © 2016 v 1.513                                   Bishop Restaurant")
     recete.lineEdit.textChanged.connect(slottextch)
 
 
@@ -566,10 +591,12 @@ def main():
     fatura.setWindowModality(Qt.ApplicationModal)
     maliyet.setWindowModality(Qt.ApplicationModal)
     login.setWindowModality(Qt.ApplicationModal)
+    rapor.setWindowModality(Qt.ApplicationModal)
+    stok.setWindowModality(Qt.ApplicationModal)
+    cari.setWindowModality(Qt.ApplicationModal)
+    masraf.setWindowModality(Qt.ApplicationModal)
 
-    sh = QtGui.QShortcut(fatura)
-    sh.setKey("Enter")
-    fatura.connect(sh, QtCore.SIGNAL("activated()"), copyFunction)
+    fatura.connect(QtGui.QShortcut(QtGui.QKeySequence(Qt.Key_Enter), fatura), QtCore.SIGNAL('activated()'), copyFunction)
 
     mainWindow.connect(login, QtCore.SIGNAL("acac1(int)"), slotpuss4)
     slotpuss4(100)
@@ -586,6 +613,8 @@ def main():
     mainWindow.show()
     mainWindow.menubar.setStyleSheet("    QMenuBar {    background-color: orange;   } QMenuBar::item {    background-color: orange;   } ")
     mainWindow.setStyleSheet(" background-color: orange;")
+
+
 
 
     #mainWindow.setWindowState(mainWindow.windowState() & ~QtCore.Qt.WindowMinimized | QtCore.Qt.WindowActive)
