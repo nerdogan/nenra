@@ -10,12 +10,12 @@
 # Licence:     <your licence>
 #-------------------------------------------------------------------------------
 
-import ConfigParser
+import configparser
 import os
 
 
 def _GetConfig():
-    _config = ConfigParser.ConfigParser()
+    _config = configparser.ConfigParser()
     _config.read(os.path.expanduser('./images/a.nenra'))
     return _config
 

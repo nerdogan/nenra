@@ -24,7 +24,7 @@ class Hesap(QtGui.QDialog , Ui_Dialog):
 
 
     def closeEvent(self, event):
-        print "hesapmak Closing"
+        print ("hesapmak Closing")
 
 
 
@@ -40,7 +40,7 @@ class Hesap(QtGui.QDialog , Ui_Dialog):
 
 
     def goster(self):
-        print "fatura arayüzü açıldı"
+        print ("fatura arayüzü açıldı")
         self.lineEdit.setText("")
         self.lineEdit_2.setText("")
         self.show()
@@ -70,4 +70,4 @@ if __name__ == "__main__":
     hesap=Hesap()
     hesap.goster()
     app.exec_()
-    print "hesap kapandı"
+    print ("hesap kapandı")
