@@ -38,7 +38,7 @@ class Maliyet(QtGui.QDialog , Ui_Dialog4):
 
         myddb1 = Myddb()
 
-        print "urunmaliyet"
+        print("urunmaliyet")
         self.tableWidget.clearContents()
         deger1 = self.dateEdit.date().toPyDate()
         deger2 = self.dateEdit_2.date().toPyDate()
@@ -55,7 +55,7 @@ class Maliyet(QtGui.QDialog , Ui_Dialog4):
         sql = """SELECT pluno,hamad,sum(adet),sum(tutar) FROM bishop.ciro inner join test.hammadde on  pluno=hamkod and
             DATE(tarih) >= %s and DATE(tarih) <= %s group by pluno order by pluno asc """
         bul2 = myddb1.cur.execute(sql, (tar1, tar2))
-        print bul2, tar1, tar2
+        print(bul2, tar1, tar2)
         bul = myddb1.cur.fetchall()
         i = bul2
         j = 5
@@ -125,7 +125,7 @@ class Maliyet(QtGui.QDialog , Ui_Dialog4):
     def satisrapor(self):
         myddb1 = Myddb()
 
-        print "satisrapor"
+        print("satisrapor")
         self.tableWidget.clearContents()
         deger1 = self.dateEdit.date().toPyDate()
         deger2 = self.dateEdit_2.date().toPyDate()
@@ -143,7 +143,7 @@ class Maliyet(QtGui.QDialog , Ui_Dialog4):
         sql = """SELECT ciro.departman,pluno,hamad,sum(adet),sum(tutar) FROM bishop.ciro  inner join test.hammadde on  pluno=hamkod and
                 DATE(tarih) >= %s and DATE(tarih) <= %s  group by ciro.departman,pluno order by ciro.departman asc """
         bul2 = myddb1.cur.execute(sql, (tar1, tar2))
-        print bul2, tar1, tar2
+        print(bul2, tar1, tar2)
 
         bul = myddb1.cur.fetchall()
 

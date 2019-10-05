@@ -25,7 +25,7 @@ class Stok(QtGui.QDialog , Ui_Dialog6):
         self.kontrol=0
         self.tableWidget.setRowCount(0)
         some_date = QtCore.QDate.currentDate()
-        self.dateEdit.setDate(QtCore.QDate(2017,01,01))
+        self.dateEdit.setDate(QtCore.QDate(2017,1,1))
         self.dateEdit_2.setDate(some_date)
         self.pushButton.clicked.connect(self.sloturunmaliyet)
         self.pushButton_3.clicked.connect(self.sloturunmaliyetxls)
@@ -44,7 +44,7 @@ class Stok(QtGui.QDialog , Ui_Dialog6):
         myddb1 = Myddb()
         self.kontrol=1
 
-        print "caribakiye listesi"
+        print("caribakiye listesi")
         self.tableWidget.clearContents()
         self.tableWidget.setColumnWidth(0, 75)
         self.tableWidget.setColumnWidth(1, 200)
