@@ -33,7 +33,7 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         self.kontrol=0
         self.tableWidget.setRowCount(0)
         some_date = QtCore.QDate.currentDate()
-        self.dateEdit.setDate(QtCore.QDate(2017,01,01))
+        self.dateEdit.setDate(QtCore.QDate(2017, 1, 1))
         self.dateEdit_2.setDate(some_date)
         self.pushButton.clicked.connect(self.sloturunmaliyet)
         self.pushButton_3.clicked.connect(self.sloturunmaliyetxls)
@@ -50,11 +50,12 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
     @pyqtSlot()
     def sloturunmaliyet(self):
         firma="%"+self.lineEdit.text()+"%"
-        print "firma ",firma
+        print("firma ", firma)
         myddb1 = Myddb()
         self.kontrol=1
 
-        print "caribakiye listesi"
+        print("caribakiye listesi")
+
         self.tableWidget.clearContents()
         self.tableWidget.setColumnWidth(0, 75)
         self.tableWidget.setColumnWidth(1, 400)
@@ -99,7 +100,7 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
          and  `c2`.`cariad` like %s group by `c2`.`cariad`   order by TUTAR DESC """
         myddb1.conn.commit()
         bul2 = myddb1.cur.execute(sql, (tar1, tar2,firma))
-        print bul2, tar1, tar2
+        print(bul2, tar1, tar2)
         bul = myddb1.cur.fetchall()
         i = bul2
         j = 5
@@ -176,16 +177,16 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
 
     @pyqtSlot()
     def cariekstre(self):
-        print "elma"
+        print("elma")
 
     @pyqtSlot()
     def slotcarivade(self):
         firma = "%" + self.lineEdit.text() + "%"
-        print "firma ", firma
+        print("firma ", firma)
         myddb1 = Myddb()
         self.kontrol = 1
 
-        print "cari vade listesi"
+        print("cari vade listesi")
         self.tableWidget.clearContents()
         self.tableWidget.setColumnWidth(0, 60)
         self.tableWidget.setColumnWidth(1, 400)
@@ -224,7 +225,7 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
 
         sql = """select a.cariid,a.cariad , ifnull( b.tutar,0) as giriş ,ifnull(c.tutar,0) as çıkış, (ifnull( b.tutar,0)-ifnull(c.tutar,0)) as fark from cari a  left join table3 b on a.cariid=b.cariid left join table4 c on a.cariid=c.cariid where b.tutar>0 and a.cariad like %s order by çıkış desc """
         bul2 = myddb1.cur.execute(sql, ( firma,))
-        print bul2, tar1, tar2
+        print(bul2, tar1, tar2)
         bul = myddb1.cur.fetchall()
         i = bul2
         j = 5
@@ -327,7 +328,7 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         myddb1 = Myddb()
         carikod=self.tableWidget.item(item, 0).text()
 
-        print "ekstrerapor"
+        print("ekstrerapor")
         self.tableWidget.clearContents()
         self.tableWidget.setColumnWidth(0, 60)
         self.tableWidget.setColumnWidth(1, 100)
@@ -365,7 +366,7 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         and (`c1`.`fistipi`=10 or `c1`.`fistipi`=11))  order by `c1`.`tarih` asc """
 
         bul2 = myddb1.cur.execute(sql, (carikod,tar1, tar2))
-        print bul2, tar1, tar2
+        print(bul2, tar1, tar2)
 
         bul = myddb1.cur.fetchall()
         i = bul2
@@ -502,7 +503,7 @@ if __name__ == "__main__":
     fatura1.show()
     fatura1.raise_()
     app.exec_()
-    print "fatura kapandı"
+    print("fatura kapandı")
 
 
 
