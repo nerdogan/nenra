@@ -149,7 +149,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
     @pyqtSlot(int,str)
     def linechange(self,item2):
 
-        a = item2.toUtf8()
+        a = item2
         a = str(a)
 
 
@@ -407,7 +407,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 
             sql1 = "insert into cari_har (cariid,serino,sirano,tarih,fistipi,fisno,vade) values (%s,%s,%s,%s,%s,%s,%s)"
     #        print sql1
-            self.setWindowTitle(QtCore.QString.fromUtf8("Fiş Girişi " + str(maxfisno1 + 1)))
+            self.setWindowTitle(("Fiş Girişi " + str(maxfisno1 + 1)))
             self.myddb.cur.execute(sql1, (deger0, deger5, deger6, deger7, self.fistipi1, maxfisno1 + 1,self.deger8))
             self.myddb.conn.commit()
 
@@ -430,7 +430,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
             deger11 = self.tableWidget_2.item(item, 3).text()
             deger12 = self.tableWidget_2.item(item, 4).text()
             deger13 = self.tableWidget_2.item(item, 5).text()
-            deger14 = self.tableWidget_2.item(item,1).text().toUpper().toUtf8()
+            deger14 = self.tableWidget_2.item(item,1).text().upper()
            # deger14  = u' '.join((str(deger14))).encode('utf-8').strip()
 
             deger12 = self.kontrol(deger12)
@@ -488,13 +488,13 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 #        print "fiş silme ekran"
         if self.fisno is not None:
 #            print self.fisno
-            _fromUtf8 = QtCore.QString.fromUtf8
+ #           _fromUtf8 = QtCore.QString.fromUtf8
             msg = QtGui.QMessageBox()
-            msg.setWindowTitle(_fromUtf8("Fiş Silme"))
+            msg.setWindowTitle(("Fiş Silme"))
             msg.setIcon(QtGui.QMessageBox.Critical)
 
-            msg.setText(_fromUtf8("Fiş Siliniyor !!!"))
-            msg.setInformativeText(_fromUtf8(str(self.fisno)+" nolu fiş silmek istediğinizden eminmisiniz ?"))
+            msg.setText(("Fiş Siliniyor !!!"))
+            msg.setInformativeText((str(self.fisno)+" nolu fiş silmek istediğinizden eminmisiniz ?"))
 
             msg.setDetailedText(str(self.fisno) + "Siliniyor !!!")
             msg.setStandardButtons(QtGui.QMessageBox.Ok | QtGui.QMessageBox.Cancel)

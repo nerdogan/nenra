@@ -5,7 +5,7 @@ import time as ttim
 import math
 import re
 import hesapla
-from PyQt4.QtCore import pyqtSlot
+#from PyQt4.QtCore import pyqtSlot
 from PyQt4 import QtGui, QtCore,QtTest
 from ui_hesap import Ui_Dialog
 
