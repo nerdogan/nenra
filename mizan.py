@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from modulemdb import *
+from datetime import datetime,timedelta
 from reportlab.pdfgen import canvas
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
@@ -9,6 +10,13 @@ from reportlab.rl_settings import *
 
 toplam=0
 toplam1=0
+
+
+def last_day_of_month( any_day):
+    any_day = datetime.strptime(any_day, '%Y-%m-%d').date()
+    next_month = any_day.replace(day=28) + timedelta(days=4)  # this will never fail
+    return next_month - timedelta(days=next_month.day)+ timedelta(days=1)
+
 
 #  hammadde son fiyatları geçici  tabloya yazar
 # CREATE TEMPORARY TABLE IF NOT EXISTS table2 AS (SELECT a.hamkod, a.`tarih`, a.`birimfiy`
@@ -32,8 +40,9 @@ toplam1=0
 #tarih1="2019-02-01"
 #tarih2="2019-02-28"
 
-tarih1="2019-03-01"
-tarih2="2019-03-31"
+tarih1="2019-07-01"
+tarih2="2019-07-31"
+
 
 satis="SELECT departman,sum(adet),SUM(TUTAR) FROM bishop.CIRO  where tarih between %s  and %s and departman!=0 group by 1"
 myddb = Myddb()
@@ -49,6 +58,22 @@ for row in bul:
 sql="insert into bishop.genelrapor (rkod,aciklama,miktar1,tarih) values (%s,%s,%s,%s)"
 myddb.cur.execute(sql,(4,"600",toplam,tarih2))
 
+#Aybaşı sayım toplamı alınacak
+sayim="select sum(sayim.miktar*sayim.fiyat1) from TEST.sayim where date(tarih)= %s"
+myddb.cur.execute(sayim,(tarih1))
+bul=myddb.cur.fetchall()
+print bul
+sayim="select sum(sayim.miktar*sayim.fiyat1) from TEST.sayim where date(tarih)= %s"
+myddb.cur.execute(sayim,(last_day_of_month(tarih1)))
+bul1=myddb.cur.fetchall()
+print bul1
+
+bul1=bul[0][0]-bul1[0][0]
+toplam1=toplam1+bul1
+myddb.cur.execute(sql, (9, "659" ,(bul1 ), tarih2))
+myddb.conn.commit()
+
+
 
 
 sql="SELECT  muhkod,sum(round(birimfiy*miktar*(kdv+100)/100,2)) tutar FROM test.cariay  where tarih between %s  and %s  and fistipi=10 GROUP BY muhkod ORDER BY muhkod"
@@ -62,7 +87,7 @@ for row in bul:
     toplam1 = toplam1 + row[1]
 
 sql="insert into bishop.genelrapor (rkod,aciklama,miktar1,tarih) values (%s,%s,%s,%s)"
-myddb.cur.execute(sql,(99,"gider",toplam1,tarih2))
+myddb.cur.execute(sql,(99,"770",toplam1,tarih2))
 
 
 

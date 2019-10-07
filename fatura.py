@@ -61,6 +61,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
             return cikti
         return girdi
 
+
     def addcomb(self, row, col):
         #if self.old_row >= 0:
         #    self.table.setCellWidget(self.old_row, self.old_col, None)
