@@ -63,11 +63,13 @@ class Pos1(QtGui.QWidget):
         b5.setFixedSize(110, 64)
 
         self.e = QtGui.QTableWidget(self)
-        self.e.setGeometry(16, 500, 800, 168)
-        self.e.setRowCount(4)
+        self.e.setGeometry(16, 500, 700, 168)
+        self.e.setRowCount(10)
         self.e.setColumnCount(5)
+
         self.e.setColumnWidth(0,60)
         self.e.setColumnWidth(1,200)
+        self.e.setStyleSheet("QTableWidget { background-color: white ; font-size: 12px}")
 
 
 
@@ -84,7 +86,6 @@ class Pos1(QtGui.QWidget):
     @atexit.register
     def cikis():
         print ("çıkıyor")
-        cur.close()
         con.close()
         pass
 
@@ -94,7 +95,10 @@ class Pos1(QtGui.QWidget):
         sql1 = "SELECT plu_no,urun_adi,adet,tutar,masa_no,n_05,kisi_sayisi,saat,departman,grup3,birim_fiyati FROM DATA WHERE masa_no='" + str(
             masano) + "' and plu_no<1000"
         bb = cur.execute(sql1)
+        bb=cur.fetchall()
+        self.e.setRowCount( len(bb) )
         for sira,zz in enumerate(bb):
+            self.e.setRowHeight(sira, 16)
 
             item = str(zz[0])
             self.e.setItem(sira, 0, QtGui.QTableWidgetItem(item))
