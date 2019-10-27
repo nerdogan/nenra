@@ -66,6 +66,8 @@ class Pos1(QtGui.QWidget):
         self.e.setGeometry(16, 500, 800, 168)
         self.e.setRowCount(4)
         self.e.setColumnCount(5)
+        self.e.setColumnWidth(0,60)
+        self.e.setColumnWidth(1,200)
 
 
 
@@ -81,12 +83,16 @@ class Pos1(QtGui.QWidget):
 
     @atexit.register
     def cikis():
+        print ("çıkıyor")
+        cur.close()
+        con.close()
         pass
 
     def masanevar(self,masano):
         print(masano)
+        self.e.clearContents()
         sql1 = "SELECT plu_no,urun_adi,adet,tutar,masa_no,n_05,kisi_sayisi,saat,departman,grup3,birim_fiyati FROM DATA WHERE masa_no='" + str(
-            masano) + "'"
+            masano) + "' and plu_no<1000"
         bb = cur.execute(sql1)
         for sira,zz in enumerate(bb):
 
