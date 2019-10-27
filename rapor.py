@@ -90,7 +90,7 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
 
         c = canvas.Canvas("EKSTRE" + tar1 + tar2 + ".pdf")
 
-        pdfmetrics.registerFont(TTFont('Verdana', 'Verdana.ttf'))
+        pdfmetrics.registerFont(TTFont('Verdana', 'FreeSans.ttf'))
         c.setFont("Verdana", 16)
 
         item = "            KOD       STOK ADI                                         BİRİM               GİRİŞ                ÇIKIŞ                 BAKİYE                      "
@@ -98,7 +98,7 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
         tar1 = deger1.strftime('%Y-%m-%d')
         tar2 = deger2.strftime('%Y-%m-%d')
 
-        myddb1.cur.execute("drop table if exists table3 ")
+#        myddb1.cur.execute("drop table if exists table3 ")
 
         myddb1.cur.execute(""" CREATE TEMPORARY TABLE  table3 AS (SELECT ciro.departman,pluno,hamad,sum(adet),sum(tutar) FROM ciro  inner join hammadde on  pluno=hamkod and
  date(tarih) between %s and %s and hesap IS NULL group by ciro.departman,pluno order by ciro.departman asc)""",(tar1,tar2))
@@ -263,7 +263,7 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
         self.style1 = xlwt.easyxf('pattern: pattern solid, fore_colour red;')
 
         c = canvas.Canvas("EKSTRE" + tar1 + tar2 + ".pdf")
-        pdfmetrics.registerFont(TTFont('Verdana', 'Verdana.ttf'))
+        pdfmetrics.registerFont(TTFont('Verdana', 'FreeSans.ttf'))
         c.setFont("Verdana", 8)
 
         item = "         FİŞ NO       TARİH                AÇIKLAMA                             BORÇ                  ALACAK                    BAKİYE                      "
@@ -291,6 +291,28 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
         toplam1 = 0.0
         toplam2 = 0.0000
         for row1 in bul:
+
+
+            if row1[0]==99:
+                item = str(row1[0])+" Diğer "
+                self.ws1.write(aa, 0, item)
+                self.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
+                c.drawString(150, 800 - (15 * (bb + 1)), item)
+                self.d.text(item.ljust(30) + " ")
+                item = str(row1[1])
+                self.d.text(item.rjust(10) + " \n")
+                self.ws1.write(aa, 3, float(row1[1]))
+                c.drawRightString(310, 800 - (15 * (bb + 1)), item)
+                toplam = Decimal(toplam) + (row1[1])
+
+                toplam1 = Decimal(toplam1) + (row1[1])
+                item=QtGui.QTableWidgetItem(item)
+                item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignRight)
+                self.tableWidget.setItem(aa, 1, item)
+
+                item= ""
+                c.drawRightString(390, 800 - (15 * (bb + 1)), item)
+                self.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
 
 
             if row1[0]==100:
