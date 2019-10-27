@@ -39,6 +39,7 @@ class Ui_Dialog(object):
         self.pushButton_2.setGeometry(QtCore.QRect(180, 140, 110, 32))
         self.pushButton_2.setObjectName(_fromUtf8("pushButton_2"))
 
+
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 

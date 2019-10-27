@@ -29,6 +29,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
         self.tableWidget_2.setColumnWidth(5, 75)
         self.tableWidget_2.setColumnWidth(6, 75)
 
+
         self.lineEdit_4.textChanged.connect(self.vadeartir)
         self.pushButton_5.clicked.connect(lambda : self.fisgetir( self.lineEdit_5.text()))
 
