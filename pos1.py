@@ -94,7 +94,7 @@ class Pos1(QtGui.QWidget):
         self.e.clearContents()
         sql1 = "SELECT plu_no,urun_adi,adet,tutar,masa_no,n_05,kisi_sayisi,saat,departman,grup3,birim_fiyati FROM DATA WHERE masa_no='" + str(
             masano) + "' and plu_no<1000"
-        bb = cur.execute(sql1)
+        cur.execute(sql1)
         bb=cur.fetchall()
         self.e.setRowCount( len(bb) )
         for sira,zz in enumerate(bb):
@@ -114,8 +114,10 @@ class Pos1(QtGui.QWidget):
 
     def masagoster(self,katno):
         global dizi
+        self.e.clearContents()
         sql = "select * from DATA_Y where grup3='" + str(katno) + "' and btn_tipi=4"
-        aa = cur.execute(sql)
+        cur.execute(sql)
+        aa=cur.fetchall()
 
         if dizi > 0:
             for kk in range(dizi):
@@ -128,7 +130,12 @@ class Pos1(QtGui.QWidget):
             satir[k].setFixedSize(row[7], row[6])
             satir[k].setStyleSheet("QPushButton { background-color: white ; font-size: 9px}")
             satir[k].clicked.connect(lambda checked, tekst=satir[k].text(): self.masanevar(tekst))
-            #        print(satir[k].text())
+            cur.execute("SELECT sum(tutar) FROM DATA WHERE masa_no='" + str(row[0]) + "' and plu_no<1000")
+            bb=cur.fetchall()
+            if bb[0][0] is not None:
+                satir[k].setText(str(row[0])+"\n\n"+str(bb[0][0]))
+                satir[k].setStyleSheet("QPushButton { background-color: rgb(124,197,106) ; font-size: 9px}")
+
             satir[k].show()
         dizi = k + 1
 
