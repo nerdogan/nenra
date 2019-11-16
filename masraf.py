@@ -174,7 +174,7 @@ class Masraf(QtGui.QDialog , Ui_Masraf):
 
     @pyqtSlot(int, int)
     def masrafkaydet(self, ):
-        dur=0.05
+        dur=0.02
         fatura = Fatura()
         fatura.goster()
         fatura.lineEdit.setText('ZZ')
