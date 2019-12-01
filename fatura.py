@@ -5,7 +5,7 @@ import time as ttim
 import re
 from hesapmak import Hesap
 from PyQt4.QtCore import pyqtSlot
-from PyQt4 import QtGui, QtCore,QtTest
+from PyQt4 import QtGui, QtCore
 from ui_fatura import Ui_Dialog3
 
 from modulemdb import *
@@ -106,16 +106,17 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
         self.lineEdit.setText("TED")
         self.dateEdit.setDate(some_date)
 
-        self.linechange(QtCore.QString(elma1))
+        self.linechange((elma1))
+
 
         self.slotfatura(0, 0)
 
         if self.comboBox.currentIndex()==1:
-            self.linechange(QtCore.QString("NAKIT"))
+            self.linechange(("NAKIT"))
         elif self.comboBox.currentIndex()==2:
-            self.linechange(QtCore.QString("DENIZBANK"))
+            self.linechange(("DENIZBANK"))
         elif self.comboBox.currentIndex()==3:
-            self.linechange(QtCore.QString("YKB"))
+            self.linechange(("YKB"))
         self.slotfatura(0, 0)
         self.tableWidget_2.setItem(0, 4, QtGui.QTableWidgetItem("-1"))
         self.tableWidget_2.setItem(0, 5, QtGui.QTableWidgetItem(elma))

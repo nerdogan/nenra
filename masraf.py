@@ -100,7 +100,7 @@ class Masraf(QtGui.QDialog , Ui_Masraf):
 
         for row in bul:
             for col in row:
-                if isinstance(col,basestring):
+                if isinstance(col,str):
                     item=col
                 else:
                     item=str(col)
@@ -126,7 +126,7 @@ class Masraf(QtGui.QDialog , Ui_Masraf):
             aaa=0
 
     def linechanged(self):
-        a=str(self.sender().text().toUtf8())
+        a=str(self.sender().text())
         print(self.sender().objectName())
         self.deger=int(self.sender().objectName())
 
