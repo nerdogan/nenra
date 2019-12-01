@@ -264,7 +264,7 @@ def main():
     @pyqtSlot()
     def slotrecete2sql(item2):
 
-        a=item2.toUtf8()
+        a=item2
         a=str(a)
 
 
@@ -320,7 +320,7 @@ def main():
         #recete2.lineEdit.setFocus(True)
         recete2.tableWidget_2.setFocus()
         recete2.tableWidget_2.setCurrentCell(aa,3)
-        QtCore.QSound(r"horn.wav").play()
+        QtGui.QSound(r"horn.wav").play()
 
 
     @pyqtSlot()
@@ -489,7 +489,7 @@ def main():
     @pyqtSlot()
     def slottextch(item2):
 
-        a=item2.toUtf8()
+        a=item2
         a='%'+str(a)+'%'
 
 

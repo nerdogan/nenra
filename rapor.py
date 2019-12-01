@@ -98,10 +98,10 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
         tar1 = deger1.strftime('%Y-%m-%d')
         tar2 = deger2.strftime('%Y-%m-%d')
 
-#        myddb1.cur.execute("drop table if exists table3 ")
+        myddb1.cur.execute("drop table if exists table3 ")
 
-        myddb1.cur.execute(""" CREATE TEMPORARY TABLE  table3 AS (SELECT ciro.departman,pluno,hamad,sum(adet),sum(tutar) FROM ciro  inner join hammadde on  pluno=hamkod and
- date(tarih) between %s and %s and hesap IS NULL group by ciro.departman,pluno order by ciro.departman asc)""",(tar1,tar2))
+        myddb1.cur.execute(""" CREATE TEMPORARY TABLE  table3 AS (SELECT ciro.departman,pluno,hamad,sum(adet),sum(tutar) FROM bishop.ciro  inner join hammadde on  pluno=hamkod and
+ date(tarih) between %s and %s and hesap IS NULL group by ciro.departman,pluno,hamad order by ciro.departman asc)""",(tar1,tar2))
 
         sql = """select * from table3 ; """
 
