@@ -36,7 +36,7 @@ from masraf import Masraf
 from modulemdb import *
 
 
-sys.setdefaultencoding('utf8')
+
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -63,7 +63,7 @@ class WorkerThread(QThread):
     def run(self):
 
 
-        StartDate = "01/05/19"
+        StartDate = "01/12/19"
 
         EndDate = datetime.datetime.strptime(StartDate, "%d/%m/%y")
         now = datetime.datetime.now() - datetime.timedelta(days=1)

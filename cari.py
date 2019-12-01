@@ -28,7 +28,7 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
             locale.setlocale(locale.LC_ALL, 'turkish')
 
         else:
-            locale.setlocale(locale.LC_ALL, 'TR_tr')
+            locale.setlocale(locale.LC_ALL, 'tr_TR.utf8')
 
         self.kontrol=0
         self.tableWidget.setRowCount(0)
@@ -68,10 +68,10 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         tar1 = deger1.strftime('%d%m%Y')
         tar2 = deger2.strftime('%d%m%Y')
         tar3 = deger2.strftime('%B %Y')
-        if sys.platform=="win32":
-            tar3=unicode(tar3,'cp1254')
-        else:
-            tar3=unicode(tar3,'utf-8')
+      #  if sys.platform=="win32":
+      #      tar3=unicode(tar3,'cp1254')
+      #  else:
+      #      tar3=unicode(tar3,'utf-8')
 
         self.wb = xlwt.Workbook(encoding="utf-8")
         self.dest_filename = "EKSTRE" + tar1 + tar2 + ".xls"
@@ -95,9 +95,9 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
 
         tar1 = deger1.strftime('%Y-%m-%d')
         tar2 = deger2.strftime('%Y-%m-%d')
-        sql = """select `c2`.`cariid` AS `cariid`,`c2`.`cariad` AS `cariad`,sum(`c1`.`tutar`) AS `TUTAR` from (`cari_har` `c1` join `cari` `c2`) 
-        where ((`c1`.`cariid` = `c2`.`cariid`) and (`c1`.`tarih` >=%s ) and (`c1`.`tarih` <=%s ) and (`c1`.`fistipi`=10 or `c1`.`fistipi`=11))
-         and  `c2`.`cariad` like %s group by `c2`.`cariad`   order by TUTAR DESC """
+        sql = """select c2.cariid ,c2.cariad ,sum(c1.tutar) AS TUTAR from (cari_har c1 join cari c2) 
+        where ((c1.cariid = c2.cariid) and (c1.tarih >=%s ) and (c1.tarih <=%s ) and (c1.fistipi=10 or c1.fistipi=11))
+         and  c2.cariad like %s group by c2.cariid,c2.cariad order by TUTAR DESC """
         myddb1.conn.commit()
         bul2 = myddb1.cur.execute(sql, (tar1, tar2,firma))
         print(bul2, tar1, tar2)

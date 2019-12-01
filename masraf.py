@@ -71,8 +71,8 @@ class Masraf(QtGui.QDialog , Ui_Masraf):
 
     @pyqtSlot()
     def slotilerigeri(self,elma):
-        print self.mydbb.conn.sqlstate()
-        print self.mydbb.conn.open
+        print(self.mydbb.conn.sqlstate())
+        print(self.mydbb.conn.open)
         if self.mydbb.conn.sqlstate()=="00000":
             pass
         else:
@@ -127,7 +127,7 @@ class Masraf(QtGui.QDialog , Ui_Masraf):
 
     def linechanged(self):
         a=str(self.sender().text().toUtf8())
-        print self.sender().objectName()
+        print(self.sender().objectName())
         self.deger=int(self.sender().objectName())
 
         if len(self.sender().objectName()) < 4:
@@ -164,8 +164,8 @@ class Masraf(QtGui.QDialog , Ui_Masraf):
     @pyqtSlot(int, int)
     def slotmasraf(self, item, item2):
         #   cari listesinden çiftklikle line edite cari firma bilgisini yazıyor
-        print item, item2
-        print self.deger
+        print(item, item2)
+        print(self.deger)
         self.tableWidget_2.blockSignals(True)
         self.led[self.deger].setText(self.tableWidget.item(item,0).text())
 
@@ -206,11 +206,11 @@ class Masraf(QtGui.QDialog , Ui_Masraf):
                 deger13=float(deger13)*-1
 
             if deger12=="":
-                print "cari yok"
+                print("cari yok")
                 satir+=2
                 continue
             if deger12=="17":
-                print "onur"
+                print("onur")
                 fatura.lineEdit_3.setText("")
                 fatura.lineEdit_3.setText(deger11)
                 time.sleep(dur)
@@ -230,7 +230,7 @@ class Masraf(QtGui.QDialog , Ui_Masraf):
                 dur = 0.02
                 self.mydbb.cur.execute("""select cariad from cari  where cariid=%s""", (deger12,))
                 cariadd =self.mydbb.cur.fetchone()
-                print cariadd[0]
+                print(cariadd[0])
                 self.mydbb.conn.commit()
                 fatura1 = Fatura()
                 fatura1.goster()
