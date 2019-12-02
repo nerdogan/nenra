@@ -25,7 +25,7 @@ class Stok(QtGui.QDialog , Ui_Dialog6):
         self.kontrol=0
         self.tableWidget.setRowCount(0)
         some_date = QtCore.QDate.currentDate()
-        self.dateEdit.setDate(QtCore.QDate(2017,01,01))
+        self.dateEdit.setDate(QtCore.QDate(2017,1,1))
         self.dateEdit_2.setDate(some_date)
         self.pushButton.clicked.connect(self.sloturunmaliyet)
         self.pushButton_3.clicked.connect(self.sloturunmaliyetxls)
@@ -44,7 +44,7 @@ class Stok(QtGui.QDialog , Ui_Dialog6):
         myddb1 = Myddb()
         self.kontrol=1
 
-        print "caribakiye listesi"
+        print("caribakiye listesi")
         self.tableWidget.clearContents()
         self.tableWidget.setColumnWidth(0, 75)
         self.tableWidget.setColumnWidth(1, 200)
@@ -83,7 +83,7 @@ class Stok(QtGui.QDialog , Ui_Dialog6):
         sql = """select a.hamkod,a.hamad,a.birim , ifnull( b.miktar1,0) as giriş ,ifnull(c.miktar2,0) as çıkış, (ifnull( b.miktar1,0)-ifnull(c.miktar2,0)) as fark from hammadde a  left join table1 b on a.hamkod=b.hamkod left join table2 c on a.hamkod=c.hhammaddeid where departman="BAR" or departman="mutfak" order by a.hamkod; """
 
         bul2 = myddb1.cur.execute(sql)
-        print bul2, tar1, tar2
+        print(bul2, tar1, tar2)
         bul = myddb1.cur.fetchall()
         i = bul2
         j = 5
@@ -173,7 +173,7 @@ class Stok(QtGui.QDialog , Ui_Dialog6):
 
     @pyqtSlot()
     def cariekstre(self):
-        print "elma"
+        print("elma")
 
     @pyqtSlot(int,int)
     def slotekstre(self, item,item2):
@@ -184,7 +184,7 @@ class Stok(QtGui.QDialog , Ui_Dialog6):
         myddb1 = Myddb()
         carikod=self.tableWidget.item(item, 0).text()
 
-        print "ekstrerapor"
+        print("ekstrerapor")
         self.tableWidget.clearContents()
         self.tableWidget.setColumnWidth(0, 60)
         self.tableWidget.setColumnWidth(1, 100)
@@ -222,7 +222,7 @@ class Stok(QtGui.QDialog , Ui_Dialog6):
         and (`c1`.`fistipi`=10 or `c1`.`fistipi`=11))  order by `c1`.`tarih` asc """
 
         bul2 = myddb1.cur.execute(sql, (carikod,tar1, tar2))
-        print bul2, tar1, tar2
+        print(bul2, tar1, tar2)
 
         bul = myddb1.cur.fetchall()
         i = bul2

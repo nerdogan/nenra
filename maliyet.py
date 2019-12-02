@@ -38,7 +38,7 @@ class Maliyet(QtGui.QDialog , Ui_Dialog4):
 
         myddb1 = Myddb()
 
-        print "urunmaliyet"
+        print("urunmaliyet")
         self.tableWidget.clearContents()
         deger1 = self.dateEdit.date().toPyDate()
         deger2 = self.dateEdit_2.date().toPyDate()
@@ -53,9 +53,9 @@ class Maliyet(QtGui.QDialog , Ui_Dialog4):
         tar1 = deger1.strftime('%Y-%m-%d')
         tar2 = deger2.strftime('%Y-%m-%d')
         sql = """SELECT pluno,hamad,sum(adet),sum(tutar) FROM bishop.ciro inner join test.hammadde on  pluno=hamkod and
-            DATE(tarih) >= %s and DATE(tarih) <= %s group by pluno order by pluno asc """
+            DATE(tarih) >= %s and DATE(tarih) <= %s group by pluno,hamad order by pluno asc """
         bul2 = myddb1.cur.execute(sql, (tar1, tar2))
-        print bul2, tar1, tar2
+        print(bul2, tar1, tar2)
         bul = myddb1.cur.fetchall()
         i = bul2
         j = 5
@@ -67,7 +67,7 @@ class Maliyet(QtGui.QDialog , Ui_Dialog4):
         toplam2 = 0.0
 
         for row1 in bul:
-            sql1 = "select hurunkod,sum(hmiktar*fiyat1),harcanan.tarih from harcanan inner join hammadde on hhammaddeid=hamkod where DATE(tarih)>=%s and DATE(tarih)<=%s and hurunkod=%s"
+            sql1 = "select hurunkod,sum(hmiktar*fiyat1) from harcanan inner join hammadde on hhammaddeid=hamkod where DATE(tarih)>=%s and DATE(tarih)<=%s and hurunkod=%s"
             bul1 = myddb1.cur.execute(sql1, (tar1, tar2, row1[0]))
             bul1 = myddb1.cur.fetchall()
 
@@ -125,7 +125,7 @@ class Maliyet(QtGui.QDialog , Ui_Dialog4):
     def satisrapor(self):
         myddb1 = Myddb()
 
-        print "satisrapor"
+        print("satisrapor")
         self.tableWidget.clearContents()
         deger1 = self.dateEdit.date().toPyDate()
         deger2 = self.dateEdit_2.date().toPyDate()
@@ -143,7 +143,7 @@ class Maliyet(QtGui.QDialog , Ui_Dialog4):
         sql = """SELECT ciro.departman,pluno,hamad,sum(adet),sum(tutar) FROM bishop.ciro  inner join test.hammadde on  pluno=hamkod and
                 DATE(tarih) >= %s and DATE(tarih) <= %s  group by ciro.departman,pluno order by ciro.departman asc """
         bul2 = myddb1.cur.execute(sql, (tar1, tar2))
-        print bul2, tar1, tar2
+        print(bul2, tar1, tar2)
 
         bul = myddb1.cur.fetchall()
 

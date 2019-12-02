@@ -52,11 +52,11 @@ class Myddb():
         #sql = "select * from %s" % self.tablename
         sql=" '%"+ sql +"%'"
         sql2=sql
-        print sql
+
         sql1="select * from "+tablenam+ " where "+colname+" like "+sql
         if colname=="hamad":
             sql1=sql1+" and kategori<>3 or hamkod like "+sql
-        print sql1
+
         self.cur.execute(sql1)
         # show the result
         self.result = self.cur.fetchall()
@@ -65,7 +65,7 @@ class Myddb():
         # extract all the data
         #sql = "select * from %s" % self.tablename
         #sql="'"+ sql +"'"
-        print sql
+
         sql1="select * from "+tablenam+ " where "+colname+" = %s "
 
         self.cur.execute(sql1,[sql])
@@ -77,9 +77,9 @@ class Myddb():
         # extract all the data
         #sql = "select * from %s" % self.tablename
         #sql="'"+ sql +"'"
-        print sql
+
         sql1="delete from "+tablenam+ " where "+colname+" = %s "
-        print sql1
+
         self.cur.execute(sql1,[sql])
         # show the result
         #self.result =  self.cur.lastrowid
@@ -93,11 +93,11 @@ class Myddb():
         #sql="'"+ sql +"'"
 
         sql1="insert into recete (menukod,hamkod,miktar) values (%s,%s,%s)"
-        print sql1
-        print self.cur.execute(sql1,(deger0,deger1,deger2))
+#        print sql1
+        self.cur.execute(sql1,(deger0,deger1,deger2))
 
         # show the result
-        print "Auto Increment ID: %s" % self.cur.lastrowid
+   #     print "Auto Increment ID: %s" % self.cur.lastrowid
         self.result = self.cur.lastrowid
 
         return self.result
@@ -135,11 +135,11 @@ class Myddb1():
         # extract all the data
         #sql = "select * from %s" % self.tablename
         sql=" '%"+ sql +"%'"
-        print sql
+#        print sql
         sql1="select * from "+tablenam+ " where "+colname+" like "+sql
         if colname=="hamad":
             sql1=sql1+"and kategori<>3 or hamkod like "+sql +" or barkod1 like "+sql
-        print sql1
+#        print sql1
         self.cur.execute(sql1)
         # show the result
         self.result = self.cur.fetchall()
@@ -148,7 +148,7 @@ class Myddb1():
         # extract all the data
         #sql = "select * from %s" % self.tablename
         #sql="'"+ sql +"'"
-        print sql
+#        print sql
         sql1="select * from "+tablenam+ " where "+colname+" = %s "
 
         self.cur.execute(sql1,[sql])
@@ -160,9 +160,9 @@ class Myddb1():
         # extract all the data
         #sql = "select * from %s" % self.tablename
         #sql="'"+ sql +"'"
-        print sql
+#        print sql
         sql1="delete from "+tablenam+ " where "+colname+" = %s "
-        print sql1
+#        print sql1
         self.cur.execute(sql1,[sql])
         # show the result
         self.result =  self.cur.lastrowid
@@ -176,11 +176,11 @@ class Myddb1():
         #sql="'"+ sql +"'"
 
         sql1="insert into recete (menukod,hamkod,miktar) values (%s,%s,%s)"
-        print sql1
-        print self.cur.execute(sql1,(deger0,deger1,deger2))
+#        print sql1
+        self.cur.execute(sql1,(deger0,deger1,deger2))
 
         # show the result
-        print "Auto Increment ID: %s" % self.cur.lastrowid
+#        print "Auto Increment ID: %s" % self.cur.lastrowid
         self.result = self.cur.lastrowid
 
         return self.result

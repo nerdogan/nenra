@@ -3,6 +3,8 @@ python C:\Python27\Lib\site-packages\PyQt4\uic\pyuic.py -x recete.ui -o ui_recet
 python C:\Python27\Lib\site-packages\PyQt4\uic\pyuic.py -x recete2.ui -o ui_recete2.py
 python C:\Python27\Lib\site-packages\PyQt4\uic\pyuic.py -x fatura.ui -o ui_fatura.py
 python C:\Python27\Lib\site-packages\PyQt4\uic\pyuic.py -x maliyet.ui -o ui_maliyet.py
+python C:\Python27\Lib\site-packages\PyQt4\uic\pyuic.py -x rapor.ui -o ui_rapor.py
+python "C:\Users\namik\AppData\Local\Programs\Python\Python37-32\Lib\site-packages\PyQt4\uic\pyuic.py" -x rapor.ui -o ui_rapor.py
 
 rem ***** get rid of all the old files in the build folder
 rd /S /Q build

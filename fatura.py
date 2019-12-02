@@ -5,13 +5,12 @@ import time as ttim
 import re
 from hesapmak import Hesap
 from PyQt4.QtCore import pyqtSlot
-from PyQt4 import QtGui, QtCore,QtTest
+from PyQt4 import QtGui, QtCore
 from ui_fatura import Ui_Dialog3
 
 from modulemdb import *
 
 
-print "lemar"
 
 class Fatura(QtGui.QDialog , Ui_Dialog3):
     def __init__(self):
@@ -29,6 +28,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
         self.tableWidget_2.setColumnWidth(4, 75)
         self.tableWidget_2.setColumnWidth(5, 75)
         self.tableWidget_2.setColumnWidth(6, 75)
+
 
         self.lineEdit_4.textChanged.connect(self.vadeartir)
         self.pushButton_5.clicked.connect(lambda : self.fisgetir( self.lineEdit_5.text()))
@@ -48,7 +48,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 
 
     def closeEvent(self, event):
-        print    "Closing"
+        print ("Closing")
         self.myddb.kapat()
 
 
@@ -75,7 +75,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
         self.tableWidget_2.setCellWidget(row, col, self.comb[row])
 
     def goster(self):
-        print "fatura arayüzü açıldı"
+        print ("fatura arayüzü açıldı")
         self.myddb = Myddb()
         self.lineEdit.setText("")
         self.lineEdit_2.setText("")
@@ -107,16 +107,17 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
         self.lineEdit.setText("TED")
         self.dateEdit.setDate(some_date)
 
-        self.linechange(QtCore.QString(elma1))
+        self.linechange((elma1))
+
 
         self.slotfatura(0, 0)
 
         if self.comboBox.currentIndex()==1:
-            self.linechange(QtCore.QString("NAKIT"))
+            self.linechange(("NAKIT"))
         elif self.comboBox.currentIndex()==2:
-            self.linechange(QtCore.QString("DENIZBANK"))
+            self.linechange(("DENIZBANK"))
         elif self.comboBox.currentIndex()==3:
-            self.linechange(QtCore.QString("YKB"))
+            self.linechange(("YKB"))
         self.slotfatura(0, 0)
         self.tableWidget_2.setItem(0, 4, QtGui.QTableWidgetItem("-1"))
         self.tableWidget_2.setItem(0, 5, QtGui.QTableWidgetItem(elma))
@@ -130,7 +131,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 
     @pyqtSlot(int, str)
     def fisgetir(self, item2):
-        print item2,"elmaarmut kelmahmut"
+        print (item2,"elmaarmut kelmahmut")
         self.comboBox.blockSignals(True)
         self.comboBox.setCurrentIndex(0)
         self.comboBox.blockSignals(False)
@@ -138,7 +139,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 
         sql = "select serino,sirano from cari_har where  fisno='" + str(item2) + "'"
         try:
-            print self.myddb.conn.sqlstate()
+            print (self.myddb.conn.sqlstate())
             sonuc = self.myddb.cek(sql)
         except self.myddb.cur.OperationalError:
             self.myddb=Myddb()
@@ -150,10 +151,10 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 
     @pyqtSlot(int,str)
     def linechange(self,item2):
-        print "fatura"
-        a = item2.toUtf8()
+
+        a = item2
         a = str(a)
-        print a
+
 
         if len(self.label_3.text()) > 12:
             bul = self.myddb.cek1(a, "hammadde", "hamad")
@@ -223,7 +224,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
             #QtGui.QMessageBox.information(self.tableWidget,
             #						"QTableWidget Cell Click",
             #						"Text: " + str(dt.year))
-            print sonuc
+            print (sonuc)
             self.tableWidget_2.blockSignals(True)
             for item3 in sonuc:
                 self.dateEdit.setDate(QtCore.QDate(dt.year, dt.month, dt.day))
@@ -231,7 +232,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
                 self.lineEdit_4.setText(str((dt1-dt).days))
                 sonuc1 = self.myddb.cek2(item3[1], "cari", "cariid")
                 for item2 in sonuc1:
-                    print item2
+
                     self.label_5.setText(str(item2[1]))
 
                     deger0 = str(item2[1]) + " " + item2[2] + " " + item2[3]
@@ -242,10 +243,10 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
                 bul2 = self.myddb.cek2(item3[3], "cariay", "fisno")
                 self.myddb.conn.commit()
                 self.fisno = item3[3]
-                print self.fisno , "ahada bu"
-                self.setWindowTitle(QtCore.QString.fromUtf8("Fiş Girişi " + str(self.fisno)))
+                print (self.fisno , "ahada bu")
+                self.setWindowTitle(("Fiş Girişi " + str(self.fisno)))
 
-                print bul2
+
                 i = len(bul2)
                 j = 6
                 self.tableWidget_2.setRowCount(i)
@@ -303,7 +304,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
     @pyqtSlot(int, int)
     def slotfatura(self,item, item2):
         #   cari listesinden çiftklikle line edite cari firma bilgisini yazıyor
-        print item, item2
+
 
         if len(self.label_3.text()) < 12:
             deger1 = self.tableWidget.item(item, 0).text()
@@ -384,9 +385,9 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
         sql = "select * from cari_har where  serino='" + str(deger5) + "' and sirano='" + str(deger6) + "'"
         sonuc = self.myddb.cek(sql)
         self.myddb.conn.commit()
-        print sonuc
+
         if len(sonuc) == 0:
-            print "fatura kaydı yok"
+            #print "fatura kaydı yok"
             maxfisno = self.myddb.cek("select max(fisno) from cari_har ")
             self.myddb.conn.commit()
 
@@ -408,13 +409,13 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
                 self.fistipi1=10
 
             sql1 = "insert into cari_har (cariid,serino,sirano,tarih,fistipi,fisno,vade) values (%s,%s,%s,%s,%s,%s,%s)"
-            print sql1
-            self.setWindowTitle(QtCore.QString.fromUtf8("Fiş Girişi " + str(maxfisno1 + 1)))
+    #        print sql1
+            self.setWindowTitle(("Fiş Girişi " + str(maxfisno1 + 1)))
             self.myddb.cur.execute(sql1, (deger0, deger5, deger6, deger7, self.fistipi1, maxfisno1 + 1,self.deger8))
             self.myddb.conn.commit()
 
         else:
-            print " fatura kaydı var"
+#            print " fatura kaydı var"
             self.myddb.sil(sonuc[0][3], "cariay", "fisno")
             self.myddb.conn.commit()
             #son=self.myddb.cur.execute("select max(caid) from cariay")
@@ -432,23 +433,23 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
             deger11 = self.tableWidget_2.item(item, 3).text()
             deger12 = self.tableWidget_2.item(item, 4).text()
             deger13 = self.tableWidget_2.item(item, 5).text()
-            deger14 = self.tableWidget_2.item(item,1).text().toUpper().toUtf8()
+            deger14 = self.tableWidget_2.item(item,1).text().upper()
            # deger14  = u' '.join((str(deger14))).encode('utf-8').strip()
 
             deger12 = self.kontrol(deger12)
             deger13 = self.kontrol(deger13)
-            print deger12
-            print deger13
+#            print deger12
+#            print deger13
             toplam += float(deger12) * float(deger13)
             kdv += float(deger11) * float(deger12) * float(deger13) / 100
-            print deger10 , toplam , kdv
+#            print deger10 , toplam , kdv
             sql2 = "insert into cariay (fisno,fissatir,fistipi,hamkod,kdv,miktar,birimfiy,tarih,aciklama) values (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
             self.myddb.cur.execute(sql2, (sonuc[0][3], satir, sonuc[0][2], deger10, deger11, deger12, deger13,sonuc[0][6],deger14))
 
 
         sql3 = "UPDATE cari_har SET tutar=%s where fisno=%s "
         sql4 = "update cariay targetTable  left join hammadde sourceTable on targetTable.hamkod = sourceTable.hamkod set  targetTable.muhkod = sourceTable.muhkod "
-        print sql3
+#        print sql3
 
         self.myddb.cur.execute(sql3, ((toplam+kdv),sonuc[0][3]))
         self.myddb.conn.commit()
@@ -480,23 +481,23 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
             deger13 = self.kontrol(deger13)
             toplam += float(deger12) * float(deger13)
             kdv += float(deger11) * float(deger12) * float(deger13) / 100
-            print deger10, toplam, kdv
+#            print deger10, toplam, kdv
             self.toplam="{0:.2f}".format(toplam + kdv)
             self.label_6.setText("{0}  {1}  {2}".format(str("{0:.2f}".format(toplam)), str("{0:.2f}".format(kdv)),
                                                         str("{0:.2f}".format(toplam + kdv))))
 
     @pyqtSlot()
     def slotfaturasil(self):
-        print "fiş silme ekran"
+#        print "fiş silme ekran"
         if self.fisno is not None:
-            print self.fisno
-            _fromUtf8 = QtCore.QString.fromUtf8
+#            print self.fisno
+ #           _fromUtf8 = QtCore.QString.fromUtf8
             msg = QtGui.QMessageBox()
-            msg.setWindowTitle(_fromUtf8("Fiş Silme"))
+            msg.setWindowTitle(("Fiş Silme"))
             msg.setIcon(QtGui.QMessageBox.Critical)
 
-            msg.setText(_fromUtf8("Fiş Siliniyor !!!"))
-            msg.setInformativeText(_fromUtf8(str(self.fisno)+" nolu fiş silmek istediğinizden eminmisiniz ?"))
+            msg.setText(("Fiş Siliniyor !!!"))
+            msg.setInformativeText((str(self.fisno)+" nolu fiş silmek istediğinizden eminmisiniz ?"))
 
             msg.setDetailedText(str(self.fisno) + "Siliniyor !!!")
             msg.setStandardButtons(QtGui.QMessageBox.Ok | QtGui.QMessageBox.Cancel)
@@ -504,9 +505,9 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 
             retval = msg.exec_()
             if retval==1024:
-                print "value of pressed message box button:", retval
-                print self.myddb.sil(self.fisno, "cariay", "fisno")
-                print self.myddb.sil(self.fisno, "cari_har", "fisno")
+                print ("value of pressed message box button:", retval)
+                print (self.myddb.sil(self.fisno, "cariay", "fisno"))
+                print (self.myddb.sil(self.fisno, "cari_har", "fisno"))
                 self.myddb.conn.commit()
                 self.tableWidget_2.clearContents()
                 self.tableWidget.setRowCount(0)
@@ -528,7 +529,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
 
         if item.column() == 5:
             elma=("{:06.2f}".format((float(self.kontrol(item.text())) * float(self.tableWidget_2.item(item.row(), 4).text()))))
-            print elma
+        #    print elma
             self.tableWidget_2.setItem(item.row(), 6, QtGui.QTableWidgetItem(elma))
         self.tableWidget_2.blockSignals(False)
         self.toplamgoster()
@@ -540,7 +541,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
         dd = self.sender().property('old').toInt()[0]
         self.sender().setProperty('old',cc)
 
-        print bb,item,cc ,dd
+#        print bb,item,cc ,dd
 
 
         self.tableWidget_2.setItem(bb,5,QtGui.QTableWidgetItem(str(float(self.tableWidget_2.item(bb,5).text()  )*(float(cc)/float(dd)))))
@@ -556,7 +557,7 @@ class Fatura(QtGui.QDialog , Ui_Dialog3):
     def slotitemyaz(self,sonuc):
         self.show()
 
-        print sonuc
+#        print sonuc
         self.tableWidget_2.setItem(self.a,self.b,QtGui.QTableWidgetItem(sonuc))
 
 
@@ -565,4 +566,4 @@ if __name__ == "__main__":
     fatura1=Fatura()
     fatura1.goster()
     app.exec_()
-    print "fatura kapandı"
+    print ("fatura kapandı")

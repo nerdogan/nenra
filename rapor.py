@@ -11,9 +11,6 @@
 #-------------------------------------------------------------------------------
 
 import sys
-
-import requests
-
 from escpos.printer import Network,Dummy
 
 from datetime import datetime,timedelta
@@ -69,11 +66,7 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
 
         self.d.set(font='a', align='left', height=1, width=1)
 
-        
-
-
-
-        print "caribakiye listesi"
+        print("caribakiye listesi")
         self.tableWidget.clearContents()
         self.tableWidget.setColumnWidth(0, 50)
         self.tableWidget.setColumnWidth(1, 50)
@@ -97,7 +90,7 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
 
         c = canvas.Canvas("EKSTRE" + tar1 + tar2 + ".pdf")
 
-        pdfmetrics.registerFont(TTFont('Verdana', 'Verdana.ttf'))
+        pdfmetrics.registerFont(TTFont('Verdana', 'FreeSans.ttf'))
         c.setFont("Verdana", 16)
 
         item = "            KOD       STOK ADI                                         BİRİM               GİRİŞ                ÇIKIŞ                 BAKİYE                      "
@@ -107,13 +100,13 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
 
         myddb1.cur.execute("drop table if exists table3 ")
 
-        myddb1.cur.execute(""" CREATE TEMPORARY TABLE  table3 AS (SELECT ciro.departman,pluno,hamad,sum(adet),sum(tutar) FROM ciro  inner join hammadde on  pluno=hamkod and
- date(tarih) between %s and %s and hesap IS NULL group by ciro.departman,pluno order by ciro.departman asc)""",(tar1,tar2))
+        myddb1.cur.execute(""" CREATE TEMPORARY TABLE  table3 AS (SELECT ciro.departman,pluno,hamad,sum(adet),sum(tutar) FROM bishop.ciro  inner join hammadde on  pluno=hamkod and
+ date(tarih) between %s and %s and hesap IS NULL group by ciro.departman,pluno,hamad order by ciro.departman asc)""",(tar1,tar2))
 
         sql = """select * from table3 ; """
 
         bul2 = myddb1.cur.execute(sql)
-        print bul2, tar1, tar2
+        print(bul2, tar1, tar2)
         bul = myddb1.cur.fetchall()
         i = bul2
         j = 5
@@ -227,16 +220,16 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
     def cariekstre(self):
         p = Network("192.168.2.222")
         p._raw(self.d.output)
-        print "elma"
+        print("elma")
         p=None
-        print p
+        print(p)
 
- #       z._raw(self.d.output)
+    #       z._raw(self.d.output)
 
     @pyqtSlot(int,int)
     def slotekstre(self, item):
         if self.kontrol==0:
-            print " kasa"
+            print(" kasa")
         myddb1 = Myddb()
         self.d = Dummy()
         self.d.text(chr(27))
@@ -246,7 +239,7 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
         self.kontrol = 1
         self.d.set(font='a', align='left', height=2, width=1)
 
-        print "ekstrerapor"
+        print("ekstrerapor")
         self.tableWidget.clearContents()
         self.tableWidget.setColumnWidth(0, 150)
         self.tableWidget.setColumnWidth(1, 100)
@@ -270,18 +263,22 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
         self.style1 = xlwt.easyxf('pattern: pattern solid, fore_colour red;')
 
         c = canvas.Canvas("EKSTRE" + tar1 + tar2 + ".pdf")
-        pdfmetrics.registerFont(TTFont('Verdana', 'Verdana.ttf'))
+        pdfmetrics.registerFont(TTFont('Verdana', 'FreeSans.ttf'))
         c.setFont("Verdana", 8)
 
         item = "         FİŞ NO       TARİH                AÇIKLAMA                             BORÇ                  ALACAK                    BAKİYE                      "
         c.drawString(10, 810, item)
         tar1 = deger1.strftime('%Y-%m-%d')
         tar2 = deger2.strftime('%Y-%m-%d')
+        #diğer kasa ekleniyor.................
+        #myddb1.cur.execute("insert kasa (posid,aciklama,tutar,belgeno,muhkod,tarih,kasano,islemid) values (%s,%s,%s,%s,%s,%s,%s,%s)",
+        #    (row[0], row[1], tut, row[4], row[5], tt2, kno, row[7]))
+
 
         sql = """select kasano,sum(tutar) from kasa where date(tarih) between %s and %s  group by kasano; """
 
         bul2 = myddb1.cur.execute(sql, (tar1, tar2))
-        print bul2, tar1, tar2
+        print(bul2, tar1, tar2)
 
         bul = myddb1.cur.fetchall()
         i = bul2
@@ -294,6 +291,28 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
         toplam1 = 0.0
         toplam2 = 0.0000
         for row1 in bul:
+
+
+            if row1[0]==99:
+                item = str(row1[0])+" Diğer "
+                self.ws1.write(aa, 0, item)
+                self.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
+                c.drawString(150, 800 - (15 * (bb + 1)), item)
+                self.d.text(item.ljust(30) + " ")
+                item = str(row1[1])
+                self.d.text(item.rjust(10) + " \n")
+                self.ws1.write(aa, 3, float(row1[1]))
+                c.drawRightString(310, 800 - (15 * (bb + 1)), item)
+                toplam = Decimal(toplam) + (row1[1])
+
+                toplam1 = Decimal(toplam1) + (row1[1])
+                item=QtGui.QTableWidgetItem(item)
+                item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignRight)
+                self.tableWidget.setItem(aa, 1, item)
+
+                item= ""
+                c.drawRightString(390, 800 - (15 * (bb + 1)), item)
+                self.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
 
 
             if row1[0]==100:
@@ -481,10 +500,10 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
         between %s and %s """
 
         bul2 = myddb1.cur.execute(sql, (tar1, tar2))
-        print bul2, tar1, tar2
+        print(bul2, tar1, tar2)
 
         bul = myddb1.cur.fetchall()
-        print bul
+        print(bul)
         i = bul2
         j = 5
         self.tableWidget.setRowCount(i + aa+1)
@@ -527,8 +546,8 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
     def sloturunmaliyetpdf(self):
         deger1 = self.dateEdit.date().toPyDate()
         deger2 = self.dateEdit_2.date().toPyDate()
-        tar1 = deger1.strftime('%d%m%Y')
-        tar2 = deger2.strftime('%d%m%Y')
+        tar1 = deger1.strftime('%d_%m_%Y')
+        tar2 = deger2.strftime('%d_%m_%Y')
 
         if sys.platform == "win32":
             os.startfile("EKSTRE" + tar1 + tar2 + ".pdf")
@@ -539,8 +558,8 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
     def sloturunmaliyetxls(self):
         deger1 = self.dateEdit.date().toPyDate()
         deger2 = self.dateEdit_2.date().toPyDate()
-        tar1 = deger1.strftime('%d%m%Y')
-        tar2 = deger2.strftime('%d%m%Y')
+        tar1 = deger1.strftime('%d_%m_%Y')
+        tar2 = deger2.strftime('%d_%m_%Y')
 
         if sys.platform == "win32":
             os.startfile("EKSTRE" + tar1 + tar2 + ".xls")

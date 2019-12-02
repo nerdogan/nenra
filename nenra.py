@@ -12,12 +12,12 @@
 # pyinstaller --clean --win-private-assemblies -F masa.py --distpath="C:\Users\NAMIK\Desktop\masa" -w
 import subprocess
 import sys
-reload(sys)
 import re
 import datetime
 import logging
-import urllib2
+#import urllib2
 import os
+
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from PyQt4.QtCore import pyqtSlot,pyqtSignal
@@ -36,7 +36,7 @@ from masraf import Masraf
 from modulemdb import *
 
 
-sys.setdefaultencoding('utf8')
+
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -63,27 +63,27 @@ class WorkerThread(QThread):
     def run(self):
 
 
-        StartDate = "01/10/19"
+        StartDate = "01/12/19"
 
         EndDate = datetime.datetime.strptime(StartDate, "%d/%m/%y")
         now = datetime.datetime.now() - datetime.timedelta(days=1)
         dt = now - EndDate
-        print dt.days
+        print (dt.days)
         # mainWindow.plainTextEdit.appendPlainText(str(dt.days))
         for i in range(dt.days + 1):
-            print EndDate.strftime('%d%m%Y')
+            print (EndDate.strftime('%d%m%Y'))
             sql = " select * from harcanan where tarih like %s"
             sonuc = self.myddb.cur.execute(sql, [(EndDate.strftime('%Y-%m-%d') + "%")])
             valnen = []
             if sonuc == 0:
-                print " kaydediliyor"
+                print (" kaydediliyor")
                 tar = EndDate.strftime('%d%m%Y')
 
                 sql2 = "SELECT hammadde.hamkod,recete.hamkod,miktar,adet FROM bishop.ciro inner join hammadde on pluno=hamkod and DATE(tarih)=%s  inner join recete on  hammadde.hamkod=recete.menukod"
-                bilgi = self.myddb.cur.execute(sql2, [(EndDate.strftime('%Y-%m-%d'))])
-                print bilgi
+                bilgi = self.myddb.cur.execute(sql2, [(EndDate.strftime('%Y-%m-%d'))])  # type: object
+                print (bilgi)
                 valnen = []
-                if bilgi <> 0:
+                if bilgi != 0:
                     bilgi2 = self.myddb.cur.fetchall()
                     for row1 in bilgi2:
                         hmikt = row1[2] * row1[3]
@@ -92,7 +92,7 @@ class WorkerThread(QThread):
                         valnen.append((row1[0], row1[1], hmikt, "0", EndDate))
                         # self.myddb.cur.execute(sql1, (row1[0], row1[1], hmikt, "0", EndDate))
 
-                    print self.myddb.cur.executemany(sql1, valnen)
+                    self.myddb.cur.executemany(sql1, valnen)
                     self.myddb.conn.commit()
                     print(valnen)
 
@@ -201,7 +201,7 @@ def main():
         aa=0
         toplam=0
         topelma=0
-        print bul2
+
         for row1 in bul2:
 
             item=str(row1[2])
@@ -209,7 +209,7 @@ def main():
 
             bul3=myddb.cek2(item,"hammadde","hamkod")
             myddb.conn.commit()
-            print bul3
+
 
             item=str(bul3[0][1])
             file.write(item+" ")
@@ -264,9 +264,9 @@ def main():
     @pyqtSlot()
     def slotrecete2sql(item2):
 
-        a=item2.toUtf8()
+        a=item2
         a=str(a)
-        print a
+
 
         bul=myddb.cek1(a,"hammadde","hamad")
 
@@ -320,7 +320,7 @@ def main():
         #recete2.lineEdit.setFocus(True)
         recete2.tableWidget_2.setFocus()
         recete2.tableWidget_2.setCurrentCell(aa,3)
-        QtCore.QSound(r"horn.wav").play()
+        QtGui.QSound(r"horn.wav").play()
 
 
     @pyqtSlot()
@@ -332,7 +332,7 @@ def main():
 
             deger1=recete2.tableWidget_2.item(item,0).text()
             deger2=recete2.tableWidget_2.item(item,3).text()
-            print deger0 , deger1 , deger2
+            print (deger0 , deger1 , deger2)
             deger2=fatura.kontrol(deger2)
             myddb.kaydet(deger0,deger1,deger2)
         myddb.conn.commit()
@@ -345,7 +345,7 @@ def main():
 
     @pyqtSlot()
     def slotpuss(item2):
-        print "reçete arayüzü açıldı"
+        print ("reçete arayüzü açıldı")
         bul = myddb.cek("select * from hammadde where kategori=2 or kategori=3 order by hamkod")
 
         mainWindow.statusbar.showMessage(
@@ -404,33 +404,33 @@ def main():
 
     @pyqtSlot()
     def slotmaliyet(item2):
-        print "maliyet arayüzü açıldı"
+        print ("maliyet arayüzü açıldı")
         maliyet.show()
 
     @pyqtSlot()
     def slotcari(item2):
-        print "cari arayüzü açıldı"
+        print ("cari arayüzü açıldı")
         cari.show()
 
     @pyqtSlot()
     def slotstok(item2):
-        print "stok arayüzü açıldı"
+        print ("stok arayüzü açıldı")
         stok.show()
         stok.raise_()
 
     @pyqtSlot()
     def slotkasa(item2):
-        print "kasa arayüzü açıldı"
+        print ("kasa arayüzü açıldı")
         rapor.show()
 
     @pyqtSlot()
     def slotmasraf(item2):
-        print "masraf arayüzü açıldı"
+        print ("masraf arayüzü açıldı")
         masraf.show()
 
     @pyqtSlot()
     def slotpuss4(item2):
-        print item2
+        print (item2)
         if item2 == 100:
             mainWindow.statusbar.showMessage(
                 u"Namık ERDOĞAN © 2016    Kullanıcı adı girilmedi !!!    Bishop Restaurant")
@@ -477,7 +477,6 @@ def main():
     @pyqtSlot()
     def slotpuss5(item2):
         logger.info(item2)
-        print "shdfhdfdjhfg"
 
     @pyqtSlot()
     def slotpuss6(item2):
@@ -489,10 +488,10 @@ def main():
 
     @pyqtSlot()
     def slottextch(item2):
-        print "kjkljlk reçete"
-        a=item2.toUtf8()
+
+        a=item2
         a='%'+str(a)+'%'
-        print a
+
 
 
         sql3 = "select * from hammadde where (kategori=2 or kategori=3) and  ( hamkod like '"+a+"' or hamad like '"+a+"'  ) order by hamkod"
@@ -524,7 +523,7 @@ def main():
 
     @pyqtSlot()
     def copyFunction():
-        print "f10 a bastın"
+        print ("f10 a bastın")
 
         elma=fatura.tableWidget_2.currentRow()
         elma1=fatura.tableWidget_2.rowCount()
