@@ -52,6 +52,11 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
         self.tableWidget.setColumnWidth(3, 25)
         self.tableWidget.setColumnWidth(4, 25)
         getcontext().prec = 12
+        BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        self.BASE_DIR=os.path.join(BASE_DIR,'nenra','images','NotoSans-Regular.ttf')
+        print(self.BASE_DIR)
+
+
 
     @pyqtSlot()
     def sloturunmaliyet(self):
@@ -90,7 +95,7 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
 
         c = canvas.Canvas("EKSTRE" + tar1 + tar2 + ".pdf")
 
-        pdfmetrics.registerFont(TTFont('Verdana', 'FreeSans.ttf'))
+        pdfmetrics.registerFont(TTFont('Verdana', self.BASE_DIR))
         c.setFont("Verdana", 16)
 
         item = "            KOD       STOK ADI                                         BİRİM               GİRİŞ                ÇIKIŞ                 BAKİYE                      "
@@ -263,7 +268,7 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
         self.style1 = xlwt.easyxf('pattern: pattern solid, fore_colour red;')
 
         c = canvas.Canvas("EKSTRE" + tar1 + tar2 + ".pdf")
-        pdfmetrics.registerFont(TTFont('Verdana', 'FreeSans.ttf'))
+        pdfmetrics.registerFont(TTFont("Verdana", self.BASE_DIR))
         c.setFont("Verdana", 8)
 
         item = "         FİŞ NO       TARİH                AÇIKLAMA                             BORÇ                  ALACAK                    BAKİYE                      "
