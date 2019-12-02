@@ -7,15 +7,13 @@ import subprocess
 from PyQt4.QtCore import pyqtSlot
 from PyQt4 import QtGui, QtCore
 from ui_gelirtablo import Ui_Dialog4
-
-from modulemdb import *
 from reportlab.pdfgen import canvas
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.rl_settings import *
+from modulemdb import *
 
-
-class Maliyet(QtGui.QDialog, Ui_Dialog4):
+class GelirTablo(QtGui.QDialog, Ui_Dialog4):
     def __init__(self):
         QtGui.QDialog.__init__(self)
         self.setupUi(self)
@@ -44,7 +42,7 @@ class Maliyet(QtGui.QDialog, Ui_Dialog4):
 
         myddb1 = Myddb()
 
-        print "urunmaliyet"
+        print("urunmaliyet")
         self.tableWidget.clearContents()
         deger1 = self.dateEdit.date().toPyDate()
         self.deger1 = deger1.replace(day=1)
@@ -64,7 +62,7 @@ class Maliyet(QtGui.QDialog, Ui_Dialog4):
         tar2 = self.deger2.strftime('%Y-%m-%d')
         sql = """SELECT  b.muhad ,a.aciklama,a.miktar1 FROM bishop.genelrapor a  JOIN bishop.muhkodt b ON b.muhkod=a.aciklama where tarih=%s """
         bul2 = myddb1.cur.execute(sql, (tar2,))
-        print bul2, tar1, tar2
+        print(bul2, tar1, tar2)
         bul = myddb1.cur.fetchall()
         i = bul2
         j = 5
@@ -121,7 +119,7 @@ class Maliyet(QtGui.QDialog, Ui_Dialog4):
     @pyqtSlot()
     def satisrapor(self):
 
-        print "satisrapor"
+        print("satisrapor")
         myddb1 = Myddb()
 
         # self.tableWidget.clearContents()
@@ -143,7 +141,7 @@ class Maliyet(QtGui.QDialog, Ui_Dialog4):
         tar2 = self.deger2.strftime('%Y-%m-%d')
         sql = """SELECT   * FROM test.genelrapor order by rkod  """
         bul2 = myddb1.cur.execute(sql)
-        print bul2, tar1, tar2
+        print(bul2, tar1, tar2)
         bul = myddb1.cur.fetchall()
         i = bul2
         j = 5
@@ -202,9 +200,9 @@ class Maliyet(QtGui.QDialog, Ui_Dialog4):
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
-    subprocess.Popen('python mizan.py', shell=True)
-    masraf = Maliyet()
-    masraf.show()
-    masraf.raise_()
+    subprocess.Popen('python3 mizan.py', shell=True)
+    gelirt = GelirTablo()
+    gelirt.show()
+    gelirt.raise_()
 
     app.exec_()

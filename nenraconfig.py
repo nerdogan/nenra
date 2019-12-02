@@ -13,7 +13,6 @@
 import configparser
 import os
 
-
 def _GetConfig():
     _config = configparser.ConfigParser()
     _config.read(os.path.expanduser('./images/a.nenra'))

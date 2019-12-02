@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 from modulemdb import *
@@ -25,7 +24,7 @@ class mizan():
 
         satis="SELECT departman,sum(adet),SUM(TUTAR) FROM bishop.CIRO  where tarih between %s  and %s and departman!=0 group by 1"
         myddb = Myddb()
-        print myddb.cur.execute(satis,(self.tarih1,self.tarih2))
+        print(myddb.cur.execute(satis, (self.tarih1, self.tarih2)))
         bul=myddb.cur.fetchall()
         myddb.cur.execute("delete from bishop.genelrapor  where tarih between %s  and %s ",(self.tarih1,self.tarih2))
         for row in bul:
@@ -39,13 +38,13 @@ class mizan():
 
         #Aybaşı sayım toplamı alınacak
         sayim="select sum(sayim.miktar*sayim.fiyat1) from TEST.sayim where date(tarih)= %s"
-        myddb.cur.execute(sayim,(self.tarih1))
+        myddb.cur.execute(sayim,[(self.tarih1)])
         bul=myddb.cur.fetchall()
-        print bul
+        print(bul)
         sayim="select sum(sayim.miktar*sayim.fiyat1) from TEST.sayim where date(tarih)= %s"
-        myddb.cur.execute(sayim,(self.last_day_of_month(self.tarih1)))
+        myddb.cur.execute(sayim,[(self.last_day_of_month(self.tarih1))])
         bul1=myddb.cur.fetchall()
-        print bul1
+        print(bul1)
         if bul1[0][0]!=None:
             bul1 = bul[0][0] - bul1[0][0]
         else:
@@ -127,12 +126,12 @@ class mizan():
         myddb.conn.commit()
 
         for row in bul:
-            print str(row[0])
+            print(str(row[0]))
             sql="select miktar1,rkod from bishop.genelrapor where tarih= %s"
             myddb.cur.execute(sql,(str(row[0]),))
             bul1=myddb.cur.fetchall()
             for row1 in bul1:
-                print row1[0]
+                print(row1[0])
                 sqlx = "update test.genelrapor set `" + str(row[0]) + "` = %s where `rkod` = %s "
                 myddb.cur.execute(sqlx,(str(row1[0]),(row1[1])))
 
@@ -174,7 +173,7 @@ if __name__ == '__main__':
     elma.bishopgenel()
 
     elma.testgen()
-    print "ocak ekim güncelleme bitti"
+    print("ocak ekim güncelleme bitti")
 
 
 
