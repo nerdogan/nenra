@@ -27,6 +27,9 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         if sys.platform == "win32":
             locale.setlocale(locale.LC_ALL, 'turkish')
 
+        elif sys.platform == "darwin":
+            locale.setlocale(locale.LC_ALL, 'tr_TR')
+
         else:
             locale.setlocale(locale.LC_ALL, 'tr_TR.utf8')
 
