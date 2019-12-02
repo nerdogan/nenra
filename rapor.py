@@ -95,7 +95,7 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
 
         c = canvas.Canvas("EKSTRE" + tar1 + tar2 + ".pdf")
 
-        pdfmetrics.registerFont(TTFont('Verdana', self.BASE_DIR))
+        pdfmetrics.registerFont(TTFont('Verdana', 'Verdana.ttf'))
         c.setFont("Verdana", 16)
 
         item = "            KOD       STOK ADI                                         BİRİM               GİRİŞ                ÇIKIŞ                 BAKİYE                      "
@@ -268,7 +268,7 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
         self.style1 = xlwt.easyxf('pattern: pattern solid, fore_colour red;')
 
         c = canvas.Canvas("EKSTRE" + tar1 + tar2 + ".pdf")
-        pdfmetrics.registerFont(TTFont("Verdana", self.BASE_DIR))
+        pdfmetrics.registerFont(TTFont('Verdana', 'Verdana.ttf'))
         c.setFont("Verdana", 8)
 
         item = "         FİŞ NO       TARİH                AÇIKLAMA                             BORÇ                  ALACAK                    BAKİYE                      "

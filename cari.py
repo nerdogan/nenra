@@ -87,6 +87,7 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         c = canvas.Canvas("EKSTRE" + tar1 + tar2 + ".pdf")
 
         pdfmetrics.registerFont(TTFont('Verdana', 'Verdana.ttf'))
+        print (c.getAvailableFonts())
         c.setFont("Verdana", 12)
 
         item = u"BISHOP CARİ BAKİYE LİSTESİ     "+ tar3
