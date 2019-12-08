@@ -1,12 +1,14 @@
 from PyQt4  import QtGui
 from PyQt4 import QtCore
 import fdb
-import MySQLdb as mdb
+from modulemdb import *
 from datetime import datetime,timedelta
 import time as ttim
 from socket import *
 import sys
 import atexit
+import nenraconfig
+
 
 
 dizi=0
@@ -14,7 +16,7 @@ satir={}
 
 
 con = fdb.connect(
-    dsn='192.168.2.251/3050:D:\RESTO_2015\DATA\DATABASE.GDB',
+    dsn='192.168.2.251/3050:D:\RESTO_2015\DATA1\DATABASE2.GDB',
     user='sysdba', password='masterkey',
 
     charset='UTF8' # specify a character set for the connection #
@@ -62,6 +64,11 @@ class Pos1(QtGui.QWidget):
         b5.move(2, 392)
         b5.setFixedSize(110, 64)
 
+        b6 = QtGui.QPushButton(self)
+        b6.setText(u"Kapat")
+        b6.move(720, 512)
+        b6.setFixedSize(110, 64)
+
         self.e = QtGui.QTableWidget(self)
         self.e.setGeometry(16, 500, 700, 168)
         self.e.setRowCount(10)
@@ -80,8 +87,11 @@ class Pos1(QtGui.QWidget):
         b3.clicked.connect(lambda checked, tekst=b3.text(): self.masagoster(tekst))
         b4.clicked.connect(lambda checked, tekst=b4.text(): self.masagoster(tekst))
         b5.clicked.connect(lambda checked, tekst=b5.text(): self.masagoster(tekst))
+        b6.clicked.connect(self.showdialog)
 
         self.setWindowTitle("Nenra POS 1.0.0")
+        self.masano=""
+        self.myddb=Myddb()
 
     @atexit.register
     def cikis():
@@ -91,9 +101,10 @@ class Pos1(QtGui.QWidget):
 
     def masanevar(self,masano):
         print(masano)
+        self.masano=masano
         self.e.clearContents()
-        sql1 = "SELECT plu_no,urun_adi,adet,tutar,masa_no,n_05,kisi_sayisi,saat,departman,grup3,birim_fiyati FROM DATA WHERE masa_no='" + str(
-            masano) + "' and plu_no<1000"
+        sql1 = "SELECT plu_no,urun_adi,adet,tutar,masa_no,n_05,kisi_sayisi,tarih,departman,grup3,birim_fiyati FROM DATA WHERE masa_no='" + str(
+            masano) + "' and plu_no<1000 and urun_turu > 0"
         cur.execute(sql1)
         bb=cur.fetchall()
         self.e.setRowCount( len(bb) )
@@ -114,6 +125,7 @@ class Pos1(QtGui.QWidget):
 
     def masagoster(self,katno):
         global dizi
+        self.masano=""
         self.e.clearContents()
         sql = "select * from DATA_Y where grup3='" + str(katno) + "' and btn_tipi=4"
         cur.execute(sql)
@@ -130,7 +142,7 @@ class Pos1(QtGui.QWidget):
             satir[k].setFixedSize(row[7], row[6])
             satir[k].setStyleSheet("QPushButton { background-color: white ; font-size: 9px}")
             satir[k].clicked.connect(lambda checked, tekst=satir[k].text(): self.masanevar(tekst))
-            cur.execute("SELECT sum(tutar) FROM DATA WHERE masa_no='" + str(row[0]) + "' and plu_no<1000")
+            cur.execute("SELECT sum(tutar) FROM DATA WHERE masa_no='" + str(row[0]) + "' and plu_no<1000 and urun_turu > 0")
             bb=cur.fetchall()
             if bb[0][0] is not None:
                 satir[k].setText(str(row[0])+"\n\n"+str(bb[0][0]))
@@ -139,14 +151,48 @@ class Pos1(QtGui.QWidget):
             satir[k].show()
         dizi = k + 1
 
-    def showdialog():
+    def tarihkaydet(self,tarihh):
+        self.tarih=self.tar.date().toPyDate()
+        print (self.tarih)
 
-        d = QDialog()
-        b1 = QPushButton("ok", d)
-        b1.move(50, 50)
+
+
+    def showdialog(self):
+
+        d = QtGui.QDialog()
+        d.setFixedSize(200,200)
+        self.butt = QtGui.QPushButton(self.masano, d)
+        self.butt.move(50, 50)
+
+        self.tar=QtGui.QDateEdit(d)
+        self.tar.setCalendarPopup(True)
+        self.tar.move(10,10)
+        self.tar.dateChanged.connect(self.tarihkaydet)
         d.setWindowTitle("Dialog")
-        d.setWindowModality(Qt.ApplicationModal)
+        d.setWindowModality(QtCore.Qt.ApplicationModal)
         d.exec_()
+
+        print(" ")
+        selectt1 = "SELECT plu_no,urun_adi,adet,tutar,masa_no,n_05,kisi_sayisi,saat,departman,grup3,birim_fiyati,tarih,islem_kod FROM DATA WHERE  masa_no='" + self.masano + "' and plu_no<1000 and urun_turu > 0 "
+        # TARIH='" + tt1 + "' and
+        ab = 0
+        aa = cur.execute(selectt1)
+        for row in aa:
+            if row[2] < 0:
+                continue
+            print (row[11])
+            self.myddb.cur.execute(
+                "insert into test.ciro  (pluno,urun,adet,tutar,masano,tahkod,acik,tarih,kisi,saat,departman,kategori,tutar1,islem) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+                (row[0], row[1], row[2], row[3], row[4], row[5], "0", self.tarih, row[6], row[7], row[8], row[9], row[10], row[12]))
+
+            ab = ab + row[3]
+
+        print("toplam       :", str(self.tarih), ab)
+  #      sil="delete from data where masano='" + self.masano + "' "
+   #     cur.execute()
+      #  self.myddb.cur.execute("insert into bishop.kasa ")
+        self.myddb.conn.commit()
+        con.commit()
 
 
 if __name__ == '__main__':
