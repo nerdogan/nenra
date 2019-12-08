@@ -358,6 +358,7 @@ class Fatura(QtGui.QDialog, Ui_Dialog3):
 
     @pyqtSlot()
     def slotfaturakaydet(self):
+
         toplam = 0
         kdv = 0
         deger0 = self.label_5.text()
@@ -413,12 +414,13 @@ class Fatura(QtGui.QDialog, Ui_Dialog3):
             return
         for item in range(i):
             satir += 1
-            cc = (self.comb[item].property(self.comb[item].currentText()))
 
-            self.tableWidget_2.setItem(item, 4, QtGui.QTableWidgetItem(
-                str(float(self.tableWidget_2.item(item, 4).text()) * (float(cc)))))
-            self.tableWidget_2.setItem(item, 5, QtGui.QTableWidgetItem(
-                str(float(self.tableWidget_2.item(item, 5).text()) / (float(cc)))))
+            cc = (self.comb[item].property(self.comb[item].currentText()))
+            if cc is not None:
+                self.tableWidget_2.setItem(item, 4, QtGui.QTableWidgetItem(
+                    str(float(self.tableWidget_2.item(item, 4).text()) * (float(cc)))))
+                self.tableWidget_2.setItem(item, 5, QtGui.QTableWidgetItem(
+                    str(float(self.tableWidget_2.item(item, 5).text()) / (float(cc)))))
 
             deger10 = self.tableWidget_2.item(item, 0).text()
             deger11 = self.tableWidget_2.item(item, 3).text()  # kdv
@@ -450,6 +452,7 @@ class Fatura(QtGui.QDialog, Ui_Dialog3):
                                                     str("{0:.2f}".format(toplam + kdv))))
         self.lineEdit_3.setFocus(True)
         self.slotfaturakont()
+
 
     @pyqtSlot()
     def slotfaturasatirsil(self):
