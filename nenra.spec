@@ -4,10 +4,15 @@ block_cipher = None
 
 
 a = Analysis(['nenra.py'],
-             pathex=['C:\\Users\\NAMIK\\PycharmProjects\\nenra2018'],
+             pathex=['C:\\Users\\NAMIK\\PycharmProjects\\nenra'],
              binaries=None,
              datas=None,
-             hiddenimports=[],
+             hiddenimports=[
+                'escpos.constants',
+                'escpos.escpos',
+                'escpos.exceptions',
+                'escpos.printer',
+             ],
              hookspath=[],
              runtime_hooks=[],
              excludes=[],
@@ -23,10 +28,10 @@ exe = EXE(pyz,
           debug=False,
           strip=False,
           upx=True,
-          console=False , icon='nenra.ico')
+          console=False,icon='nenra.ico')
 coll = COLLECT(exe,
                a.binaries,
-               Tree('C:\\Users\\NAMIK\\PycharmProjects\\nenra2018\\images', prefix='images\\'),
+               Tree('C:\\Users\\NAMIK\\PycharmProjects\\nenra\\images', prefix='images\\'),
                a.zipfiles,
                a.datas+ [('maliyet.png' , 'maliyet.png', 'DATA' ),
                ('newyork.png' , 'newyork.png', 'DATA' ),

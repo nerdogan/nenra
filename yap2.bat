@@ -12,7 +12,7 @@ python C:\Python27\Lib\site-packages\PyQt4\uic\pyuic.py -x hesap.ui -o ui_hesap.
 
 rem *** Used to create a Python exe 
 
-rem ***** get rid of all the old files in the build folder
+rem ***** get rid of all the old files in the build folder Compress-Archive -Path "C:\sordum\" -DestinationPath "C:\sordum.zip"
 rd /S /Q build
 
 rem ***** create the e
