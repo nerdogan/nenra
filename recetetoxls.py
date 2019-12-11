@@ -25,11 +25,12 @@ class recetetoxls():
 
 
 
+    @property
     def kontrol(girdi):
         girdi = str(girdi)
         ara = re.search("\.", girdi)
         if ara:
-            print girdi
+            print(girdi)
             derle = re.compile("\.")
             cikti = derle.sub(",", girdi)
             return float(cikti)
@@ -44,12 +45,12 @@ class recetetoxls():
 
         aa = 0
         toplam = 0
-        print bul2
+        print(bul2)
         for row1 in bul2:
             item = str(row1[2])
 
             bul3 = self.myddb.cek2(item, "hammadde", "hamkod")
-            print bul3
+            print(bul3)
 
             item = str(bul3[0][1])
             self.ws1.write(self.satir,0,item + " ")
@@ -67,7 +68,7 @@ class recetetoxls():
         self.satir+=2
 
     def goster(self):
-        print "*toxls arayüzü açıldı"
+        print("*toxls arayüzü açıldı")
         # some_date = QtCore.QDate(2011,4,22)
         self.myddb = Myddb()
         bul = self.myddb.cek("select * from hammadde where kategori=2 or kategori=3 order by hamkod")
@@ -83,8 +84,10 @@ class recetetoxls():
 
             self.yaz(row1[1])
 
+        self.wb.save(self.dest_filename)
+
     def goster1(self):
-        print "*toxls arayüzü nnn açıldı"
+        print("*toxls arayüzü nnn açıldı")
         # some_date = QtCore.QDate(2011,4,22)
         self.myddb = Myddb()
         self.satir = 1
@@ -95,7 +98,7 @@ class recetetoxls():
         for i in range(sheet.nrows):
             cell = sheet.cell(i, 0)  # The first cell
             if sheet.cell(i,5).value!="":
-                print sheet.cell(i,5).value
+                print(sheet.cell(i, 5).value)
             print(cell.xf_index, sheet.cell(rowx=i, colx=0).value, str(sheet.cell(rowx=i, colx=1).value))
             bul = self.myddb.cek("select * from hammadde where hamad like '" + str(sheet.cell(rowx=i, colx=0).value) + "'")
 
@@ -114,11 +117,11 @@ class recetetoxls():
 
                 self.satir = self.satir + 1
 
-        self.wb.save(self.dest_filename)
+
 
         
 
 if __name__ == "__main__":
     fatura1=recetetoxls()
    # fatura1.goster()
-    fatura1.goster1()
+    fatura1.goster()
