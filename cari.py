@@ -9,6 +9,7 @@ from PyQt4 import QtGui, QtCore
 from ui_cari import Ui_Dialog5
 import xlwt
 from decimal import *
+import logging
 
 from modulemdb import *
 from reportlab.pdfgen import canvas
@@ -50,6 +51,17 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         self.tableWidget.setColumnWidth(4, 25)
         getcontext().prec = 12
 
+        logging.basicConfig(level=logging.INFO)
+        self.logger = logging.getLogger(__name__)
+        handler = logging.FileHandler('hello.log', encoding="UTF-8")
+        handler.setLevel(logging.INFO)
+
+        # create a logging format
+
+        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        handler.setFormatter(formatter)
+        self.logger.addHandler(handler)
+
     @pyqtSlot()
     def sloturunmaliyet(self):
         firma="%"+self.lineEdit.text()+"%"
@@ -57,7 +69,7 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         myddb1 = Myddb()
         self.kontrol=1
 
-        print("caribakiye listesi")
+        self.logger.info("caribakiye listesi")
 
         self.tableWidget.clearContents()
         self.tableWidget.setColumnWidth(0, 75)

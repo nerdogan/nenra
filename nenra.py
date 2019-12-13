@@ -479,7 +479,7 @@ def main():
 
     @pyqtSlot()
     def slotpuss6(item2):
-        logger.info(item2+u"nolu fişi göster")
+        logger.info(item2+" nolu fişi göster")
 
         fatura.goster()
         fatura.lineEdit_5.setText(item2)

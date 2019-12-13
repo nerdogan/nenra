@@ -224,6 +224,8 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
     @pyqtSlot()
     def cariekstre(self):
         p = Network("192.168.2.222")
+
+
         p._raw(self.d.output)
         print("elma")
         p=None
@@ -240,6 +242,8 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
         self.d.text(chr(27))
         self.d.text(chr(116))
         self.d.text(chr(61))
+        self.d.codepage='CP857'
+
 
         self.kontrol = 1
         self.d.set(font='a', align='left', height=2, width=1)
