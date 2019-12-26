@@ -16,6 +16,7 @@ import datetime
 import logging
 #import urllib2
 import os
+import time
 
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
@@ -33,8 +34,6 @@ from login import Login
 from rapor import Rapor
 from masraf import Masraf
 from modulemdb import *
-
-
 
 
 logging.basicConfig(level=logging.INFO)
@@ -56,8 +55,8 @@ class WorkerThread(QThread):
     def __init__(self,parent=None):
         super(WorkerThread,self).__init__(parent)
         self.myddb = Myddb()
-
-
+        self.start_time = time.time()
+        # your code
 
     def run(self):
 
@@ -71,8 +70,8 @@ class WorkerThread(QThread):
         # mainWindow.plainTextEdit.appendPlainText(str(dt.days))
         for i in range(dt.days + 1):
             print (EndDate.strftime('%d%m%Y'))
-            sql = " select * from harcanan where tarih like %s"
-            sonuc = self.myddb.cur.execute(sql, [(EndDate.strftime('%Y-%m-%d') + "%")])
+            sql = " select * from harcanan where tarih= %s"
+            sonuc = self.myddb.cur.execute(sql, [(EndDate.strftime('%Y-%m-%d'))])
             valnen = []
             if sonuc == 0:
                 print (" kaydediliyor")
@@ -96,7 +95,8 @@ class WorkerThread(QThread):
                     print(valnen)
 
             EndDate = EndDate + datetime.timedelta(days=1)
-
+        elapsed_time = time.time() - self.start_time
+        print(elapsed_time)
 
 """
         with open("ver.png", "r") as dosya:

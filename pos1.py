@@ -16,7 +16,7 @@ satir={}
 
 
 con = fdb.connect(
-    dsn='192.168.2.251/3050:D:\RESTO_2015\DATA1\DATABASE2.GDB',
+    dsn='nen.duckdns.org/30500:D:\RESTO_2015\DATA1\DATABASE 2019-12-03.GDB',
     user='sysdba', password='masterkey',
 
     charset='UTF8' # specify a character set for the connection #
@@ -140,7 +140,7 @@ class Pos1(QtGui.QWidget):
             satir[k].setText(row[0])
             satir[k].move(row[5], row[4])
             satir[k].setFixedSize(row[7], row[6])
-            satir[k].setStyleSheet("QPushButton { background-color: white ; font-size: 9px}")
+            satir[k].setStyleSheet("QPushButton { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,  stop: 0 blue, stop: 1 white) ; font-size: 9px}")
             satir[k].clicked.connect(lambda checked, tekst=satir[k].text(): self.masanevar(tekst))
             cur.execute("SELECT sum(tutar) FROM DATA WHERE masa_no='" + str(row[0]) + "' and plu_no<1000 and urun_turu > 0")
             bb=cur.fetchall()
