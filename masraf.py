@@ -92,6 +92,10 @@ class Masraf(QtGui.QDialog , Ui_Masraf):
         bul=self.mydbb.cur.fetchall()
         self.mydbb.conn.commit()
 
+        self.pushButton_3.setEnabled(True)
+        self.pushButton_3.blockSignals(0)
+
+
         i=bul1
         aa=0
         aaa=0
@@ -174,6 +178,8 @@ class Masraf(QtGui.QDialog , Ui_Masraf):
 
     @pyqtSlot(int, int)
     def masrafkaydet(self, ):
+        self.pushButton_3.setDisabled(True)
+        self.pushButton_3.blockSignals(1)
         dur=0.02
         fatura = Fatura()
         fatura.goster()

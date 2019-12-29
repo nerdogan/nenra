@@ -17,6 +17,7 @@ import logging
 #import urllib2
 import os
 import time
+from threading import Thread
 
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
@@ -46,6 +47,54 @@ handler.setLevel(logging.INFO)
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 handler.setFormatter(formatter)
 logger.addHandler(handler)
+def run1(EndDate):
+    myddb = Myddb()
+
+    print (EndDate.strftime('%d%m%Y'))
+    sql = " select * from harcanan where tarih= %s"
+    sonuc = myddb.cur.execute(sql, [(EndDate.strftime('%Y-%m-%d'))])
+    valnen = []
+    if sonuc == 0:
+        print (" kaydediliyor")
+        tar = EndDate.strftime('%d%m%Y')
+
+        sql2 = "SELECT hammadde.hamkod,recete.hamkod,miktar,adet FROM bishop.ciro inner join hammadde on pluno=hamkod and DATE(tarih)=%s  inner join recete on  hammadde.hamkod=recete.menukod"
+        bilgi = myddb.cur.execute(sql2, [(EndDate.strftime('%Y-%m-%d'))])  # type: object
+        print (bilgi)
+        valnen = []
+        if bilgi != 0:
+            bilgi2 = myddb.cur.fetchall()
+            for row1 in bilgi2:
+                hmikt = row1[2] * row1[3]
+
+                sql1 = "insert into harcanan (hurunkod,hhammaddeid,hmiktar,fiyat,tarih) values (%s,%s,%s,%s,%s)"
+                valnen.append((row1[0], row1[1], hmikt, "0", EndDate))
+                # myddb.cur.execute(sql1, (row1[0], row1[1], hmikt, "0", EndDate))
+
+            myddb.cur.executemany(sql1, valnen)
+            myddb.conn.commit()
+            print(valnen)
+
+
+selfstart_time = time.time()
+
+StartDate = "01/12/19"
+
+EndDate = datetime.datetime.strptime(StartDate, "%d/%m/%y")
+now = datetime.datetime.now() - datetime.timedelta(days=1)
+dt = now - EndDate
+print(dt.days)
+# mainWindow.plainTextEdit.appendPlainText(str(dt.days))
+dum=[]
+for i in range(dt.days + 1):
+    dum.append( Thread(target=run1, args=[EndDate]))
+    EndDate = EndDate + datetime.timedelta(days=1)
+    dum[i].start()
+
+for i in range(dt.days + 1):
+    dum[i].join()
+elapsed_time = time.time() - selfstart_time
+print(elapsed_time)
 
 
 
