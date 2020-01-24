@@ -80,7 +80,7 @@ class Stok(QtGui.QDialog , Ui_Dialog6):
         myddb1.cur.execute(""" CREATE  TABLE  test.table1 AS (select hamkod,sum(miktar) miktar1 from cariay a where fistipi=10 and date(tarih) between %s and %s group by hamkod)""",(tar1,tar2))
         myddb1.cur.execute(""" CREATE  TABLE  test.table2 AS (select hhammaddeid,sum(hmiktar) miktar2 from harcanan a where  date(tarih) between %s and %s group by hhammaddeid)""",(tar1,tar2,))
 
-        sql = """select a.hamkod,a.hamad,a.birim , ifnull( b.miktar1,0) as giriş ,ifnull(c.miktar2,0) as çıkış, (ifnull( b.miktar1,0)-ifnull(c.miktar2,0)) as fark from hammadde a  left join table1 b on a.hamkod=b.hamkod left join table2 c on a.hamkod=c.hhammaddeid where departman="BAR" or departman="mutfak" order by a.hamkod; """
+        sql = """select a.hamkod,a.hamad,a.birim , ifnull( b.miktar1,0) as giriş ,ifnull(c.miktar2,0) as çıkış, (ifnull( b.miktar1,0)-ifnull(c.miktar2,0)) as fark from hammadde a  left join table1 b on a.hamkod=b.hamkod left join table2 c on a.hamkod=c.hhammaddeid where departman="BAR"  order by a.hamkod; """
 
         bul2 = myddb1.cur.execute(sql)
         print(bul2, tar1, tar2)
@@ -215,13 +215,19 @@ class Stok(QtGui.QDialog , Ui_Dialog6):
         tar1 = deger1.strftime('%Y-%m-%d')
         tar2 = deger2.strftime('%Y-%m-%d')
 
-        sql = """select `c1`.`fistipi`,`c1`.`tarih` AS `tarih`,`c1`.`fisno` AS `fisno`,concat(`c1`.`serino`,'_',`c1`.`sirano`,' nolu '), `c1`.`tutar` AS `TUTAR` 
-        from (`test`.`cari_har` `c1` join `test`.`cari` `c2`) 
-        where ((`c1`.`cariid` = `c2`.`cariid`) and (`c1`.`cariid`=%s) 
-        and  (`c1`.`tarih` >=%s ) and (`c1`.`tarih` <=%s ) 
-        and (`c1`.`fistipi`=10 or `c1`.`fistipi`=11))  order by `c1`.`tarih` asc """
+        myddb1.cur.execute("drop table if exists test.table3 ")
+        myddb1.cur.execute("drop table if exists test.table4 ")
+        myddb1.cur.execute(
+            """ CREATE  TABLE  test.table3 AS (select hamkod, miktar from cariay a where fistipi=10 and hamkod=%s and date(tarih) between %s and %s )""",
+            (carikod,tar1, tar2))
+        myddb1.cur.execute(
+            """ CREATE  TABLE  test.table4 AS (select hhammaddeid,hmiktar  from harcanan a where  hhammaddeid=%s and date(tarih) between %s and %s )""",
+            (carikod,tar1, tar2,))
 
-        bul2 = myddb1.cur.execute(sql, (carikod,tar1, tar2))
+        sql = """select a.hamkod,a.hamad,a.birim , ifnull( b.miktar,0) as giriş ,ifnull(c.hmiktar,0) as çıkış from hammadde a  left join table3 b on a.hamkod=b.hamkod left join table4 c on a.hamkod=c.hhammaddeid where departman="BAR"  order by a.hamkod; """
+
+
+        bul2 = myddb1.cur.execute(sql, )
         print(bul2, tar1, tar2)
 
         bul = myddb1.cur.fetchall()
@@ -236,11 +242,11 @@ class Stok(QtGui.QDialog , Ui_Dialog6):
         toplam2 = 0.0000
         for row1 in bul:
 
-            item = str(row1[2])
+            item = str(row1[1])
             self.ws1.write(aa, 0, item)
             self.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
             c.drawString(45, 800 - (15 * (bb + 1)), item)
-            item = (row1[1]).strftime("%d-%m-%Y")
+            item = (row1[3])
             self.ws1.write(aa, 1, item)
             c.drawString(80, 800 - (15 * (bb + 1)), item)
             self.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
@@ -356,6 +362,7 @@ if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
     stok=Stok()
     stok.show()
+    stok.raise_()
     app.exec_()
 
 

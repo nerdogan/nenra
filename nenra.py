@@ -78,7 +78,7 @@ def run1(EndDate):
 
 selfstart_time = time.time()
 
-StartDate = "01/12/19"
+StartDate = "01/08/19"
 
 EndDate = datetime.datetime.strptime(StartDate, "%d/%m/%y")
 now = datetime.datetime.now() - datetime.timedelta(days=1)
@@ -90,6 +90,8 @@ for i in range(dt.days + 1):
     dum.append( Thread(target=run1, args=[EndDate]))
     EndDate = EndDate + datetime.timedelta(days=1)
     dum[i].start()
+    if i % 30 == 0:
+        time.sleep(1)
 
 for i in range(dt.days + 1):
     dum[i].join()
@@ -206,8 +208,8 @@ def main():
     stok = Stok()
     rapor = Rapor()
     masraf = Masraf()
-    workerthread = WorkerThread()
-    workerthread.start()
+#    workerthread = WorkerThread()
+ #   workerthread.start()
 
     logger.info('Program opened  '+str(os.getpid()))
 

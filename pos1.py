@@ -182,7 +182,7 @@ class Pos1(QtGui.QWidget):
                 continue
             print (row[11])
             self.myddb.cur.execute(
-                "insert into test.ciro  (pluno,urun,adet,tutar,masano,tahkod,acik,tarih,kisi,saat,departman,kategori,tutar1,islem) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+                "insert into bishop.ciro1  (pluno,urun,adet,tutar,masano,tahkod,acik,tarih,kisi,saat,departman,kategori,tutar1,islem) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
                 (row[0], row[1], row[2], row[3], row[4], row[5], "0", self.tarih, row[6], row[7], row[8], row[9], row[10], row[12]))
 
             ab = ab + row[3]
@@ -190,7 +190,10 @@ class Pos1(QtGui.QWidget):
         print("toplam       :", str(self.tarih), ab)
   #      sil="delete from data where masano='" + self.masano + "' "
    #     cur.execute()
-      #  self.myddb.cur.execute("insert into bishop.kasa ")
+        self.myddb.cur.execute(
+            "insert ignore into bishop.kasa1  (posid,aciklama,tutar,belgeno,muhkod,tarih,kasano,islemid) values (%s,%s,%s,%s,%s,%s,%s,%s)",
+            (2000, 'Tahsilat', ab, row[4] , row[5], self.tarih, 99, row[5]))
+        cur.execute("delete from DATA where masa_no='" + self.masano+"'")
         self.myddb.conn.commit()
         con.commit()
 

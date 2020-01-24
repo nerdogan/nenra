@@ -105,7 +105,7 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
 
         myddb1.cur.execute("drop table if exists table3 ")
 
-        myddb1.cur.execute(""" CREATE TEMPORARY TABLE  table3 AS (SELECT ciro.departman,pluno,hamad,sum(adet),sum(tutar) FROM bishop.ciro  inner join hammadde on  pluno=hamkod and
+        myddb1.cur.execute(""" CREATE TEMPORARY TABLE  table3 AS (SELECT bishop.ciro.departman,pluno,hamad,sum(adet),sum(tutar) FROM bishop.ciro  inner join hammadde on  pluno=hamkod and
  date(tarih) between %s and %s and hesap IS NULL group by ciro.departman,pluno,hamad order by ciro.departman asc)""",(tar1,tar2))
 
         sql = """select * from table3 ; """
@@ -223,7 +223,7 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
 
     @pyqtSlot()
     def cariekstre(self):
-        p = Network("192.168.2.222")
+        p = Network("192.168.2.223")
 
 
         p._raw(self.d.output)
@@ -284,7 +284,7 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
         #    (row[0], row[1], tut, row[4], row[5], tt2, kno, row[7]))
 
 
-        sql = """select kasano,sum(tutar) from kasa where date(tarih) between %s and %s  group by kasano; """
+        sql = """select kasano,sum(tutar) from (select * from bishop.kasa union all select * from bishop.kasa1) as tumkasa where date(tarih) between %s and %s  group by kasano; """
 
         bul2 = myddb1.cur.execute(sql, (tar1, tar2))
         print(bul2, tar1, tar2)
@@ -504,7 +504,7 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
 
         sql = """select
         aciklama, tutar
-        from kasa where
+        from bishop.kasa where
         tutar < 0 and posid = 2000 and tarih
         between %s and %s """
 
@@ -582,6 +582,7 @@ if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
     rapor=Rapor()
     rapor.show()
+    rapor.raise_()
     app.exec_()
 
 

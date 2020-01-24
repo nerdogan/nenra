@@ -22,7 +22,7 @@ class mizan():
         self.toplam = 0
         self.toplam1 = 0
 
-        satis="SELECT departman,sum(adet),SUM(TUTAR) FROM bishop.CIRO  where tarih between %s  and %s and departman!=0 group by 1"
+        satis="SELECT departman,sum(adet),SUM(TUTAR) FROM (select * from bishop.ciro union all select * from bishop.ciro1) as ciroo  where tarih between %s  and %s and departman!=0 group by 1"
         myddb = Myddb()
         print(myddb.cur.execute(satis, (self.tarih1, self.tarih2)))
         bul=myddb.cur.fetchall()
