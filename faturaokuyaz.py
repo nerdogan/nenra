@@ -57,7 +57,7 @@ date_xf = xlwt.easyxf(num_format_str='DD/MM/YYYY')
 style1 = xlwt.easyxf('pattern: pattern solid, fore_colour red;')
 
 # Filename line 'C:\\Users\\NAMIK\\Google Drive\\bishop\\PERSONEL\\fatura1.xlsx'
-openfile = "C:\\Users\\namik\\09FATURALAR.xlsx"
+openfile = "C:\\Users\\namik\\12FATURALAR.xlsx"
 
 wb1 = load_workbook(openfile, read_only=True)
 ws = wb1.active

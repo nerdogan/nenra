@@ -28,15 +28,12 @@ exe = EXE(pyz,
           debug=False,
           strip=False,
           upx=True,
-          console=False,icon='nenra.ico')
+          console=True)
 coll = COLLECT(exe,
                a.binaries,
                Tree('C:\\Users\\NAMIK\\PycharmProjects\\nenra\\images', prefix='images\\'),
                a.zipfiles,
-               a.datas+ [('maliyet.png' , 'maliyet.png', 'DATA' ),
-               ('newyork.png' , 'newyork.png', 'DATA' ),
-               ('horn.wav' , 'horn.wav', 'DATA' ),
-               ('fatura.png' , 'fatura.png' , 'DATA' )],
+               a.datas += Tree('./escpos', prefix='escpos'),
                strip=False,
                upx=True,
                name='nenra')
