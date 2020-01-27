@@ -78,7 +78,7 @@ def run1(EndDate):
 
 selfstart_time = time.time()
 
-StartDate = "01/08/19"
+StartDate = "01/01/20"
 
 EndDate = datetime.datetime.strptime(StartDate, "%d/%m/%y")
 now = datetime.datetime.now() - datetime.timedelta(days=1)
@@ -112,7 +112,7 @@ class WorkerThread(QThread):
     def run(self):
 
 
-        StartDate = "01/12/19"
+        StartDate = "01/01/20"
 
         EndDate = datetime.datetime.strptime(StartDate, "%d/%m/%y")
         now = datetime.datetime.now() - datetime.timedelta(days=1)
