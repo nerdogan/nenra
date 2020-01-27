@@ -33,7 +33,7 @@ coll = COLLECT(exe,
                a.binaries,
                Tree('C:\\Users\\NAMIK\\PycharmProjects\\nenra\\images', prefix='images\\'),
                a.zipfiles,
-               a.datas += Tree('./escpos', prefix='escpos'),
+               a.datas ,
                strip=False,
                upx=True,
                name='nenra')
