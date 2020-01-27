@@ -16,7 +16,7 @@ satir={}
 
 
 con = fdb.connect(
-    dsn='nen.duckdns.org/30500:D:\RESTO_2015\DATA1\DATABASE 2019-12-03.GDB',
+    dsn='nen.duckdns.org/30500:D:\RESTO_2015\DATA\DATABASE.GDB',
     user='sysdba', password='masterkey',
 
     charset='UTF8' # specify a character set for the connection #

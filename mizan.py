@@ -40,12 +40,12 @@ class mizan():
         sayim="select sum(sayim.miktar*sayim.fiyat1) from TEST.sayim where date(tarih)= %s"
         myddb.cur.execute(sayim,[(self.tarih1)])
         bul=myddb.cur.fetchall()
-        print(bul)
+        print(self.tarih1)
         sayim="select sum(sayim.miktar*sayim.fiyat1) from TEST.sayim where date(tarih)= %s"
         myddb.cur.execute(sayim,[(self.last_day_of_month(self.tarih1))])
         bul1=myddb.cur.fetchall()
         print(bul1)
-        if bul1[0][0]!=None:
+        if bul1[0][0]!=None and bul[0][0]!=None:
             bul1 = bul[0][0] - bul1[0][0]
         else:
             bul1=0
@@ -173,6 +173,42 @@ if __name__ == '__main__':
     elma.bishopgenel()
     elma.tarih1 = "2019-12-01"
     elma.tarih2 = "2019-12-31"
+    elma.bishopgenel()
+    elma.tarih1 = "2018-01-01"
+    elma.tarih2 = "2018-01-31"
+    elma.bishopgenel()
+    elma.tarih1 = "2018-02-01"
+    elma.tarih2 = "2018-02-28"
+    elma.bishopgenel()
+    elma.tarih1 = "2018-03-01"
+    elma.tarih2 = "2018-03-31"
+    elma.bishopgenel()
+    elma.tarih1 = "2018-04-01"
+    elma.tarih2 = "2018-04-30"
+    elma.bishopgenel()
+    elma.tarih1 = "2018-05-01"
+    elma.tarih2 = "2018-05-31"
+    elma.bishopgenel()
+    elma.tarih1 = "2018-06-01"
+    elma.tarih2 = "2018-06-30"
+    elma.bishopgenel()
+    elma.tarih1 = "2018-07-01"
+    elma.tarih2 = "2018-07-31"
+    elma.bishopgenel()
+    elma.tarih1 = "2018-08-01"
+    elma.tarih2 = "2018-08-31"
+    elma.bishopgenel()
+    elma.tarih1 = "2018-09-01"
+    elma.tarih2 = "2018-09-30"
+    elma.bishopgenel()
+    elma.tarih1 = "2018-10-01"
+    elma.tarih2 = "2018-10-31"
+    elma.bishopgenel()
+    elma.tarih1 = "2018-11-01"
+    elma.tarih2 = "2018-11-30"
+    elma.bishopgenel()
+    elma.tarih1 = "2018-12-01"
+    elma.tarih2 = "2018-12-31"
     elma.bishopgenel()
 
     elma.testgen()
