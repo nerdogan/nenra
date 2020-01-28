@@ -19,9 +19,8 @@ import os
 import time
 from threading import Thread
 
-from PyQt4.QtGui import *
-from PyQt4.QtCore import *
-from PyQt4.QtCore import pyqtSlot,pyqtSignal
+from PyQt4.QtGui import QApplication
+from PyQt4.QtCore import pyqtSlot,pyqtSignal,QThread,Qt
 from PyQt4 import QtGui, QtCore
 
 from mainwindow import MainWindow
