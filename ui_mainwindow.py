@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created by: PyQt4 UI code generator 4.12.1
+# Created by: PyQt4 UI code generator 4.11.4
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -39,19 +39,16 @@ class Ui_MainWindow(object):
         self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 470, 621, 80))
         self.verticalLayoutWidget.setObjectName(_fromUtf8("verticalLayoutWidget"))
         self.verticalLayout = QtGui.QVBoxLayout(self.verticalLayoutWidget)
-        self.verticalLayout.setMargin(0)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
         self.verticalLayoutWidget_2 = QtGui.QWidget(self.centralwidget)
         self.verticalLayoutWidget_2.setGeometry(QtCore.QRect(10, 140, 821, 331))
         self.verticalLayoutWidget_2.setObjectName(_fromUtf8("verticalLayoutWidget_2"))
         self.verticalLayout_2 = QtGui.QVBoxLayout(self.verticalLayoutWidget_2)
-        self.verticalLayout_2.setMargin(0)
         self.verticalLayout_2.setObjectName(_fromUtf8("verticalLayout_2"))
         self.horizontalLayoutWidget = QtGui.QWidget(self.centralwidget)
         self.horizontalLayoutWidget.setGeometry(QtCore.QRect(10, 10, 101, 71))
         self.horizontalLayoutWidget.setObjectName(_fromUtf8("horizontalLayoutWidget"))
         self.horizontalLayout = QtGui.QHBoxLayout(self.horizontalLayoutWidget)
-        self.horizontalLayout.setMargin(0)
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
         self.pushButton = QtGui.QPushButton(self.horizontalLayoutWidget)
         self.pushButton.setMaximumSize(QtCore.QSize(89, 89))
@@ -68,7 +65,6 @@ class Ui_MainWindow(object):
         self.horizontalLayoutWidget_2.setGeometry(QtCore.QRect(130, 10, 101, 71))
         self.horizontalLayoutWidget_2.setObjectName(_fromUtf8("horizontalLayoutWidget_2"))
         self.horizontalLayout_2 = QtGui.QHBoxLayout(self.horizontalLayoutWidget_2)
-        self.horizontalLayout_2.setMargin(0)
         self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
         self.pushButton_2 = QtGui.QPushButton(self.horizontalLayoutWidget_2)
         self.pushButton_2.setMaximumSize(QtCore.QSize(89, 89))
@@ -99,7 +95,6 @@ class Ui_MainWindow(object):
         self.horizontalLayoutWidget_5.setGeometry(QtCore.QRect(250, 10, 101, 71))
         self.horizontalLayoutWidget_5.setObjectName(_fromUtf8("horizontalLayoutWidget_5"))
         self.horizontalLayout_5 = QtGui.QHBoxLayout(self.horizontalLayoutWidget_5)
-        self.horizontalLayout_5.setMargin(0)
         self.horizontalLayout_5.setObjectName(_fromUtf8("horizontalLayout_5"))
         self.pushButton_3 = QtGui.QPushButton(self.horizontalLayoutWidget_5)
         self.pushButton_3.setMaximumSize(QtCore.QSize(89, 89))
@@ -123,7 +118,6 @@ class Ui_MainWindow(object):
         self.horizontalLayoutWidget_6.setGeometry(QtCore.QRect(370, 10, 101, 71))
         self.horizontalLayoutWidget_6.setObjectName(_fromUtf8("horizontalLayoutWidget_6"))
         self.horizontalLayout_6 = QtGui.QHBoxLayout(self.horizontalLayoutWidget_6)
-        self.horizontalLayout_6.setMargin(0)
         self.horizontalLayout_6.setObjectName(_fromUtf8("horizontalLayout_6"))
         self.pushButton_4 = QtGui.QPushButton(self.horizontalLayoutWidget_6)
         self.pushButton_4.setMaximumSize(QtCore.QSize(89, 89))
@@ -147,7 +141,6 @@ class Ui_MainWindow(object):
         self.horizontalLayoutWidget_7.setGeometry(QtCore.QRect(490, 10, 101, 71))
         self.horizontalLayoutWidget_7.setObjectName(_fromUtf8("horizontalLayoutWidget_7"))
         self.horizontalLayout_7 = QtGui.QHBoxLayout(self.horizontalLayoutWidget_7)
-        self.horizontalLayout_7.setMargin(0)
         self.horizontalLayout_7.setObjectName(_fromUtf8("horizontalLayout_7"))
         self.pushButton_5 = QtGui.QPushButton(self.horizontalLayoutWidget_7)
         self.pushButton_5.setMaximumSize(QtCore.QSize(89, 89))
@@ -171,7 +164,6 @@ class Ui_MainWindow(object):
         self.horizontalLayoutWidget_8.setGeometry(QtCore.QRect(610, 10, 101, 71))
         self.horizontalLayoutWidget_8.setObjectName(_fromUtf8("horizontalLayoutWidget_8"))
         self.horizontalLayout_8 = QtGui.QHBoxLayout(self.horizontalLayoutWidget_8)
-        self.horizontalLayout_8.setMargin(0)
         self.horizontalLayout_8.setObjectName(_fromUtf8("horizontalLayout_8"))
         self.pushButton_6 = QtGui.QPushButton(self.horizontalLayoutWidget_8)
         self.pushButton_6.setMaximumSize(QtCore.QSize(89, 89))
@@ -195,7 +187,6 @@ class Ui_MainWindow(object):
         self.horizontalLayoutWidget_9.setGeometry(QtCore.QRect(730, 10, 101, 71))
         self.horizontalLayoutWidget_9.setObjectName(_fromUtf8("horizontalLayoutWidget_9"))
         self.horizontalLayout_9 = QtGui.QHBoxLayout(self.horizontalLayoutWidget_9)
-        self.horizontalLayout_9.setMargin(0)
         self.horizontalLayout_9.setObjectName(_fromUtf8("horizontalLayout_9"))
         self.pushButton_7 = QtGui.QPushButton(self.horizontalLayoutWidget_9)
         self.pushButton_7.setMaximumSize(QtCore.QSize(89, 89))
