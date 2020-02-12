@@ -32,8 +32,17 @@ if fname.endswith("s"):
 
 
 # excel.Application.Quit()
-
 def kontrol(girdi):
+    girdi = str(girdi)
+    ara = re.search(",", girdi)
+    if ara:
+        derle = re.compile(",")
+        cikti = derle.sub(".", girdi)
+        return cikti
+    return girdi
+
+
+def kontrol2(girdi):
     girdi = str(girdi)
     ara = re.search("\,", girdi)
     if ara:
@@ -42,6 +51,22 @@ def kontrol(girdi):
         cikti = derle.sub(".", girdi)
         return float(cikti)
     return int(girdi)
+
+def kontrol1( girdi):
+    girdi = str(girdi)
+    ara = re.search("\,", girdi)
+
+    if ara:
+        derle = re.compile("\,")
+        cikti = derle.sub(".", girdi)
+        girdi=cikti
+
+    cikti = re.split(r'\.', (girdi))
+    if (len(cikti))>2 :
+        girdi=(cikti[0] + cikti[1] + '.' + cikti[2])
+    print (girdi)
+    return girdi
+
 
 
 def last_day_of_month(any_day):
@@ -57,7 +82,7 @@ date_xf = xlwt.easyxf(num_format_str='DD/MM/YYYY')
 style1 = xlwt.easyxf('pattern: pattern solid, fore_colour red;')
 
 # Filename line 'C:\\Users\\NAMIK\\Google Drive\\bishop\\PERSONEL\\fatura1.xlsx'
-openfile = "C:\\Users\\namik\\12FATURALAR.xlsx"
+openfile = "C:\\Users\\namik\\202001FATURALAR1.xlsx"
 
 wb1 = load_workbook(openfile, read_only=True)
 ws = wb1.active
@@ -67,15 +92,15 @@ data = []
 for row in ws.rows:
     ac = 0
     ab = ab + 1
-    if ab == 99999:
+    if ab == 100000:
         break
     if ab < 2:
         continue
 
-    print("   ")
+    print("   ",ab,ac,len(data))
     for cell in row:
         if (ac == 1 or ac == 2 or ac == 5 or ac == 10):
-            if cell.value == None:
+            if cell.value is None:
                 ab = 99999
             deger1 = cell.value
             data.append(deger1)
@@ -83,7 +108,7 @@ for row in ws.rows:
 
             print(ab, ac + 1)
         if (ac == 4 or ac == 6 or ac == 7 or ac == 11):
-            if cell.value == None:
+            if cell.value is None:
                 ab = 99999
             deger1 = kontrol(cell.value)
             data.append(deger1)
@@ -91,7 +116,7 @@ for row in ws.rows:
             print(ab, ac + 1)
 
         if (ac == 0):
-            if cell.value == None:
+            if cell.value is None:
                 ab = 99999
                 continue
             deger = datetime.datetime.strptime(str(cell.value), "%Y-%m-%d %H:%M:%S")
@@ -167,7 +192,7 @@ for row in range(int(len(data) / 9)):
         if bul:
             print(bul)
             fatura.lineEdit_3.setText(str(bul[0]))
-            data[aa + 3] = data[aa + 3] * bul[1]
+            data[aa + 3] = float(data[aa + 3]) * bul[1]
 
         time.sleep(dur)
         if fatura.tableWidget.rowCount() == 0 or fatura.tableWidget.rowCount() > 1:
@@ -185,10 +210,11 @@ for row in range(int(len(data) / 9)):
         time.sleep(dur)
         fatura.tableWidget_2.setItem((satir - 2), 3, QtGui.QTableWidgetItem(str(data[aa + 7])))
         if data[aa + 4] == "KG":
-            data[aa + 3] = data[aa + 3] * 1000
+
+            data[aa + 3] = (float(data[aa + 3]) * 1000)
 
         fatura.tableWidget_2.setItem((satir - 2), 4, QtGui.QTableWidgetItem(str(data[aa + 3])))
-        fatura.tableWidget_2.setItem(satir - 2, 6, QtGui.QTableWidgetItem(str(data[aa + 6])))
+        fatura.tableWidget_2.setItem((satir - 2), 6, QtGui.QTableWidgetItem(str(data[aa + 6])))
         time.sleep(dur)
         fatura.slotfaturakaydet()
         aa = aa + 1
