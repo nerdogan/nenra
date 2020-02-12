@@ -174,6 +174,13 @@ if __name__ == '__main__':
     elma.tarih1 = "2019-12-01"
     elma.tarih2 = "2019-12-31"
     elma.bishopgenel()
+    elma.tarih1 = "2020-01-01"
+    elma.tarih2 = "2020-01-31"
+    elma.bishopgenel()
+    elma.tarih1 = "2020-02-01"
+    elma.tarih2 = "2020-02-28"
+    elma.bishopgenel()
+    """
     elma.tarih1 = "2018-01-01"
     elma.tarih2 = "2018-01-31"
     elma.bishopgenel()
@@ -210,7 +217,7 @@ if __name__ == '__main__':
     elma.tarih1 = "2018-12-01"
     elma.tarih2 = "2018-12-31"
     elma.bishopgenel()
-
+"""
     elma.testgen()
     print("ocak aralık güncelleme bitti")
 
