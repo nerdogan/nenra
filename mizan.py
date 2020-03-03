@@ -49,6 +49,8 @@ class mizan():
             bul1 = bul[0][0] - bul1[0][0]
         else:
             bul1=0
+        # Stok farkını dikkate almamak için aşağıdaki satırı kullanın
+        bul1=0
 
         self.toplam1=self.toplam1+bul1
         myddb.cur.execute(sql, (9, "659." ,(bul1 ), self.tarih2))
@@ -139,7 +141,14 @@ class mizan():
 
 
 if __name__ == '__main__':
-    elma=mizan("2019-01-01","2019-01-31")
+    elma=mizan("2020-01-01","2020-01-31")
+    elma.bishopgenel()
+    elma.tarih1 = "2020-02-01"
+    elma.tarih2 = "2020-02-29"
+    elma.bishopgenel()
+    """
+    elma.tarih1 = "2019-01-01"
+    elma.tarih2 = "2019-01-31"
     elma.bishopgenel()
     elma.tarih1 = "2019-02-01"
     elma.tarih2 = "2019-02-28"
@@ -174,13 +183,7 @@ if __name__ == '__main__':
     elma.tarih1 = "2019-12-01"
     elma.tarih2 = "2019-12-31"
     elma.bishopgenel()
-    elma.tarih1 = "2020-01-01"
-    elma.tarih2 = "2020-01-31"
-    elma.bishopgenel()
-    elma.tarih1 = "2020-02-01"
-    elma.tarih2 = "2020-02-28"
-    elma.bishopgenel()
-    """
+    
     elma.tarih1 = "2018-01-01"
     elma.tarih2 = "2018-01-31"
     elma.bishopgenel()
@@ -219,7 +222,7 @@ if __name__ == '__main__':
     elma.bishopgenel()
 """
     elma.testgen()
-    print("ocak aralık güncelleme bitti")
+    print("mizan güncelleme bitti")
 
 
 

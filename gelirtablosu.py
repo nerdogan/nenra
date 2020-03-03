@@ -200,7 +200,7 @@ class GelirTablo(QtGui.QDialog, Ui_Dialog4):
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
-   # subprocess.Popen('python3 mizan.py', shell=True)
+    subprocess.Popen('python3 mizan.py', shell=True)
     gelirt = GelirTablo()
     gelirt.show()
     gelirt.raise_()
