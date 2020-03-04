@@ -18,7 +18,16 @@ class GelirTablo(QtGui.QDialog, Ui_Dialog4):
         QtGui.QDialog.__init__(self)
         self.setupUi(self)
         # self.myddb = Myddb()
-        locale.setlocale(locale.LC_ALL, 'tr_TR')
+
+        if sys.platform == "win32":
+            locale.setlocale(locale.LC_ALL, 'turkish')
+
+        elif sys.platform == "darwin":
+            locale.setlocale(locale.LC_ALL, 'tr_TR')
+
+        else:
+            locale.setlocale(locale.LC_ALL, 'tr_TR.utf8')
+
         self.tableWidget.setRowCount(0)
         some_date = QtCore.QDate.currentDate()
         self.dateEdit.setDate(some_date)
