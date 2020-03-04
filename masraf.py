@@ -87,7 +87,7 @@ class Masraf(QtGui.QDialog , Ui_Masraf):
         self.dt = QtCore.QDate.fromString(str(self.dt), 'yyyy-MM-dd')
         self.dateEdit.setDate(self.dt)
 
-        sql="select islemid,aciklama,tutar from kasa where (kasano=111 or kasano=102) and muhkod<>1 and tarih= %s"
+        sql="select islemid,aciklama,tutar from bishop.kasa where (kasano=111 or kasano=102) and muhkod<>1 and tarih= %s"
         bul1=self.mydbb.cur.execute(sql,(self.tar1,))
         bul=self.mydbb.cur.fetchall()
         self.mydbb.conn.commit()
@@ -229,7 +229,7 @@ class Masraf(QtGui.QDialog , Ui_Masraf):
                 onur+=1
                 fatura.slotfaturakaydet()
 
-                self.mydbb.cur.execute("""update kasa set muhkod=1 where islemid=%s""",(deger10,))
+                self.mydbb.cur.execute("""update bishop.kasa set muhkod=1 where islemid=%s""",(deger10,))
                 self.mydbb.conn.commit()
 
             else :
@@ -260,7 +260,7 @@ class Masraf(QtGui.QDialog , Ui_Masraf):
                 fatura1.slotfaturakaydet()
 
 
-                self.mydbb.cur.execute("""update kasa set muhkod=1 where islemid=%s""", (deger10,))
+                self.mydbb.cur.execute("""update bishop.kasa set muhkod=1 where islemid=%s""", (deger10,))
                 self.mydbb.conn.commit()
 
             satir += 2
