@@ -246,7 +246,7 @@ class Stok(QtGui.QDialog , Ui_Dialog6):
             self.ws1.write(aa, 0, item)
             self.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
             c.drawString(45, 800 - (15 * (bb + 1)), item)
-            item = (row1[3])
+            item = str(row1[3])
             self.ws1.write(aa, 1, item)
             c.drawString(80, 800 - (15 * (bb + 1)), item)
             self.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
