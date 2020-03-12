@@ -47,7 +47,7 @@ class Stok(QtGui.QDialog , Ui_Dialog6):
         print("caribakiye listesi")
         self.tableWidget.clearContents()
         self.tableWidget.setColumnWidth(0, 75)
-        self.tableWidget.setColumnWidth(1, 200)
+        self.tableWidget.setColumnWidth(1, 250)
         self.tableWidget.setColumnWidth(2, 35)
         self.tableWidget.setColumnWidth(3, 75)
         self.tableWidget.setColumnWidth(4, 75)
@@ -95,6 +95,11 @@ class Stok(QtGui.QDialog , Ui_Dialog6):
         toplam2 = 0.0000
 
         for row1 in bul:
+
+            # Giriş ve çıkışı sıfır olan stokları görmemek için aşağıdaki satırı çalıştırın
+            if row1[3]==0 and row1[3]==0 :
+                continue
+
 
             item = str(row1[0])
             self.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
