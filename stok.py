@@ -47,7 +47,7 @@ class Stok(QtGui.QDialog , Ui_Dialog6):
         print("caribakiye listesi")
         self.tableWidget.clearContents()
         self.tableWidget.setColumnWidth(0, 75)
-        self.tableWidget.setColumnWidth(1, 200)
+        self.tableWidget.setColumnWidth(1, 250)
         self.tableWidget.setColumnWidth(2, 35)
         self.tableWidget.setColumnWidth(3, 75)
         self.tableWidget.setColumnWidth(4, 75)
@@ -77,10 +77,12 @@ class Stok(QtGui.QDialog , Ui_Dialog6):
 
         myddb1.cur.execute("drop table if exists test.table1 ")
         myddb1.cur.execute("drop table if exists test.table2 ")
+
         myddb1.cur.execute(""" CREATE  TABLE  test.table1 AS (select hamkod,sum(miktar) miktar1 from cariay a where fistipi=10 and date(tarih) between %s and %s group by hamkod)""",(tar1,tar2))
         myddb1.cur.execute(""" CREATE  TABLE  test.table2 AS (select hhammaddeid,sum(hmiktar) miktar2 from harcanan a where  date(tarih) between %s and %s group by hhammaddeid)""",(tar1,tar2,))
 
         sql = """select a.hamkod,a.hamad,a.birim , ifnull( b.miktar1,0) as giriş ,ifnull(c.miktar2,0) as çıkış, (ifnull( b.miktar1,0)-ifnull(c.miktar2,0)) as fark from hammadde a  left join table1 b on a.hamkod=b.hamkod left join table2 c on a.hamkod=c.hhammaddeid where departman="BAR"  order by a.hamkod; """
+
 
         bul2 = myddb1.cur.execute(sql)
         print(bul2, tar1, tar2)
@@ -95,6 +97,11 @@ class Stok(QtGui.QDialog , Ui_Dialog6):
         toplam2 = 0.0000
 
         for row1 in bul:
+
+            # Giriş ve çıkışı sıfır olan stokları görmemek için aşağıdaki satırı çalıştırın
+            if row1[3]==0 and row1[3]==0 :
+                continue
+
 
             item = str(row1[0])
             self.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
