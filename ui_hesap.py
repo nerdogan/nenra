@@ -39,7 +39,6 @@ class Ui_Dialog(object):
         self.pushButton_2.setGeometry(QtCore.QRect(180, 140, 110, 32))
         self.pushButton_2.setObjectName(_fromUtf8("pushButton_2"))
 
-
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
@@ -47,4 +46,14 @@ class Ui_Dialog(object):
         Dialog.setWindowTitle(_translate("Dialog", "Dialog", None))
         self.pushButton.setText(_translate("Dialog", "Hesapla", None))
         self.pushButton_2.setText(_translate("Dialog", "Göster", None))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtGui.QApplication(sys.argv)
+    Dialog = QtGui.QDialog()
+    ui = Ui_Dialog()
+    ui.setupUi(Dialog)
+    Dialog.show()
+    sys.exit(app.exec_())
 
