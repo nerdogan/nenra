@@ -69,7 +69,7 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
         myddb1 = Myddb()
         self.kontrol=1
 
-        self.logger.info("caribakiye listesi")
+        self.logger.info("caribakiye listesi"+self.lineEdit.text())
 
         self.tableWidget.clearContents()
         self.tableWidget.setColumnWidth(0, 75)

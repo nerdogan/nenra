@@ -41,8 +41,7 @@ handler.setLevel(logging.INFO)
 
 # create a logging format
 
-formatter = logging.Formatter\
-    ('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 handler.setFormatter(formatter)
 logger.addHandler(handler)
 
