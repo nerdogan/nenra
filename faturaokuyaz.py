@@ -82,7 +82,7 @@ date_xf = xlwt.easyxf(num_format_str='DD/MM/YYYY')
 style1 = xlwt.easyxf('pattern: pattern solid, fore_colour red;')
 
 # Filename line 'C:\\Users\\NAMIK\\Google Drive\\bishop\\PERSONEL\\fatura1.xlsx'
-openfile = "C:\\Users\\namik\\202002FATURALAR.xlsx"
+openfile = "C:\\Users\\namik\\202006FATURALARxxx.xlsx"
 
 wb1 = load_workbook(openfile, read_only=True)
 ws = wb1.active
@@ -122,7 +122,7 @@ for row in ws.rows:
             deger = datetime.datetime.strptime(str(cell.value), "%Y-%m-%d %H:%M:%S")
 
             #            deger = datetime.datetime.strptime(str(cell.value), "%d%m%y")
-            print(deger)
+            #print(deger)
 
             t = deger.timetuple()
             deger2 = datetime.date(t[0], t[1], t[2])
@@ -146,13 +146,16 @@ ws4 = wb.add_sheet("gider")
 fatura = Fatura()
 fatura.goster()
 for row in range(int(len(data) / 9)):
+    print("fatura no"+ elma)
 
     for col in range(1, 2):
+        print ("öküzgözü")
         if elma != data[aa + 1]:
-            elma = data[aa + 1]
+
+            elma = str(data[aa + 1])
             dt = data[aa]
 
-            fatura.lineEdit.setText('B')
+            fatura.lineEdit.setText('N01')
             fatura.lineEdit_2.setText(elma)
             fatura.dateEdit.setDate(QtCore.QDate(dt.year, dt.month, dt.day))
             time.sleep(dur)
@@ -162,10 +165,7 @@ for row in range(int(len(data) / 9)):
                 fatura.slotfatura(0, 0)
                 time.sleep(dur)
                 satir2 = 1
-            else:
-                aa = aa + 9
-                elma = "elma"
-                continue
+
 
         print('xxxxxxxxxxxxxxxx', elma, aa)
 
@@ -196,11 +196,12 @@ for row in range(int(len(data) / 9)):
 
         time.sleep(dur)
         if fatura.tableWidget.rowCount() == 0 or fatura.tableWidget.rowCount() > 1:
-            if data[aa + 7] == "1":
+
+            if str(data[aa + 7]) == "1":
                 fatura.lineEdit_3.setText("yiyecek")
-            if data[aa + 7] == "8":
+            if str(data[aa + 7]) == "8":
                 fatura.lineEdit_3.setText("yiyecek")
-            if data[aa + 7] == "18":
+            if str(data[aa + 7]) == "18":
                 fatura.lineEdit_3.setText("temizlik")
 
         time.sleep(dur)
@@ -209,7 +210,7 @@ for row in range(int(len(data) / 9)):
 
         time.sleep(dur)
         fatura.tableWidget_2.setItem((satir - 2), 3, QtGui.QTableWidgetItem(str(data[aa + 7])))
-        if data[aa + 4] == "KG":
+        if data[aa + 4] == "Kilogram":
 
             data[aa + 3] = (float(data[aa + 3]) * 1000)
 
