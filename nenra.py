@@ -83,7 +83,7 @@ def run1(EndDate):
 
 selfstart_time = time.time()
 
-StartDate = "01/01/20"
+StartDate = "01/06/20"
 
 EndDate = datetime.datetime.strptime(StartDate, "%d/%m/%y")
 now = datetime.datetime.now() - datetime.timedelta(days=1)
@@ -95,7 +95,7 @@ for i in range(dt.days + 1):
     dum.append(Thread(target=run1, args=[EndDate]))
     EndDate = EndDate + datetime.timedelta(days=1)
     dum[i].start()
-    if i % 30 == 0:
+    if i % 10 == 0:
         time.sleep(1)
 
 for i in range(dt.days + 1):
@@ -114,7 +114,7 @@ class WorkerThread(QThread):
 
     def run(self):
 
-        StartDate = "01/01/20"
+        StartDate = "28/06/20"
 
         EndDate = datetime.datetime.strptime(StartDate, "%d/%m/%y")
         now = datetime.datetime.now() - datetime.timedelta(days=1)

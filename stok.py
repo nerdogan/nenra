@@ -99,7 +99,7 @@ class Stok(QtGui.QDialog , Ui_Dialog6):
         for row1 in bul:
 
             # Giriş ve çıkışı sıfır olan stokları görmemek için aşağıdaki satırı çalıştırın
-            if row1[3]==0 and row1[3]==0 :
+            if row1[3]==0 and row1[4]==0 :
                 continue
 
 
@@ -116,7 +116,7 @@ class Stok(QtGui.QDialog , Ui_Dialog6):
             self.ws1.write(aa, 2, item)
             self.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
 
-            item = str(row1[3])
+            item = str("{:10.2f}".format(row1[3]))
 
             toplam = toplam + float(row1[3])
             self.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
@@ -124,7 +124,7 @@ class Stok(QtGui.QDialog , Ui_Dialog6):
             c.drawRightString( 330, 800 - (15 * (bb + 1)), "{:10.2f}".format(row1[3]))
             self.ws1.write(aa, 3, float(row1[3]))
 
-            item = str(row1[4])
+            item = str("{:10.2f}".format(row1[4]))
 
             toplam1 = toplam1 + float(row1[4])
             self.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
@@ -132,7 +132,7 @@ class Stok(QtGui.QDialog , Ui_Dialog6):
             c.drawRightString(405, 800 - (15 * (bb + 1)), "{:10.2f}".format(row1[4]))
             self.ws1.write(aa, 4, float(row1[4]))
 
-            item = str(row1[5])
+            item = str("{:10.2f}".format(row1[5]))
 
             toplam2 = toplam2 + float(row1[5])
             self.tableWidget.setItem(aa, 5, QtGui.QTableWidgetItem(item))
@@ -177,6 +177,7 @@ class Stok(QtGui.QDialog , Ui_Dialog6):
 
         c.save()
         self.wb.save(self.dest_filename)
+        self.tableWidget.setRowCount(aa+3)
 
     @pyqtSlot()
     def cariekstre(self):

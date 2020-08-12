@@ -142,12 +142,28 @@ class mizan():
 
 if __name__ == '__main__':
     elma=mizan("2019-12-01","2019-12-31")
+
     elma.bishopgenel()
     elma.tarih1 = "2020-01-01"
     elma.tarih2 = "2020-01-31"
     elma.bishopgenel()
     elma.tarih1 = "2020-02-01"
     elma.tarih2 = "2020-02-29"
+    elma.bishopgenel()
+    elma.tarih1 = "2020-03-01"
+    elma.tarih2 = "2020-03-31"
+    elma.bishopgenel()
+    elma.tarih1 = "2020-04-01"
+    elma.tarih2 = "2020-04-30"
+    elma.bishopgenel()
+    elma.tarih1 = "2020-05-01"
+    elma.tarih2 = "2020-05-31"
+    elma.bishopgenel()
+    elma.tarih1 = "2020-06-01"
+    elma.tarih2 = "2020-06-30"
+    elma.bishopgenel()
+    elma.tarih1 = "2020-07-01"
+    elma.tarih2 = "2020-07-31"
     elma.bishopgenel()
     """
     elma.tarih1 = "2019-01-01"
@@ -223,7 +239,7 @@ if __name__ == '__main__':
     elma.tarih1 = "2018-12-01"
     elma.tarih2 = "2018-12-31"
     elma.bishopgenel()
-"""
+    """
     elma.testgen()
     print("mizan güncelleme bitti")
 
