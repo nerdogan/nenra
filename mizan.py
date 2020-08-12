@@ -165,6 +165,9 @@ if __name__ == '__main__':
     elma.tarih1 = "2020-07-01"
     elma.tarih2 = "2020-07-31"
     elma.bishopgenel()
+    elma.tarih1 = "2020-08-01"
+    elma.tarih2 = "2020-08-31"
+    elma.bishopgenel()
     """
     elma.tarih1 = "2019-01-01"
     elma.tarih2 = "2019-01-31"
