@@ -82,7 +82,7 @@ date_xf = xlwt.easyxf(num_format_str='DD/MM/YYYY')
 style1 = xlwt.easyxf('pattern: pattern solid, fore_colour red;')
 
 # Filename line 'C:\\Users\\NAMIK\\Google Drive\\bishop\\PERSONEL\\fatura1.xlsx'
-openfile = "C:\\Users\\namik\\202006FATURALARxxx.xlsx"
+openfile = "C:\\Users\\namik\\202007FATURALARxxx.xlsx"
 
 wb1 = load_workbook(openfile, read_only=True)
 ws = wb1.active
@@ -153,10 +153,11 @@ for row in range(int(len(data) / 9)):
         if elma != data[aa + 1]:
 
             elma = str(data[aa + 1])
+            armut=int(elma.rsplit("N012020")[1])
             dt = data[aa]
 
             fatura.lineEdit.setText('N01')
-            fatura.lineEdit_2.setText(elma)
+            fatura.lineEdit_2.setText(str(armut))
             fatura.dateEdit.setDate(QtCore.QDate(dt.year, dt.month, dt.day))
             time.sleep(dur)
             if fatura.label_5.text() == "":
