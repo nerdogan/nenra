@@ -22,6 +22,8 @@ class mizan():
         self.toplam = 0
         self.toplam1 = 0
 
+        satis1="SELECT SUM(TUTAR) FROM (select * from bishop.ciro union all select * from bishop.ciro1) as ciroo  where tarih between %s  and %s "
+
         satis="SELECT departman,sum(adet),SUM(TUTAR) FROM (select * from bishop.ciro union all select * from bishop.ciro1) as ciroo  where tarih between %s  and %s and departman!=0 group by 1"
         myddb = Myddb()
         print(myddb.cur.execute(satis, (self.tarih1, self.tarih2)))
@@ -32,6 +34,10 @@ class mizan():
             myddb.cur.execute(sql,(row[0],"600.0"+str(row[0]),row[2],self.tarih2))
             myddb.conn.commit()
             self.toplam=self.toplam+row[2]
+
+        print(myddb.cur.execute(satis1, (self.tarih1, self.tarih2)))
+        bul1=myddb.cur.fetchall()
+        self.toplam=bul1[0][0]
 
         sql="insert into bishop.genelrapor (rkod,aciklama,miktar1,tarih) values (%s,%s,%s,%s)"
         myddb.cur.execute(sql,(4,"600",self.toplam,self.tarih2))
@@ -141,9 +147,10 @@ class mizan():
 
 
 if __name__ == '__main__':
-    elma=mizan("2019-12-01","2019-12-31")
 
+    elma=mizan("2019-12-01","2019-12-31")
     elma.bishopgenel()
+
     elma.tarih1 = "2020-01-01"
     elma.tarih2 = "2020-01-31"
     elma.bishopgenel()

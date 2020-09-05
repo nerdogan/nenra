@@ -9,8 +9,8 @@ auth_token  = "aa59d2e6f341b52cab7e3bc38a624577"
 client = Client(account_sid, auth_token)
 
 message = client.messages.create(
-    to="+905533155775",
+    to="+905533155794",
     from_="+15005550006",
-    body="Nenra Bishop Giris Kodu 1245")
+    body="Nenra Bishop Giris Kodu 1234")
 
 print(message.sid)
