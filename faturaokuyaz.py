@@ -166,6 +166,10 @@ for row in range(int(len(data) / 9)):
                 fatura.slotfatura(0, 0)
                 time.sleep(dur)
                 satir2 = 1
+            else:
+                fatura.tableWidget_2.setRowCount(0)
+                satir2=1
+
 
 
         print('xxxxxxxxxxxxxxxx', elma, aa)
