@@ -20,7 +20,7 @@ con = fdb.connect(
     user='sysdba', password='masterkey',
     charset='UTF8' # specify a character set for the connection #
      )
-cur=con.cursor()
+cur = con.cursor()
 
 
 class Pos1(QtGui.QWidget):

@@ -150,7 +150,14 @@ if __name__ == '__main__':
 
     elma=mizan("2019-12-01","2019-12-31")
     elma.bishopgenel()
+    elma.tarih1 = "2020-09-01"
+    elma.tarih2 = "2020-09-30"
+    elma.bishopgenel()
+    elma.tarih1 = "2020-10-01"
+    elma.tarih2 = "2020-10-31"
+    elma.bishopgenel()
 
+    """
     elma.tarih1 = "2020-01-01"
     elma.tarih2 = "2020-01-31"
     elma.bishopgenel()
@@ -175,7 +182,14 @@ if __name__ == '__main__':
     elma.tarih1 = "2020-08-01"
     elma.tarih2 = "2020-08-31"
     elma.bishopgenel()
-    """
+    elma.tarih1 = "2020-09-01"
+    elma.tarih2 = "2020-09-30"
+    elma.bishopgenel()
+    elma.tarih1 = "2020-10-01"
+    elma.tarih2 = "2020-10-31"
+    elma.bishopgenel()
+
+   
     elma.tarih1 = "2019-01-01"
     elma.tarih2 = "2019-01-31"
     elma.bishopgenel()
