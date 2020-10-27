@@ -18,9 +18,9 @@ from modulemdb import *
 
 app = QtGui.QApplication(sys.argv)
 mydb = Myddb()
-# fname = unicode(QtGui.QFileDialog.getOpenFileName())
-# print fname.encode("utf-8")
-# openfile=fname
+fname = QtGui.QFileDialog.getOpenFileName()
+print(fname)
+openfile=fname
 fname = ""
 
 if fname.endswith("s"):
@@ -82,7 +82,7 @@ date_xf = xlwt.easyxf(num_format_str='DD/MM/YYYY')
 style1 = xlwt.easyxf('pattern: pattern solid, fore_colour red;')
 
 # Filename line 'C:\\Users\\NAMIK\\Google Drive\\bishop\\PERSONEL\\fatura1.xlsx'
-openfile = "C:\\Users\\namik\\202007FATURALARxxx.xlsx"
+#openfile = "C:\\Users\\namik\\202007FATURALARxxx.xlsx"
 
 wb1 = load_workbook(openfile, read_only=True)
 ws = wb1.active
