@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from modulemdb import *
-from datetime import datetime,timedelta
+from datetime import datetime, timedelta
 from reportlab.pdfgen import canvas
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
@@ -155,6 +155,12 @@ if __name__ == '__main__':
     elma.bishopgenel()
     elma.tarih1 = "2020-10-01"
     elma.tarih2 = "2020-10-31"
+    elma.bishopgenel()
+    elma.tarih1 = "2020-11-01"
+    elma.tarih2 = "2020-11-30"
+    elma.bishopgenel()
+    elma.tarih1 = "2020-12-01"
+    elma.tarih2 = "2020-12-31"
     elma.bishopgenel()
 
     """

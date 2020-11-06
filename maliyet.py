@@ -103,6 +103,7 @@ class Maliyet(QtGui.QDialog , Ui_Dialog4):
 
             aa = aa + 1
             bb = bb + 1
+            print(aa)
 
             if (15 * (bb + 1)) >= 760:
                 c.setFont("Verdana", 11)
@@ -238,6 +239,16 @@ class Maliyet(QtGui.QDialog , Ui_Dialog4):
         else:
             opener = "open" if sys.platform == "darwin" else "xdg-open"
             subprocess.call([opener, "maliyet" + tar1 + tar2 + ".pdf"])
+
+
+
+if __name__ == "__main__":
+    app = QtGui.QApplication(sys.argv)
+    fatura1=Maliyet()
+    fatura1.show()
+    fatura1.raise_()
+    app.exec_()
+    print("maliyet kapandı")
 
 
 

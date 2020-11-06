@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>889</width>
-    <height>600</height>
+    <width>903</width>
+    <height>755</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -97,8 +97,8 @@
     <rect>
      <x>180</x>
      <y>10</y>
-     <width>681</width>
-     <height>581</height>
+     <width>711</width>
+     <height>731</height>
     </rect>
    </property>
    <column>
@@ -124,11 +124,6 @@
    <column>
     <property name="text">
      <string>Maliyet</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>Kar Oranı</string>
     </property>
    </column>
   </widget>
