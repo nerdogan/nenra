@@ -1,4 +1,4 @@
-# -*- coding:utf-8 -*-
+
 __author__ = 'NAMIK'
 
 from PyQt4 import QtGui, QtCore

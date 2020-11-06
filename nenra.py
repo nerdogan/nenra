@@ -80,6 +80,7 @@ def run1(EndDate):
             myddb.cur.executemany(sql1, valnen)
             myddb.conn.commit()
             print(valnen)
+            
 
 
 selfstart_time = time.time()
