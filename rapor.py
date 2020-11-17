@@ -427,7 +427,7 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
 
 
             if row1[0]==107:
-                item = str(row1[0])+" Banka(getir)  "
+                item = str(row1[0])+" GetirOnline  "
                 self.ws1.write(aa, 0, item)
                 self.d.text(item.ljust(30) + " ")
                 self.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
