@@ -292,15 +292,37 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
         bul = myddb1.cur.fetchall()
         i = bul2
         j = 5
-        self.tableWidget.setRowCount(i+5)
+        self.tableWidget.setRowCount(i+8)
         aa = 0
         bb = 0
         dep=0
         toplam = 0.0
         toplam1 = 0.0
         toplam2 = 0.0000
+        toplam3 = 0.0000
         for row1 in bul:
 
+
+            if row1[0]==98:
+                item = str(row1[0])+" Paket Nakit "
+                self.ws1.write(aa, 0, item)
+                self.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
+                c.drawString(150, 800 - (15 * (bb + 1)), item)
+                self.d.text(item.ljust(30) + " ")
+                item = str(row1[1])
+                self.d.text(item.rjust(10) + " \n")
+                self.ws1.write(aa, 3, float(row1[1]))
+                c.drawRightString(310, 800 - (15 * (bb + 1)), item)
+                toplam = Decimal(toplam) + (row1[1])
+                toplam1 = Decimal(toplam1) + (row1[1])
+                toplam3 = Decimal(toplam3) + (row1[1])
+                item=QtGui.QTableWidgetItem(item)
+                item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignRight)
+                self.tableWidget.setItem(aa, 1, item)
+
+                item= ""
+                c.drawRightString(390, 800 - (15 * (bb + 1)), item)
+                self.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
 
             if row1[0]==99:
                 item = str(row1[0])+" Diğer "
@@ -384,6 +406,49 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
                 c.drawRightString(390, 800 - (15 * (bb + 1)), item)
                 self.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
 
+            if row1[0]==103:
+                item = str(row1[0])+" PaketDenizbank "
+                self.ws1.write(aa, 0, item)
+                self.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
+                c.drawString(150, 800 - (15 * (bb + 1)), item)
+                self.d.text(item.ljust(30) + " ")
+
+                item = str(row1[1])
+                self.ws1.write(aa, 3, float(row1[1]))
+                c.drawRightString(310, 800 - (15 * (bb + 1)), item)
+                toplam2=Decimal(toplam2)+(row1[1])
+                toplam1 = Decimal(toplam1) + (row1[1])
+                toplam3 = Decimal(toplam3) + (row1[1])
+
+                self.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
+                self.d.text(item.rjust(10)+ " \n")
+                self.tableWidget.item(aa, 1).setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignRight)
+
+                item= ""
+                c.drawRightString(390, 800 - (15 * (bb + 1)), item)
+                self.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+
+            if row1[0]==104:
+                item = str(row1[0])+" Paket ykb "
+                self.ws1.write(aa, 0, item)
+                self.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
+                c.drawString(150, 800 - (15 * (bb + 1)), item)
+                self.d.text(item.ljust(30) + " ")
+
+                item = str(row1[1])
+                self.ws1.write(aa, 3, float(row1[1]))
+                c.drawRightString(310, 800 - (15 * (bb + 1)), item)
+                toplam2=Decimal(toplam2)+(row1[1])
+                toplam3 = Decimal(toplam3) + (row1[1])
+                toplam1 = Decimal(toplam1) + (row1[1])
+                self.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
+                self.d.text(item.rjust(10)+ " \n")
+                self.tableWidget.item(aa, 1).setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignRight)
+
+                item= ""
+                c.drawRightString(390, 800 - (15 * (bb + 1)), item)
+                self.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+
             if row1[0]==105:
                 item = str(row1[0])+" Denizbank "
                 self.ws1.write(aa, 0, item)
@@ -425,8 +490,28 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
                 c.drawRightString(390, 800 - (15 * (bb + 1)), item)
                 self.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
 
-
             if row1[0]==107:
+                item = str(row1[0])+" Banka  "
+                self.ws1.write(aa, 0, item)
+                self.d.text(item.ljust(30) + " ")
+                self.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
+                c.drawString(150, 800 - (15 * (bb + 1)), item)
+
+                item = str(row1[1])
+                self.d.text(item.rjust(10)+ " \n")
+                self.ws1.write(aa, 3, float(row1[1]))
+                c.drawRightString(310, 800 - (15 * (bb + 1)), item)
+                toplam3 = Decimal(toplam3) + (row1[1])
+                toplam1 = Decimal(toplam1) + (row1[1])
+                item=QtGui.QTableWidgetItem(item)
+                item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignRight)
+                self.tableWidget.setItem(aa, 1, item)
+
+                item= ""
+                c.drawRightString(390, 800 - (15 * (bb + 1)), item)
+                self.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+
+            if row1[0]==108:
                 item = str(row1[0])+" GetirOnline  "
                 self.ws1.write(aa, 0, item)
                 self.d.text(item.ljust(30) + " ")
@@ -437,7 +522,28 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
                 self.d.text(item.rjust(10)+ " \n")
                 self.ws1.write(aa, 3, float(row1[1]))
                 c.drawRightString(310, 800 - (15 * (bb + 1)), item)
-                #toplam2=Decimal(toplam2)+(row1[1])
+                toplam3 = Decimal(toplam3) + (row1[1])
+                toplam1 = Decimal(toplam1) + (row1[1])
+                item=QtGui.QTableWidgetItem(item)
+                item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignRight)
+                self.tableWidget.setItem(aa, 1, item)
+
+                item= ""
+                c.drawRightString(390, 800 - (15 * (bb + 1)), item)
+                self.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+
+            if row1[0]==109:
+                item = str(row1[0])+" YemekSepetiOnline "
+                self.ws1.write(aa, 0, item)
+                self.d.text(item.ljust(30) + " ")
+                self.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
+                c.drawString(150, 800 - (15 * (bb + 1)), item)
+
+                item = str(row1[1])
+                self.d.text(item.rjust(10)+ " \n")
+                self.ws1.write(aa, 3, float(row1[1]))
+                c.drawRightString(310, 800 - (15 * (bb + 1)), item)
+                toplam3 = Decimal(toplam3) + (row1[1])
                 toplam1 = Decimal(toplam1) + (row1[1])
                 item=QtGui.QTableWidgetItem(item)
                 item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignRight)
@@ -466,8 +572,6 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
                 item= ""
                 c.drawRightString(390, 800 - (15 * (bb + 1)), item)
                 self.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
-
-
 
 
 
@@ -510,28 +614,42 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
         self.kontrol=0
         self.d.text("\n\n")
 
-        item = "Genel Toplam "
+        item = "Paket Toplam "
         self.d.text(item.ljust(30) + " ")
         self.tableWidget.setItem(aa + 1, 0, QtGui.QTableWidgetItem(item))
-        item = str(toplam1)
+        item = str(toplam3)
         self.d.text(item.rjust(10)+ " \n")
         self.tableWidget.setItem(aa + 1, 1, QtGui.QTableWidgetItem(item))
 
-        item = "Kasa Kalan Nakit "
+        item = "Masa Toplam "
         self.d.text(item.ljust(30) + " ")
         self.tableWidget.setItem(aa + 2, 0, QtGui.QTableWidgetItem(item))
-        item = str(toplam)
-        self.d.text(item.rjust(10) + " \n")
+        item = str(toplam1-toplam3)
+        self.d.text(item.rjust(10)+ " \n")
         self.tableWidget.setItem(aa + 2, 1, QtGui.QTableWidgetItem(item))
 
-        item = "Kredi Kart Toplam "
+        item = "Genel Toplam "
         self.d.text(item.ljust(30) + " ")
         self.tableWidget.setItem(aa + 3, 0, QtGui.QTableWidgetItem(item))
-        item = str(toplam2)
+        item = str(toplam1)
         self.d.text(item.rjust(10)+ " \n")
         self.tableWidget.setItem(aa + 3, 1, QtGui.QTableWidgetItem(item))
 
-        aa=aa+5
+        item = "Kasa Kalan Nakit "
+        self.d.text(item.ljust(30) + " ")
+        self.tableWidget.setItem(aa + 4, 0, QtGui.QTableWidgetItem(item))
+        item = str(toplam)
+        self.d.text(item.rjust(10) + " \n")
+        self.tableWidget.setItem(aa + 4, 1, QtGui.QTableWidgetItem(item))
+
+        item = "Kredi Kart Toplam "
+        self.d.text(item.ljust(30) + " ")
+        self.tableWidget.setItem(aa + 5 , 0, QtGui.QTableWidgetItem(item))
+        item = str(toplam2)
+        self.d.text(item.rjust(10)+ " \n")
+        self.tableWidget.setItem(aa + 5, 1, QtGui.QTableWidgetItem(item))
+
+        aa=aa+8
         self.d.text(u"\n\n\n Ödemeler \n")
 
         sql = """select
