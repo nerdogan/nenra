@@ -219,7 +219,7 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
         self.d.text("\n")
         self.d.text("Genel Toplam :      "+(str(toplam)).rjust(20)+(str(toplam1)).rjust(10)+"\n")
 
-        self.d.cut()
+        self.d.cut(mode='PART')
 
     @pyqtSlot()
     def cariekstre(self):
@@ -697,7 +697,7 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
         self.d.barcode(tar1, "CODE39", 80, 3)
         self.d.set(font='a', align='left', height=1, width=1)
         self.d.text(u"\n\n\n  İmza : \n")
-        self.d.cut()
+        self.d.cut(mode='PART')
         c.save()
         self.wb.save(self.dest_filename)
 

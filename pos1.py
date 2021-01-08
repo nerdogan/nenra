@@ -94,7 +94,7 @@ class Pos1(QtGui.QWidget):
 
     @atexit.register
     def cikis():
-        print ("çıkıyor")
+        print("çıkıyor")
         con.close()
         pass
 
@@ -165,6 +165,7 @@ class Pos1(QtGui.QWidget):
 
         self.tar=QtGui.QDateEdit(d)
         self.tar.setCalendarPopup(True)
+        self.tar.setDate(QtCore.QDate.currentDate())
         self.tar.move(10,10)
         self.tar.dateChanged.connect(self.tarihkaydet)
         d.setWindowTitle("Dialog")

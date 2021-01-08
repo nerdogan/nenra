@@ -121,26 +121,26 @@ class mizan():
         myddb1.cur.execute(sql+sql1+sql2)
         myddb1.kapat()
 
-        sqlx="select distinct rkod,aciklama from bishop.genelrapor "
+        sqlx="select distinct aciklama from bishop.genelrapor order by rkod"
         myddb.cur.execute(sqlx)
         bul1=myddb.cur.fetchall()
         myddb.conn.commit()
         sqlx=""
         for row in bul1:
-            sqlx="insert into test.genelrapor (rkod,aciklama) values (%s,%s) "
-            myddb.cur.execute(sqlx,(row[0],row[1]))
+            sqlx="insert into test.genelrapor (aciklama) values (%s) "
+            myddb.cur.execute(sqlx,(row[0],))
 
 
         myddb.conn.commit()
 
         for row in bul:
             print(str(row[0]))
-            sql="select miktar1,rkod from bishop.genelrapor where tarih= %s"
+            sql="select miktar1,aciklama from bishop.genelrapor where tarih= %s"
             myddb.cur.execute(sql,(str(row[0]),))
             bul1=myddb.cur.fetchall()
             for row1 in bul1:
                 print(row1[0])
-                sqlx = "update test.genelrapor set `" + str(row[0]) + "` = %s where `rkod` = %s "
+                sqlx = "update test.genelrapor set `" + str(row[0]) + "` = %s where `aciklama` = %s "
                 myddb.cur.execute(sqlx,(str(row1[0]),(row1[1])))
 
         myddb.conn.commit()
@@ -148,7 +148,9 @@ class mizan():
 
 if __name__ == '__main__':
 
+
     elma=mizan("2019-12-01","2019-12-31")
+    #elma.testgen()
     elma.bishopgenel()
     elma.tarih1 = "2020-09-01"
     elma.tarih2 = "2020-09-30"
@@ -161,6 +163,9 @@ if __name__ == '__main__':
     elma.bishopgenel()
     elma.tarih1 = "2020-12-01"
     elma.tarih2 = "2020-12-31"
+    elma.bishopgenel()
+    elma.tarih1 = "2021-01-01"
+    elma.tarih2 = "2021-01-31"
     elma.bishopgenel()
 
     """
