@@ -149,7 +149,7 @@ class mizan():
 if __name__ == '__main__':
 
 
-    elma=mizan("2019-12-01","2019-12-31")
+    elma=mizan("2020-08-01","2020-08-31")
     #elma.testgen()
     elma.bishopgenel()
     elma.tarih1 = "2020-09-01"
@@ -166,6 +166,9 @@ if __name__ == '__main__':
     elma.bishopgenel()
     elma.tarih1 = "2021-01-01"
     elma.tarih2 = "2021-01-31"
+    elma.bishopgenel()
+    elma.tarih1 = "2021-02-01"
+    elma.tarih2 = "2021-02-28"
     elma.bishopgenel()
 
     """

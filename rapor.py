@@ -122,6 +122,7 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
         toplam = 0.0
         toplam1 = 0.0
         toplam2 = 0.0000
+        toplam3 =0.00
         bolum = 0
         bolum1 = 0
 
@@ -299,7 +300,7 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
         toplam = 0.0
         toplam1 = 0.0
         toplam2 = 0.0000
-        toplam3 = 0.0000
+        toplam3 = Decimal(0.0000) // paket 0 olduğunda hata vermemesi için
         for row1 in bul:
 
 
