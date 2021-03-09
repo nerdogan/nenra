@@ -297,10 +297,10 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
         aa = 0
         bb = 0
         dep=0
-        toplam = 0.0
-        toplam1 = 0.0
-        toplam2 = 0.0000
-        toplam3 = Decimal(0.0000) // paket 0 olduğunda hata vermemesi için
+        toplam = Decimal(0.0000) # paket 0 olduğunda hata vermemesi için
+        toplam1 = Decimal(0.0000) # paket 0 olduğunda hata vermemesi için
+        toplam2 = Decimal(0.0000) # paket 0 olduğunda hata vermemesi için
+        toplam3 = Decimal(0.0000) # paket 0 olduğunda hata vermemesi için
         for row1 in bul:
 
 
