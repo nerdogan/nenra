@@ -18,11 +18,16 @@ import logging
 # import urllib2
 import time
 from threading import Thread
+from PyQt5 import QtGui, QtCore, uic, QtWidgets
+from PyQt5.QtWidgets import QMainWindow, QApplication
+from PyQt5.QtCore import *
+from PyQt5.QtGui import QKeyEvent
+"""
 from PyQt4.QtGui import QApplication, QKeyEvent
 from PyQt4.QtCore \
     import pyqtSlot, pyqtSignal, QThread, Qt, QCoreApplication, QEvent
 from PyQt4 import QtGui, QtCore
-
+"""
 from mainwindow import MainWindow
 from mainwindow import Recete
 from mainwindow import Recete2
@@ -85,7 +90,7 @@ def run1(EndDate):
 
 selfstart_time = time.time()
 
-StartDate = "01/11/20"
+StartDate = "01/03/21"
 
 EndDate = datetime.datetime.strptime(StartDate, "%d/%m/%y")
 now = datetime.datetime.now() - datetime.timedelta(days=1)
@@ -116,7 +121,7 @@ class WorkerThread(QThread):
 
     def run(self):
 
-        StartDate = "01/11/20"
+        StartDate = "01/03/21"
 
         EndDate = datetime.datetime.strptime(StartDate, "%d/%m/%y")
         now = datetime.datetime.now() - datetime.timedelta(days=1)
@@ -215,6 +220,7 @@ def main():
     recete = Recete()
     recete2 = Recete2()
     fatura = Fatura()
+
     maliyet = Maliyet()
     cari = Cari()
     stok = Stok()
@@ -434,7 +440,7 @@ def main():
     def slottediye(item2):
         if item2 == "VADE":
             cari.show()
-            cari.slotcarivade()
+         #   cari.slotcarivade()
 
     @pyqtSlot()
     def slotmaliyet(item2):
@@ -465,6 +471,8 @@ def main():
     @pyqtSlot()
     def slotpuss4(item2):
         print(item2)
+        mainWindow.show()
+        mainWindow.raise_()
         if item2 == 100:
             mainWindow.statusbar.showMessage(
                 u"Namık ERDOĞAN © 2016    Kullanıcı adı girilmedi !!! "
@@ -552,8 +560,9 @@ def main():
             aa = aa + 1
 
     @pyqtSlot()
-    def copyFunction():
+    def copyFunction(e):
         print("f10 a bastın")
+        print(e.key())
 
         elma = fatura.tableWidget_2.currentRow()
         elma1 = fatura.tableWidget_2.rowCount()
@@ -620,15 +629,17 @@ def main():
     rapor.setWindowModality(Qt.ApplicationModal)
     stok.setWindowModality(Qt.ApplicationModal)
     cari.setWindowModality(Qt.ApplicationModal)
+    fatura.keyPressEvent=copyFunction
 
-    fatura.connect(QtGui.QShortcut(QtGui.QKeySequence(Qt.Key_Enter),
-                                   fatura), QtCore.SIGNAL('activated()'),
-                   copyFunction)
 
-    mainWindow.connect(login, QtCore.SIGNAL("acac1(int)"), slotpuss4)
-    slotpuss4(100)
-    mainWindow.connect(fatura, QtCore.SIGNAL("acac"), slotpuss5)
-    mainWindow.connect(cari, QtCore.SIGNAL("fisac"), slotpuss6)
+ #   fatura.connect(QtGui.QShortcut(QtGui.QKeySequence(Qt.Key_Enter),  fatura), QtCore.SIGNAL('activated()'), copyFunction)
+
+#    mainWindow.connect(login, QtCore.SIGNAL("acac1(int)"), slotpuss4)
+    login.acac1.connect(slotpuss4)
+#    mainWindow.connect(fatura, QtCore.SIGNAL("acac"), slotpuss5)
+#    mainWindow.connect(cari, QtCore.SIGNAL("fisac"), slotpuss6)
+    cari.my_signal.connect(slotpuss6)
+   # mainWindow.setWindowFlags(QtCore.Qt.FramelessWindowHint)
 
     mainWindow.move(13, 10)
 

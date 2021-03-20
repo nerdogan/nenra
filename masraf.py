@@ -15,8 +15,9 @@ import sys
 import re
 from datetime import datetime,timedelta
 import  time
-from PyQt4.QtCore import pyqtSlot
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtGui, QtCore, uic, QtWidgets
+from PyQt5.QtWidgets import QMainWindow, QDialog
+from PyQt5.QtCore import *
 from ui_masraf import Ui_Masraf
 from fatura import Fatura
 
@@ -24,11 +25,11 @@ from modulemdb import *
 
 
 
-class Masraf(QtGui.QDialog , Ui_Masraf):
+class Masraf(QtWidgets.QDialog , Ui_Masraf):
 
 
     def __init__(self):
-        QtGui.QDialog.__init__(self)
+        QtWidgets.QDialog.__init__(self)
         self.setupUi(self)
         self.mydbb=Myddb()
         self.led={}
@@ -176,7 +177,7 @@ class Masraf(QtGui.QDialog , Ui_Masraf):
         self.tableWidget_2.blockSignals(False)
 
 
-    @pyqtSlot(int, int)
+    @pyqtSlot()
     def masrafkaydet(self, ):
         self.pushButton_3.setDisabled(True)
         self.pushButton_3.blockSignals(1)

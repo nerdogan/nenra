@@ -5,17 +5,19 @@ import time as ttim
 import math
 import re
 import hesapla
-#from PyQt4.QtCore import pyqtSlot
-from PyQt4 import QtGui, QtCore,QtTest
+from PyQt5 import QtGui, QtCore, uic, QtWidgets
+from PyQt5.QtWidgets import QMainWindow,QDialog, QApplication
+from PyQt5.QtCore import *
+
 from ui_hesap import Ui_Dialog
 
 from modulemdb import *
 
 
 
-class Hesap(QtGui.QDialog , Ui_Dialog):
+class Hesap(QDialog , Ui_Dialog):
     def __init__(self):
-        QtGui.QDialog.__init__(self)
+        QtWidgets.QDialog.__init__(self)
         self.setupUi(self)
         self.pushButton.clicked.connect(self.slothesapla)
 

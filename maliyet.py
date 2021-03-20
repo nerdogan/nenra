@@ -3,8 +3,10 @@ import sys
 import re
 import datetime
 import subprocess
-from PyQt4.QtCore import pyqtSlot
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtGui, QtCore, uic, QtWidgets
+from PyQt5.QtWidgets import QMainWindow, QDialog
+from PyQt5.QtCore import *
+
 from ui_maliyet import Ui_Dialog4
 
 from modulemdb import *
@@ -15,9 +17,9 @@ from reportlab.rl_settings import *
 
 
 
-class Maliyet(QtGui.QDialog , Ui_Dialog4):
+class Maliyet(QDialog , Ui_Dialog4):
     def __init__(self):
-        QtGui.QDialog.__init__(self)
+        QtWidgets.QDialog.__init__(self)
         self.setupUi(self)
         #self.myddb = Myddb()
         self.tableWidget.setRowCount(0)
