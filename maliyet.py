@@ -74,26 +74,26 @@ class Maliyet(QDialog , Ui_Dialog4):
             bul1 = myddb1.cur.fetchall()
 
             item = str(row1[0])
-            self.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 0, QtWidgets.QTableWidgetItem(item))
             c.drawString(45, 800 - (15 * (bb + 1)), item)
             item = row1[1]
             c.drawString(80, 800 - (15 * (bb + 1)), item)
-            self.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 1, QtWidgets.QTableWidgetItem(item))
             item = str(row1[2])
 
             toplam = toplam + float(row1[2])
-            self.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 2, QtWidgets.QTableWidgetItem(item))
             c.drawString(230, 800 - (15 * (bb + 1)), item)
             item = str(row1[3])
             c.drawString(270, 800 - (15 * (bb + 1)), item)
             toplam1 = toplam1 + float(row1[3])
-            self.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 3, QtWidgets.QTableWidgetItem(item))
             item = "0"
             if (bul1[0][1]) is not None:
                 toplam2 = toplam2 + float(bul1[0][1])
                 item = str("{:06.2f}".format(float(bul1[0][1])))
             c.drawString(350, 800 - (15 * (bb + 1)), item)
-            self.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 4, QtWidgets.QTableWidgetItem(item))
 
             if int(row1[3]) == 0:
                 item = "% 100"
@@ -101,7 +101,7 @@ class Maliyet(QDialog , Ui_Dialog4):
                 if (bul1[0][1]) is not None:
                     item = "% " + str(int((float(bul1[0][1])) / row1[3] * 100))
                     c.drawString(450, 800 - (15 * (bb + 1)), item)
-            self.tableWidget.setItem(aa, 5, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 5, QtWidgets.QTableWidgetItem(item))
 
             aa = aa + 1
             bb = bb + 1
@@ -179,26 +179,26 @@ class Maliyet(QDialog , Ui_Dialog4):
                 toplam2 = 0.0
 
             item = str(row1[0])
-            self.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 0, QtWidgets.QTableWidgetItem(item))
             c.drawString(45, 800 - (15 * (bb + 1)), item)
             item = row1[2]
             c.drawString(80, 800 - (15 * (bb + 1)), item)
-            self.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 1, QtWidgets.QTableWidgetItem(item))
             item = str(row1[3])
 
             toplam = toplam + float(row1[3])
-            self.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 2, QtWidgets.QTableWidgetItem(item))
             c.drawString(230, 800 - (15 * (bb + 1)), item)
             item = str(row1[4])
             c.drawString(270, 800 - (15 * (bb + 1)), item)
             toplam1 = toplam1 + float(row1[4])
-            self.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 3, QtWidgets.QTableWidgetItem(item))
             item = "0"
             if (bul1[0][1]) is not None:
                 toplam2 = toplam2 + float(bul1[0][1])
                 item = str("{:06.2f}".format(float(bul1[0][1])))
             c.drawString(350, 800 - (15 * (bb + 1)), item)
-            self.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 4, QtWidgets.QTableWidgetItem(item))
 
             if int(row1[4]) == 0:
                 item = "% 100"
@@ -206,7 +206,7 @@ class Maliyet(QDialog , Ui_Dialog4):
                 if (bul1[0][1]) is not None:
                     item = "% " + str(int((float(bul1[0][1])) / row1[4] * 100))
                     c.drawString(450, 800 - (15 * (bb + 1)), item)
-            self.tableWidget.setItem(aa, 5, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 5, QtWidgets.QTableWidgetItem(item))
 
             aa = aa + 1
             bb = bb + 1
@@ -245,7 +245,7 @@ class Maliyet(QDialog , Ui_Dialog4):
 
 
 if __name__ == "__main__":
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     fatura1=Maliyet()
     fatura1.show()
     fatura1.raise_()

@@ -71,7 +71,7 @@ class Rapor(QtWidgets.QDialog , Ui_Dialog7):
 
         self.d.set(font='a', align='left', height=1, width=1)
 
-        print("caribakiye listesi")
+        print("Ürün listesi")
         self.tableWidget.clearContents()
         self.tableWidget.setColumnWidth(0, 50)
         self.tableWidget.setColumnWidth(1, 50)
@@ -113,6 +113,7 @@ class Rapor(QtWidgets.QDialog , Ui_Dialog7):
         bul2 = myddb1.cur.execute(sql)
         print(bul2, tar1, tar2)
         bul = myddb1.cur.fetchall()
+        print(bul)
         i = bul2
         j = 5
         self.tableWidget.setRowCount(i + 2)

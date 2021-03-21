@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['nenra.py'],
-             pathex=['C:\\Users\\NAMIK\\PycharmProjects\\nenra'],
+             pathex=['C:\\Users\\bisho\\PycharmProjects\\nenra'],
              binaries=None,
              datas=None,
              hiddenimports=[
@@ -31,7 +31,7 @@ exe = EXE(pyz,
           console=False)
 coll = COLLECT(exe,
                a.binaries,
-               Tree('C:\\Users\\NAMIK\\PycharmProjects\\nenra\\images', prefix='images\\'),
+               Tree('C:\\Users\\bisho\\PycharmProjects\\nenra\\images', prefix='images\\'),
                a.zipfiles,
                a.datas ,
                strip=False,

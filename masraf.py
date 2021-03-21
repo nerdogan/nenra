@@ -109,22 +109,24 @@ class Masraf(QtWidgets.QDialog , Ui_Masraf):
                     item=col
                 else:
                     item=str(col)
-                self.tableWidget_2.setItem(aa, aaa, QtGui.QTableWidgetItem(item))
+                self.tableWidget_2.setItem(aa, aaa, QtWidgets.QTableWidgetItem(item))
                 aaa = aaa + 1
             #lineedit ekleniyor
-            led=QtGui.QLineEdit()
+            led=QtWidgets.QLineEdit()
             led.setObjectName('0%d' % bb)
             self.led[bb]=led
             self.tableWidget_2.setCellWidget(aa,3,self.led[bb])
+            self.led[bb].textChanged.connect(self.linechanged)
 
-            self.connect(self.led[bb],QtCore.SIGNAL("textChanged(const QString&)"),self.linechanged)
+#            self.connect(self.led[bb],QtCore.SIGNAL("textChanged(const QString&)"),self.linechanged)
 
-            led1=QtGui.QLineEdit()
+            led1=QtWidgets.QLineEdit()
             led1.setObjectName('000%d' % (bb+1))
             self.led[bb+1]=led1
             self.tableWidget_2.setCellWidget(aa,4,self.led[bb+1])
 
-            self.connect(self.led[bb+1], QtCore.SIGNAL("textChanged(const QString&)"), self.linechanged)
+#            self.connect(self.led[bb+1], QtCore.SIGNAL("textChanged(const QString&)"), self.linechanged)
+            self.led[bb+1].textChanged.connect(self.linechanged)
 
             bb=bb+2
             aa=aa+1
@@ -155,15 +157,15 @@ class Masraf(QtWidgets.QDialog , Ui_Masraf):
         toplam = 0
         for row1 in bul:
             item = str(row1[1])
-            self.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 0, QtWidgets.QTableWidgetItem(item))
             item = row1[2]
-            self.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 1, QtWidgets.QTableWidgetItem(item))
             item = row1[3]
-            self.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 2, QtWidgets.QTableWidgetItem(item))
             item = str(row1[4])
-            self.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 3, QtWidgets.QTableWidgetItem(item))
             item = str(row1[6])
-            self.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 4, QtWidgets.QTableWidgetItem(item))
             aa = aa + 1
 
     @pyqtSlot(int, int)
@@ -171,8 +173,9 @@ class Masraf(QtWidgets.QDialog , Ui_Masraf):
         #   cari listesinden çiftklikle line edite cari firma bilgisini yazıyor
         print(item, item2)
         print(self.deger)
-        self.tableWidget_2.blockSignals(True)
-        self.led[self.deger].setText(self.tableWidget.item(item,0).text())
+   #     self.tableWidget_2.blockSignals(True)
+        self.led[self.deger].blockSignals(True)
+        self.led[self.deger].setText(self.tableWidget.item(item, 0).text())
 
         self.tableWidget_2.blockSignals(False)
 
@@ -223,9 +226,9 @@ class Masraf(QtWidgets.QDialog , Ui_Masraf):
                 time.sleep(dur)
                 fatura.slotfatura(0, 0)
                 time.sleep(dur)
-                fatura.tableWidget_2.setItem(onur, 6, QtGui.QTableWidgetItem(str(deger13)))
-                fatura.tableWidget_2.setItem(onur,1,QtGui.QTableWidgetItem((deger14)))
-                fatura.tableWidget_2.setItem(onur,3,QtGui.QTableWidgetItem("0"))
+                fatura.tableWidget_2.setItem(onur, 6, QtWidgets.QTableWidgetItem(str(deger13)))
+                fatura.tableWidget_2.setItem(onur,1,QtWidgets.QTableWidgetItem((deger14)))
+                fatura.tableWidget_2.setItem(onur,3,QtWidgets.QTableWidgetItem("0"))
                 time.sleep(dur)
                 onur+=1
                 fatura.slotfaturakaydet()
@@ -254,9 +257,9 @@ class Masraf(QtWidgets.QDialog , Ui_Masraf):
                 time.sleep(dur)
                 fatura1.slotfatura(0, 0)
                 time.sleep(dur)
-                fatura1.tableWidget_2.setItem(0, 6, QtGui.QTableWidgetItem(str(deger13)))
-                fatura1.tableWidget_2.setItem(0, 1, QtGui.QTableWidgetItem((deger14)))
-                fatura1.tableWidget_2.setItem(0, 4, QtGui.QTableWidgetItem("-1"))
+                fatura1.tableWidget_2.setItem(0, 6, QtWidgets.QTableWidgetItem(str(deger13)))
+                fatura1.tableWidget_2.setItem(0, 1, QtWidgets.QTableWidgetItem((deger14)))
+                fatura1.tableWidget_2.setItem(0, 4, QtWidgets.QTableWidgetItem("-1"))
                 time.sleep(dur)
                 fatura1.slotfaturakaydet()
 
@@ -271,7 +274,7 @@ class Masraf(QtWidgets.QDialog , Ui_Masraf):
 
 if __name__ == "__main__":
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     masraf=Masraf()
     masraf.show()
     masraf.raise_()
