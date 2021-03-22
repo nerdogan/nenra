@@ -223,7 +223,7 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
 
     @pyqtSlot()
     def cariekstre(self):
-        p = Network("192.168.2.223")
+        p = Network("192.168.2.89")
 
 
         p._raw(self.d.output)
