@@ -251,6 +251,10 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
 
         self.kontrol = 1
         self.d.set(font='a', align='left', height=2, width=1)
+        self.d.text(chr(27))
+        self.d.text("B")
+        self.d.text(chr(4))
+        self.d.text(chr(1))
 
 
         print("ekstrerapor")
