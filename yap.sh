@@ -15,6 +15,6 @@ rm -rf build dist
 python3.6 setup.py py2app --iconfile nenra.icns -d /Users/namikerdogan/Desktop
 echo "********* open /Users/namikerdogan/Desktop/nenra.app"
 
-./yoursway-create-dmg/create-dmg  --background Background.png --icon nenra2.app 180 210 --app-drop-link 360 200  --window-size 527 429 --icon-size 54 nenra.dmg /Users/namikerdogan/Desktop/nenra2.app
+./yoursway-create-dmg/create-dmg  --background Background.png --icon nenra3.app 180 210 --app-drop-link 360 200  --window-size 527 429 --icon-size 54 nenra.dmg /Users/namikerdogan/Desktop/nenra3.app
 
 python3.6 uploadapp.py

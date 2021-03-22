@@ -122,6 +122,7 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
         toplam = 0.0
         toplam1 = 0.0
         toplam2 = 0.0000
+        toplam3 =0.00
         bolum = 0
         bolum1 = 0
 
@@ -219,7 +220,7 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
         self.d.text("\n")
         self.d.text("Genel Toplam :      "+(str(toplam)).rjust(20)+(str(toplam1)).rjust(10)+"\n")
 
-        self.d.cut()
+        self.d.cut(mode='PART')
 
     @pyqtSlot()
     def cariekstre(self):
@@ -296,10 +297,10 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
         aa = 0
         bb = 0
         dep=0
-        toplam = 0.0
-        toplam1 = 0.0
-        toplam2 = 0.0000
-        toplam3 = 0.0000
+        toplam = Decimal(0.0000) # paket 0 olduğunda hata vermemesi için
+        toplam1 = Decimal(0.0000) # paket 0 olduğunda hata vermemesi için
+        toplam2 = Decimal(0.0000) # paket 0 olduğunda hata vermemesi için
+        toplam3 = Decimal(0.0000) # paket 0 olduğunda hata vermemesi için
         for row1 in bul:
 
 
@@ -697,7 +698,7 @@ class Rapor(QtGui.QDialog , Ui_Dialog7):
         self.d.barcode(tar1, "CODE39", 80, 3)
         self.d.set(font='a', align='left', height=1, width=1)
         self.d.text(u"\n\n\n  İmza : \n")
-        self.d.cut()
+        self.d.cut(mode='PART')
         c.save()
         self.wb.save(self.dest_filename)
 
