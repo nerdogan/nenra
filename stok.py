@@ -3,8 +3,9 @@ import sys
 import re
 import datetime
 import subprocess
-from PyQt4.QtCore import pyqtSlot
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtGui, QtCore, uic, QtWidgets
+from PyQt5.QtWidgets import QMainWindow, QDialog
+from PyQt5.QtCore import *
 from ui_stok import Ui_Dialog6
 import xlwt
 from decimal import *
@@ -17,9 +18,9 @@ from reportlab.rl_settings import *
 
 
 
-class Stok(QtGui.QDialog , Ui_Dialog6):
+class Stok(QtWidgets.QDialog , Ui_Dialog6):
     def __init__(self):
-        QtGui.QDialog.__init__(self)
+        QtWidgets.QDialog.__init__(self)
         self.setupUi(self)
         #self.myddb = Myddb()
         self.kontrol=0

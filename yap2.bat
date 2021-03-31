@@ -1,13 +1,13 @@
-python c:\users\namik\appdata\local\programs\python\python37-32\Lib\site-packages\PyQt4\uic\\pyuic.py -x mainwindow.ui -o ui_mainwindow.py
-python c:\users\namik\appdata\local\programs\python\python37-32\Lib\site-packages\PyQt4\uic\\pyuic.py -x recete.ui -o ui_recete.py
-python c:\users\namik\appdata\local\programs\python\python37-32\Lib\site-packages\PyQt4\uic\\pyuic.py -x recete2.ui -o ui_recete2.py
-python c:\users\namik\appdata\local\programs\python\python37-32\Lib\site-packages\PyQt4\uic\\pyuic.py -x fatura.ui -o ui_fatura.py
-python c:\users\namik\appdata\local\programs\python\python37-32\Lib\site-packages\PyQt4\uic\\pyuic.py -x maliyet.ui -o ui_maliyet.py
-python c:\users\namik\appdata\local\programs\python\python37-32\Lib\site-packages\PyQt4\uic\\pyuic.py -x cari.ui -o ui_cari.py
-python c:\users\namik\appdata\local\programs\python\python37-32\Lib\site-packages\PyQt4\uic\\pyuic.py -x stok.ui -o ui_stok.py
-python c:\users\namik\appdata\local\programs\python\python37-32\Lib\site-packages\PyQt4\uic\\pyuic.py -x rapor.ui -o ui_rapor.py
-python c:\users\namik\appdata\local\programs\python\python37-32\Lib\site-packages\PyQt4\uic\\pyuic.py -x masraf.ui -o ui_masraf.py
-python c:\users\namik\appdata\local\programs\python\python37-32\Lib\site-packages\PyQt4\uic\\pyuic.py -x hesap.ui -o ui_hesap.py
+C:\Users\bisho\PycharmProjects\nenra\venv\Scripts\pyuic5.exe -x mainwindow.ui -o ui_mainwindow.py
+C:\Users\bisho\PycharmProjects\nenra\venv\Scripts\pyuic5.exe -x recete.ui -o ui_recete.py
+C:\Users\bisho\PycharmProjects\nenra\venv\Scripts\pyuic5.exe -x recete2.ui -o ui_recete2.py
+C:\Users\bisho\PycharmProjects\nenra\venv\Scripts\pyuic5.exe -x fatura.ui -o ui_fatura.py
+C:\Users\bisho\PycharmProjects\nenra\venv\Scripts\pyuic5.exe -x maliyet.ui -o ui_maliyet.py
+C:\Users\bisho\PycharmProjects\nenra\venv\Scripts\pyuic5.exe -x cari.ui -o ui_cari.py
+C:\Users\bisho\PycharmProjects\nenra\venv\Scripts\pyuic5.exe -x stok.ui -o ui_stok.py
+C:\Users\bisho\PycharmProjects\nenra\venv\Scripts\pyuic5.exe -x rapor.ui -o ui_rapor.py
+C:\Users\bisho\PycharmProjects\nenra\venv\Scripts\pyuic5.exe -x masraf.ui -o ui_masraf.py
+C:\Users\bisho\PycharmProjects\nenra\venv\Scripts\pyuic5.exe -x hesap.ui -o ui_hesap.py
 
 
 rem *** Used to create a Python exe 

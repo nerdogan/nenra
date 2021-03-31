@@ -4,8 +4,10 @@ import re
 import datetime
 import locale
 import subprocess
-from PyQt4.QtCore import pyqtSlot
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtGui, QtCore, uic, QtWidgets
+from PyQt5.QtGui import QFont, QColor
+from PyQt5.QtWidgets import QMainWindow, QApplication
+from PyQt5.QtCore import *
 from ui_cari import Ui_Dialog5
 import xlwt
 from decimal import *
@@ -19,9 +21,10 @@ from reportlab.rl_settings import *
 
 
 
-class Cari(QtGui.QDialog , Ui_Dialog5):
+class Cari(QtWidgets.QDialog , Ui_Dialog5):
+    my_signal = pyqtSignal(str, name="fisac")
     def __init__(self):
-        QtGui.QDialog.__init__(self)
+        QtWidgets.QDialog.__init__(self)
         self.setupUi(self)
         #self.myddb = Myddb()
 
@@ -35,6 +38,7 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
             locale.setlocale(locale.LC_ALL, 'tr_TR.utf8')
 
         self.kontrol=0
+
         self.tableWidget.setRowCount(0)
         some_date = QtCore.QDate.currentDate()
         self.dateEdit.setDate(QtCore.QDate(2017, 1, 1))
@@ -133,17 +137,17 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
 
 
             item = str(row1[0])
-            self.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 0, QtWidgets.QTableWidgetItem(item))
             c.drawString(45, 800 - (15 * (bb + 1)), item)
             self.ws1.write(aa,0,item)
             item = row1[1]
             c.drawString(80, 800 - (15 * (bb + 1)), item)
             self.ws1.write(aa, 1, item)
-            self.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 1, QtWidgets.QTableWidgetItem(item))
             item = str(row1[2])
 
             toplam = toplam + float(row1[2])
-            self.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 2, QtWidgets.QTableWidgetItem(item))
 
             c.drawRightString( 380, 800 - (15 * (bb + 1)), "{:10.2f}".format(row1[2]))
             self.ws1.write(aa, 2, float(row1[2]))
@@ -163,9 +167,9 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
                 c.setFont("Verdana", 8)
                 bb = 0
         self.tableWidget.setRowCount(aa+2)
-        font = QtGui.QFont("Courier New", 11)
-        self.tableWidget.setItem(aa+1,2,QtGui.QTableWidgetItem(str(toplam)))
-        self.tableWidget.item(aa + 1, 2).setBackground(QtGui.QColor(255, 128, 128))
+        font = QFont("Courier New", 11)
+        self.tableWidget.setItem(aa+1,2,QtWidgets.QTableWidgetItem(str(toplam)))
+        self.tableWidget.item(aa + 1, 2).setBackground(QColor(255, 128, 128))
         self.tableWidget.item(aa + 1, 2).setFont(font)
         c.setFont("Verdana", 11)
         c.drawString(210, 800 - (15 * (bb + 1)), "Genel Toplam")
@@ -256,17 +260,17 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
 
             item = str(row1[0])
             self.ws1.write(aa, 0, item)
-            self.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 0, QtWidgets.QTableWidgetItem(item))
             c.drawString(45, 800 - (15 * (bb + 1)), item)
             item = (row1[1])
             self.ws1.write(aa, 1, item)
             c.drawString(80, 800 - (15 * (bb + 1)), item)
-            self.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 1, QtWidgets.QTableWidgetItem(item))
 
             if row1[3] > 0:
                 item = str(row1[3])
                 self.ws1.write(aa, 2, item)
-                self.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+                self.tableWidget.setItem(aa, 2, QtWidgets.QTableWidgetItem(item))
                 c.drawRightString(400, 800 - (15 * (bb + 1)), item)
 
                 item = str(row1[2])
@@ -274,12 +278,12 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
                 c.drawRightString(470, 800 - (15 * (bb + 1)), item)
                 toplam = toplam + float(row1[3])
                 toplam2 = Decimal(toplam2) + (row1[2])
-                self.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
+                self.tableWidget.setItem(aa, 3, QtWidgets.QTableWidgetItem(item))
 
             if row1[3] <= 0:
                 item = "0"
                 self.ws1.write(aa, 2, item)
-                self.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+                self.tableWidget.setItem(aa, 2, QtWidgets.QTableWidgetItem(item))
                 c.drawRightString(400, 800 - (15 * (bb + 1)), item)
 
                 item = str(row1[2])
@@ -287,7 +291,7 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
                 c.drawRightString(470, 800 - (15 * (bb + 1)), item)
 
                 toplam2 = Decimal(toplam2) + (row1[2])
-                self.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
+                self.tableWidget.setItem(aa, 3, QtWidgets.QTableWidgetItem(item))
 
 
             aa = aa + 1
@@ -303,7 +307,7 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
                 bb = 0
         self.tableWidget.setRowCount(aa + 2)
         font = QtGui.QFont("Courier New", 11)
-        self.tableWidget.setItem(aa + 1, 2, QtGui.QTableWidgetItem(str(toplam)))
+        self.tableWidget.setItem(aa + 1, 2, QtWidgets.QTableWidgetItem(str(toplam)))
         self.tableWidget.item(aa + 1, 2).setBackground(QtGui.QColor(255, 128, 128))
         self.tableWidget.item(aa + 1, 2).setFont(font)
 
@@ -339,7 +343,7 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
     def slotekstre(self, item,item2):
         if self.kontrol==0:
             fisno = self.tableWidget.item(item, 0).text()
-            self.emit(QtCore.SIGNAL("fisac"), fisno)
+            self.my_signal.emit(fisno)
             return
         myddb1 = Myddb()
         carikod=self.tableWidget.item(item, 0).text()
@@ -398,17 +402,17 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
 
             item = str(row1[2])
             self.ws1.write(aa, 0, item)
-            self.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 0, QtWidgets.QTableWidgetItem(item))
             c.drawString(45, 800 - (15 * (bb + 1)), item)
             item = (row1[1]).strftime("%d-%m-%Y")
             self.ws1.write(aa, 1, item)
             c.drawString(80, 800 - (15 * (bb + 1)), item)
-            self.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 1, QtWidgets.QTableWidgetItem(item))
 
             if row1[0]==10:
                 item = str(row1[3])+"Fatura "
                 self.ws1.write(aa, 2, item)
-                self.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+                self.tableWidget.setItem(aa, 2, QtWidgets.QTableWidgetItem(item))
                 c.drawString(150, 800 - (15 * (bb + 1)), item)
 
                 item = str(row1[4])
@@ -416,15 +420,15 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
                 c.drawRightString(310, 800 - (15 * (bb + 1)), item)
                 toplam = toplam + float(row1[4])
                 toplam2=Decimal(toplam2)+(row1[4])
-                self.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
+                self.tableWidget.setItem(aa, 3, QtWidgets.QTableWidgetItem(item))
                 item= ""
                 c.drawRightString(390, 800 - (15 * (bb + 1)), item)
-                self.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
+                self.tableWidget.setItem(aa, 4, QtWidgets.QTableWidgetItem(item))
 
             if row1[0]==11:
                 item = row1[3]+u" Ödeme"
                 self.ws1.write(aa, 2, item)
-                self.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+                self.tableWidget.setItem(aa, 2, QtWidgets.QTableWidgetItem(item))
                 c.drawString(150, 800 - (15 * (bb + 1)), item)
 
                 item = str(row1[4])
@@ -432,17 +436,17 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
                 c.drawString(350, 800 - (15 * (bb + 1)), item)
                 toplam1 = toplam1 + float(row1[4])
                 toplam2=Decimal(toplam2)+ (row1[4])
-                self.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
+                self.tableWidget.setItem(aa, 4, QtWidgets.QTableWidgetItem(item))
                 item= ""
                 c.drawString(270, 800 - (15 * (bb + 1)), item)
-                self.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
+                self.tableWidget.setItem(aa, 3, QtWidgets.QTableWidgetItem(item))
 
 
 
 
             item = str(toplam2)
             self.ws1.write(aa, 5, toplam2)
-            self.tableWidget.setItem(aa, 5, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 5, QtWidgets.QTableWidgetItem(item))
             c.drawRightString(470, 800 - (15 * (bb + 1)), str(toplam2))
 
 
@@ -514,7 +518,7 @@ class Cari(QtGui.QDialog , Ui_Dialog5):
 
 
 if __name__ == "__main__":
-    app = QtGui.QApplication(sys.argv)
+    app = QApplication(sys.argv)
     fatura1=Cari()
     fatura1.show()
     fatura1.raise_()

@@ -2,16 +2,19 @@ import sys
 import time as ttim
 import re
 from hesapmak import Hesap
-from PyQt4.QtCore import pyqtSlot
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtGui, QtCore, uic, QtWidgets
+from PyQt5.QtWidgets import QMainWindow,QDialog, QApplication
+from PyQt5.QtCore import Qt
+from PyQt5.QtCore import *
+from PyQt5.QtGui import QKeyEvent
 from ui_fatura import Ui_Dialog3
 
 from modulemdb import *
 
 
-class Fatura(QtGui.QDialog, Ui_Dialog3):
+class Fatura(QtWidgets.QDialog, Ui_Dialog3):
     def __init__(self):
-        QtGui.QDialog.__init__(self)
+        QtWidgets.QDialog.__init__(self)
         self.setupUi(self)
         self.hesapla = Hesap()
 
@@ -37,10 +40,22 @@ class Fatura(QtGui.QDialog, Ui_Dialog3):
         self.pushButton_4.clicked.connect(self.slotfaturasil)
         self.tableWidget_2.itemChanged.connect(self.toplamdegisti)
         self.comboBox.currentIndexChanged.connect(self.odemeyap)
-        self.connect(self, QtCore.SIGNAL('triggered()'), self.closeEvent)
-        self.connect(QtGui.QShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Equal), self.tableWidget_2),
-                     QtCore.SIGNAL('activated()'), self.slothesapmakgoster)
-        self.connect(self.hesapla, QtCore.SIGNAL("acac"), self.slotitemyaz)
+
+      #  self.keyPressEvent=(self.keyPressEvent)
+
+       # self.connect(self, QtCore.SIGNAL('triggered()'), self.closeEvent)
+      #  self.connect(QtWidgets.QShortcut(QtWidgets.QKeySequence(QtCore.Qt.Key_Equal), self.tableWidget_2),
+#                     QtCore.SIGNAL('activated()'), self.slothesapmakgoster)
+#        self.connect(self.hesapla, QtCore.SIGNAL("acac"), self.slotitemyaz)
+
+
+    def keyPressEvent(self,e):
+        print("boşluk")
+
+        if e.key() == Qt.Key_Space:
+            print("boşluk")
+            abc = QKeyEvent(QEvent.KeyPress, Qt.Key_Tab, Qt.NoModifier)
+            QCoreApplication.postEvent(self,abc)
 
     def closeEvent(self, event):
         print("Closing")
@@ -61,7 +76,7 @@ class Fatura(QtGui.QDialog, Ui_Dialog3):
         self.old_row = row
         self.old_col = col
 
-        comb1 = QtGui.QComboBox()
+        comb1 = QtWidgets.QComboBox()
         self.comb[row] = comb1
 
         self.tableWidget_2.setCellWidget(row, col, self.comb[row])
@@ -83,13 +98,13 @@ class Fatura(QtGui.QDialog, Ui_Dialog3):
         self.raise_()
         self.lineEdit.setFocus(True)
 
-    @pyqtSlot(int, str)
+    @pyqtSlot( 'QString')
     def vadeartir(self, item2):
         if len(item2) > 0:
             some_date = self.dateEdit.date()
             self.dateEdit_2.setDate(some_date.addDays(int(item2)))
 
-    @pyqtSlot(int, str)
+    @pyqtSlot(int)
     def odemeyap(self, item2):
         elma = self.toplam
         elma1 = self.cari
@@ -110,8 +125,8 @@ class Fatura(QtGui.QDialog, Ui_Dialog3):
         elif self.comboBox.currentIndex() == 3:
             self.linechange(("YKB"))
         self.slotfatura(0, 0)
-        self.tableWidget_2.setItem(0, 4, QtGui.QTableWidgetItem("-1"))
-        self.tableWidget_2.setItem(0, 5, QtGui.QTableWidgetItem(elma))
+        self.tableWidget_2.setItem(0, 4, QtWidgets.QTableWidgetItem("-1"))
+        self.tableWidget_2.setItem(0, 5, QtWidgets.QTableWidgetItem(elma))
         self.comboBox.blockSignals(True)
         self.comboBox.setCurrentIndex(0)
         self.comboBox.blockSignals(False)
@@ -136,7 +151,7 @@ class Fatura(QtGui.QDialog, Ui_Dialog3):
         self.lineEdit.setText(str(sonuc[0][0]))
         self.lineEdit_2.setText(str(sonuc[0][1]))
 
-    @pyqtSlot(int, str)
+    @pyqtSlot('QString')
     def linechange(self, item2):
 
         a = item2
@@ -162,15 +177,15 @@ class Fatura(QtGui.QDialog, Ui_Dialog3):
         toplam = 0
         for row1 in bul:
             item = str(row1[1])
-            self.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 0, QtWidgets.QTableWidgetItem(item))
             item = row1[2]
-            self.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 1, QtWidgets.QTableWidgetItem(item))
             item = row1[3]
-            self.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 2, QtWidgets.QTableWidgetItem(item))
             item = str(row1[4])
-            self.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 3, QtWidgets.QTableWidgetItem(item))
             item = str(row1[6])
-            self.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 4, QtWidgets.QTableWidgetItem(item))
             aa = aa + 1
 
         if (aa == 1 and self.label_5.text() == "4"):
@@ -207,7 +222,7 @@ class Fatura(QtGui.QDialog, Ui_Dialog3):
             dt = sonuc[0][6]
             dt1 = sonuc[0][9]
 
-            # QtGui.QMessageBox.information(self.tableWidget,
+            # QtWidgets.QMessageBox.information(self.tableWidget,
             #						"QTableWidget Cell Click",
             #						"Text: " + str(dt.year))
             print(sonuc)
@@ -239,15 +254,15 @@ class Fatura(QtGui.QDialog, Ui_Dialog3):
                 toplam = 0
                 for row1 in bul2:
                     item = str(row1[4])
-                    self.tableWidget_2.setItem(aa, 0, QtGui.QTableWidgetItem(item))
+                    self.tableWidget_2.setItem(aa, 0, QtWidgets.QTableWidgetItem(item))
                     elma = item
                     bul3 = self.myddb.cek2(elma, "hammadde", "hamkod")
                     item = bul3[0][2]
                     if row1[10] is not None:
                         item = (row1[10])
-                    self.tableWidget_2.setItem(aa, 1, QtGui.QTableWidgetItem(item))
+                    self.tableWidget_2.setItem(aa, 1, QtWidgets.QTableWidgetItem(item))
                     item = bul3[0][3]
-                    self.tableWidget_2.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+                    self.tableWidget_2.setItem(aa, 2, QtWidgets.QTableWidgetItem(item))
                     self.addcomb(aa, 2)
                     self.comb[aa].setProperty("row", aa)
                     self.comb[aa].setProperty("old", 1)
@@ -257,24 +272,26 @@ class Fatura(QtGui.QDialog, Ui_Dialog3):
                         self.comb[aa].addItem(satirr[0])
                         self.comb[aa].setProperty(satirr[0], satirr[1])
 
-                    self.connect(self.comb[aa], QtCore.SIGNAL("currentIndexChanged(const QString&)"), self.birimdegisti)
+                    self.comb[aa].currentTextChanged.connect(self.birimdegisti)
+
+         # self.connect(self.comb[aa], QtCore.SIGNAL("currentIndexChanged(const QString&)"), self.birimdegisti)
 
                     item = str(row1[7])
-                    self.tableWidget_2.setItem(aa, 3, QtGui.QTableWidgetItem(item))
+                    self.tableWidget_2.setItem(aa, 3, QtWidgets.QTableWidgetItem(item))
                     item = str(row1[5])
-                    self.tableWidget_2.setItem(aa, 4, QtGui.QTableWidgetItem(item))
+                    self.tableWidget_2.setItem(aa, 4, QtWidgets.QTableWidgetItem(item))
                     item = str(row1[6])
-                    item = QtGui.QTableWidgetItem(item)
+                    item = QtWidgets.QTableWidgetItem(item)
                     if self.label_5.text() == "100":
                         item.setFlags(QtCore.Qt.ItemIsEditable)
                     self.tableWidget_2.setItem(aa, 5, item)
                     item = str("{:.2f}".format((row1[6] * row1[5])))
-                    item = QtGui.QTableWidgetItem(item)
+                    item = QtWidgets.QTableWidgetItem(item)
                     item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignRight)
                     if self.label_5.text() == "100":
                         item.setFlags(QtCore.Qt.ItemIsEditable)
 
-                    self.tableWidget_2.setItem(aa, 6, QtGui.QTableWidgetItem(item))
+                    self.tableWidget_2.setItem(aa, 6, QtWidgets.QTableWidgetItem(item))
                     aa = aa + 1
 
             self.lineEdit_3.setFocus(True)
@@ -318,11 +335,11 @@ class Fatura(QtGui.QDialog, Ui_Dialog3):
             aa = i - 1
 
             item = deger1
-            self.tableWidget_2.setItem(aa, 0, QtGui.QTableWidgetItem(item))
+            self.tableWidget_2.setItem(aa, 0, QtWidgets.QTableWidgetItem(item))
             item = deger2
-            self.tableWidget_2.setItem(aa, 1, QtGui.QTableWidgetItem(item))
+            self.tableWidget_2.setItem(aa, 1, QtWidgets.QTableWidgetItem(item))
             item = deger3
-            self.tableWidget_2.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+            self.tableWidget_2.setItem(aa, 2, QtWidgets.QTableWidgetItem(item))
 
             self.addcomb(aa, 2)
             self.comb[aa].setProperty("row", aa)
@@ -333,24 +350,26 @@ class Fatura(QtGui.QDialog, Ui_Dialog3):
                 self.comb[aa].addItem(satirr[0])
                 self.comb[aa].setProperty(satirr[0], satirr[1])
 
-            self.connect(self.comb[aa], QtCore.SIGNAL("currentIndexChanged(const QString&)"), self.birimdegisti)
+            self.comb[aa].currentTextChanged.connect(self.birimdegisti)
+
+          #  self.connect(self.comb[aa], QtCore.SIGNAL("currentIndexChanged(const QString&)"), self.birimdegisti)
 
             item = deger4
-            self.tableWidget_2.setItem(aa, 3, QtGui.QTableWidgetItem(item))
+            self.tableWidget_2.setItem(aa, 3, QtWidgets.QTableWidgetItem(item))
             item = '1'
-            self.tableWidget_2.setItem(aa, 4, QtGui.QTableWidgetItem(item))
+            self.tableWidget_2.setItem(aa, 4, QtWidgets.QTableWidgetItem(item))
             item = deger5
-            item = QtGui.QTableWidgetItem(item)
+            item = QtWidgets.QTableWidgetItem(item)
             if self.label_5.text() == "100":
                 item.setFlags(QtCore.Qt.ItemIsEditable)
 
-            self.tableWidget_2.setItem(aa, 5, QtGui.QTableWidgetItem(item))
+            self.tableWidget_2.setItem(aa, 5, QtWidgets.QTableWidgetItem(item))
             item = deger5
-            item = QtGui.QTableWidgetItem(item)
+            item = QtWidgets.QTableWidgetItem(item)
             if self.label_5.text() == "100":
                 item.setFlags(QtCore.Qt.ItemIsEditable)
 
-            self.tableWidget_2.setItem(aa, 6, QtGui.QTableWidgetItem(item))
+            self.tableWidget_2.setItem(aa, 6, QtWidgets.QTableWidgetItem(item))
             self.lineEdit_3.setFocus(True)
             self.tableWidget_2.blockSignals(False)
 
@@ -416,9 +435,9 @@ class Fatura(QtGui.QDialog, Ui_Dialog3):
             cc = (self.comb[item].property(self.comb[item].currentText()))
             if cc is not None:
 
-                self.tableWidget_2.setItem(item, 4, QtGui.QTableWidgetItem(
+                self.tableWidget_2.setItem(item, 4, QtWidgets.QTableWidgetItem(
                     str(float(self.tableWidget_2.item(item, 4).text()) * (float(cc)))))
-                self.tableWidget_2.setItem(item, 5, QtGui.QTableWidgetItem(
+                self.tableWidget_2.setItem(item, 5, QtWidgets.QTableWidgetItem(
                     str(float(self.kontrol(self.tableWidget_2.item(item, 5).text())) / (float(cc)))))
 
             deger10 = self.tableWidget_2.item(item, 0).text()
@@ -483,15 +502,15 @@ class Fatura(QtGui.QDialog, Ui_Dialog3):
         if self.fisno is not None:
             #            print self.fisno
             #           _fromUtf8 = QtCore.QString.fromUtf8
-            msg = QtGui.QMessageBox()
+            msg = QtWidgets.QMessageBox()
             msg.setWindowTitle(("Fiş Silme"))
-            msg.setIcon(QtGui.QMessageBox.Critical)
+            msg.setIcon(QtWidgets.QMessageBox.Critical)
 
             msg.setText(("Fiş Siliniyor !!!"))
             msg.setInformativeText((str(self.fisno) + " nolu fiş silmek istediğinizden eminmisiniz ?"))
 
             msg.setDetailedText(str(self.fisno) + "Siliniyor !!!")
-            msg.setStandardButtons(QtGui.QMessageBox.Ok | QtGui.QMessageBox.Cancel)
+            msg.setStandardButtons(QtWidgets.QMessageBox.Ok | QtWidgets.QMessageBox.Cancel)
             # msg.buttonClicked.connect(msgbtn)
 
             retval = msg.exec_()
@@ -504,16 +523,16 @@ class Fatura(QtGui.QDialog, Ui_Dialog3):
                 self.tableWidget.setRowCount(0)
                 self.tableWidget_2.setRowCount(0)
 
-    @pyqtSlot(int, int)
+    @pyqtSlot('QTableWidgetItem*')
     def toplamdegisti(self, item):
 
         self.tableWidget_2.blockSignals(True)
 
         if item.column() == 6:
-            self.tableWidget_2.setItem(item.row(), 5, QtGui.QTableWidgetItem(
+            self.tableWidget_2.setItem(item.row(), 5, QtWidgets.QTableWidgetItem(
                 str(float(self.kontrol(item.text())) / float(self.tableWidget_2.item(item.row(), 4).text()))))
         if item.column() == 4:
-            item1 = QtGui.QTableWidgetItem(
+            item1 = QtWidgets.QTableWidgetItem(
                 str("{:06.2f}".format(
                     (float(self.kontrol(item.text())) * float(self.tableWidget_2.item(item.row(), 5).text())))))
             item1.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignRight)
@@ -524,11 +543,11 @@ class Fatura(QtGui.QDialog, Ui_Dialog3):
             elma = ("{:06.2f}".format(
                 (float(self.kontrol(item.text())) * float(self.tableWidget_2.item(item.row(), 4).text()))))
             #    print elma
-            self.tableWidget_2.setItem(item.row(), 6, QtGui.QTableWidgetItem(elma))
+            self.tableWidget_2.setItem(item.row(), 6, QtWidgets.QTableWidgetItem(elma))
         self.tableWidget_2.blockSignals(False)
         self.toplamgoster()
 
-    @pyqtSlot()
+    @pyqtSlot('QString')
     def birimdegisti(self, item):
         bb = self.sender().property('row')
         cc = self.sender().property(item)
@@ -537,9 +556,9 @@ class Fatura(QtGui.QDialog, Ui_Dialog3):
 
         print("satır", bb, "birim", item, cc, dd)
 
-        self.tableWidget_2.setItem(bb, 4, QtGui.QTableWidgetItem(
+        self.tableWidget_2.setItem(bb, 4, QtWidgets.QTableWidgetItem(
             str(float(self.tableWidget_2.item(bb, 4).text()) / (float(cc) / float(dd)))))
-        self.tableWidget_2.setItem(bb, 5, QtGui.QTableWidgetItem(
+        self.tableWidget_2.setItem(bb, 5, QtWidgets.QTableWidgetItem(
             str(float(self.tableWidget_2.item(bb, 5).text()) * (float(cc) / float(dd)))))
 
     @pyqtSlot()
@@ -554,11 +573,11 @@ class Fatura(QtGui.QDialog, Ui_Dialog3):
         self.show()
 
         #        print sonuc
-        self.tableWidget_2.setItem(self.a, self.b, QtGui.QTableWidgetItem(sonuc))
+        self.tableWidget_2.setItem(self.a, self.b, QtWidgets.QTableWidgetItem(sonuc))
 
 
 if __name__ == "__main__":
-    app = QtGui.QApplication(sys.argv)
+    app = QApplication(sys.argv)
     fatura1 = Fatura()
     fatura1.goster()
     app.exec_()
