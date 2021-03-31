@@ -13,7 +13,7 @@ pyserial==3.4
 python-escpos==2.2.0
 pyusb==1.0.2
 pywin32-ctypes==0.2.0
-PyYAML==5.3
+PyYAML==5.4
 qrcode==6.1
 reportlab==3.5.34
 six==1.14.0
