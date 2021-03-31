@@ -563,15 +563,6 @@ def main():
     def copyFunction(e):
         print("f10 a bastın")
         print(e.key())
-
-        elma = fatura.tableWidget_2.currentRow()
-        elma1 = fatura.tableWidget_2.rowCount()
-        if elma == -1:
-            abc = QKeyEvent(QEvent.KeyPress, Qt.Key_Tab, Qt.NoModifier)
-            QCoreApplication.postEvent(fatura, abc)
-
-        else:
-            fatura.tableWidget_2.focusNextChild()
             '''
 
             if fatura.tableWidget_2.currentColumn()==5:
@@ -629,7 +620,7 @@ def main():
     rapor.setWindowModality(Qt.ApplicationModal)
     stok.setWindowModality(Qt.ApplicationModal)
     cari.setWindowModality(Qt.ApplicationModal)
-    fatura.keyPressEvent=copyFunction
+ #   fatura.keyPressEvent=copyFunction
 
 
  #   fatura.connect(QtGui.QShortcut(QtGui.QKeySequence(Qt.Key_Enter),  fatura), QtCore.SIGNAL('activated()'), copyFunction)
@@ -637,6 +628,7 @@ def main():
 #    mainWindow.connect(login, QtCore.SIGNAL("acac1(int)"), slotpuss4)
     login.acac1.connect(slotpuss4)
 #    mainWindow.connect(fatura, QtCore.SIGNAL("acac"), slotpuss5)
+    fatura.acac.connect(slotpuss5)
 #    mainWindow.connect(cari, QtCore.SIGNAL("fisac"), slotpuss6)
     cari.my_signal.connect(slotpuss6)
    # mainWindow.setWindowFlags(QtCore.Qt.FramelessWindowHint)

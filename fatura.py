@@ -13,6 +13,8 @@ from modulemdb import *
 
 
 class Fatura(QtWidgets.QDialog, Ui_Dialog3):
+    acac = pyqtSignal(int)
+
     def __init__(self):
         QtWidgets.QDialog.__init__(self)
         self.setupUi(self)
@@ -40,22 +42,38 @@ class Fatura(QtWidgets.QDialog, Ui_Dialog3):
         self.pushButton_4.clicked.connect(self.slotfaturasil)
         self.tableWidget_2.itemChanged.connect(self.toplamdegisti)
         self.comboBox.currentIndexChanged.connect(self.odemeyap)
-
-      #  self.keyPressEvent=(self.keyPressEvent)
+        self.keyPressEvent=(self.keyPressEvent1)
 
        # self.connect(self, QtCore.SIGNAL('triggered()'), self.closeEvent)
       #  self.connect(QtWidgets.QShortcut(QtWidgets.QKeySequence(QtCore.Qt.Key_Equal), self.tableWidget_2),
 #                     QtCore.SIGNAL('activated()'), self.slothesapmakgoster)
 #        self.connect(self.hesapla, QtCore.SIGNAL("acac"), self.slotitemyaz)
+    def keyPressEvent1(self,e):
+        print(e.key())
+        if e.key() == 16777220:
+            self.tabyap()
+            return
+        elif e.key() == 16777221:
+            self.tabyap()
+            return
+        else:
+            print("hiçbiri")
 
+    def tabyap(self):
+        elma = self.tableWidget_2.currentRow()
+        elma1=self.tableWidget_2.currentColumn()
+        elma2 = self.tableWidget_2.rowCount()
+        print(elma,elma1,elma2)
+        if ((elma2-elma) == 1) and (elma1==6):
+            print("sjkfjskfjskf")
+            self.lineEdit_4.setFocus()
+            #abc = QKeyEvent(QEvent.KeyPress, Qt.Key_Tab, Qt.NoModifier)
+            #QCoreApplication.postEvent(self, abc)
 
-    def keyPressEvent(self,e):
-        print("boşluk")
+        else:
+            print("atla")
+            self.tableWidget_2.focusNextChild()
 
-        if e.key() == Qt.Key_Space:
-            print("boşluk")
-            abc = QKeyEvent(QEvent.KeyPress, Qt.Key_Tab, Qt.NoModifier)
-            QCoreApplication.postEvent(self,abc)
 
     def closeEvent(self, event):
         print("Closing")
@@ -465,7 +483,8 @@ class Fatura(QtWidgets.QDialog, Ui_Dialog3):
         self.myddb.conn.commit()
         SQL5 = self.myddb.cur.execute(sql4)
         self.myddb.conn.commit()
-        self.emit(QtCore.SIGNAL("acac"), SQL5)
+
+        self.acac.emit(SQL5)
         self.label_6.setText("{0}  {1}  {2}".format(str("{0:.2f}".format(toplam)), str("{0:.2f}".format(kdv)),
                                                     str("{0:.2f}".format(toplam + kdv))))
         self.lineEdit_3.setFocus(True)
