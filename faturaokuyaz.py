@@ -212,7 +212,7 @@ for row in range(int(len(data) / 9)):
         aa = aa + 1
         aa = aa + 1
 
-print(satir1, " tekrar var")
+print(satir1, " tekrar var ")
 app.exec_()
 deger = last_day_of_month(deger)
 t = deger.timetuple()
