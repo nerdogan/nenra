@@ -1,5 +1,5 @@
-from PyQt4  import QtGui
-from PyQt4 import QtCore
+from PyQt5 import Qt, QtCore,  QtWidgets
+from PyQt5.QtCore import *
 import fdb
 from modulemdb import *
 from datetime import datetime,timedelta
@@ -23,7 +23,7 @@ con = fdb.connect(
 cur = con.cursor()
 
 
-class Pos1(QtGui.QWidget):
+class Pos1(QtWidgets.QWidget):
 
     def __init__(self):
         super(Pos1, self).__init__()
@@ -33,42 +33,42 @@ class Pos1(QtGui.QWidget):
     def initUI(self):
         self.setGeometry(10,20,1024,668)
 
-        self.b = QtGui.QPushButton(self)
+        self.b = QtWidgets.QPushButton(self)
         self.b.setText(u"GİRİŞ SALON")
         self.b.move(2, 72)
         self.b.setFixedSize(110, 64)
 
-        b1 = QtGui.QPushButton(self)
+        b1 = QtWidgets.QPushButton(self)
         b1.setText(u"ÖN BAHÇE")
         b1.move(2, 136)
         b1.setFixedSize(110, 64)
 
-        b2 = QtGui.QPushButton(self)
+        b2 = QtWidgets.QPushButton(self)
         b2.setText(u"ARKA BAHÇE")
         b2.move(2, 200)
         b2.setFixedSize(110, 64)
 
-        b3 = QtGui.QPushButton(self)
+        b3 = QtWidgets.QPushButton(self)
         b3.setText(u"1. KAT")
         b3.move(2, 264)
         b3.setFixedSize(110, 64)
 
-        b4 = QtGui.QPushButton(self)
+        b4 = QtWidgets.QPushButton(self)
         b4.setText(u"2. KAT")
         b4.move(2, 328)
         b4.setFixedSize(110, 64)
 
-        b5 = QtGui.QPushButton(self)
+        b5 = QtWidgets.QPushButton(self)
         b5.setText(u"KULE")
         b5.move(2, 392)
         b5.setFixedSize(110, 64)
 
-        b6 = QtGui.QPushButton(self)
+        b6 = QtWidgets.QPushButton(self)
         b6.setText(u"Kapat")
         b6.move(720, 512)
         b6.setFixedSize(110, 64)
 
-        self.e = QtGui.QTableWidget(self)
+        self.e = QtWidgets.QTableWidget(self)
         self.e.setGeometry(16, 500, 700, 168)
         self.e.setRowCount(10)
         self.e.setColumnCount(5)
@@ -111,15 +111,15 @@ class Pos1(QtGui.QWidget):
             self.e.setRowHeight(sira, 16)
 
             item = str(zz[0])
-            self.e.setItem(sira, 0, QtGui.QTableWidgetItem(item))
+            self.e.setItem(sira, 0, QtWidgets.QTableWidgetItem(item))
             item = zz[1]
-            self.e.setItem(sira, 1, QtGui.QTableWidgetItem(item))
+            self.e.setItem(sira, 1, QtWidgets.QTableWidgetItem(item))
             item = str(zz[2])
-            self.e.setItem(sira, 2, QtGui.QTableWidgetItem(item))
+            self.e.setItem(sira, 2, QtWidgets.QTableWidgetItem(item))
             item = str(zz[3])
-            self.e.setItem(sira, 3, QtGui.QTableWidgetItem(item))
+            self.e.setItem(sira, 3, QtWidgets.QTableWidgetItem(item))
             item = str(zz[7])
-            self.e.setItem(sira, 4, QtGui.QTableWidgetItem(item))
+            self.e.setItem(sira, 4, QtWidgets.QTableWidgetItem(item))
 
 
     def masagoster(self,katno):
@@ -135,7 +135,7 @@ class Pos1(QtGui.QWidget):
                 satir[kk].deleteLater()
 
         for k, row in enumerate(aa):
-            satir[k] = QtGui.QPushButton(self)
+            satir[k] = QtWidgets.QPushButton(self)
             satir[k].setText(row[0])
             satir[k].move(row[5], row[4])
             satir[k].setFixedSize(row[7], row[6])
@@ -158,12 +158,12 @@ class Pos1(QtGui.QWidget):
 
     def showdialog(self):
 
-        d = QtGui.QDialog()
+        d = QtWidgets.QDialog()
         d.setFixedSize(200,200)
-        self.butt = QtGui.QPushButton(self.masano, d)
+        self.butt = QtWidgets.QPushButton(self.masano, d)
         self.butt.move(50, 50)
 
-        self.tar=QtGui.QDateEdit(d)
+        self.tar=QtWidgets.QDateEdit(d)
         self.tar.setCalendarPopup(True)
         self.tar.setDate(QtCore.QDate.currentDate())
         self.tar.move(10,10)
@@ -199,7 +199,7 @@ class Pos1(QtGui.QWidget):
 
 
 if __name__ == '__main__':
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     w = Pos1()
     w.show()
     w.raise_()

@@ -1,7 +1,6 @@
 
 __author__ = 'NAMIK'
-
-from PyQt4 import QtGui, QtCore
+from PyQt5 import Qt, QtCore,  QtWidgets
 from fatura import Fatura
 from openpyxl import load_workbook
 from openpyxl import Workbook
@@ -11,11 +10,11 @@ import datetime, time
 from modulemdb import *
 
 
-app = QtGui.QApplication(sys.argv)
+app = QtWidgets.QApplication(sys.argv)
 mydb = Myddb()
-fname = QtGui.QFileDialog.getOpenFileName()
-print(fname)
-openfile=fname
+fname = QtWidgets.QFileDialog.getOpenFileName()
+print(fname[0])
+openfile=fname[0]
 fname = ""
 
 def kontrol(girdi):
@@ -188,13 +187,13 @@ for row in range(int(len(data) / 9)):
         fatura.slotfatura(0, 0)
 
         time.sleep(dur)
-        fatura.tableWidget_2.setItem((satir - 2), 3, QtGui.QTableWidgetItem(str(data[aa + 7])))
+        fatura.tableWidget_2.setItem((satir - 2), 3, QtWidgets.QTableWidgetItem(str(data[aa + 7])))
         if data[aa + 4] == "Kilogram":
 
             data[aa + 3] = (float(data[aa + 3]) * 1000)
 
-        fatura.tableWidget_2.setItem((satir - 2), 4, QtGui.QTableWidgetItem(str(data[aa + 3])))
-        fatura.tableWidget_2.setItem((satir - 2), 6, QtGui.QTableWidgetItem(str(data[aa + 6])))
+        fatura.tableWidget_2.setItem((satir - 2), 4, QtWidgets.QTableWidgetItem(str(data[aa + 3])))
+        fatura.tableWidget_2.setItem((satir - 2), 6, QtWidgets.QTableWidgetItem(str(data[aa + 6])))
         time.sleep(dur)
         fatura.slotfaturakaydet()
         aa = aa + 1
