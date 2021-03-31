@@ -7,13 +7,8 @@ from openpyxl import load_workbook
 from openpyxl import Workbook
 
 import re, sys
-import xlwt
 import datetime, time
 from modulemdb import *
-
-# import win32com.client  as win32
-
-# excel = win32.gencache.EnsureDispatch('Excel.Application') #uses current instance of excel
 
 
 app = QtGui.QApplication(sys.argv)
@@ -23,15 +18,6 @@ print(fname)
 openfile=fname
 fname = ""
 
-if fname.endswith("s"):
-    fname = os.path.normpath(fname)
-    wb = excel.Workbooks.Open(fname)
-    wb.SaveAs(fname + "x", FileFormat=51)  # FileFormat = 51 is for .xlsx extension
-    wb.Close()  # FileFormat = 56 is for .xls extension
-    openfile = fname + "x"
-
-
-# excel.Application.Quit()
 def kontrol(girdi):
     girdi = str(girdi)
     ara = re.search(",", girdi)
@@ -73,15 +59,6 @@ def last_day_of_month(any_day):
     next_month = any_day.replace(day=28) + datetime.timedelta(days=4)  # this will never fail
     return next_month - datetime.timedelta(days=next_month.day)
 
-
-wb = xlwt.Workbook(encoding="utf-8")
-dest_filename = '021020tdy.xls'
-date_format = xlwt.XFStyle()
-date_format.num_format_str = u'#,##0.00₺'
-date_xf = xlwt.easyxf(num_format_str='DD/MM/YYYY')
-style1 = xlwt.easyxf('pattern: pattern solid, fore_colour red;')
-
-# Filename line 'C:\\Users\\NAMIK\\Google Drive\\bishop\\PERSONEL\\fatura1.xlsx'
 #openfile = "C:\\Users\\namik\\202007FATURALARxxx.xlsx"
 
 wb1 = load_workbook(openfile, read_only=True)
@@ -119,7 +96,7 @@ for row in ws.rows:
             if cell.value is None:
                 ab = 99999
                 continue
-            deger = datetime.datetime.strptime(str(cell.value), "%Y-%m-%d %H:%M:%S")
+            deger = datetime.datetime.strptime(str(cell.value), "%d.%m.%Y")
 
             #            deger = datetime.datetime.strptime(str(cell.value), "%d%m%y")
             #print(deger)
@@ -140,9 +117,6 @@ satir1 = 1
 satir2 = 1
 dur = 0.05
 
-ws3 = wb.add_sheet("gelir")
-ws4 = wb.add_sheet("gider")
-
 fatura = Fatura()
 fatura.goster()
 for row in range(int(len(data) / 9)):
@@ -153,10 +127,10 @@ for row in range(int(len(data) / 9)):
         if elma != data[aa + 1]:
 
             elma = str(data[aa + 1])
-            armut=int(elma.rsplit("N012020")[1])
+            armut=int(elma.rsplit("N012021")[1])
             dt = data[aa]
 
-            fatura.lineEdit.setText('N01')
+            fatura.lineEdit.setText('N02')
             fatura.lineEdit_2.setText(str(armut))
             fatura.dateEdit.setDate(QtCore.QDate(dt.year, dt.month, dt.day))
             time.sleep(dur)
@@ -244,5 +218,3 @@ app.exec_()
 deger = last_day_of_month(deger)
 t = deger.timetuple()
 deger2 = datetime.date(t[0], t[1], t[2])
-
-wb.save(dest_filename)

@@ -70,6 +70,11 @@ class Rapor(QtWidgets.QDialog , Ui_Dialog7):
         self.d.text(chr(61))
 
         self.d.set(font='a', align='left', height=1, width=1)
+        self.d.text(chr(27))
+        self.d.text("B")
+        self.d.text(chr(4))
+        self.d.text(chr(1))
+
 
         print("Ürün listesi")
         self.tableWidget.clearContents()
@@ -225,9 +230,7 @@ class Rapor(QtWidgets.QDialog , Ui_Dialog7):
 
     @pyqtSlot()
     def cariekstre(self):
-        #        p = Network("192.168.2.223")
-
-        p = Network("192.168.2.221")
+        p = Network("192.168.2.223")
         p._raw(self.d.output)
         print("elma")
         p=None
@@ -250,6 +253,11 @@ class Rapor(QtWidgets.QDialog , Ui_Dialog7):
 
         self.kontrol = 1
         self.d.set(font='a', align='left', height=2, width=1)
+        self.d.text(chr(27))
+        self.d.text("B")
+        self.d.text(chr(4))
+        self.d.text(chr(1))
+
 
         print("ekstrerapor")
         self.tableWidget.clearContents()
