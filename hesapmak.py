@@ -1,21 +1,15 @@
 # -*- coding: utf-8 -*-
 
 import sys
-import time as ttim
-import math
 import re
 import hesapla
-from PyQt5 import QtGui, QtCore, uic, QtWidgets
-from PyQt5.QtWidgets import QMainWindow,QDialog, QApplication
-from PyQt5.QtCore import *
+from PyQt5 import QtGui, QtCore, QtWidgets
+from PyQt5.QtWidgets import QDialog
 
 from ui_hesap import Ui_Dialog
 
-from modulemdb import *
 
-
-
-class Hesap(QDialog , Ui_Dialog):
+class Hesap(QDialog, Ui_Dialog):
     def __init__(self):
         QtWidgets.QDialog.__init__(self)
         self.setupUi(self)

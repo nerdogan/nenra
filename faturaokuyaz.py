@@ -1,13 +1,12 @@
 
 __author__ = 'NAMIK'
-from PyQt5 import Qt, QtCore,  QtWidgets
+from PyQt5 import QtCore, QtWidgets
 from fatura import Fatura
 from openpyxl import load_workbook
-from openpyxl import Workbook
 
 import re, sys
 import datetime, time
-from modulemdb import *
+from mdb.modulemdb import *
 
 
 app = QtWidgets.QApplication(sys.argv)

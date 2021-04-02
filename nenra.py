@@ -11,23 +11,16 @@
 # -------------------------------------------------------------------------------
 # pyinstaller --clean --win-private-assemblies -F masa.py
 #                --distpath="C:\Users\NAMIK\Desktop\masa" -w
-import os
-import sys
+import sys, os
 import datetime
 import logging
 # import urllib2
 import time
 from threading import Thread
-from PyQt5 import QtGui, QtCore, uic, QtWidgets
-from PyQt5.QtWidgets import QMainWindow, QApplication
+from PyQt5 import QtGui, QtCore, QtWidgets
+from PyQt5.QtWidgets import QApplication
 from PyQt5.QtCore import *
-from PyQt5.QtGui import QKeyEvent
-"""
-from PyQt4.QtGui import QApplication, QKeyEvent
-from PyQt4.QtCore \
-    import pyqtSlot, pyqtSignal, QThread, Qt, QCoreApplication, QEvent
-from PyQt4 import QtGui, QtCore
-"""
+
 from mainwindow import MainWindow
 from mainwindow import Recete
 from mainwindow import Recete2
@@ -38,7 +31,7 @@ from stok import Stok
 from login import Login
 from rapor import Rapor
 from masraf import Masraf
-from modulemdb import *
+from mdb.modulemdb import *
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -270,30 +263,30 @@ def main():
 
             item = str(bul3[0][1])
             file.write(item + " ")
-            recete2.tableWidget_2.setItem(aa, 0, QtGui.QTableWidgetItem(item))
+            recete2.tableWidget_2.setItem(aa, 0, QtWidgets.QTableWidgetItem(item))
             item = bul3[0][2]
             # file.write(item+" ")
-            recete2.tableWidget_2.setItem(aa, 1, QtGui.QTableWidgetItem(item))
+            recete2.tableWidget_2.setItem(aa, 1, QtWidgets.QTableWidgetItem(item))
             item = bul3[0][3]
             file.write(item + " ")
-            recete2.tableWidget_2.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+            recete2.tableWidget_2.setItem(aa, 2, QtWidgets.QTableWidgetItem(item))
             item = str(row1[3])
-            recete2.tableWidget_2.setItem(aa, 3, QtGui.QTableWidgetItem(item))
+            recete2.tableWidget_2.setItem(aa, 3, QtWidgets.QTableWidgetItem(item))
             file.write(item + " ")
 
             item = str(bul3[0][6])
             file.write(item + "\n")
-            recete2.tableWidget_2.setItem(aa, 4, QtGui.QTableWidgetItem(item))
+            recete2.tableWidget_2.setItem(aa, 4, QtWidgets.QTableWidgetItem(item))
 
             elma = (bul3[0][6]) * (row1[3]) * (100 + (bul3[0][4])) / 100
             topelma = topelma + elma
             item = str(elma)
             file.write(item + "\n")
             item = str("{:.2f}".format(elma))
-            item = QtGui.QTableWidgetItem(item)
+            item = QtWidgets.QTableWidgetItem(item)
             item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignRight)
 
-            recete2.tableWidget_2.setItem(aa, 5, QtGui.QTableWidgetItem(item))
+            recete2.tableWidget_2.setItem(aa, 5, QtWidgets.QTableWidgetItem(item))
 
             aa = aa + 1
 
@@ -326,19 +319,19 @@ def main():
         i = len(bul)
         recete2.tableWidget.setRowCount(i)
         recete2.tableWidget.setSelectionBehavior(
-            QtGui.QAbstractItemView.SelectRows)
+            QtWidgets.QAbstractItemView.SelectRows)
 
         aa = 0
         toplam = 0
         for row1 in bul:
             item = str(row1[1])
-            recete2.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
+            recete2.tableWidget.setItem(aa, 0, QtWidgets.QTableWidgetItem(item))
             item = row1[2]
-            recete2.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
+            recete2.tableWidget.setItem(aa, 1, QtWidgets.QTableWidgetItem(item))
             item = row1[3]
-            recete2.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+            recete2.tableWidget.setItem(aa, 2, QtWidgets.QTableWidgetItem(item))
             item = str(row1[4])
-            recete2.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
+            recete2.tableWidget.setItem(aa, 3, QtWidgets.QTableWidgetItem(item))
             aa = aa + 1
 
     @pyqtSlot(int, int)
@@ -356,17 +349,17 @@ def main():
         aa = i - 1
 
         item = deger1
-        recete2.tableWidget_2.setItem(aa, 0, QtGui.QTableWidgetItem(item))
+        recete2.tableWidget_2.setItem(aa, 0, QtWidgets.QTableWidgetItem(item))
         item = deger2
-        recete2.tableWidget_2.setItem(aa, 1, QtGui.QTableWidgetItem(item))
+        recete2.tableWidget_2.setItem(aa, 1, QtWidgets.QTableWidgetItem(item))
         item = deger3
-        recete2.tableWidget_2.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+        recete2.tableWidget_2.setItem(aa, 2, QtWidgets.QTableWidgetItem(item))
         item = '0'
-        recete2.tableWidget_2.setItem(aa, 3, QtGui.QTableWidgetItem(item))
+        recete2.tableWidget_2.setItem(aa, 3, QtWidgets.QTableWidgetItem(item))
         # recete2.lineEdit.setFocus(True)
         recete2.tableWidget_2.setFocus()
         recete2.tableWidget_2.setCurrentCell(aa, 3)
-        QtGui.QSound(r"horn.wav").play()
+        QtWidgets.QSound(r"horn.wav").play()
 
     @pyqtSlot()
     def slotrecete2kaydet():
@@ -400,8 +393,7 @@ def main():
         # dialog penceresi boyutu sabit (fixed)
         i = len(bul)
         recete.tableWidget.setRowCount(i)
-        recete.tableWidget.setSelectionBehavior(
-            QtGui.QAbstractItemView.SelectRows)
+        recete.tableWidget.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
         recete.tableWidget.setColumnWidth(0, 50)
         recete.tableWidget.setColumnWidth(1, 50)
         recete.tableWidget.setColumnWidth(2, 220)
@@ -412,18 +404,18 @@ def main():
         toplam = 0
         for row1 in bul:
             item = str(row1[0])
-            recete.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
+            recete.tableWidget.setItem(aa, 0, QtWidgets.QTableWidgetItem(item))
             item = str(row1[1])
             bul2 = myddb.cek2(item, "recete", "menukod")
-            recete.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
+            recete.tableWidget.setItem(aa, 1, QtWidgets.QTableWidgetItem(item))
             item = row1[2]
-            recete.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+            recete.tableWidget.setItem(aa, 2, QtWidgets.QTableWidgetItem(item))
             item = str(row1[3])
-            proto = QtGui.QTableWidgetItem(item)
+            proto = QtWidgets.QTableWidgetItem(item)
             proto.setTextAlignment(Qt.AlignRight)
             recete.tableWidget.setItem(aa, 3, proto)
             item = str(row1[4])
-            recete.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
+            recete.tableWidget.setItem(aa, 4, QtWidgets.QTableWidgetItem(item))
             if len(bul2) == 0:
                 recete.tableWidget.item(aa, 2).setBackground(
                     QtGui.QColor('red'))
@@ -548,22 +540,22 @@ def main():
         toplam = 0
         for row1 in bul:
             item = str(row1[0])
-            recete.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
+            recete.tableWidget.setItem(aa, 0, QtWidgets.QTableWidgetItem(item))
             item = str(row1[1])
-            recete.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
+            recete.tableWidget.setItem(aa, 1, QtWidgets.QTableWidgetItem(item))
             item = row1[2]
-            recete.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+            recete.tableWidget.setItem(aa, 2, QtWidgets.QTableWidgetItem(item))
             item = str(row1[3])
-            recete.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
+            recete.tableWidget.setItem(aa, 3, QtWidgets.QTableWidgetItem(item))
             item = str(row1[4])
-            recete.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
+            recete.tableWidget.setItem(aa, 4, QtWidgets.QTableWidgetItem(item))
             aa = aa + 1
 
     @pyqtSlot()
     def copyFunction(e):
         print("f10 a bastın")
         print(e.key())
-            '''
+        '''
 
             if fatura.tableWidget_2.currentColumn()==5:
                 if elma1 == elma + 1:

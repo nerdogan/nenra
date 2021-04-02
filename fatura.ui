@@ -34,10 +34,10 @@
         <widget class="QLabel" name="label_2">
          <property name="font">
           <font>
-           <family>Magneto</family>
-           <pointsize>12</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
+           <family>.AppleSystemUIFont</family>
+           <pointsize>13</pointsize>
+           <weight>50</weight>
+           <bold>false</bold>
           </font>
          </property>
          <property name="text">
@@ -414,7 +414,7 @@
        <item>
         <widget class="QComboBox" name="comboBox">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -422,7 +422,7 @@
          <property name="minimumSize">
           <size>
            <width>120</width>
-           <height>0</height>
+           <height>40</height>
           </size>
          </property>
          <property name="maximumSize">

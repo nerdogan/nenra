@@ -10,10 +10,6 @@
 # Licence:     
 #-------------------------------------------------------------------------------
 
-import sys
-
-import requests
-
 from escpos.printer import Network,Dummy
 
 from datetime import datetime,timedelta
@@ -24,7 +20,7 @@ from ui_rapor import Ui_Dialog7
 import xlwt
 from decimal import *
 
-from modulemdb import *
+from mdb.modulemdb import *
 from reportlab.pdfgen import canvas
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont

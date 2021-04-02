@@ -1,15 +1,12 @@
 import sys
-import time as ttim
 import re
 from hesapmak import Hesap
-from PyQt5 import QtGui, QtCore, uic, QtWidgets
-from PyQt5.QtWidgets import QMainWindow,QDialog, QApplication
-from PyQt5.QtCore import Qt
+from PyQt5 import QtCore, QtWidgets
+from PyQt5.QtWidgets import QApplication
 from PyQt5.QtCore import *
-from PyQt5.QtGui import QKeyEvent
 from ui_fatura import Ui_Dialog3
 
-from modulemdb import *
+from mdb.modulemdb import *
 
 
 class Fatura(QtWidgets.QDialog, Ui_Dialog3):

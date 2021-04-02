@@ -1,15 +1,12 @@
 # -*- coding: utf-8 -*-
-import sys
-import re
-import datetime
-import subprocess
-from PyQt5 import QtGui, QtCore, uic, QtWidgets
-from PyQt5.QtWidgets import QMainWindow, QDialog
+import sys, subprocess
+from PyQt5 import QtCore, QtWidgets
+from PyQt5.QtWidgets import QDialog
 from PyQt5.QtCore import *
 
 from ui_maliyet import Ui_Dialog4
 
-from modulemdb import *
+from mdb.modulemdb import *
 from reportlab.pdfgen import canvas
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
@@ -69,7 +66,8 @@ class Maliyet(QDialog , Ui_Dialog4):
         toplam2 = 0.0
 
         for row1 in bul:
-            sql1 = "select hurunkod,sum(hmiktar*fiyat1) from harcanan inner join hammadde on hhammaddeid=hamkod where DATE(tarih)>=%s and DATE(tarih)<=%s and hurunkod=%s"
+            sql1 = "select hurunkod,sum(hmiktar*hammadde.fiyat1) from harcanan inner join hammadde on " \
+                   "hhammaddeid=hamkod where DATE(tarih)>=%s and DATE(tarih)<=%s and hurunkod=%s "
             bul1 = myddb1.cur.execute(sql1, (tar1, tar2, row1[0]))
             bul1 = myddb1.cur.fetchall()
 

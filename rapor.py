@@ -8,20 +8,19 @@
 # Created:     22.06.2016
 # Copyright:   (c) NAMIK ERDOĞAN  2016
 # Licence:     
-#-------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
 
-import sys
-from escpos.printer import Network,Dummy,Usb
-
-from datetime import datetime,timedelta
+import sys, os
+from escpos.printer import Network, Dummy
+from datetime import datetime, timedelta
 import subprocess
-from PyQt5 import Qt, QtCore,  QtWidgets
+from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import *
 from ui_rapor import Ui_Dialog7
 import xlwt
 from decimal import *
 
-from modulemdb import *
+from mdb.modulemdb import *
 from reportlab.pdfgen import canvas
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont

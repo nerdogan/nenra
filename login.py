@@ -1,12 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import sys
-import time as ttim
-import re
 from PyQt5 import  QtCore, QtWidgets
 from PyQt5.QtCore import *
-
-from modulemdb import *
 
 
 class Login(QtWidgets.QDialog):

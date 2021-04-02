@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 
 import sys
-import time as ttim
 import re
 from PyQt4.QtCore import pyqtSlot
 from PyQt4 import QtGui, QtCore
 from ui_fatura import Ui_Dialog3
 
-from modulemdb import *
+from mdb.modulemdb import *
 
 
 

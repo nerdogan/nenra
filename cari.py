@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import sys
 import locale
 import subprocess
 from PyQt5 import QtGui, QtCore, QtWidgets
@@ -9,7 +10,7 @@ import xlwt
 from decimal import *
 import logging
 
-from modulemdb import *
+from mdb.modulemdb import *
 from reportlab.pdfgen import canvas
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
@@ -508,8 +509,6 @@ class Cari(QtWidgets.QDialog, Ui_Dialog5):
 
 
 if __name__ == "__main__":
-    import sys
-
     app = QtWidgets.QApplication(sys.argv)
     fatura1 = Cari()
     fatura1.show()

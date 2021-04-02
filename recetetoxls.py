@@ -1,12 +1,8 @@
 # -*- coding: utf-8 -*-
 
-import sys
-import time as ttim
-
-from modulemdb import Myddb
+from mdb.modulemdb import Myddb
 import re
 import xlwt
-import datetime
 from xlrd import open_workbook
 
 data=[]

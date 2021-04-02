@@ -15,13 +15,12 @@ import sys
 import re
 from datetime import datetime,timedelta
 import  time
-from PyQt5 import QtGui, QtCore, uic, QtWidgets
-from PyQt5.QtWidgets import QMainWindow, QDialog
+from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import *
 from ui_masraf import Ui_Masraf
 from fatura import Fatura
 
-from modulemdb import *
+from mdb.modulemdb import *
 
 
 

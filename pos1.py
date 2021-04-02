@@ -1,15 +1,8 @@
-from PyQt5 import Qt, QtCore,  QtWidgets
-from PyQt5.QtCore import *
+from PyQt5 import QtCore, QtWidgets
 import fdb
-from modulemdb import *
-from datetime import datetime,timedelta
-import time as ttim
-from socket import *
+from mdb.modulemdb import *
 import sys
 import atexit
-import nenraconfig
-
-
 
 dizi=0
 satir={}

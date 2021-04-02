@@ -1,16 +1,12 @@
 # -*- coding: utf-8 -*-
-import sys
-import re
-import datetime
-import subprocess
-from PyQt5 import QtGui, QtCore, uic, QtWidgets
-from PyQt5.QtWidgets import QMainWindow, QDialog
+import sys, subprocess
+from PyQt5 import QtGui, QtCore, QtWidgets
 from PyQt5.QtCore import *
 from ui_stok import Ui_Dialog6
 import xlwt
 from decimal import *
 
-from modulemdb import *
+from mdb.modulemdb import *
 from reportlab.pdfgen import canvas
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
@@ -105,22 +101,22 @@ class Stok(QtWidgets.QDialog , Ui_Dialog6):
 
 
             item = str(row1[0])
-            self.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 0, QtWidgets.QTableWidgetItem(item))
             c.drawString(45, 800 - (15 * (bb + 1)), item)
             self.ws1.write(aa,0,item)
             item = row1[1]
             c.drawString(80, 800 - (15 * (bb + 1)), item)
             self.ws1.write(aa, 1, item)
-            self.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 1, QtWidgets.QTableWidgetItem(item))
             item = row1[2]
             c.drawString(240, 800 - (15 * (bb + 1)), item)
             self.ws1.write(aa, 2, item)
-            self.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 2, QtWidgets.QTableWidgetItem(item))
 
             item = str("{:10.2f}".format(row1[3]))
 
             toplam = toplam + float(row1[3])
-            self.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 3, QtWidgets.QTableWidgetItem(item))
 
             c.drawRightString( 330, 800 - (15 * (bb + 1)), "{:10.2f}".format(row1[3]))
             self.ws1.write(aa, 3, float(row1[3]))
@@ -128,7 +124,7 @@ class Stok(QtWidgets.QDialog , Ui_Dialog6):
             item = str("{:10.2f}".format(row1[4]))
 
             toplam1 = toplam1 + float(row1[4])
-            self.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 4, QtWidgets.QTableWidgetItem(item))
 
             c.drawRightString(405, 800 - (15 * (bb + 1)), "{:10.2f}".format(row1[4]))
             self.ws1.write(aa, 4, float(row1[4]))
@@ -136,7 +132,7 @@ class Stok(QtWidgets.QDialog , Ui_Dialog6):
             item = str("{:10.2f}".format(row1[5]))
 
             toplam2 = toplam2 + float(row1[5])
-            self.tableWidget.setItem(aa, 5, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 5, QtWidgets.QTableWidgetItem(item))
 
             c.drawRightString(480, 800 - (15 * (bb + 1)), "{:10.2f}".format(row1[5]))
             self.ws1.write(aa, 5, float(row1[5]))
@@ -253,17 +249,17 @@ class Stok(QtWidgets.QDialog , Ui_Dialog6):
 
             item = str(row1[1])
             self.ws1.write(aa, 0, item)
-            self.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 0, QtWidgets.QTableWidgetItem(item))
             c.drawString(45, 800 - (15 * (bb + 1)), item)
             item = str(row1[3])
             self.ws1.write(aa, 1, item)
             c.drawString(80, 800 - (15 * (bb + 1)), item)
-            self.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 1, QtWidgets.QTableWidgetItem(item))
 
             if row1[0]==10:
                 item = str(row1[3])+"Fatura "
                 self.ws1.write(aa, 2, item)
-                self.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+                self.tableWidget.setItem(aa, 2, QtWidgets.QTableWidgetItem(item))
                 c.drawString(150, 800 - (15 * (bb + 1)), item)
 
                 item = str(row1[4])
@@ -271,15 +267,15 @@ class Stok(QtWidgets.QDialog , Ui_Dialog6):
                 c.drawRightString(310, 800 - (15 * (bb + 1)), item)
                 toplam = toplam + float(row1[4])
                 toplam2=Decimal(toplam2)+(row1[4])
-                self.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
+                self.tableWidget.setItem(aa, 3, QtWidgets.QTableWidgetItem(item))
                 item= ""
                 c.drawRightString(390, 800 - (15 * (bb + 1)), item)
-                self.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
+                self.tableWidget.setItem(aa, 4, QtWidgets.QTableWidgetItem(item))
 
             if row1[0]==11:
                 item = row1[3]+u" Ödeme"
                 self.ws1.write(aa, 2, item)
-                self.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+                self.tableWidget.setItem(aa, 2, QtWidgets.QTableWidgetItem(item))
                 c.drawString(150, 800 - (15 * (bb + 1)), item)
 
                 item = str(row1[4])
@@ -287,17 +283,17 @@ class Stok(QtWidgets.QDialog , Ui_Dialog6):
                 c.drawString(350, 800 - (15 * (bb + 1)), item)
                 toplam1 = toplam1 + float(row1[4])
                 toplam2=Decimal(toplam2)+ (row1[4])
-                self.tableWidget.setItem(aa, 4, QtGui.QTableWidgetItem(item))
+                self.tableWidget.setItem(aa, 4, QtWidgets.QTableWidgetItem(item))
                 item= ""
                 c.drawString(270, 800 - (15 * (bb + 1)), item)
-                self.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
+                self.tableWidget.setItem(aa, 3, QtWidgets.QTableWidgetItem(item))
 
 
 
 
             item = str(toplam2)
             self.ws1.write(aa, 5, toplam2)
-            self.tableWidget.setItem(aa, 5, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 5, QtWidgets.QTableWidgetItem(item))
             c.drawRightString(470, 800 - (15 * (bb + 1)), str(toplam2))
 
 
@@ -368,8 +364,8 @@ class Stok(QtWidgets.QDialog , Ui_Dialog6):
 
 
 if __name__ == "__main__":
-    app = QtGui.QApplication(sys.argv)
-    stok=Stok()
+    app = QtWidgets.QApplication(sys.argv)
+    stok = Stok()
     stok.show()
     stok.raise_()
     app.exec_()

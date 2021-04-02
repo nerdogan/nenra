@@ -1,11 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from modulemdb import *
+from mdb.modulemdb import *
 from datetime import datetime, timedelta
-from reportlab.pdfgen import canvas
-from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.ttfonts import TTFont
-from reportlab.rl_settings import *
 
 
 class mizan():
