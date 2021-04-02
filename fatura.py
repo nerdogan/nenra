@@ -1,7 +1,7 @@
 import sys
 import re
 from hesapmak import Hesap
-from PyQt5 import QtCore, QtWidgets
+from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtCore import *
 from ui_fatura import Ui_Dialog3
@@ -39,12 +39,16 @@ class Fatura(QtWidgets.QDialog, Ui_Dialog3):
         self.pushButton_4.clicked.connect(self.slotfaturasil)
         self.tableWidget_2.itemChanged.connect(self.toplamdegisti)
         self.comboBox.currentIndexChanged.connect(self.odemeyap)
-        self.keyPressEvent=(self.keyPressEvent1)
+        self.keyPressEvent = (self.keyPressEvent1)
+        self.quitSc = QtWidgets.QShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Equal), self)
+        self.quitSc.activated.connect(self.slothesapmakgoster)
 
-       # self.connect(self, QtCore.SIGNAL('triggered()'), self.closeEvent)
-      #  self.connect(QtWidgets.QShortcut(QtWidgets.QKeySequence(QtCore.Qt.Key_Equal), self.tableWidget_2),
-#                     QtCore.SIGNAL('activated()'), self.slothesapmakgoster)
-#        self.connect(self.hesapla, QtCore.SIGNAL("acac"), self.slotitemyaz)
+        # self.connect(self, QtCore.SIGNAL('triggered()'), self.closeEvent)
+        #  self.connect(QtWidgets.QShortcut(QtWidgets.QKeySequence(QtCore.Qt.Key_Equal), self.tableWidget_2),
+        #                     QtCore.SIGNAL('activated()'), self.slothesapmakgoster)
+
+        #        self.connect(self.hesapla, QtCore.SIGNAL("acac"), self.slotitemyaz)
+        self.hesapla.acac.connect(self.slotitemyaz)
     def keyPressEvent1(self,e):
         print(e.key())
         if e.key() == 16777220:
@@ -584,8 +588,9 @@ class Fatura(QtWidgets.QDialog, Ui_Dialog3):
         self.a = self.tableWidget_2.currentRow()
         self.b = self.tableWidget_2.currentColumn()
 
-    @pyqtSlot(int, str)
+    @pyqtSlot(str)
     def slotitemyaz(self, sonuc):
+        print(sonuc)
         self.show()
 
         #        print sonuc

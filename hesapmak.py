@@ -2,6 +2,9 @@
 
 import sys
 import re
+
+from PyQt5.QtCore import pyqtSignal
+
 import hesapla
 from PyQt5 import QtGui, QtCore, QtWidgets
 from PyQt5.QtWidgets import QDialog
@@ -10,6 +13,7 @@ from ui_hesap import Ui_Dialog
 
 
 class Hesap(QDialog, Ui_Dialog):
+    acac = pyqtSignal(str)
     def __init__(self):
         QtWidgets.QDialog.__init__(self)
         self.setupUi(self)
@@ -47,12 +51,13 @@ class Hesap(QDialog, Ui_Dialog):
 
 
     def slothesapla(self):
-        elma=(self.lineEdit.text())
-        elma=self.kontrol(elma)
-        elma=str(hesapla.calc(str(elma)))
+        elma = (self.lineEdit.text())
+        elma = self.kontrol(elma)
+        elma = str(hesapla.calc(str(elma)))
 
         self.lineEdit_2.setText(elma)
-        self.emit(QtCore.SIGNAL("acac"), elma)
+
+        self.acac.emit(elma)
         self.close()
 
 
