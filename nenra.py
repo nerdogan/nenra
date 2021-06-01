@@ -10,7 +10,7 @@
 # Licence:     <your licence>
 # -------------------------------------------------------------------------------
 # pyinstaller --clean --win-private-assemblies -F masa.py   --distpath="C:\Users\NAMIK\Desktop\masa" -w
-# pyinstaller --clean --win-private-assemblies -F  nenra.py   --distpath="C:\Users\bisho\Desktop\masa" -w
+# pyinstaller --clean --win-private-assemblies -F  nenra.py   --distpath="C:\Users\bisho\Desktop\nenra" -w
 import sys, os
 import datetime
 import logging
@@ -83,7 +83,7 @@ def run1(EndDate):
 
 selfstart_time = time.time()
 
-StartDate = "01/03/21"
+StartDate = "01/06/21"
 
 EndDate = datetime.datetime.strptime(StartDate, "%d/%m/%y")
 now = datetime.datetime.now() - datetime.timedelta(days=1)
@@ -114,7 +114,7 @@ class WorkerThread(QThread):
 
     def run(self):
 
-        StartDate = "01/03/21"
+        StartDate = "01/06/21"
 
         EndDate = datetime.datetime.strptime(StartDate, "%d/%m/%y")
         now = datetime.datetime.now() - datetime.timedelta(days=1)
