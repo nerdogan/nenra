@@ -451,14 +451,15 @@ class Fatura(QtWidgets.QDialog, Ui_Dialog3):
         for item in range(i):
             satir += 1
 
-            cc = (self.comb[item].property(self.comb[item].currentText()))
-            if cc is not None:
-
-                self.tableWidget_2.setItem(item, 4, QtWidgets.QTableWidgetItem(
-                    str(float(self.tableWidget_2.item(item, 4).text()) * (float(cc)))))
-                self.tableWidget_2.setItem(item, 5, QtWidgets.QTableWidgetItem(
-                    str(float(self.kontrol(self.tableWidget_2.item(item, 5).text())) / (float(cc)))))
-
+            try:
+                cc = (self.comb[item].property(self.comb[item].currentText()))
+                if cc is not None:
+                    self.tableWidget_2.setItem(item, 4, QtWidgets.QTableWidgetItem(
+                        str(float(self.tableWidget_2.item(item, 4).text()) * (float(cc)))))
+                    self.tableWidget_2.setItem(item, 5, QtWidgets.QTableWidgetItem(
+                        str(float(self.kontrol(self.tableWidget_2.item(item, 5).text())) / (float(cc)))))
+            except:
+                pass
             deger10 = self.tableWidget_2.item(item, 0).text()
             deger11 = self.tableWidget_2.item(item, 3).text()  # kdv
             deger12 = self.tableWidget_2.item(item, 4).text()  # miktar
@@ -496,6 +497,7 @@ class Fatura(QtWidgets.QDialog, Ui_Dialog3):
     def slotfaturasatirsil(self):
         bb = self.tableWidget_2.currentRow()
         self.tableWidget_2.removeRow(bb)
+        self.slotfaturakaydet()
 
     def toplamgoster(self):
         i = self.tableWidget_2.rowCount()
