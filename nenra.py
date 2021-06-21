@@ -10,7 +10,7 @@
 # Licence:     <your licence>
 # -------------------------------------------------------------------------------
 # pyinstaller --clean --win-private-assemblies -F masa.py   --distpath="C:\Users\NAMIK\Desktop\masa" -w
-# pyinstaller --clean --win-private-assemblies -F  nenra.py   --distpath="C:\Users\bisho\Desktop\masa" -w
+# pyinstaller --clean --win-private-assemblies -F  nenra.py   --distpath="C:\Users\bisho\Desktop\nenra" -w
 import sys, os
 import datetime
 import logging
