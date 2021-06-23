@@ -459,6 +459,7 @@ def main():
     def slotmasraf(item2):
         print("masraf arayüzü açıldı")
         masraf.show()
+        masraf.raise_()
 
     @pyqtSlot()
     def slotpuss4(item2):
