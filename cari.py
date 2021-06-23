@@ -380,7 +380,7 @@ class Cari(QtWidgets.QDialog, Ui_Dialog5):
         sql = """select `c1`.`fistipi`,`c1`.`tarih` AS `tarih`,`c1`.`fisno` AS `fisno`,concat(`c1`.`serino`,'_',
         `c1`.`sirano`,' nolu '), `c1`.`tutar` AS `TUTAR` from (`cari_har` `c1` join `cari` `c2`) where ((
         `c1`.`cariid` = `c2`.`cariid`) and (`c1`.`cariid`=%s) and  (`c1`.`tarih` >=%s ) and (`c1`.`tarih` <=%s ) and 
-        (`c1`.`fistipi`=10 or `c1`.`fistipi`=11))  order by `c1`.`tarih` asc """
+        (`c1`.`fistipi`=10 or `c1`.`fistipi`=11))  order by `c1`.`tarih`,`c1`.`fisno` asc """
 
         bul2 = myddb1.cur.execute(sql, (carikod, tar1, tar2))
         print(bul2, tar1, tar2)

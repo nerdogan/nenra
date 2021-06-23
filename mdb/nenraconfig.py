@@ -18,8 +18,26 @@ def _GetConfig():
     _config.read(os.path.expanduser('./images/a.nenra'))
     return _config
 
-def _GetOption( option):
+
+def _GetOption(option):
     try:
         return _GetConfig().get('Nenra', option)
     except:
         return None
+
+
+def _GetOption2(option):
+    try:
+        return _GetConfig().get('tele', option)
+    except:
+        return None
+
+
+class GetOption3():
+    def __init__(self, option):
+        self._config = configparser.ConfigParser()
+        self._config.read(os.path.expanduser('./images/a.nenra'))
+        self.token = self._config.get('tele', option)
+
+    def gettoken(self):
+        return self.token

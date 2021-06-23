@@ -24,7 +24,8 @@ class mizan():
         myddb = Myddb()
         print(myddb.cur.execute(satis, (self.tarih1, self.tarih2)))
         bul=myddb.cur.fetchall()
-        myddb.cur.execute("delete from bishop.genelrapor  where tarih between %s  and %s ",(self.tarih1,self.tarih2))
+        print(bul)
+        myddb.cur.execute("delete from bishop.genelrapor  where tarih between %s  and %s ", (self.tarih1, self.tarih2))
         for row in bul:
             sql="insert into bishop.genelrapor (rkod,aciklama,miktar1,tarih) values (%s,%s,%s,%s)"
             myddb.cur.execute(sql,(row[0],"600.0"+str(row[0]),row[2],self.tarih2))
@@ -143,22 +144,8 @@ class mizan():
 
 
 if __name__ == '__main__':
-
-
-    elma=mizan("2020-09-01","2020-09-30")
+    elma = mizan("2021-01-01", "2021-01-31")
     #elma.testgen()
-    elma.bishopgenel()
-    elma.tarih1 = "2020-10-01"
-    elma.tarih2 = "2020-10-31"
-    elma.bishopgenel()
-    elma.tarih1 = "2020-11-01"
-    elma.tarih2 = "2020-11-30"
-    elma.bishopgenel()
-    elma.tarih1 = "2020-12-01"
-    elma.tarih2 = "2020-12-31"
-    elma.bishopgenel()
-    elma.tarih1 = "2021-01-01"
-    elma.tarih2 = "2021-01-31"
     elma.bishopgenel()
     elma.tarih1 = "2021-02-01"
     elma.tarih2 = "2021-02-28"
@@ -168,6 +155,12 @@ if __name__ == '__main__':
     elma.bishopgenel()
     elma.tarih1 = "2021-04-01"
     elma.tarih2 = "2021-04-30"
+    elma.bishopgenel()
+    elma.tarih1 = "2021-05-01"
+    elma.tarih2 = "2021-05-31"
+    elma.bishopgenel()
+    elma.tarih1 = "2021-06-01"
+    elma.tarih2 = "2021-06-30"
     elma.bishopgenel()
 
     """
@@ -201,6 +194,13 @@ if __name__ == '__main__':
     elma.tarih1 = "2020-10-01"
     elma.tarih2 = "2020-10-31"
     elma.bishopgenel()
+    elma.tarih1 = "2020-11-01"
+    elma.tarih2 = "2020-11-30"
+    elma.bishopgenel()
+    elma.tarih1 = "2020-12-01"
+    elma.tarih2 = "2020-12-31"
+    elma.bishopgenel()
+  
 
    
     elma.tarih1 = "2019-01-01"

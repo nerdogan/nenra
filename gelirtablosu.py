@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
-#import re
+# import re
 import locale
 import datetime
-import subprocess
-from PyQt4.QtCore import pyqtSlot
-from PyQt4 import QtGui, QtCore
+import subprocess, sys
+from PyQt5 import QtGui, QtCore, QtWidgets
+from PyQt5.QtWidgets import QApplication
+from PyQt5.QtCore import *
 from ui_gelirtablo import Ui_Dialog4
 from reportlab.pdfgen import canvas
 from reportlab.pdfbase import pdfmetrics
@@ -12,9 +13,10 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.rl_settings import *
 from mdb.modulemdb import *
 
-class GelirTablo(QtGui.QDialog, Ui_Dialog4):
+
+class GelirTablo(QtWidgets.QDialog, Ui_Dialog4):
     def __init__(self):
-        QtGui.QDialog.__init__(self)
+        QtWidgets.QDialog.__init__(self)
         self.setupUi(self)
         # self.myddb = Myddb()
 
@@ -84,23 +86,25 @@ class GelirTablo(QtGui.QDialog, Ui_Dialog4):
         for row1 in bul:
 
             item = (row1[0])
-            self.tableWidget.setItem(aa, 0, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 0, QtWidgets.QTableWidgetItem(item))
             c.drawString(45, 800 - (15 * (bb + 1)), item)
             item = row1[1]
             c.drawString(180, 800 - (15 * (bb + 1)), item)
-            self.tableWidget.setItem(aa, 1, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 1, QtWidgets.QTableWidgetItem(item))
             if len(item) < 4:
                 c.setFont("Verdana", 12)
 
             item = str(row1[2])
-            toplam = toplam + float(row1[2])
-            self.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+            if item == 'None':
+                item = "0"
+            toplam = toplam + float(item)
+            self.tableWidget.setItem(aa, 2, QtWidgets.QTableWidgetItem(item))
             c.drawRightString(330, 800 - (15 * (bb + 1)), item)
             c.setFont("Verdana", 10)
             item = " ."
             c.drawString(400, 800 - (15 * (bb + 1)), item)
             toplam1 = toplam1
-            self.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 3, QtWidgets.QTableWidgetItem(item))
 
             aa = aa + 1
             bb = bb + 1
@@ -166,12 +170,12 @@ class GelirTablo(QtGui.QDialog, Ui_Dialog4):
             item = str(row1[3])
 
             toplam = toplam + float(row1[3])
-            self.tableWidget.setItem(aa, 2, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 2, QtWidgets.QTableWidgetItem(item))
             c.drawRightString(290, 800 - (15 * (bb + 1)), item)
             item = " "
             c.drawString(350, 800 - (15 * (bb + 1)), item)
             toplam1 = toplam1
-            self.tableWidget.setItem(aa, 3, QtGui.QTableWidgetItem(item))
+            self.tableWidget.setItem(aa, 3, QtWidgets.QTableWidgetItem(item))
 
             aa = aa + 1
             bb = bb + 1
@@ -207,8 +211,8 @@ class GelirTablo(QtGui.QDialog, Ui_Dialog4):
 
 
 if __name__ == "__main__":
-    app = QtGui.QApplication(sys.argv)
-    subprocess.Popen('python3 mizan.py', shell=True)
+    app = QApplication(sys.argv)
+    subprocess.Popen('python mizan.py', shell=True)
     gelirt = GelirTablo()
     gelirt.show()
     gelirt.raise_()
