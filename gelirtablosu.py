@@ -120,11 +120,14 @@ class GelirTablo(QtWidgets.QDialog, Ui_Dialog4):
 
         c.setFont("Verdana", 12)
         c.drawString(150, 800 - (15 * (bb + 2)), "Kar Zarar")
-        c.drawRightString(330, 800 - (15 * (bb + 2)), str((bul[3][2]) - (bul[20][2])))
+        try:
+            c.drawRightString(330, 800 - (15 * (bb + 2)), str((bul[3][2]) - (bul[20][2])))
+        except:
+            pass
 
         #        c.drawString(450, 800 - (15 * (bb + 1)), "% " + str(int(toplam2 / toplam1 * 100)))
         c.setFont("Verdana", 6)
-        c.drawRightString(570,20,datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S"))
+        c.drawRightString(570, 20, datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S"))
 
         c.save()
 

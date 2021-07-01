@@ -2,28 +2,34 @@
 <ui version="4.0">
  <class>Dialog6</class>
  <widget class="QDialog" name="Dialog6">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>1000</width>
-    <height>600</height>
-   </rect>
-  </property>
-  <property name="windowTitle">
-   <string>STOK</string>
-  </property>
-  <widget class="QDateEdit" name="dateEdit">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>40</y>
-     <width>151</width>
-     <height>41</height>
+     <property name="geometry">
+         <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>1000</width>
+             <height>600</height>
+         </rect>
+     </property>
+     <property name="font">
+         <font>
+             <family>.Noto Sans Universal</family>
+         </font>
+     </property>
+     <property name="windowTitle">
+         <string>STOK</string>
+     </property>
+     <widget class="QDateEdit" name="dateEdit">
+         <property name="geometry">
+             <rect>
+                 <x>20</x>
+                 <y>40</y>
+                 <width>151</width>
+                 <height>41</height>
     </rect>
    </property>
    <property name="font">
     <font>
+        <family>.Noto Sans Universal</family>
      <pointsize>14</pointsize>
      <weight>75</weight>
      <bold>true</bold>
@@ -44,6 +50,7 @@
    </property>
    <property name="font">
     <font>
+        <family>.Noto Sans Universal</family>
      <pointsize>14</pointsize>
      <weight>75</weight>
      <bold>true</bold>
@@ -64,6 +71,7 @@
    </property>
    <property name="font">
     <font>
+        <family>.Noto Sans Universal</family>
      <pointsize>14</pointsize>
      <weight>75</weight>
      <bold>true</bold>
@@ -84,6 +92,7 @@
    </property>
    <property name="font">
     <font>
+        <family>.Noto Sans Universal</family>
      <pointsize>14</pointsize>
      <weight>75</weight>
      <bold>true</bold>
@@ -104,6 +113,7 @@
    </property>
    <property name="font">
     <font>
+        <family>.Noto Sans Universal</family>
      <pointsize>12</pointsize>
     </font>
    </property>
@@ -122,6 +132,7 @@
    </property>
    <property name="font">
     <font>
+        <family>.Noto Sans Universal</family>
      <pointsize>12</pointsize>
     </font>
    </property>
@@ -193,6 +204,7 @@
    </property>
    <property name="font">
     <font>
+        <family>.Noto Sans Universal</family>
      <pointsize>12</pointsize>
     </font>
    </property>
