@@ -32,7 +32,6 @@ class Ui_Masraf(object):
         font = QtGui.QFont()
         font.setPointSize(24)
         self.dateEdit.setFont(font)
-        self.dateEdit.setFocusPolicy(QtCore.Qt.NoFocus)
         self.dateEdit.setCalendarPopup(True)
         self.dateEdit.setObjectName("dateEdit")
         self.horizontalLayout.addWidget(self.dateEdit)

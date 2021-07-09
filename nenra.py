@@ -19,6 +19,7 @@ import time
 from threading import Thread
 from PyQt5 import QtGui, QtCore, QtWidgets
 from PyQt5.QtWidgets import QApplication
+from PyQt5.QtMultimedia import QSound
 from PyQt5.QtCore import *
 
 from mainwindow import MainWindow
@@ -57,7 +58,7 @@ def run1(EndDate):
         tar = EndDate.strftime('%d%m%Y')
 
         sql2 = "SELECT hammadde.hamkod,recete.hamkod,miktar,adet " \
-               "FROM bishop.ciro inner join hammadde on pluno=hamkod " \
+               "FROM (select * from bishop.ciro union all select * from bishop.ciro1) as ciroo  inner join hammadde on pluno=hamkod " \
                "and DATE(tarih)=%s  inner join recete on " \
                " hammadde.hamkod=recete.menukod"
         bilgi = myddb.cur.execute(sql2, [(EndDate.strftime('%Y-%m-%d'))])
@@ -83,7 +84,7 @@ def run1(EndDate):
 
 selfstart_time = time.time()
 
-StartDate = "01/06/21"
+StartDate = "01/07/21"
 
 EndDate = datetime.datetime.strptime(StartDate, "%d/%m/%y")
 now = datetime.datetime.now() - datetime.timedelta(days=1)
@@ -204,6 +205,8 @@ class WorkerThread(QThread):
 def main():
     app = QApplication(sys.argv)
     app.processEvents()
+    sound = QSound("./images/ses.wav")
+    sound.play()
 
     mainWindow = MainWindow()
     login = Login()
@@ -359,7 +362,7 @@ def main():
         # recete2.lineEdit.setFocus(True)
         recete2.tableWidget_2.setFocus()
         recete2.tableWidget_2.setCurrentCell(aa, 3)
-        QtWidgets.QSound(r"horn.wav").play()
+        sound.play()
 
     @pyqtSlot()
     def slotrecete2kaydet():
@@ -380,6 +383,7 @@ def main():
 
     @pyqtSlot()
     def slotpuss(item2):
+        myddb = Myddb()
         print("reçete arayüzü açıldı")
         bul = myddb.cek("select * from hammadde where kategori=2 or"
                         " kategori=3 order by hamkod")

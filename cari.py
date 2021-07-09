@@ -412,11 +412,15 @@ class Cari(QtWidgets.QDialog, Ui_Dialog5):
                 self.tableWidget.setItem(aa, 2, QtWidgets.QTableWidgetItem(item))
                 c.drawString(150, 800 - (15 * (bb + 1)), item)
 
-                item = str(row1[4])
-                self.ws1.write(aa, 3, float(row1[4]))
+                if row1[4] == None:
+                    item = "0"
+                else:
+                    item = str(row1[4])
+
+                self.ws1.write(aa, 3, float(item))
                 c.drawRightString(310, 800 - (15 * (bb + 1)), item)
-                toplam = toplam + float(row1[4])
-                toplam2 = Decimal(toplam2) + (row1[4])
+                toplam = toplam + float(item)
+                toplam2 = Decimal(toplam2) + (Decimal(item))
                 self.tableWidget.setItem(aa, 3, QtWidgets.QTableWidgetItem(item))
                 item = ""
                 c.drawRightString(390, 800 - (15 * (bb + 1)), item)
@@ -428,11 +432,15 @@ class Cari(QtWidgets.QDialog, Ui_Dialog5):
                 self.tableWidget.setItem(aa, 2, QtWidgets.QTableWidgetItem(item))
                 c.drawString(150, 800 - (15 * (bb + 1)), item)
 
-                item = str(row1[4])
-                self.ws1.write(aa, 4, float(row1[4]))
+                if row1[4] == None:
+                    item = "0"
+                else:
+                    item = str(row1[4])
+
+                self.ws1.write(aa, 4, float(item))
                 c.drawString(350, 800 - (15 * (bb + 1)), item)
-                toplam1 = toplam1 + float(row1[4])
-                toplam2 = Decimal(toplam2) + (row1[4])
+                toplam1 = toplam1 + float(item)
+                toplam2 = Decimal(toplam2) + (Decimal(item))
                 self.tableWidget.setItem(aa, 4, QtWidgets.QTableWidgetItem(item))
                 item = ""
                 c.drawString(270, 800 - (15 * (bb + 1)), item)

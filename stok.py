@@ -145,14 +145,30 @@ class Stok(QtWidgets.QDialog , Ui_Dialog6):
                 c.drawRightString(330, 800 - (15 * (bb + 1)), str(toplam))
                 c.drawRightString(405, 800 - (15 * (bb + 1)), str(toplam1))
                 c.drawRightString(480, 800 - (15 * (bb + 1)), str(toplam2))
+
+                c.setFont("Courier", 60)
+                # This next setting with make the text of our
+                # watermark gray, nice touch for a watermark.
+                c.setFillGray(0.3, 0.3)
+                # Set up our watermark document. Our watermark
+                # will be rotated 45 degrees from the direction
+                # of our underlying document.
+                c.saveState()
+                c.translate(500, 100)
+                c.rotate(45)
+                c.drawCentredString(0, 0, "BISHOP NEN ©")
+                c.drawCentredString(0, 300, "BISHOP NEN ©")
+                c.drawCentredString(0, 600, "BISHOP NEN ©")
+                c.restoreState()
+
                 c.showPage()
                 c.setFont("Verdana", 8)
                 bb = 0
 
         c.setFont("Verdana", 11)
-        c.drawRightString(330, 800 - (15 * (bb + 1)), str(toplam))
-        c.drawRightString(405, 800 - (15 * (bb + 1)), str(toplam1))
-        c.drawRightString(480, 800 - (15 * (bb + 1)), str(toplam2))
+        c.drawRightString(330, 800 - (15 * (bb + 1)), str("{:10.2f}".format(toplam)))
+        c.drawRightString(405, 800 - (15 * (bb + 1)), str("{:10.2f}".format(toplam1)))
+        c.drawRightString(480, 800 - (15 * (bb + 1)), str("{:10.2f}".format(toplam2)))
         self.ws1.write(aa + 1, 3, toplam)
         self.ws1.write(aa + 1, 4, toplam1)
         self.ws1.write(aa + 1, 5, toplam2)
