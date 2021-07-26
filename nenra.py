@@ -501,7 +501,7 @@ def main():
 
         if item2 == 1234:
             mainWindow.statusbar.showMessage(
-                u"Namık ERDOĞAN © 2016  01112020   Yönetici "
+                u"Namık ERDOĞAN © 2016  12072021   Yönetici "
                 u"                 Bishop Restaurant")
             mainWindow.pushButton.blockSignals(0)
             mainWindow.pushButton_2.blockSignals(0)

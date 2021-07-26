@@ -142,9 +142,9 @@ class Stok(QtWidgets.QDialog , Ui_Dialog6):
 
             if (15 * (bb + 1)) >= 760:
                 c.setFont("Verdana", 11)
-                c.drawRightString(330, 800 - (15 * (bb + 1)), str(toplam))
-                c.drawRightString(405, 800 - (15 * (bb + 1)), str(toplam1))
-                c.drawRightString(480, 800 - (15 * (bb + 1)), str(toplam2))
+                c.drawRightString(330, 800 - (15 * (bb + 1)), str("{:10.2f}".format(toplam)))
+                c.drawRightString(405, 800 - (15 * (bb + 1)), str("{:10.2f}".format(toplam1)))
+                c.drawRightString(480, 800 - (15 * (bb + 1)), str("{:10.2f}".format(toplam2)))
 
                 c.setFont("Courier", 60)
                 # This next setting with make the text of our
