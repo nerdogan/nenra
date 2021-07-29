@@ -121,7 +121,10 @@ class Fatura(QtWidgets.QDialog, Ui_Dialog3):
     def vadeartir(self, item2):
         if len(item2) > 0:
             some_date = self.dateEdit.date()
-            self.dateEdit_2.setDate(some_date.addDays(int(item2)))
+            try:
+                self.dateEdit_2.setDate(some_date.addDays(int(item2)))
+            except:
+                self.dateEdit_2.setDate(some_date.addDays(0))
 
     @pyqtSlot(int)
     def odemeyap(self, item2):

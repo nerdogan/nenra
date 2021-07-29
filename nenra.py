@@ -58,10 +58,11 @@ def run1(EndDate):
         tar = EndDate.strftime('%d%m%Y')
 
         sql2 = "SELECT hammadde.hamkod,recete.hamkod,miktar,adet " \
-               "FROM (select * from bishop.ciro union all select * from bishop.ciro1) as ciroo  inner join hammadde on pluno=hamkod " \
+               "FROM (select * from bishop.ciro where DATE(tarih)=%s union all select * from bishop.ciro1 where DATE(tarih)=%s) as ciroo  inner join hammadde on pluno=hamkod " \
                "and DATE(tarih)=%s  inner join recete on " \
                " hammadde.hamkod=recete.menukod"
-        bilgi = myddb.cur.execute(sql2, [(EndDate.strftime('%Y-%m-%d'))])
+        bilgi = myddb.cur.execute(sql2, [(EndDate.strftime('%Y-%m-%d')), (EndDate.strftime('%Y-%m-%d')),
+                                         (EndDate.strftime('%Y-%m-%d'))])
         print(bilgi)
         valnen = []
         if bilgi != 0:
@@ -84,7 +85,7 @@ def run1(EndDate):
 
 selfstart_time = time.time()
 
-StartDate = "01/07/21"
+StartDate = "01/06/21"
 
 EndDate = datetime.datetime.strptime(StartDate, "%d/%m/%y")
 now = datetime.datetime.now() - datetime.timedelta(days=1)
