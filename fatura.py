@@ -559,7 +559,8 @@ class Fatura(QtWidgets.QDialog, Ui_Dialog3):
         if item.column() == 4:
             item1 = QtWidgets.QTableWidgetItem(
                 str("{:06.2f}".format(
-                    (float(self.kontrol(item.text())) * float(self.tableWidget_2.item(item.row(), 5).text())))))
+                    (float(self.kontrol(item.text())) * float(
+                        self.kontrol(self.tableWidget_2.item(item.row(), 5).text()))))))
             item1.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignRight)
 
             self.tableWidget_2.setItem(item.row(), 6, item1)

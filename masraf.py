@@ -183,7 +183,7 @@ class Masraf(QtWidgets.QDialog , Ui_Masraf):
     def masrafkaydet(self, ):
         self.pushButton_3.setDisabled(True)
         self.pushButton_3.blockSignals(1)
-        dur=0.01
+        dur = 0.001
         fatura = Fatura()
         fatura.goster()
         fatura.lineEdit.setText('ZZ')
