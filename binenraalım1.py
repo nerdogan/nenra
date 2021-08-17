@@ -213,7 +213,7 @@ if __name__ == '__main__':
     while True:
         ordersayi = len(connection.client.futures_get_open_orders())
         print(ordersayi)
-        if ordersayi < 12:
+        if ordersayi < 15:
             mesaj = (connection.client.futures_position_information(symbol='BTCUSDT')[0]['unRealizedProfit'])
 
             mesaj = mesaj + " __ " + (connection.client.futures_account_balance()[1]['balance'])
