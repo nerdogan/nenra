@@ -38,7 +38,7 @@ class GelirTablo(QtWidgets.QDialog, Ui_Dialog4):
         self.pushButton_2.clicked.connect(self.sloturunmaliyetpdf)
         self.tableWidget.setColumnWidth(0, 240)
         self.tableWidget.setColumnWidth(1, 125)
-        self.tableWidget.setColumnWidth(2, 75)
+        self.tableWidget.setColumnWidth(2, 110)
         self.tableWidget.setColumnWidth(3, 75)
         self.tableWidget.setColumnWidth(4, 75)
 

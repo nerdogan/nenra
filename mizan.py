@@ -144,29 +144,17 @@ class mizan():
 
 
 if __name__ == '__main__':
-    elma = mizan("2021-01-01", "2021-01-31")
-    #elma.testgen()
-    elma.bishopgenel()
-    elma.tarih1 = "2021-02-01"
-    elma.tarih2 = "2021-02-28"
-    elma.bishopgenel()
-    elma.tarih1 = "2021-03-01"
-    elma.tarih2 = "2021-03-31"
-    elma.bishopgenel()
-    elma.tarih1 = "2021-04-01"
-    elma.tarih2 = "2021-04-30"
-    elma.bishopgenel()
-    elma.tarih1 = "2021-05-01"
-    elma.tarih2 = "2021-05-31"
-    elma.bishopgenel()
-    elma.tarih1 = "2021-06-01"
-    elma.tarih2 = "2021-06-30"
+    elma = mizan("2021-06-01", "2021-06-30")
+
     elma.bishopgenel()
     elma.tarih1 = "2021-07-01"
     elma.tarih2 = "2021-07-31"
     elma.bishopgenel()
     elma.tarih1 = "2021-08-01"
     elma.tarih2 = "2021-08-31"
+    elma.bishopgenel()
+    elma.tarih1 = "2021-09-01"
+    elma.tarih2 = "2021-09-30"
     elma.bishopgenel()
 
     """
@@ -207,7 +195,22 @@ if __name__ == '__main__':
     elma.tarih2 = "2020-12-31"
     elma.bishopgenel()
   
-
+   elma.tarih1 = "2021-02-01"
+    elma.tarih2 = "2021-02-28"
+    elma.bishopgenel()
+    elma.tarih1 = "2021-03-01"
+    elma.tarih2 = "2021-03-31"
+    elma.bishopgenel()
+    elma.tarih1 = "2021-04-01"
+    elma.tarih2 = "2021-04-30"
+    elma.bishopgenel()
+    elma.tarih1 = "2021-05-01"
+    elma.tarih2 = "2021-05-31"
+    elma.bishopgenel()
+    elma.tarih1 = "2021-06-01"
+    elma.tarih2 = "2021-06-30"
+    elma.bishopgenel()
+ 
    
     elma.tarih1 = "2019-01-01"
     elma.tarih2 = "2019-01-31"

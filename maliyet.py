@@ -141,7 +141,7 @@ class Maliyet(QDialog , Ui_Dialog4):
         tar1 = deger1.strftime('%Y-%m-%d')
         tar2 = deger2.strftime('%Y-%m-%d')
 
-        sql = """SELECT ciro.departman,pluno,hamad,sum(adet),sum(tutar) FROM (select * from bishop.ciro union all select * from bishop.ciro1) as ciroo  inner join test.hammadde on  pluno=hamkod and
+        sql = """SELECT ciroo.departman,pluno,hamad,sum(adet),sum(tutar) FROM (select * from bishop.ciro union all select * from bishop.ciro1) as ciroo  inner join test.hammadde on  pluno=hamkod and
                 DATE(tarih) >= %s and DATE(tarih) <= %s  group by ciroo.departman,pluno order by ciroo.departman asc """
         bul2 = myddb1.cur.execute(sql, (tar1, tar2))
         print(bul2, tar1, tar2)
