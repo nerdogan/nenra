@@ -543,7 +543,7 @@ class Rapor(QtWidgets.QDialog , Ui_Dialog7):
                 self.tableWidget.setItem(aa, 2, QtWidgets.QTableWidgetItem(item))
 
             if row1[0]==109:
-                item = str(row1[0])+" YemekSepetiOnline "
+                item = str(row1[0]) + " YSepetiOnline "
                 self.ws1.write(aa, 0, item)
                 self.d.text(item.ljust(30) + " ")
                 self.tableWidget.setItem(aa, 0, QtWidgets.QTableWidgetItem(item))
@@ -555,23 +555,44 @@ class Rapor(QtWidgets.QDialog , Ui_Dialog7):
                 c.drawRightString(310, 800 - (15 * (bb + 1)), item)
                 toplam3 = Decimal(toplam3) + (row1[1])
                 toplam1 = Decimal(toplam1) + (row1[1])
-                item=QtWidgets.QTableWidgetItem(item)
+                item = QtWidgets.QTableWidgetItem(item)
                 item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignRight)
                 self.tableWidget.setItem(aa, 1, item)
 
-                item= ""
+                item = ""
                 c.drawRightString(390, 800 - (15 * (bb + 1)), item)
                 self.tableWidget.setItem(aa, 2, QtWidgets.QTableWidgetItem(item))
 
-            if row1[0]==111:
-                item = str(row1[0])+" Harcamalar "
+            if row1[0] == 110:
+                item = str(row1[0]) + " TRENDYOL "
                 self.ws1.write(aa, 0, item)
                 self.d.text(item.ljust(30) + " ")
                 self.tableWidget.setItem(aa, 0, QtWidgets.QTableWidgetItem(item))
                 c.drawString(150, 800 - (15 * (bb + 1)), item)
 
                 item = str(row1[1])
-                self.d.text(item.rjust(10)+ " \n")
+                self.d.text(item.rjust(10) + " \n")
+                self.ws1.write(aa, 3, float(row1[1]))
+                c.drawRightString(310, 800 - (15 * (bb + 1)), item)
+                toplam3 = Decimal(toplam3) + (row1[1])
+                toplam1 = Decimal(toplam1) + (row1[1])
+                item = QtWidgets.QTableWidgetItem(item)
+                item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignRight)
+                self.tableWidget.setItem(aa, 1, item)
+
+                item = ""
+                c.drawRightString(390, 800 - (15 * (bb + 1)), item)
+                self.tableWidget.setItem(aa, 2, QtWidgets.QTableWidgetItem(item))
+
+            if row1[0] == 111:
+                item = str(row1[0]) + " Harcamalar "
+                self.ws1.write(aa, 0, item)
+                self.d.text(item.ljust(30) + " ")
+                self.tableWidget.setItem(aa, 0, QtWidgets.QTableWidgetItem(item))
+                c.drawString(150, 800 - (15 * (bb + 1)), item)
+
+                item = str(row1[1])
+                self.d.text(item.rjust(10) + " \n")
                 self.ws1.write(aa, 3, float(row1[1]))
                 c.drawRightString(310, 800 - (15 * (bb + 1)), item)
                 toplam = Decimal(toplam) + (row1[1])
