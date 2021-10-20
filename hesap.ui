@@ -2,24 +2,27 @@
 <ui version="4.0">
  <class>Dialog</class>
  <widget class="QDialog" name="Dialog">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>351</width>
-    <height>182</height>
-   </rect>
-  </property>
-  <property name="windowTitle">
-   <string>Dialog</string>
-  </property>
-  <widget class="QLineEdit" name="lineEdit">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>20</y>
-     <width>241</width>
-     <height>41</height>
+     <property name="geometry">
+         <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>351</width>
+             <height>182</height>
+         </rect>
+     </property>
+     <property name="focusPolicy">
+         <enum>Qt::StrongFocus</enum>
+     </property>
+     <property name="windowTitle">
+         <string>Dialog</string>
+     </property>
+     <widget class="QLineEdit" name="lineEdit">
+         <property name="geometry">
+             <rect>
+                 <x>40</x>
+                 <y>20</y>
+                 <width>241</width>
+                 <height>41</height>
     </rect>
    </property>
   </widget>

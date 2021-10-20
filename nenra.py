@@ -85,7 +85,7 @@ def run1(EndDate):
 
 selfstart_time = time.time()
 
-StartDate = "01/06/21"
+StartDate = "01/10/21"
 
 EndDate = datetime.datetime.strptime(StartDate, "%d/%m/%y")
 now = datetime.datetime.now() - datetime.timedelta(days=1)
@@ -579,7 +579,7 @@ def main():
     # fileName =(QtGui.QFileDialog.getOpenFileName(mainWindow,
     # u"Düzenlenecek dosyayı seçin", ".", u"Metin dosyaları (*.txt)"))
     app.setWindowIcon(QtGui.QIcon('nenra.png'))
-    mainWindow.verticalLayoutWidget_2.setStyleSheet("background-image: url(images/newyork.png);")
+    mainWindow.pushButton_8.setStyleSheet("border-image: url(images/newyork.png) 0 0 0 0 stretch stretch;")
     mainWindow.pushButton.setStyleSheet("color: black ;  background-image: url(images/image.png)")
     mainWindow.pushButton_2.setStyleSheet("color: black ;  background-image: url(images/fatura.png)")
     mainWindow.pushButton_3.setStyleSheet("color: black ;  background-image: url(images/maliyet.png)")
