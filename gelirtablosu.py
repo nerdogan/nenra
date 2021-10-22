@@ -2,8 +2,9 @@
 # import re
 import locale
 import datetime
-import subprocess, sys
-from PyQt5 import QtGui, QtCore, QtWidgets
+import subprocess
+import sys
+from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtCore import *
 from ui_gelirtablo import Ui_Dialog4
@@ -43,7 +44,6 @@ class GelirTablo(QtWidgets.QDialog, Ui_Dialog4):
         self.tableWidget.setColumnWidth(4, 75)
 
     def last_day_of_month(self, any_day):
-
         next_month = any_day.replace(day=28) + datetime.timedelta(days=4)  # this will never fail
         return next_month - datetime.timedelta(days=next_month.day)
 
@@ -75,7 +75,6 @@ class GelirTablo(QtWidgets.QDialog, Ui_Dialog4):
         print(bul2, tar1, tar2)
         bul = myddb1.cur.fetchall()
         i = bul2
-        j = 5
         self.tableWidget.setRowCount(i)
         aa = 0
         bb = 0
