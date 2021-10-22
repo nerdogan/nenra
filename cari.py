@@ -376,7 +376,6 @@ class Cari(QtWidgets.QDialog, Ui_Dialog5):
         c.drawString(10, 810, item)
         tar1 = deger1.strftime('%Y-%m-%d')
         tar2 = deger2.strftime('%Y-%m-%d')
-
         sql = """select `c1`.`fistipi`,`c1`.`tarih` AS `tarih`,`c1`.`fisno` AS `fisno`,concat(`c1`.`serino`,'_',
         `c1`.`sirano`,' nolu '), `c1`.`tutar` AS `TUTAR` from (`cari_har` `c1` join `cari` `c2`) where ((
         `c1`.`cariid` = `c2`.`cariid`) and (`c1`.`cariid`=%s) and  (`c1`.`tarih` >=%s ) and (`c1`.`tarih` <=%s ) and 
