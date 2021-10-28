@@ -1,3 +1,4 @@
+import pprint
 import sys
 import re
 from hesapmak import Hesap
@@ -41,8 +42,12 @@ class Fatura(QtWidgets.QDialog, Ui_Dialog3):
         self.tableWidget_2.itemChanged.connect(self.toplamdegisti)
         self.comboBox.currentIndexChanged.connect(self.odemeyap)
         self.keyPressEvent = (self.keyPressEvent1)
+
         self.quitSc = QtWidgets.QShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Equal), self)
         self.quitSc.activated.connect(self.slothesapmakgoster)
+
+        self.hamfiyat = QtWidgets.QShortcut(QtGui.QKeySequence(QtCore.Qt.ALT + QtCore.Qt.Key_H), self)
+        self.hamfiyat.activated.connect(self.slothamfiyat)
 
         # self.connect(self, QtCore.SIGNAL('triggered()'), self.closeEvent)
         #  self.connect(QtWidgets.QShortcut(QtWidgets.QKeySequence(QtCore.Qt.Key_Equal), self.tableWidget_2),
@@ -602,6 +607,21 @@ class Fatura(QtWidgets.QDialog, Ui_Dialog3):
             str(float(self.tableWidget_2.item(bb, 4).text()) / (float(cc) / float(dd)))))
         self.tableWidget_2.setItem(bb, 5, QtWidgets.QTableWidgetItem(
             str(float(self.tableWidget_2.item(bb, 5).text()) * (float(cc) / float(dd)))))
+
+    @pyqtSlot()
+    def slothamfiyat(self):
+        ahammadde = self.tableWidget_2.currentRow()
+        sql3 = "UPDATE hammadde SET fiyat1=%s where hamkod=%s "
+        print(ahammadde)
+
+        self.myddb.cur.execute(sql3, (
+        self.tableWidget_2.item(ahammadde, 5).text(), self.tableWidget_2.item(ahammadde, 0).text()))
+        self.myddb.conn.commit()
+        sql3 = "select tarih,fisno,birimfiy from cariay where hamkod=%s order by tarih"
+        self.myddb.cur.execute(sql3, (self.tableWidget_2.item(ahammadde, 0).text(),))
+        elma = self.myddb.cur.fetchall()
+        for bul in elma:
+            print(bul[0], bul[1], bul[2])
 
     @pyqtSlot()
     def slothesapmakgoster(self):
