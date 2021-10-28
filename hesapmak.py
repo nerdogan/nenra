@@ -6,7 +6,7 @@ import re
 from PyQt5.QtCore import pyqtSignal
 
 import hesapla
-from PyQt5 import QtGui, QtCore, QtWidgets
+from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QDialog
 
 from ui_hesap import Ui_Dialog
@@ -20,12 +20,8 @@ class Hesap(QDialog, Ui_Dialog):
         self.pushButton.clicked.connect(self.slothesapla)
 
 
-
-
-
     def closeEvent(self, event):
         print ("hesapmak Closing")
-
 
 
     def kontrol(self,girdi):
@@ -60,15 +56,3 @@ class Hesap(QDialog, Ui_Dialog):
         self.acac.emit(elma)
         self.close()
 
-
-
-if __name__ == "__main__":
-    import locale
-
-    for x in locale.windows_locale.values():
-        print(x.replace('_', '-'))
-    app = QtGui.QApplication(sys.argv)
-    hesap=Hesap()
-    hesap.goster()
-    app.exec_()
-    print ("hesap kapandı")

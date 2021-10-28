@@ -16,6 +16,7 @@ class Fatura(QtWidgets.QDialog, Ui_Dialog3):
         QtWidgets.QDialog.__init__(self)
         self.setupUi(self)
         self.hesapla = Hesap()
+        self.hesapla.setWindowModality(Qt.ApplicationModal)
 
         self.fisno = None
         self.comb = {}
@@ -169,9 +170,24 @@ class Fatura(QtWidgets.QDialog, Ui_Dialog3):
             self.myddb = Myddb()
             sonuc = self.myddb.cek(sql)
 
-        self.myddb.conn.commit()
-        self.lineEdit.setText(str(sonuc[0][0]))
-        self.lineEdit_2.setText(str(sonuc[0][1]))
+        if len(sonuc) == 0:
+            print("fis yok")
+            self.lineEdit.setText("")
+            self.lineEdit_2.setText("")
+            self.label_6.setText("")
+            msg = QtWidgets.QMessageBox()
+            msg.setWindowTitle(("Fiş Bulunamadı"))
+            msg.setIcon(QtWidgets.QMessageBox.Critical)
+
+            msg.setText(("Bu numarada bir fiş bulunamadı !!!"))
+            msg.setInformativeText((" Bu fiş yok"))
+            msg.setStandardButtons(QtWidgets.QMessageBox.Ok)
+            msg.exec_()
+
+
+        else:
+            self.lineEdit.setText(str(sonuc[0][0]))
+            self.lineEdit_2.setText(str(sonuc[0][1]))
 
     @pyqtSlot('QString')
     def linechange(self, item2):
