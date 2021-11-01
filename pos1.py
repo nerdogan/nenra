@@ -1,6 +1,6 @@
 from PyQt5 import QtCore, QtWidgets
 import fdb
-from mdb.modulemdb import *
+from mdb.modulemdb import Myddb
 import sys
 import atexit
 
