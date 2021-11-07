@@ -13,7 +13,6 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.rl_settings import *
 
 
-
 class Stok(QtWidgets.QDialog , Ui_Dialog6):
     def __init__(self):
         QtWidgets.QDialog.__init__(self)
@@ -75,17 +74,21 @@ class Stok(QtWidgets.QDialog , Ui_Dialog6):
         myddb1.cur.execute("drop table if exists test.table1 ")
         myddb1.cur.execute("drop table if exists test.table2 ")
 
-        myddb1.cur.execute(""" CREATE  TABLE  test.table1 AS (select hamkod,sum(miktar) miktar1 from cariay a where fistipi=10 and date(tarih) between %s and %s group by hamkod)""",(tar1,tar2))
-        myddb1.cur.execute(""" CREATE  TABLE  test.table2 AS (select hhammaddeid,sum(hmiktar) miktar2 from harcanan a where  date(tarih) between %s and %s group by hhammaddeid)""",(tar1,tar2,))
+        myddb1.cur.execute(
+            """ CREATE  TABLE  test.table1 AS (select hamkod,sum(miktar) miktar1 from cariay a where fistipi=10 and date(tarih) between %s and %s group by hamkod)""",
+            (tar1, tar2))
+        myddb1.cur.execute(
+            """ CREATE  TABLE  test.table2 AS (select hhammaddeid,sum(hmiktar) miktar2 from harcanan a where  date(tarih) between %s and %s group by hhammaddeid)""",
+            (tar1, tar2,))
 
-        sql = """select a.hamkod,a.hamad,a.birim , ifnull( b.miktar1,0) as giriş ,ifnull(c.miktar2,0) as çıkış, (ifnull( b.miktar1,0)-ifnull(c.miktar2,0)) as fark from hammadde a  left join table1 b on a.hamkod=b.hamkod left join table2 c on a.hamkod=c.hhammaddeid where departman="BAR"  order by a.hamkod; """
-
+        sql = """select a.hamkod,a.hamad,a.birim , ifnull( b.miktar1,0) as giriş ,ifnull(c.miktar2,0) as çıkış, (ifnull( b.miktar1,0)-ifnull(c.miktar2,0)) as fark ,a.bolum from hammadde a  left join table1 b on a.hamkod=b.hamkod left join table2 c on a.hamkod=c.hhammaddeid where departman="BAR"  order by a.bolum,a.hamkod; """
 
         bul2 = myddb1.cur.execute(sql)
         print(bul2, tar1, tar2)
         bul = myddb1.cur.fetchall()
-        i = bul2
-        j = 5
+        i = bul2 + 10
+        eskibolum = bul[0][6]
+        print(eskibolum)
         self.tableWidget.setRowCount(i)
         aa = 0
         bb = 0
@@ -94,11 +97,30 @@ class Stok(QtWidgets.QDialog , Ui_Dialog6):
         toplam2 = 0.0000
 
         for row1 in bul:
+            bolum = row1[6]
+            print(bolum)
+
+            if bolum != eskibolum:
+                item = "-----"
+                self.tableWidget.setItem(aa, 5, QtWidgets.QTableWidgetItem(item))
+                c.drawString(80, 800 - (15 * (bb + 1)), "               Toplam : ")
+
+                c.drawRightString(330, 800 - (15 * (bb + 1)), str("{:10.2f}".format(toplam)))
+                c.drawRightString(405, 800 - (15 * (bb + 1)), str("{:10.2f}".format(toplam1)))
+                c.drawRightString(480, 800 - (15 * (bb + 1)), str("{:10.2f}".format(toplam2)))
+
+                self.ws1.write(aa, 5, float(row1[5]))
+                eskibolum = bolum
+                toplam = 0.0
+                toplam1 = 0.0
+                toplam2 = 0.0000
+
+                aa = aa + 1
+                bb = bb + 1
 
             # Giriş ve çıkışı sıfır olan stokları görmemek için aşağıdaki satırı çalıştırın
-            if row1[3]==0 and row1[4]==0 :
+            if row1[3] == 0 and row1[4] == 0:
                 continue
-
 
             item = str(row1[0])
             self.tableWidget.setItem(aa, 0, QtWidgets.QTableWidgetItem(item))
@@ -142,9 +164,6 @@ class Stok(QtWidgets.QDialog , Ui_Dialog6):
 
             if (15 * (bb + 1)) >= 760:
                 c.setFont("Verdana", 11)
-                c.drawRightString(330, 800 - (15 * (bb + 1)), str("{:10.2f}".format(toplam)))
-                c.drawRightString(405, 800 - (15 * (bb + 1)), str("{:10.2f}".format(toplam1)))
-                c.drawRightString(480, 800 - (15 * (bb + 1)), str("{:10.2f}".format(toplam2)))
 
                 c.setFont("Courier", 60)
                 # This next setting with make the text of our
@@ -190,15 +209,193 @@ class Stok(QtWidgets.QDialog , Ui_Dialog6):
 
         c.save()
         self.wb.save(self.dest_filename)
-        self.tableWidget.setRowCount(aa+3)
+        self.tableWidget.setRowCount(aa + 3)
+
+    @pyqtSlot()
+    def slotsayim(self):
+
+        myddb1 = Myddb()
+        self.kontrol = 1
+
+        print("sayım listesi")
+        self.tableWidget.clearContents()
+        self.tableWidget.setColumnWidth(0, 75)
+        self.tableWidget.setColumnWidth(1, 250)
+        self.tableWidget.setColumnWidth(2, 35)
+        self.tableWidget.setColumnWidth(3, 75)
+        self.tableWidget.setColumnWidth(4, 75)
+
+        deger1 = self.dateEdit.date().toPyDate()
+        deger2 = self.dateEdit_2.date().toPyDate()
+        tar1 = deger1.strftime('%d%m%Y')
+        tar2 = deger2.strftime('%d%m%Y')
+
+        self.wb = xlwt.Workbook(encoding="utf-8")
+        self.dest_filename = "EKSTRE" + tar1 + tar2 + ".xls"
+        date_format = xlwt.XFStyle()
+        date_format.num_format_str = u'#,##0.00₺'
+        date_xf = xlwt.easyxf(num_format_str='DD-MM-YYYY')
+        self.ws1 = self.wb.add_sheet("ekstre")
+        self.style1 = xlwt.easyxf('pattern: pattern solid, fore_colour red;')
+
+        c = canvas.Canvas("EKSTRE" + tar1 + tar2 + ".pdf")
+
+        pdfmetrics.registerFont(TTFont('Verdana', 'Verdana.ttf'))
+        c.setFont("Verdana", 8)
+
+        item = "            KOD       STOK ADI                                         BİRİM               GİRİŞ                ÇIKIŞ                 BAKİYE                      "
+        c.drawString(10, 800, item)
+        tar1 = deger1.strftime('%Y-%m-%d')
+        tar2 = deger2.strftime('%Y-%m-%d')
+
+        myddb1.cur.execute("drop table if exists test.table1 ")
+        myddb1.cur.execute("drop table if exists test.table2 ")
+
+        myddb1.cur.execute(
+            """ CREATE  TABLE  test.table1 AS (select saykod,sum(miktar) miktar1 from sayim a where  date(tarih)= %s group by saykod)""",
+            (tar1,))
+        myddb1.cur.execute(
+            """ CREATE  TABLE  test.table2 AS (select saykod,sum(miktar) miktar2 from sayim a where  date(tarih)= %s group by saykod)""",
+            (tar2,))
+        # myddb1.cur.execute(""" CREATE  TABLE  test.table2 AS (select hhammaddeid,sum(hmiktar) miktar2 from harcanan a where  date(tarih) between %s and %s group by hhammaddeid)""",(tar1,tar2,))
+
+        sql = """select a.hamkod,a.hamad,a.birim , ifnull( b.miktar1,0) as giriş ,ifnull(c.miktar2,0) as çıkış, (ifnull( b.miktar1,0)-ifnull(c.miktar2,0)) as fark ,a.bolum from hammadde a  left join table1 b on a.hamkod=b.saykod left join table2 c on a.hamkod=c.saykod where departman="BAR"  order by a.bolum,a.hamkod; """
+
+        bul2 = myddb1.cur.execute(sql)
+        print(bul2, tar1, tar2)
+        bul = myddb1.cur.fetchall()
+        i = bul2 + 10
+        eskibolum = bul[0][6]
+        print(eskibolum)
+        self.tableWidget.setRowCount(i)
+        aa = 0
+        bb = 0
+        toplam = 0.0
+        toplam1 = 0.0
+        toplam2 = 0.0000
+
+        for row1 in bul:
+            bolum = row1[6]
+            print(bolum)
+
+            if bolum != eskibolum:
+                item = "-----"
+                self.tableWidget.setItem(aa, 5, QtWidgets.QTableWidgetItem(item))
+                c.drawString(80, 800 - (15 * (bb + 1)), "               Toplam : ")
+
+                c.drawRightString(330, 800 - (15 * (bb + 1)), str("{:10.2f}".format(toplam)))
+                c.drawRightString(405, 800 - (15 * (bb + 1)), str("{:10.2f}".format(toplam1)))
+                c.drawRightString(480, 800 - (15 * (bb + 1)), str("{:10.2f}".format(toplam2)))
+
+                self.ws1.write(aa, 5, float(row1[5]))
+                eskibolum = bolum
+                toplam = 0.0
+                toplam1 = 0.0
+                toplam2 = 0.0000
+
+                aa = aa + 1
+                bb = bb + 1
+
+            # Giriş ve çıkışı sıfır olan stokları görmemek için aşağıdaki satırı çalıştırın
+            if row1[3] == 0 and row1[4] == 0:
+                continue
+
+            item = str(row1[0])
+            self.tableWidget.setItem(aa, 0, QtWidgets.QTableWidgetItem(item))
+            c.drawString(45, 800 - (15 * (bb + 1)), item)
+            self.ws1.write(aa, 0, item)
+            item = row1[1]
+            c.drawString(80, 800 - (15 * (bb + 1)), item)
+            self.ws1.write(aa, 1, item)
+            self.tableWidget.setItem(aa, 1, QtWidgets.QTableWidgetItem(item))
+            item = row1[2]
+            c.drawString(240, 800 - (15 * (bb + 1)), item)
+            self.ws1.write(aa, 2, item)
+            self.tableWidget.setItem(aa, 2, QtWidgets.QTableWidgetItem(item))
+
+            item = str("{:10.2f}".format(row1[3]))
+
+            toplam = toplam + float(row1[3])
+            self.tableWidget.setItem(aa, 3, QtWidgets.QTableWidgetItem(item))
+
+            c.drawRightString(330, 800 - (15 * (bb + 1)), "{:10.2f}".format(row1[3]))
+            self.ws1.write(aa, 3, float(row1[3]))
+
+            item = str("{:10.2f}".format(row1[4]))
+
+            toplam1 = toplam1 + float(row1[4])
+            self.tableWidget.setItem(aa, 4, QtWidgets.QTableWidgetItem(item))
+
+            c.drawRightString(405, 800 - (15 * (bb + 1)), "{:10.2f}".format(row1[4]))
+            self.ws1.write(aa, 4, float(row1[4]))
+
+            item = str("{:10.2f}".format(row1[5]))
+
+            toplam2 = toplam2 + float(row1[5])
+            self.tableWidget.setItem(aa, 5, QtWidgets.QTableWidgetItem(item))
+
+            c.drawRightString(480, 800 - (15 * (bb + 1)), "{:10.2f}".format(row1[5]))
+            self.ws1.write(aa, 5, float(row1[5]))
+
+            aa = aa + 1
+            bb = bb + 1
+
+            if (15 * (bb + 1)) >= 760:
+                c.setFont("Verdana", 11)
+
+                c.setFont("Courier", 60)
+                # This next setting with make the text of our
+                # watermark gray, nice touch for a watermark.
+                c.setFillGray(0.3, 0.3)
+                # Set up our watermark document. Our watermark
+                # will be rotated 45 degrees from the direction
+                # of our underlying document.
+                c.saveState()
+                c.translate(500, 100)
+                c.rotate(45)
+                c.drawCentredString(0, 0, "BISHOP NEN ©")
+                c.drawCentredString(0, 300, "BISHOP NEN ©")
+                c.drawCentredString(0, 600, "BISHOP NEN ©")
+                c.restoreState()
+
+                c.showPage()
+                c.setFont("Verdana", 8)
+                bb = 0
+
+        c.setFont("Verdana", 11)
+        c.drawRightString(330, 800 - (15 * (bb + 1)), str("{:10.2f}".format(toplam)))
+        c.drawRightString(405, 800 - (15 * (bb + 1)), str("{:10.2f}".format(toplam1)))
+        c.drawRightString(480, 800 - (15 * (bb + 1)), str("{:10.2f}".format(toplam2)))
+        self.ws1.write(aa + 1, 3, toplam)
+        self.ws1.write(aa + 1, 4, toplam1)
+        self.ws1.write(aa + 1, 5, toplam2)
+
+        c.setFont("Courier", 60)
+        # This next setting with make the text of our
+        # watermark gray, nice touch for a watermark.
+        c.setFillGray(0.3, 0.3)
+        # Set up our watermark document. Our watermark
+        # will be rotated 45 degrees from the direction
+        # of our underlying document.
+        c.saveState()
+        c.translate(500, 100)
+        c.rotate(45)
+        c.drawCentredString(0, 0, "BISHOP NEN ©")
+        c.drawCentredString(0, 300, "BISHOP NEN ©")
+        c.drawCentredString(0, 600, "BISHOP NEN ©")
+        c.restoreState()
+
+        c.save()
+        self.wb.save(self.dest_filename)
+        self.tableWidget.setRowCount(aa + 3)
 
     @pyqtSlot()
     def cariekstre(self):
         print("elma")
 
-    @pyqtSlot(int,int)
-    def slotekstre(self, item,item2):
-        if self.kontrol==0:
+    @pyqtSlot(int, int)
+    def slotekstre(self, item, item2):
+        if self.kontrol == 0:
             fisno = self.tableWidget.item(item, 0).text()
             self.emit(QtCore.SIGNAL("fisac"), fisno)
             return
@@ -245,14 +442,14 @@ class Stok(QtWidgets.QDialog , Ui_Dialog6):
             """ CREATE  TABLE  test.table4 AS (select hhammaddeid,hmiktar  from harcanan a where  hhammaddeid=%s and date(tarih) between %s and %s )""",
             (carikod,tar1, tar2,))
 
-        sql = """select a.hamkod,a.hamad,a.birim , ifnull( b.miktar,0) as giriş ,ifnull(c.hmiktar,0) as çıkış from hammadde a  left join table3 b on a.hamkod=b.hamkod left join table4 c on a.hamkod=c.hhammaddeid where departman="BAR"  order by a.hamkod; """
+        sql = """select a.hamkod,a.hamad,a.birim , ifnull( b.miktar,0) as giriş ,ifnull(c.hmiktar,0) as çıkış ,a.bolum from hammadde a  left join table3 b on a.hamkod=b.hamkod left join table4 c on a.hamkod=c.hhammaddeid where departman="BAR"  order by a.bolum, a.hamkod; """
 
 
         bul2 = myddb1.cur.execute(sql, )
         print(bul2, tar1, tar2)
 
         bul = myddb1.cur.fetchall()
-        i = bul2
+        i = bul2 + 10
         j = 5
         self.tableWidget.setRowCount(i)
         aa = 0

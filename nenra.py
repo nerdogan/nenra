@@ -23,8 +23,7 @@ from PyQt5.QtMultimedia import QSound
 from PyQt5.QtCore import *
 
 from mainwindow import MainWindow
-from mainwindow import Recete
-from mainwindow import Recete2
+from recete import Recete
 from fatura import Fatura
 from maliyet import Maliyet
 from cari import Cari
@@ -32,7 +31,7 @@ from stok import Stok
 from login import Login
 from rapor import Rapor
 from masraf import Masraf
-from mdb.modulemdb import *
+from mdb.modulemdb import Myddb
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -45,121 +44,66 @@ formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(messag
 handler.setFormatter(formatter)
 logger.addHandler(handler)
 
-
-def run1(EndDate):
-    myddb = Myddb()
-
-    print(EndDate.strftime('%d%m%Y'))
-    sql = " select * from harcanan where tarih= %s"
-    sonuc = myddb.cur.execute(sql, [(EndDate.strftime('%Y-%m-%d'))])
-    valnen = []
-    if sonuc == 0:
-        print(" kaydediliyor")
-        tar = EndDate.strftime('%d%m%Y')
-
-        sql2 = "SELECT hammadde.hamkod,recete.hamkod,miktar,adet " \
-               "FROM (select * from bishop.ciro where DATE(tarih)=%s union all select * from bishop.ciro1 where DATE(tarih)=%s) as ciroo  inner join hammadde on pluno=hamkod " \
-               "and DATE(tarih)=%s  inner join recete on " \
-               " hammadde.hamkod=recete.menukod"
-        bilgi = myddb.cur.execute(sql2, [(EndDate.strftime('%Y-%m-%d')), (EndDate.strftime('%Y-%m-%d')),
-                                         (EndDate.strftime('%Y-%m-%d'))])
-        print(bilgi)
-        valnen = []
-        if bilgi != 0:
-            bilgi2 = myddb.cur.fetchall()
-            for row1 in bilgi2:
-                hmikt = row1[2] * row1[3]
-
-                sql1 = "insert into harcanan " \
-                       "(hurunkod,hhammaddeid,hmiktar,fiyat,tarih) " \
-                       "values (%s,%s,%s,%s,%s)"
-                valnen.append((row1[0], row1[1], hmikt, "0", EndDate))
-                # myddb.cur.execute(sql1, (row1[0],
-                # row1[1], hmikt, "0", EndDate))
-
-            myddb.cur.executemany(sql1, valnen)
-            myddb.conn.commit()
-            print(valnen)
-            
-
-
-selfstart_time = time.time()
-
-StartDate = "01/10/21"
-
-EndDate = datetime.datetime.strptime(StartDate, "%d/%m/%y")
-now = datetime.datetime.now() - datetime.timedelta(days=1)
-dt = now - EndDate
-print(dt.days)
-# mainWindow.plainTextEdit.appendPlainText(str(dt.days))
-dum = []
-for i in range(dt.days + 1):
-    dum.append(Thread(target=run1, args=[EndDate]))
-    EndDate = EndDate + datetime.timedelta(days=1)
-    dum[i].start()
-    if i % 10 == 0:
-        time.sleep(1)
-
-for i in range(dt.days + 1):
-    dum[i].join()
-elapsed_time = time.time() - selfstart_time
-print(elapsed_time)
+myddb = Myddb()
 
 
 class WorkerThread(QThread):
 
     def __init__(self, parent=None):
         super(WorkerThread, self).__init__(parent)
-        self.myddb = Myddb()
-        self.start_time = time.time()
+        myddb = Myddb()
         # your code
 
+    def run1(self, EndDate):
+        print(EndDate.strftime('%d%m%Y'))
+        sql = " select * from harcanan where tarih= %s"
+        sonuc = myddb.cur.execute(sql, [(EndDate.strftime('%Y-%m-%d'))])
+        valnen = []
+        if sonuc == 0:
+            print(" kaydediliyor")
+            tar = EndDate.strftime('%d%m%Y')
+
+            sql2 = "SELECT hammadde.hamkod,recete.hamkod,miktar,adet " \
+                   "FROM (select * from bishop.ciro where DATE(tarih)=%s union all select * from bishop.ciro1 where DATE(tarih)=%s) as ciroo  inner join hammadde on pluno=hamkod " \
+                   "and DATE(tarih)=%s  inner join recete on " \
+                   " hammadde.hamkod=recete.menukod"
+            bilgi = myddb.cur.execute(sql2, [(EndDate.strftime('%Y-%m-%d')), (EndDate.strftime('%Y-%m-%d')),
+                                             (EndDate.strftime('%Y-%m-%d'))])
+            print(bilgi)
+            valnen = []
+            if bilgi != 0:
+                bilgi2 = myddb.cur.fetchall()
+                for row1 in bilgi2:
+                    hmikt = row1[2] * row1[3]
+
+                    sql1 = "insert into harcanan " \
+                           "(hurunkod,hhammaddeid,hmiktar,fiyat,tarih) " \
+                           "values (%s,%s,%s,%s,%s)"
+                    valnen.append((row1[0], row1[1], hmikt, "0", EndDate))
+                    # myddb.cur.execute(sql1, (row1[0],
+                    # row1[1], hmikt, "0", EndDate))
+
+                myddb.cur.executemany(sql1, valnen)
+                myddb.conn.commit()
+                print(valnen)
+
     def run(self):
-
-        StartDate = "01/06/21"
-
+        selfstart_time = time.time()
+        StartDate = "01/11/21"
         EndDate = datetime.datetime.strptime(StartDate, "%d/%m/%y")
         now = datetime.datetime.now() - datetime.timedelta(days=1)
         dt = now - EndDate
         print(dt.days)
         # mainWindow.plainTextEdit.appendPlainText(str(dt.days))
+        dum = []
         for i in range(dt.days + 1):
-            print(EndDate.strftime('%d%m%Y'))
-            sql = " select * from harcanan where tarih= %s"
-            sonuc = self.myddb.cur.execute(sql,
-                                           [(EndDate.strftime('%Y-%m-%d'))])
-            valnen = []
-            if sonuc == 0:
-                print(" kaydediliyor")
-                tar = EndDate.strftime('%d%m%Y')
-
-                sql2 = "SELECT hammadde.hamkod,recete.hamkod,miktar,adet " \
-                       "FROM bishop.ciro inner join hammadde " \
-                       "on pluno=hamkod " \
-                       "and DATE(tarih)=%s  inner join recete on " \
-                       " hammadde.hamkod=recete.menukod"
-                bilgi = self.myddb.cur.execute(sql2,
-                                               [(EndDate.strftime('%Y-%m-%d'))])
-                print(bilgi)
-                valnen = []
-                if bilgi != 0:
-                    bilgi2 = self.myddb.cur.fetchall()
-                    for row1 in bilgi2:
-                        hmikt = row1[2] * row1[3]
-
-                        sql1 = "insert into harcanan " \
-                               "(hurunkod,hhammaddeid,hmiktar,fiyat,tarih)" \
-                               " values (%s,%s,%s,%s,%s)"
-                        valnen.append((row1[0], row1[1], hmikt, "0", EndDate))
-                        # self.myddb.cur.execute(sql1,
-                        # (row1[0], row1[1], hmikt, "0", EndDate))
-
-                    self.myddb.cur.executemany(sql1, valnen)
-                    self.myddb.conn.commit()
-                    print(valnen)
-
+            dum.append(Thread(target=self.run1, args=[EndDate]))
             EndDate = EndDate + datetime.timedelta(days=1)
-        elapsed_time = time.time() - self.start_time
+            dum[i].start()
+            # time.sleep(0.02)
+            dum[i].join()
+
+        elapsed_time = time.time() - selfstart_time
         print(elapsed_time)
 
 
@@ -215,172 +159,16 @@ def main():
     myddb = Myddb()
 
     recete = Recete()
-    recete2 = Recete2()
     fatura = Fatura()
-
     maliyet = Maliyet()
     cari = Cari()
     stok = Stok()
     rapor = Rapor()
     masraf = Masraf()
-    #    workerthread = WorkerThread()
-    #   workerthread.start()
+    workerthread = WorkerThread()
+    workerthread.start()
 
     logger.info('Program opened  ' + str(os.getpid()))
-
-    @pyqtSlot(int, int)
-    def slotrecete2(item, item2):
-
-        recete2.lineEdit.setText("")
-        #   recete2 ekranı hazırlanıyor
-        recete2.label_2.setText(str(item))
-
-        deger0 = recete.tableWidget.item(item, 1).text()
-        recete2.label_3.setText(deger0)
-        file = open(deger0 + ".txt", "w")
-
-        deger0 = recete.tableWidget.item(item, 1).text()
-        deger1 = deger0 + " " + recete.tableWidget.item(item, 2).text() + "  "
-        recete2.label.setText(deger1)
-
-        # veritabanından bilgi çek
-
-        bul2 = myddb.cek2(deger0, "recete", "menukod")
-        bul = myddb.cek("select * from hammadde where kategori=2")
-        myddb.conn.commit()
-        recete2.comboBox.clear()
-        i = len(bul)
-        for xx1 in range(i):
-            recete2.comboBox.addItem(str(bul[xx1][1]) + " " + bul[xx1][2])
-
-        i = len(bul2)
-        recete2.tableWidget_2.setRowCount(i)
-        aa = 0
-        toplam = 0
-        topelma = 0
-
-        for row1 in bul2:
-            item = str(row1[2])
-
-            bul3 = myddb.cek2(item, "hammadde", "hamkod")
-            myddb.conn.commit()
-
-            item = str(bul3[0][1])
-            file.write(item + " ")
-            recete2.tableWidget_2.setItem(aa, 0, QtWidgets.QTableWidgetItem(item))
-            item = bul3[0][2]
-            # file.write(item+" ")
-            recete2.tableWidget_2.setItem(aa, 1, QtWidgets.QTableWidgetItem(item))
-            item = bul3[0][3]
-            file.write(item + " ")
-            recete2.tableWidget_2.setItem(aa, 2, QtWidgets.QTableWidgetItem(item))
-            item = str(row1[3])
-            recete2.tableWidget_2.setItem(aa, 3, QtWidgets.QTableWidgetItem(item))
-            file.write(item + " ")
-
-            item = str(bul3[0][6])
-            file.write(item + "\n")
-            recete2.tableWidget_2.setItem(aa, 4, QtWidgets.QTableWidgetItem(item))
-
-            elma = (bul3[0][6]) * (row1[3]) * (100 + (bul3[0][4])) / 100
-            topelma = topelma + elma
-            item = str(elma)
-            file.write(item + "\n")
-            item = str("{:.2f}".format(elma))
-            item = QtWidgets.QTableWidgetItem(item)
-            item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignRight)
-
-            recete2.tableWidget_2.setItem(aa, 5, QtWidgets.QTableWidgetItem(item))
-
-            aa = aa + 1
-
-        recete2.label_4.setText(str("{:.2f}".format(topelma)))
-
-        file.close()
-
-        recete2.tableWidget.setColumnWidth(0, 50)
-        recete2.tableWidget.setColumnWidth(1, 250)
-        recete2.tableWidget.setColumnWidth(2, 50)
-        recete2.tableWidget.setColumnWidth(3, 50)
-        recete2.tableWidget_2.setColumnWidth(0, 50)
-        recete2.tableWidget_2.setColumnWidth(1, 150)
-        recete2.tableWidget_2.setColumnWidth(2, 50)
-        recete2.tableWidget_2.setColumnWidth(3, 75)
-        recete2.tableWidget_2.setColumnWidth(4, 75)
-        recete2.tableWidget_2.setColumnWidth(5, 60)
-
-        recete2.show()
-        recete2.lineEdit.setFocus(True)
-
-    @pyqtSlot()
-    def slotrecete2sql(item2):
-
-        a = item2
-        a = str(a)
-
-        bul = myddb.cek1(a, "hammadde", "hamad")
-
-        i = len(bul)
-        recete2.tableWidget.setRowCount(i)
-        recete2.tableWidget.setSelectionBehavior(
-            QtWidgets.QAbstractItemView.SelectRows)
-
-        aa = 0
-        toplam = 0
-        for row1 in bul:
-            item = str(row1[1])
-            recete2.tableWidget.setItem(aa, 0, QtWidgets.QTableWidgetItem(item))
-            item = row1[2]
-            recete2.tableWidget.setItem(aa, 1, QtWidgets.QTableWidgetItem(item))
-            item = row1[3]
-            recete2.tableWidget.setItem(aa, 2, QtWidgets.QTableWidgetItem(item))
-            item = str(row1[4])
-            recete2.tableWidget.setItem(aa, 3, QtWidgets.QTableWidgetItem(item))
-            aa = aa + 1
-
-    @pyqtSlot(int, int)
-    def slothamclick(item, item2):
-        #   hammadde listesinden çiftklikle
-        #   tablewidget_2 ye hammadde bilgisini ekliyor.
-        i = recete2.tableWidget_2.rowCount()
-        deger1 = recete2.tableWidget.item(item, 0).text()
-        deger2 = recete2.tableWidget.item(item, 1).text()
-        deger3 = recete2.tableWidget.item(item, 2).text()
-
-        i = i + 1
-        recete2.tableWidget_2.setRowCount(i)
-
-        aa = i - 1
-
-        item = deger1
-        recete2.tableWidget_2.setItem(aa, 0, QtWidgets.QTableWidgetItem(item))
-        item = deger2
-        recete2.tableWidget_2.setItem(aa, 1, QtWidgets.QTableWidgetItem(item))
-        item = deger3
-        recete2.tableWidget_2.setItem(aa, 2, QtWidgets.QTableWidgetItem(item))
-        item = '0'
-        recete2.tableWidget_2.setItem(aa, 3, QtWidgets.QTableWidgetItem(item))
-        # recete2.lineEdit.setFocus(True)
-        recete2.tableWidget_2.setFocus()
-        recete2.tableWidget_2.setCurrentCell(aa, 3)
-        sound.play()
-
-    @pyqtSlot()
-    def slotrecete2kaydet():
-        deger0 = recete2.label_3.text()
-        myddb.sil(deger0, "recete", "menukod")
-        i = recete2.tableWidget_2.rowCount()
-        for item in range(i):
-            deger1 = recete2.tableWidget_2.item(item, 0).text()
-            deger2 = recete2.tableWidget_2.item(item, 3).text()
-            print(deger0, deger1, deger2)
-            deger2 = fatura.kontrol(deger2)
-            myddb.kaydet(deger0, deger1, deger2)
-        myddb.conn.commit()
-        recete2.close()
-        slotrecete2(int(recete2.label_2.text()), 0)
-
-    # veritabanından bilgi çek
 
     @pyqtSlot()
     def slotpuss(item2):
@@ -528,36 +316,6 @@ def main():
         fatura.fisgetir(item2)
 
     @pyqtSlot()
-    def slottextch(item2):
-
-        a = item2
-        a = '%' + str(a) + '%'
-
-        sql3 = "select * from hammadde where (kategori=2 or kategori=3) and " \
-               " ( hamkod like '" + a \
-               + "' or hamad like '" + a + "'  ) order by hamkod"
-
-        myddb.cur.execute(sql3)
-        bul = myddb.cur.fetchall()
-
-        i = len(bul)
-        recete.tableWidget.setRowCount(i)
-        aa = 0
-        toplam = 0
-        for row1 in bul:
-            item = str(row1[0])
-            recete.tableWidget.setItem(aa, 0, QtWidgets.QTableWidgetItem(item))
-            item = str(row1[1])
-            recete.tableWidget.setItem(aa, 1, QtWidgets.QTableWidgetItem(item))
-            item = row1[2]
-            recete.tableWidget.setItem(aa, 2, QtWidgets.QTableWidgetItem(item))
-            item = str(row1[3])
-            recete.tableWidget.setItem(aa, 3, QtWidgets.QTableWidgetItem(item))
-            item = str(row1[4])
-            recete.tableWidget.setItem(aa, 4, QtWidgets.QTableWidgetItem(item))
-            aa = aa + 1
-
-    @pyqtSlot()
     def copyFunction(e):
         print("f10 a bastın")
         print(e.key())
@@ -569,11 +327,6 @@ def main():
                 else:
                     fatura.tableWidget_2.setCurrentCell(elma + 1, 2)
                 print elma '''
-
-    @pyqtSlot()
-    def slotrecete2satirsil():
-        bb = recete2.tableWidget_2.currentRow()
-        recete2.tableWidget_2.removeRow(bb)
 
     # dosya açmak için dialog
     # fileName =(QtGui.QFileDialog.getOpenFileName(mainWindow,
@@ -602,16 +355,8 @@ def main():
     mainWindow.statusbar.showMessage(
         u"Namık ERDOĞAN © 2016 v 2020.01 "
         u"                                  Bishop Restaurant")
-    recete.lineEdit.textChanged.connect(slottextch)
 
-    recete.tableWidget.cellClicked.connect(slotrecete2)
-    recete2.lineEdit.textChanged.connect(slotrecete2sql)
-    recete2.tableWidget.cellClicked.connect(slothamclick)
-    recete2.pushButton.clicked.connect(slotrecete2kaydet)
-    recete2.pushButton_3.clicked.connect(slotrecete2satirsil)
-
-    recete.setWindowModality(Qt.ApplicationModal)
-    recete2.setWindowModality(Qt.ApplicationModal)
+    # recete.setWindowModality(Qt.ApplicationModal)
     fatura.setWindowModality(Qt.ApplicationModal)
     maliyet.setWindowModality(Qt.ApplicationModal)
     login.setWindowModality(Qt.ApplicationModal)

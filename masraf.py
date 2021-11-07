@@ -73,10 +73,7 @@ class Masraf(QtWidgets.QDialog , Ui_Masraf):
     def slotilerigeri(self,elma):
         print(self.mydbb.conn.sqlstate())
         print(self.mydbb.conn.open)
-        if self.mydbb.conn.sqlstate()=="00000":
-            pass
-        else:
-            self.mydbb=Myddb()
+        self.mydbb.conn.ping()
 
         if elma=="geri":
             self.dt = self.dateEdit.date().toPyDate() - timedelta(hours=24)
