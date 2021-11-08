@@ -33,11 +33,3 @@ def _GetOption2(option):
         return None
 
 
-class GetOption3():
-    def __init__(self, option):
-        self._config = configparser.ConfigParser()
-        self._config.read(os.path.expanduser('./images/a.nenra'))
-        self.token = self._config.get('tele', option)
-
-    def gettoken(self):
-        return self.token

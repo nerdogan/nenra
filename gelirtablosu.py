@@ -4,6 +4,7 @@ import locale
 import datetime
 import subprocess
 import sys
+import os
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtCore import *
@@ -206,7 +207,7 @@ class GelirTablo(QtWidgets.QDialog, Ui_Dialog4):
         tar2 = self.deger2.strftime('%d%m%Y')
 
         if sys.platform == "win32":
-            os.startfile("GELİRTABLO" + tar1 + tar2 + ".pdf")
+            os.startfile(r"GELİRTABLO" + tar1 + tar2 + ".pdf")
         else:
             opener = "open" if sys.platform == "darwin" else "xdg-open"
             subprocess.call([opener, "GELİRTABLO" + tar1 + tar2 + ".pdf"])

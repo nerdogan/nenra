@@ -178,7 +178,7 @@ def main():
                         " kategori=3 order by hamkod")
 
         mainWindow.statusbar.showMessage(
-            u"Namık ERDOĞAN © 2016         Reçete 2020.01"
+            u"Namık ERDOĞAN © 2016         Reçete 2020.03"
             u"                        Bishop Restaurant")
         recete.move(13, 10)
         recete.show()
@@ -353,7 +353,7 @@ def main():
     mainWindow.actionSay_m_Fi_i.triggered.connect(lambda: slotfatura("SAY"))
     mainWindow.actionStok_Tan_mlama.triggered.connect(lambda: slottediye("VADE"))
     mainWindow.statusbar.showMessage(
-        u"Namık ERDOĞAN © 2016 v 2020.01 "
+        u"Namık ERDOĞAN © 2016 v 2021.01 "
         u"                                  Bishop Restaurant")
 
     # recete.setWindowModality(Qt.ApplicationModal)
