@@ -122,7 +122,7 @@ class Recete2(QtWidgets.QDialog, Ui_Dialog2):
         #   recete2 ekranı hazırlanıyor
         self.label_2.setText(str(item))
         self.label_3.setText(deger0)
-        file = open(deger0 + ".txt", "w")
+        file = open("./tempnenra/" + deger0 + ".txt", "w")
 
         deger0 = self.tableWidget.item(item, 1).text()
         deger1 = deger0 + " " + self.tableWidget.item(item, 2).text() + "  "
@@ -217,7 +217,7 @@ class Recete(QtWidgets.QDialog, Ui_Dialog):
 
         self.recete2.label_2.setText(str(item))
         self.recete2.label_3.setText(deger0)
-        file = open(deger0 + ".txt", "w")
+        file = open("./tempnenra/" + deger0 + ".txt", "w")
 
         deger0 = self.tableWidget.item(item, 1).text()
         deger1 = deger0 + " " + self.tableWidget.item(item, 2).text() + "  "

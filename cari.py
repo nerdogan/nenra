@@ -118,7 +118,6 @@ class Cari(QtWidgets.QDialog, Ui_Dialog5):
         print(bul2, tar1, tar2)
         bul = myddb1.cur.fetchall()
         i = bul2
-        j = 5
         self.tableWidget.setRowCount(i)
         aa = 0
         bb = 0
@@ -411,7 +410,7 @@ class Cari(QtWidgets.QDialog, Ui_Dialog5):
                 self.tableWidget.setItem(aa, 2, QtWidgets.QTableWidgetItem(item))
                 c.drawString(150, 800 - (15 * (bb + 1)), item)
 
-                if row1[4] == None:
+                if row1[4] is None:
                     item = "0"
                 else:
                     item = str(row1[4])
@@ -431,7 +430,7 @@ class Cari(QtWidgets.QDialog, Ui_Dialog5):
                 self.tableWidget.setItem(aa, 2, QtWidgets.QTableWidgetItem(item))
                 c.drawString(150, 800 - (15 * (bb + 1)), item)
 
-                if row1[4] == None:
+                if row1[4] is None:
                     item = "0"
                 else:
                     item = str(row1[4])

@@ -61,7 +61,7 @@ class Stok(QtWidgets.QDialog , Ui_Dialog6):
         self.ws1 = self.wb.add_sheet("ekstre")
         self.style1 = xlwt.easyxf('pattern: pattern solid, fore_colour red;')
 
-        c = canvas.Canvas("EKSTRE" + tar1 + tar2 + ".pdf")
+        c = canvas.Canvas("./tempnenra/EKSTRE" + tar1 + tar2 + ".pdf")
 
         pdfmetrics.registerFont(TTFont('Verdana', 'Verdana.ttf'))
         c.setFont("Verdana", 8)
@@ -231,14 +231,14 @@ class Stok(QtWidgets.QDialog , Ui_Dialog6):
         tar2 = deger2.strftime('%d%m%Y')
 
         self.wb = xlwt.Workbook(encoding="utf-8")
-        self.dest_filename = "EKSTRE" + tar1 + tar2 + ".xls"
+        self.dest_filename = "./tempnenra/EKSTRE" + tar1 + tar2 + ".xls"
         date_format = xlwt.XFStyle()
         date_format.num_format_str = u'#,##0.00₺'
         date_xf = xlwt.easyxf(num_format_str='DD-MM-YYYY')
         self.ws1 = self.wb.add_sheet("ekstre")
         self.style1 = xlwt.easyxf('pattern: pattern solid, fore_colour red;')
 
-        c = canvas.Canvas("EKSTRE" + tar1 + tar2 + ".pdf")
+        c = canvas.Canvas("./tempnenra/EKSTRE" + tar1 + tar2 + ".pdf")
 
         pdfmetrics.registerFont(TTFont('Verdana', 'Verdana.ttf'))
         c.setFont("Verdana", 8)
@@ -417,7 +417,7 @@ class Stok(QtWidgets.QDialog , Ui_Dialog6):
         tar2 = deger2.strftime('%d%m%Y')
 
         self.wb = xlwt.Workbook(encoding="utf-8")
-        self.dest_filename = "EKSTRE" + tar1 + tar2 + ".xls"
+        self.dest_filename = "./tempnenra/EKSTRE" + tar1 + tar2 + ".xls"
         date_format = xlwt.XFStyle()
         date_format.num_format_str = u'#,##0.00₺'
         date_xf = xlwt.easyxf(num_format_str='DD/MM/YYYY')
@@ -558,10 +558,10 @@ class Stok(QtWidgets.QDialog , Ui_Dialog6):
         tar2 = deger2.strftime('%d%m%Y')
 
         if sys.platform == "win32":
-            os.startfile("EKSTRE" + tar1 + tar2 + ".pdf")
+            os.startfile("./tempnenra/EKSTRE" + tar1 + tar2 + ".pdf")
         else:
             opener = "open" if sys.platform == "darwin" else "xdg-open"
-            subprocess.call([opener, "EKSTRE" + tar1 + tar2 + ".pdf"])
+            subprocess.call([opener, "./tempnenra/EKSTRE" + tar1 + tar2 + ".pdf"])
 
     def sloturunmaliyetxls(self):
         deger1 = self.dateEdit.date().toPyDate()
@@ -570,10 +570,10 @@ class Stok(QtWidgets.QDialog , Ui_Dialog6):
         tar2 = deger2.strftime('%d%m%Y')
 
         if sys.platform == "win32":
-            os.startfile("EKSTRE" + tar1 + tar2 + ".xls")
+            os.startfile("./tempnenra/EKSTRE" + tar1 + tar2 + ".xls")
         else:
             opener = "open" if sys.platform == "darwin" else "xdg-open"
-            subprocess.call([opener, "EKSTRE" + tar1 + tar2 + ".xls"])
+            subprocess.call([opener, "./tempnenra/EKSTRE" + tar1 + tar2 + ".xls"])
 
 
 if __name__ == "__main__":

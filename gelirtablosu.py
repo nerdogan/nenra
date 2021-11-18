@@ -62,7 +62,7 @@ class GelirTablo(QtWidgets.QDialog, Ui_Dialog4):
         tar1 = self.deger1.strftime('%d%m%Y')
 
         tar2 = self.deger2.strftime('%d%m%Y')
-        c = canvas.Canvas("GELİRTABLO" + tar1 + tar2 + ".pdf")
+        c = canvas.Canvas("./tempnenra/GELİRTABLO" + tar1 + tar2 + ".pdf")
         pdfmetrics.registerFont(TTFont('Verdana', 'Verdana.ttf'))
         c.setFont("Verdana", 16)
 
@@ -145,7 +145,7 @@ class GelirTablo(QtWidgets.QDialog, Ui_Dialog4):
         tar1 = self.deger1.strftime('%d%m%Y')
 
         tar2 = self.deger2.strftime('%d%m%Y')
-        c = canvas.Canvas("GELİRTABLO" + ".pdf")
+        c = canvas.Canvas("./tempnenra/GELİRTABLO" + ".pdf")
         pdfmetrics.registerFont(TTFont('Verdana', 'Verdana.ttf'))
         c.setFont("Verdana", 14)
 
@@ -207,10 +207,10 @@ class GelirTablo(QtWidgets.QDialog, Ui_Dialog4):
         tar2 = self.deger2.strftime('%d%m%Y')
 
         if sys.platform == "win32":
-            os.startfile(r"GELİRTABLO" + tar1 + tar2 + ".pdf")
+            os.startfile(r"./tempnenra/GELİRTABLO" + tar1 + tar2 + ".pdf")
         else:
             opener = "open" if sys.platform == "darwin" else "xdg-open"
-            subprocess.call([opener, "GELİRTABLO" + tar1 + tar2 + ".pdf"])
+            subprocess.call([opener, "./tempnenra/GELİRTABLO" + tar1 + tar2 + ".pdf"])
 
 
 if __name__ == "__main__":
