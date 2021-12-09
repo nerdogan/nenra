@@ -64,8 +64,8 @@ class WorkerThread(QThread):
             tar = EndDate.strftime('%d%m%Y')
 
             sql2 = "SELECT hammadde.hamkod,recete.hamkod,miktar,adet " \
-                   "FROM (select * from bishop.ciro where DATE(tarih)=%s union all select * from bishop.ciro1 where DATE(tarih)=%s) as ciroo  inner join hammadde on pluno=hamkod " \
-                   "and DATE(tarih)=%s  inner join recete on " \
+                   "FROM (select * from bishop.ciro where tarih=%s union all select * from bishop.ciro1 where tarih=%s) as ciroo  inner join hammadde on pluno=hamkod " \
+                   "and tarih=%s  inner join recete on " \
                    " hammadde.hamkod=recete.menukod"
             bilgi = myddb.cur.execute(sql2, [(EndDate.strftime('%Y-%m-%d')), (EndDate.strftime('%Y-%m-%d')),
                                              (EndDate.strftime('%Y-%m-%d'))])

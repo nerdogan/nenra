@@ -51,9 +51,8 @@ class Maliyet(QDialog , Ui_Dialog4):
         c.drawString(10, 810, item)
         tar1 = deger1.strftime('%Y-%m-%d')
         tar2 = deger2.strftime('%Y-%m-%d')
-        sql = """SELECT pluno,hamad,sum(adet),sum(tutar) FROM (select * from bishop.ciro union all select * from bishop.ciro1) as ciroo inner join test.hammadde on  pluno=hamkod and
-            DATE(tarih) >= %s and DATE(tarih) <= %s group by pluno,hamad order by pluno asc """
-        bul2 = myddb1.cur.execute(sql, (tar1, tar2))
+        sql = "SELECT pluno,hamad,sum(adet),sum(tutar) FROM (select * from bishop.ciro where tarih between %s and %s union all select * from bishop.ciro1 where tarih between %s and %s ) as ciroo inner join test.hammadde on  pluno=hamkod  group by pluno,hamad order by pluno asc "
+        bul2 = myddb1.cur.execute(sql, (tar1, tar2, tar1, tar2))
         print(bul2, tar1, tar2)
         bul = myddb1.cur.fetchall()
         i = bul2
@@ -67,7 +66,7 @@ class Maliyet(QDialog , Ui_Dialog4):
 
         for row1 in bul:
             sql1 = "select hurunkod,sum(hmiktar*hammadde.fiyat1) from harcanan inner join hammadde on " \
-                   "hhammaddeid=hamkod where DATE(tarih)>=%s and DATE(tarih)<=%s and hurunkod=%s "
+                   "hhammaddeid=hamkod where tarih >=%s and tarih<=%s and hurunkod=%s "
             bul1 = myddb1.cur.execute(sql1, (tar1, tar2, row1[0]))
             bul1 = myddb1.cur.fetchall()
 
@@ -142,7 +141,7 @@ class Maliyet(QDialog , Ui_Dialog4):
         tar2 = deger2.strftime('%Y-%m-%d')
 
         sql = """SELECT ciroo.departman,pluno,hamad,sum(adet),sum(tutar) FROM (select * from bishop.ciro union all select * from bishop.ciro1) as ciroo  inner join test.hammadde on  pluno=hamkod and
-                DATE(tarih) >= %s and DATE(tarih) <= %s  group by ciroo.departman,pluno order by ciroo.departman asc """
+                tarih >= %s and tarih <= %s  group by ciroo.departman,pluno order by ciroo.departman asc """
         bul2 = myddb1.cur.execute(sql, (tar1, tar2))
         print(bul2, tar1, tar2)
 
@@ -158,7 +157,7 @@ class Maliyet(QDialog , Ui_Dialog4):
         toplam1 = 0.0
         toplam2 = 0.0
         for row1 in bul:
-            sql1 = "select hurunkod,sum(hmiktar*fiyat1),harcanan.tarih from harcanan inner join hammadde on hhammaddeid=hamkod where DATE(tarih)>=%s and DATE(tarih)<=%s and hurunkod=%s"
+            sql1 = "select hurunkod,sum(hmiktar*fiyat1),harcanan.tarih from harcanan inner join hammadde on hhammaddeid=hamkod where tarih>=%s and tarih<=%s and hurunkod=%s"
             bul1 = myddb1.cur.execute(sql1, (tar1, tar2, row1[1]))
             bul1 = myddb1.cur.fetchall()
 

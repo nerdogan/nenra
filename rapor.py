@@ -109,8 +109,10 @@ class Rapor(QtWidgets.QDialog , Ui_Dialog7):
 
         myddb1.cur.execute("drop table if exists table3 ")
 
-        myddb1.cur.execute(""" CREATE TEMPORARY TABLE  table3 AS (SELECT bishop.ciro.departman,pluno,hamad,sum(adet),sum(tutar) FROM bishop.ciro  inner join hammadde on  pluno=hamkod and
- date(tarih) between %s and %s and hesap IS NULL group by ciro.departman,pluno,hamad order by ciro.departman asc)""",(tar1,tar2))
+        myddb1.cur.execute(""" CREATE TEMPORARY TABLE  table3 AS (SELECT ciroo.departman,pluno,hamad,sum(adet),sum(tutar) FROM 
+        (select * from bishop.ciro where tarih between %s and %s and hesap IS NULL union all select * from bishop.ciro1 where tarih between %s and %s and hesap IS NULL) as ciroo 
+        inner join hammadde on  pluno=hamkod  group by ciroo.departman,pluno,hamad order by ciroo.departman asc)""",
+                           (tar1, tar2, tar1, tar2))
 
         sql = """select * from table3 ; """
 
@@ -293,10 +295,9 @@ class Rapor(QtWidgets.QDialog , Ui_Dialog7):
         #myddb1.cur.execute("insert kasa (posid,aciklama,tutar,belgeno,muhkod,tarih,kasano,islemid) values (%s,%s,%s,%s,%s,%s,%s,%s)",
         #    (row[0], row[1], tut, row[4], row[5], tt2, kno, row[7]))
 
+        sql = """select kasano,sum(tutar) from (select * from bishop.kasa where tarih between %s and %s union all select * from bishop.kasa1 where tarih between %s and %s) as tumkasa   group by kasano; """
 
-        sql = """select kasano,sum(tutar) from (select * from bishop.kasa union all select * from bishop.kasa1) as tumkasa where date(tarih) between %s and %s  group by kasano; """
-
-        bul2 = myddb1.cur.execute(sql, (tar1, tar2))
+        bul2 = myddb1.cur.execute(sql, (tar1, tar2, tar1, tar2))
         print(bul2, tar1, tar2)
 
         bul = myddb1.cur.fetchall()
