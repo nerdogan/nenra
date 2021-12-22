@@ -213,19 +213,14 @@ if __name__ == '__main__':
     while True:
         ordersayi = len(connection.client.futures_get_open_orders())
         print(ordersayi)
-        if ordersayi < 15:
+        if ordersayi < 30:
             mesaj = (connection.client.futures_position_information(symbol='BTCUSDT')[0]['unRealizedProfit'])
 
             mesaj = mesaj + " __ " + (connection.client.futures_account_balance()[1]['balance'])
-            if float(connection.client.futures_position_information(symbol='BTCUSDT')[0]['unRealizedProfit']) > 20:
-                os.system('afplay ' + './images/ses.wav -v 0.06')
-
-            # os.system("python mdb/msggonder.py '" + mesaj + "'")
-
             break
 
         print("sipariş sayısı 7 emir verilemiyor")
-        time.sleep(10)
+        time.sleep(30)
 
     while True:
         # 10 saniye bekliyoruz. Sürekli sorgu göndermeye gerek yok.
@@ -274,39 +269,40 @@ if __name__ == '__main__':
         if stochasticRsiF[-1] < stochasticRsiS[-1] < 11 and aldi < 1:
             print("al", low[-1])
             al = 1
-            os.system('afplay ' + './images/ses.wav -v 0.7')
+            #os.system('afplay ' + './images/ses.wav -v 0.7')
             zaman = 0.3
         # alım emri
         if al == 1 and stochasticRsiF[-1] > stochasticRsiS[-1] and stochasticRsiF[-1] > 3 and stochasticRsiF[-1] < 17:
+
             order = connection.client.futures_create_order(symbol='BTCUSDT', positionSide='LONG', side='BUY',
-                                                           type='MARKET', quantity='0.004')
+                                                           type='MARKET', quantity='0.001')
             orderid = order['orderId']
+
             # print(orderid)
             al = 0
             aldi = aldi + 1
             time.sleep(3)
             order = connection.client.futures_get_order(symbol='BTCUSDT', orderId=orderid)
+
             print(order)
-            fiyat1 = float(order['avgPrice']) + 80.0
-            fiyat2 = float(order['avgPrice']) + 100.0
-            fiyat3 = float(order['avgPrice']) + 80.0
+            fiyat1 = float(order['avgPrice']) + 65.0
+            fiyat2 = float(order['avgPrice']) + 70.0
+            #fiyat3 = float(order1['avgPrice']) + 0.000300
 
             fiyat = float("{:.2f}".format(fiyat1))
             order = connection.client.futures_create_order(symbol='BTCUSDT', positionSide='LONG', side='SELL',
-                                                           type='LIMIT', timeInForce='GTC', quantity='0.002',
+                                                           type='LIMIT', timeInForce='GTC', quantity='0.001',
                                                            price=fiyat)
 
-            fiyat = float("{:.2f}".format(fiyat2))
-            order = connection.client.futures_create_order(symbol='BTCUSDT', positionSide='LONG', side='SELL',
-                                                           type='LIMIT', timeInForce='GTC', quantity='0.002',
-                                                           price=fiyat)
+            #fiyat = float("{:.2f}".format(fiyat2))
+            #order = connection.client.futures_create_order(symbol='BTCUSDT', positionSide='LONG', side='SELL', type='LIMIT', timeInForce='GTC', quantity='0.001',  price=fiyat)
 
-            # fiyat= float("{:.2f}".format(fiyat3))
-            # order = connection.client.futures_create_order(symbol='BTCUSDT',positionSide='LONG', side='SELL', type='LIMIT',timeInForce='GTC', quantity='0.002',price=fiyat)
+            #fiyat= float("{:.6f}".format(fiyat3))
+            #order = connection.client.futures_create_order(symbol='IOSTUSDT',positionSide='LONG', side='SELL', type='LIMIT',timeInForce='GTC', quantity='150',price=fiyat)
 
             zaman = 1.0
             # os.system("python mdb/msggonder.py '" + str(fiyat) + "  satacak...'")
             time.sleep(80)
-            subprocess.Popen('python binenraalım1.py', shell=True)
+            subprocess.Popen('C:\\Users\\bisho\\PycharmProjects\\nenra\\venv\\Scripts\\python.exe binenraalım1.py', shell=True)
             print("çıktım")
             break

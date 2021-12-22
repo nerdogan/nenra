@@ -205,7 +205,7 @@ if __name__ == '__main__':
 
     while True:
         ordersayi = len(connection.client.futures_get_open_orders())
-        if ordersayi < 10:
+        if ordersayi < 35:
             mesaj = float(connection.client.futures_position_information(symbol='BTCUSDT')[0]['unRealizedProfit'])
             mesaj = ("{:.3f}".format(mesaj))
             mesaj = mesaj + " __ " + ("{:.2f}".format(float(connection.client.futures_account_balance()[1]['balance'])))
@@ -230,7 +230,6 @@ if __name__ == '__main__':
         close = [float(entry[4]) for entry in klines]
 
         new_time = [datetime.fromtimestamp(time / 1000) for time in open_time]
-
         new_time_x = [date.strftime("%d-%m-%y %H:%M") for date in new_time]
 
         last_closing_price = close[-1]
@@ -256,12 +255,6 @@ if __name__ == '__main__':
         ordersayi = len(connection.client.futures_get_open_orders())
         long = connection.client.futures_position_information(symbol='BTCUSDT')[1]['unRealizedProfit']
         short = connection.client.futures_position_information(symbol='BTCUSDT')[2]['unRealizedProfit']
-        if float(long) < -10:
-            os.system('afplay ' + './images/gong.wav -v 0.3')
-
-        if float(short) < -10:
-            os.system('afplay ' + './images/gong.wav -v 0.3')
-            os.system('afplay ' + './images/gong.wav -v 0.3')
 
         mesaj = ("{:.2f}".format(float(long) + float(short)))
         mesaj1 = mesaj + " * " + ("{:.2f}".format(float(connection.client.futures_account_balance()[1]['balance'])))
@@ -276,11 +269,11 @@ if __name__ == '__main__':
         if stochasticRsiF[-1] < stochasticRsiS[-1] < 11 and aldi < 1:
             print("al", high[-1], low[-1], close[-1])
             al = 1
-            zaman = 3
+            zaman = 5
         # alım emri
         if al == 1 and stochasticRsiF[-1] > stochasticRsiS[-1] and stochasticRsiF[-1] > 5 and stochasticRsiF[-1] < 12:
             order = connection.client.futures_create_order(symbol='BTCUSDT', positionSide='LONG', side='BUY',
-                                                           type='MARKET', quantity='0.01')
+                                                           type='MARKET', quantity='0.001')
 
             orderid = order['orderId']
             # print(orderid)
@@ -289,15 +282,17 @@ if __name__ == '__main__':
             time.sleep(3)
             order = connection.client.futures_get_order(symbol='BTCUSDT', orderId=orderid)
             print(order)
-            os.system('afplay ' + './images/gong.wav -v 255')
+            #os.system('afplay ' + './images/gong.wav -v 255')
 
-            fiyat = float(order['avgPrice']) + 400.0
+            fiyat = float(order['avgPrice']) + 300.0
             fiyat = float("{:.2f}".format(fiyat))
             order = connection.client.futures_create_order(symbol='BTCUSDT', positionSide='LONG', side='SELL',
-                                                           type='LIMIT', timeInForce='GTC', quantity='0.01',
+                                                           type='LIMIT', timeInForce='GTC', quantity='0.001',
                                                            price=fiyat)
             ordersat = order['orderId']
             order = connection.client.futures_get_order(symbol='BTCUSDT', orderId=ordersat)
+            os.system("C:\\Users\\bisho\\PycharmProjects\\nenra\\venv\\Scripts\\python.exe  C:\\Users\\bisho\\PycharmProjects\\nenra\\mdb\\msggonder.py '"  "__*" + str(fiyat) + "'")
+
             while order['status'] != 'FILLED':
                 print(order['status'])
                 time.sleep(30)
@@ -306,6 +301,6 @@ if __name__ == '__main__':
             zaman = 3.0
             # os.system("python mdb/msggonder.py '" + str(fiyat) + "  satacak...'")
             time.sleep(60)
-            subprocess.Popen('python binenraalım15m.py', shell=True)
+            subprocess.Popen('C:\\Users\\bisho\\PycharmProjects\\nenra\\venv\\Scripts\\python.exe binenraalım15m.py', shell=True)
             print("çıktım")
             break
