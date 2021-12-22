@@ -613,6 +613,7 @@ class Fatura(QtWidgets.QDialog, Ui_Dialog3):
         ahammadde = self.tableWidget_2.currentRow()
         sql3 = "UPDATE hammadde SET fiyat1=%s where hamkod=%s "
         print(ahammadde)
+        # if ahammadde<0:
 
         self.myddb.cur.execute(sql3, (
         self.tableWidget_2.item(ahammadde, 5).text(), self.tableWidget_2.item(ahammadde, 0).text()))
