@@ -302,7 +302,7 @@ class Cari(QtWidgets.QDialog, Ui_Dialog5):
                 bb = 0
         self.tableWidget.setRowCount(aa + 2)
         font = QtGui.QFont("Courier New", 11)
-        self.tableWidget.setItem(aa + 1, 2, QtWidgets.QTableWidgetItem(str(toplam)))
+        self.tableWidget.setItem(aa + 1, 2, QtWidgets.QTableWidgetItem("{:10.2f}".format((toplam))))
         self.tableWidget.item(aa + 1, 2).setBackground(QtGui.QColor(255, 128, 128))
         self.tableWidget.item(aa + 1, 2).setFont(font)
 
@@ -310,8 +310,8 @@ class Cari(QtWidgets.QDialog, Ui_Dialog5):
         self.ws1.write(aa + 1, 3, toplam)
         self.ws1.write(aa + 1, 4, toplam1)
         self.ws1.write(aa + 1, 5, toplam2)
-        c.drawString(350, 800 - (15 * (bb + 1)), str(toplam))
-        c.drawString(420, 800 - (15 * (bb + 1)), str(toplam2))
+        c.drawString(350, 800 - (15 * (bb + 1)), "{:10.2f}".format((toplam)))
+        c.drawString(420, 800 - (15 * (bb + 1)), "{:10.2f}".format((toplam2)))
         # c.drawString(430, 800 - (15 * (bb + 1)), str(toplam2))
 
         # todo genel toplam yazılacak
@@ -454,9 +454,9 @@ class Cari(QtWidgets.QDialog, Ui_Dialog5):
 
             if (15 * (bb + 1)) >= 760:
                 c.setFont("Verdana", 10)
-                c.drawString(210, 800 - (15 * (bb + 1)), str(toplam))
-                c.drawString(270, 800 - (15 * (bb + 1)), str(toplam1))
-                c.drawString(350, 800 - (15 * (bb + 1)), str(toplam2))
+                c.drawString(210, 800 - (15 * (bb + 1)), "{:10.2f}".format((toplam)))
+                c.drawString(270, 800 - (15 * (bb + 1)), "{:10.2f}".format((toplam1)))
+                c.drawString(350, 800 - (15 * (bb + 1)), "{:10.2f}".format((toplam2)))
                 c.showPage()
                 c.setFont("Verdana", 8)
                 bb = 0
@@ -464,9 +464,9 @@ class Cari(QtWidgets.QDialog, Ui_Dialog5):
         self.ws1.write(aa + 1, 3, toplam)
         self.ws1.write(aa + 1, 4, toplam1)
         self.ws1.write(aa + 1, 5, toplam2)
-        c.drawString(270, 800 - (15 * (bb + 1)), str(toplam))
-        c.drawString(350, 800 - (15 * (bb + 1)), str(toplam1))
-        c.drawString(430, 800 - (15 * (bb + 1)), str(toplam2))
+        c.drawString(270, 800 - (15 * (bb + 1)), "{:10.2f}".format((toplam)))
+        c.drawString(350, 800 - (15 * (bb + 1)), "{:10.2f}".format((toplam1)))
+        c.drawString(430, 800 - (15 * (bb + 1)), "{:10.2f}".format((toplam2)))
 
         # todo genel toplam yazılacak
         c.setFont("Courier", 60)

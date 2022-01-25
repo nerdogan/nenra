@@ -228,6 +228,7 @@ class Rapor(QtWidgets.QDialog , Ui_Dialog7):
         self.d.text("Genel Toplam :      "+(str(toplam)).rjust(20)+(str(toplam1)).rjust(10)+"\n")
 
         self.d.cut(mode='PART')
+        self.d.cashdraw(2)
 
     @pyqtSlot()
     def cariekstre(self):

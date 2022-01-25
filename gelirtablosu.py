@@ -171,7 +171,6 @@ class GelirTablo(QtWidgets.QDialog, Ui_Dialog4):
         for row1 in bul:
 
             item = str(row1[3])
-
             toplam = toplam + float(row1[3])
             self.tableWidget.setItem(aa, 2, QtWidgets.QTableWidgetItem(item))
             c.drawRightString(290, 800 - (15 * (bb + 1)), item)

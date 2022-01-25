@@ -18,11 +18,11 @@ class mizan():
         self.toplam = 0
         self.toplam1 = 0
 
-        satis1="SELECT SUM(TUTAR) FROM (select * from bishop.ciro union all select * from bishop.ciro1) as ciroo  where tarih between %s  and %s "
+        satis1 = "SELECT SUM(TUTAR) FROM (select * from bishop.ciro where tarih between %s  and %s union all select * from bishop.ciro1 where tarih between %s  and %s) as ciroo   "
 
-        satis="SELECT departman,sum(adet),SUM(TUTAR) FROM (select * from bishop.ciro union all select * from bishop.ciro1) as ciroo  where tarih between %s  and %s and departman!=0 group by 1"
+        satis = "SELECT departman,sum(adet),SUM(TUTAR) FROM (select * from bishop.ciro where tarih between %s  and %s union all select * from bishop.ciro1 where tarih between %s  and %s) as ciroo  where  departman!=0 group by 1"
         myddb = Myddb()
-        print(myddb.cur.execute(satis, (self.tarih1, self.tarih2)))
+        print(myddb.cur.execute(satis, (self.tarih1, self.tarih2, self.tarih1, self.tarih2)))
         bul=myddb.cur.fetchall()
         print(bul)
         myddb.cur.execute("delete from bishop.genelrapor  where tarih between %s  and %s ", (self.tarih1, self.tarih2))
@@ -32,7 +32,7 @@ class mizan():
             myddb.conn.commit()
             self.toplam=self.toplam+row[2]
 
-        print(myddb.cur.execute(satis1, (self.tarih1, self.tarih2)))
+        print(myddb.cur.execute(satis1, (self.tarih1, self.tarih2, self.tarih1, self.tarih2)))
         bul1=myddb.cur.fetchall()
         self.toplam=bul1[0][0]
 

@@ -1,4 +1,3 @@
-import pprint
 import sys
 import re
 from hesapmak import Hesap
@@ -55,7 +54,8 @@ class Fatura(QtWidgets.QDialog, Ui_Dialog3):
 
         #        self.connect(self.hesapla, QtCore.SIGNAL("acac"), self.slotitemyaz)
         self.hesapla.acac.connect(self.slotitemyaz)
-    def keyPressEvent1(self,e):
+
+    def keyPressEvent1(self, e):
         print(e.key())
         if e.key() == 16777220:
             self.tabyap()
@@ -68,19 +68,18 @@ class Fatura(QtWidgets.QDialog, Ui_Dialog3):
 
     def tabyap(self):
         elma = self.tableWidget_2.currentRow()
-        elma1=self.tableWidget_2.currentColumn()
+        elma1 = self.tableWidget_2.currentColumn()
         elma2 = self.tableWidget_2.rowCount()
-        print(elma,elma1,elma2)
-        if ((elma2-elma) == 1) and (elma1==6):
+        print(elma, elma1, elma2)
+        if ((elma2 - elma) == 1) and (elma1 == 6):
             print("sjkfjskfjskf")
             self.lineEdit_4.setFocus()
-            #abc = QKeyEvent(QEvent.KeyPress, Qt.Key_Tab, Qt.NoModifier)
-            #QCoreApplication.postEvent(self, abc)
+            # abc = QKeyEvent(QEvent.KeyPress, Qt.Key_Tab, Qt.NoModifier)
+            # QCoreApplication.postEvent(self, abc)
 
         else:
             print("atla")
             self.tableWidget_2.focusNextChild()
-
 
     def closeEvent(self, event):
         print("Closing")

@@ -44,14 +44,15 @@ formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(messag
 handler.setFormatter(formatter)
 logger.addHandler(handler)
 
-myddb = Myddb()
+
+# myddb = Myddb()
 
 
 class WorkerThread(QThread):
 
     def __init__(self, parent=None):
         super(WorkerThread, self).__init__(parent)
-        myddb = Myddb()
+        # self.myddb = Myddb()
         # your code
 
     def run1(self, EndDate):

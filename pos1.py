@@ -166,27 +166,30 @@ class Pos1(QtWidgets.QWidget):
         d.exec_()
 
         print(" ")
-        selectt1 = "SELECT plu_no,urun_adi,adet,tutar,masa_no,n_05,kisi_sayisi,saat,departman,grup3,birim_fiyati,tarih,islem_kod FROM DATA WHERE  masa_no='" + self.masano + "' and plu_no<1000 and urun_turu > 0 "
+        selectt1 = "SELECT plu_no,urun_adi,adet,tutar,masa_no,satis_kod,kisi_sayisi,saat,departman,grup3,birim_fiyati,tarih,islem_kod FROM DATA WHERE  masa_no='" + self.masano + "' and plu_no<1000 and urun_turu > 0 "
         # TARIH='" + tt1 + "' and
         ab = 0
         aa = cur.execute(selectt1)
         for row in aa:
             if row[2] < 0:
                 continue
-            print (row[11])
+            print(row[11])
             self.myddb.cur.execute(
                 "insert into bishop.ciro1  (pluno,urun,adet,tutar,masano,tahkod,acik,tarih,kisi,saat,departman,kategori,tutar1,islem) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
-                (row[0], row[1], row[2], row[3], row[4], row[5], "0", self.tarih, row[6], row[7], row[8], row[9], row[10], row[12]))
+                (row[0], row[1], row[2], row[3], row[4], row[5], "0", self.tarih, row[6], row[7], row[8], row[9],
+                 row[10], row[12]))
 
             ab = ab + row[3]
 
         print("toplam       :", str(self.tarih), ab)
-  #      sil="delete from data where masano='" + self.masano + "' "
-   #     cur.execute()
+        #      sil="delete from data where masano='" + self.masano + "' "
+        #     cur.execute()
+
+        print(row)
         self.myddb.cur.execute(
-            "insert ignore into bishop.kasa1  (posid,aciklama,tutar,belgeno,muhkod,tarih,kasano,islemid) values (%s,%s,%s,%s,%s,%s,%s,%s)",
-            (2000, 'Tahsilat', ab, row[4] , row[5], self.tarih, 99, row[5]))
-        cur.execute("delete from DATA where masa_no='" + self.masano+"'")
+            "insert into bishop.kasa1  (posid,aciklama,tutar,belgeno,muhkod,tarih,kasano,islemid) values (%s,%s,%s,%s,%s,%s,%s,%s)",
+            (2000, 'Tahsilat', ab, row[4], row[5], self.tarih, 99, row[5]))
+        cur.execute("delete from DATA where masa_no='" + self.masano + "'")
         self.myddb.conn.commit()
         con.commit()
 
