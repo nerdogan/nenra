@@ -33,3 +33,8 @@ def _GetOption2(option):
         return None
 
 
+def _GetOption3(option):
+    try:
+        return _GetConfig().get('fdb', option)
+    except:
+        return None

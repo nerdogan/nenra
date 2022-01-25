@@ -3,14 +3,14 @@ import fdb
 from mdb.modulemdb import Myddb
 import sys
 import atexit
+import mdb.nenraconfig as nenraconfig
 
-dizi=0
-satir={}
-
+dizi = 0
+satir = {}
 
 con = fdb.connect(
-    dsn='nen.duckdns.org/30500:D:\RESTOPOS\DATA\DATABASE.GDB',
-    user='sysdba', password='masterkey',
+    dsn=nenraconfig._GetOption3('dsn'),
+    user=nenraconfig._GetOption3('user'), password=nenraconfig._GetOption3('password'),
     charset='UTF8'  # specify a character set for the connection #
 )
 cur = con.cursor()
