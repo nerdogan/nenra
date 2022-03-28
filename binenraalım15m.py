@@ -284,7 +284,7 @@ if __name__ == '__main__':
             print(order)
             #os.system('afplay ' + './images/gong.wav -v 255')
 
-            fiyat = float(order['avgPrice']) + 300.0
+            fiyat = float(order['avgPrice']) + 250.0
             fiyat = float("{:.2f}".format(fiyat))
             order = connection.client.futures_create_order(symbol='BTCUSDT', positionSide='LONG', side='SELL',
                                                            type='LIMIT', timeInForce='GTC', quantity='0.001',

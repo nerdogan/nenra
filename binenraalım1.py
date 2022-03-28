@@ -285,17 +285,17 @@ if __name__ == '__main__':
             order = connection.client.futures_get_order(symbol='BTCUSDT', orderId=orderid)
 
             print(order)
-            fiyat1 = float(order['avgPrice']) + 65.0
-            fiyat2 = float(order['avgPrice']) + 70.0
-            #fiyat3 = float(order1['avgPrice']) + 0.000300
+            fiyat1 = float(order['avgPrice']) + 25.0
+            fiyat2 = float(order['avgPrice']) + 30.0
+            # fiyat3 = float(order1['avgPrice']) + 0.000300
 
             fiyat = float("{:.2f}".format(fiyat1))
             order = connection.client.futures_create_order(symbol='BTCUSDT', positionSide='LONG', side='SELL',
                                                            type='LIMIT', timeInForce='GTC', quantity='0.001',
                                                            price=fiyat)
 
-            #fiyat = float("{:.2f}".format(fiyat2))
-            #order = connection.client.futures_create_order(symbol='BTCUSDT', positionSide='LONG', side='SELL', type='LIMIT', timeInForce='GTC', quantity='0.001',  price=fiyat)
+            # fiyat = float("{:.2f}".format(fiyat2))
+            # order = connection.client.futures_create_order(symbol='BTCUSDT', positionSide='LONG', side='SELL', type='LIMIT', timeInForce='GTC', quantity='0.001',  price=fiyat)
 
             #fiyat= float("{:.6f}".format(fiyat3))
             #order = connection.client.futures_create_order(symbol='IOSTUSDT',positionSide='LONG', side='SELL', type='LIMIT',timeInForce='GTC', quantity='150',price=fiyat)

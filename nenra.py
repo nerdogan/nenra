@@ -45,7 +45,7 @@ handler.setFormatter(formatter)
 logger.addHandler(handler)
 
 
-# myddb = Myddb()
+myddb = Myddb()
 
 
 class WorkerThread(QThread):
@@ -90,7 +90,7 @@ class WorkerThread(QThread):
 
     def run(self):
         selfstart_time = time.time()
-        StartDate = "01/08/21"
+        StartDate = "01/12/21"
         EndDate = datetime.datetime.strptime(StartDate, "%d/%m/%y")
         now = datetime.datetime.now() - datetime.timedelta(days=1)
         dt = now - EndDate
@@ -157,7 +157,6 @@ def main():
     mainWindow = MainWindow()
     login = Login()
 
-    myddb = Myddb()
 
     recete = Recete()
     fatura = Fatura()

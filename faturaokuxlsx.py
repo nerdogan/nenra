@@ -27,14 +27,14 @@ fatura = Fatura()
 fatura.goster()
 
 print(len(ana.index))
-for i in range(len(ana.index) - 1):
+for i in range(len(ana.index)):
     print(ana.iloc[i, 0])
     if elma != (ana.iloc[i, 0]):
         elma = str((ana.iloc[i, 0]))
-        armut = int(elma.rsplit("N012021")[1])
+        armut = int(elma.rsplit("N012022")[1])
         dt = (ana.iloc[i, 1])
 
-        fatura.lineEdit.setText('N02')
+        fatura.lineEdit.setText('N03')
         fatura.lineEdit_2.setText(str(armut))
         fatura.dateEdit.setDate(QtCore.QDate(dt.year, dt.month, dt.day))
         time.sleep(dur)
@@ -67,21 +67,29 @@ for i in range(len(ana.index) - 1):
     mydb.cur.execute(sql, ((ana.iloc[i, 6]),))
     bul = mydb.cur.fetchone()
     if bul:
-        print(bul)
+        # print(bul)
         fatura.lineEdit_3.setText(str(bul[0]))
         miktar = float(ana.iloc[i, 8]) * bul[1]
 
     time.sleep(dur)
     if fatura.tableWidget.rowCount() == 0 or fatura.tableWidget.rowCount() > 1:
-
+        print("kdv bölümü", str(ana.iloc[i, 11]))
         if str(ana.iloc[i, 11]) == "1.0":
             fatura.lineEdit_3.setText("yiyecek")
         if str(ana.iloc[i, 11]) == "8.0":
             fatura.lineEdit_3.setText("yiyecek")
         if str(ana.iloc[i, 11]) == "18.0":
             fatura.lineEdit_3.setText("temizlik")
+        if str(ana.iloc[i, 11]) == "1":
+            fatura.lineEdit_3.setText("yiyecek")
+        if str(ana.iloc[i, 11]) == "8":
+            fatura.lineEdit_3.setText("yiyecek")
+        if str(ana.iloc[i, 11]) == "18":
+            fatura.lineEdit_3.setText("temizlik")
 
+    print(fatura.lineEdit_3.text())
     time.sleep(dur)
+    print(ana.iloc[i, 5], (ana.iloc[i, 6]))
 
     fatura.slotfatura(0, 0)
 

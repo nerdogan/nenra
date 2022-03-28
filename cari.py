@@ -126,7 +126,7 @@ class Cari(QtWidgets.QDialog, Ui_Dialog5):
         toplam2 = 0.0000
 
         for row1 in bul:
-            if row1[2] < 10 and self.checkBox.isChecked():
+            if row1[2] < 1000 and self.checkBox.isChecked():
                 continue
 
             item = str(row1[0])
