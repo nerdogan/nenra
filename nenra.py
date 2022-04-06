@@ -14,6 +14,7 @@
 import sys, os
 import datetime
 import logging
+import decimal
 # import urllib2
 import time
 from threading import Thread
@@ -75,7 +76,7 @@ class WorkerThread(QThread):
             if bilgi != 0:
                 bilgi2 = myddb.cur.fetchall()
                 for row1 in bilgi2:
-                    hmikt = row1[2] * row1[3]
+                    hmikt = row1[2] * decimal.Decimal(row1[3])
 
                     sql1 = "insert into harcanan " \
                            "(hurunkod,hhammaddeid,hmiktar,fiyat,tarih) " \
@@ -90,7 +91,7 @@ class WorkerThread(QThread):
 
     def run(self):
         selfstart_time = time.time()
-        StartDate = "01/12/21"
+        StartDate = "01/01/21"
         EndDate = datetime.datetime.strptime(StartDate, "%d/%m/%y")
         now = datetime.datetime.now() - datetime.timedelta(days=1)
         dt = now - EndDate
