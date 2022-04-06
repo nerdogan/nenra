@@ -200,12 +200,12 @@ if __name__ == '__main__':
     limit = 60
     aldi = 0
     al = 0
-    zaman = 59
+    zaman = 30
     ordersayiold = 0
 
     while True:
-        ordersayi = len(connection.client.futures_get_open_orders())
-        if ordersayi < 35:
+        ordersayi = len(connection.client.futures_get_open_orders(symbol='BTCUSDT'))
+        if ordersayi < 3:
             mesaj = float(connection.client.futures_position_information(symbol='BTCUSDT')[0]['unRealizedProfit'])
             mesaj = ("{:.3f}".format(mesaj))
             mesaj = mesaj + " __ " + ("{:.2f}".format(float(connection.client.futures_account_balance()[1]['balance'])))
@@ -269,7 +269,7 @@ if __name__ == '__main__':
         if stochasticRsiF[-1] < stochasticRsiS[-1] < 11 and aldi < 1:
             print("al", high[-1], low[-1], close[-1])
             al = 1
-            zaman = 5
+            zaman = 2
         # alım emri
         if al == 1 and stochasticRsiF[-1] > stochasticRsiS[-1] and stochasticRsiF[-1] > 5 and stochasticRsiF[-1] < 12:
             order = connection.client.futures_create_order(symbol='BTCUSDT', positionSide='LONG', side='BUY',
@@ -295,8 +295,10 @@ if __name__ == '__main__':
 
             while order['status'] != 'FILLED':
                 print(order['status'])
-                time.sleep(30)
+                time.sleep(3600)
                 order = connection.client.futures_get_order(symbol='BTCUSDT', orderId=ordersat)
+                print(order['status'])
+                break
 
             zaman = 3.0
             # os.system("python mdb/msggonder.py '" + str(fiyat) + "  satacak...'")
