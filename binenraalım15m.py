@@ -197,7 +197,7 @@ if __name__ == '__main__':
     #    symbol = 'BTCUSDT'
     symbol = 'BTCUSDT'
     interval = '15m'
-    limit = 60
+    limit = 90
     aldi = 0
     al = 0
     zaman = 30
@@ -205,7 +205,7 @@ if __name__ == '__main__':
 
     while True:
         ordersayi = len(connection.client.futures_get_open_orders(symbol='BTCUSDT'))
-        if ordersayi < 3:
+        if ordersayi < 5:
             mesaj = float(connection.client.futures_position_information(symbol='BTCUSDT')[0]['unRealizedProfit'])
             mesaj = ("{:.3f}".format(mesaj))
             mesaj = mesaj + " __ " + ("{:.2f}".format(float(connection.client.futures_account_balance()[1]['balance'])))
@@ -271,7 +271,7 @@ if __name__ == '__main__':
             al = 1
             zaman = 2
         # alım emri
-        if al == 1 and stochasticRsiF[-1] > stochasticRsiS[-1] and stochasticRsiF[-1] > 5 and stochasticRsiF[-1] < 12:
+        if al == 1 and stochasticRsiF[-1] > stochasticRsiS[-1] and stochasticRsiF[-1] > 5 and stochasticRsiF[-1] < 16:
             order = connection.client.futures_create_order(symbol='BTCUSDT', positionSide='LONG', side='BUY',
                                                            type='MARKET', quantity='0.001')
 
@@ -284,8 +284,9 @@ if __name__ == '__main__':
             print(order)
             #os.system('afplay ' + './images/gong.wav -v 255')
 
-            fiyat = float(order['avgPrice']) + 250.0
-            fiyat = float("{:.2f}".format(fiyat))
+            fiyat = float(order['avgPrice']) *1.006
+            fiyat = float("{:.1f}".format(fiyat))
+            print(fiyat)
             order = connection.client.futures_create_order(symbol='BTCUSDT', positionSide='LONG', side='SELL',
                                                            type='LIMIT', timeInForce='GTC', quantity='0.001',
                                                            price=fiyat)
