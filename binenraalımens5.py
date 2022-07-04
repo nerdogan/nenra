@@ -108,8 +108,28 @@ if __name__ == '__main__':
             yirmibes=0
 
 
-
         if 25 > stochasticRsiF[-1] and yirmibes==0:
+            order = connection.client.futures_create_order(symbol=symbol, positionSide='LONG', side='BUY',
+                                                           type='MARKET', quantity='3')
+            orderid = order['orderId']
+            time.sleep(3)
+            order = connection.client.futures_get_order(symbol=symbol, orderId=orderid)
+
+            print(order)
+            fiyat1 = float(order['avgPrice']) *1.003
+            fiyat2 = float(order['avgPrice']) *1.004
+            #fiyat3 = float(order1['avgPrice']) + 0.000300
+
+            fiyat = float("{:.3f}".format(fiyat1))
+            order = connection.client.futures_create_order(symbol=symbol, positionSide='LONG', side='SELL',
+                                                           type='LIMIT', timeInForce='GTC', quantity='1',
+                                                           price=fiyat)
+
+            fiyat = float("{:.3f}".format(fiyat2))
+            order = connection.client.futures_create_order(symbol=symbol, positionSide='LONG', side='SELL',
+                                                           type='LIMIT', timeInForce='GTC', quantity='2',
+                                                           price=fiyat)
+
             os.system("C:\\Users\\bisho\\PycharmProjects\\nenra\\venv\\Scripts\\python.exe  C:\\Users\\bisho\\PycharmProjects\\nenra\\mdb\\msggonder.py '"  "hazırlan__*" + str(close[-1]) + "'")
             os.system("C:\\Users\\bisho\\PycharmProjects\\nenra\\venv\\Scripts\\python.exe  C:\\Users\\bisho\\PycharmProjects\\nenra\\mdb\\msggonderdilek.py '"  "hazırlan__*" + str(close[-1]) + "'")
             yirmibes=1
