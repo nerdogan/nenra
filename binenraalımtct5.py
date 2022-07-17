@@ -159,14 +159,17 @@ if __name__ == '__main__':
                 price=fiyatm,
                 isIsolated='TRUE')
 
-            while time.time()-start<300:
-                print(time.time()-start)
+            os.system(
+                "/opt/local/bin/python3.8 /Users/namikerdogan/PycharmProjects/nenra/mdb/msggonder.py '"  "__*" + str(
+                    close[-1]) + "'")
+            # os.system("C:\\Users\\bisho\\PycharmProjects\\nenra\\venv\\Scripts\\python.exe  C:\\Users\\bisho\\PycharmProjects\\nenra\\mdb\\msggonderdilek.py '"  "__*" + str(fiyat) + "'")
+
+            while time.time() - start < 300:
+                print(time.time() - start)
                 time.sleep(3)
 
             zaman = 1.0
-            os.system("/opt/local/bin/python3.8 /Users/namikerdogan/PycharmProjects/nenra/mdb/msggonder.py '"  "__*" + str(close[-1]) + "'")
-            #os.system("C:\\Users\\bisho\\PycharmProjects\\nenra\\venv\\Scripts\\python.exe  C:\\Users\\bisho\\PycharmProjects\\nenra\\mdb\\msggonderdilek.py '"  "__*" + str(fiyat) + "'")
-            time.sleep(300)
-            subprocess.Popen('/opt/local/bin/python3.8 /Users/namikerdogan/PycharmProjects/nenra/binenraalımtct5.py', shell=True)
+            subprocess.Popen('/opt/local/bin/python3.8 /Users/namikerdogan/PycharmProjects/nenra/binenraalımtct5.py',
+                             shell=True)
             print("çıktım")
             break
