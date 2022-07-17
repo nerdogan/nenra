@@ -65,8 +65,6 @@ class Masraf(QtWidgets.QDialog, Ui_Masraf):
     @pyqtSlot()
     def slotilerigeri(self, elma):
         print(self.mydbb.conn.sqlstate())
-        print(self.mydbb.conn.ping())
-        print(self.mydbb.conn.open)
         try:
             self.mydbb.conn.ping()
         except:

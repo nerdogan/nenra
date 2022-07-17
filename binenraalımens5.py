@@ -27,6 +27,10 @@ if __name__ == '__main__':
     file = "credantial.txt"
     connection = BinanceConnection(file)
     client = connection.client
+    file = "credantialMTUNCER.txt"
+    connection1 = BinanceConnection(file)
+    client1 = connection1.client
+
 
     def generateStochasticRSI(close_array, timeperiod):
         # 1) ilk aşama rsi değerini hesaplıyoruz.
@@ -42,7 +46,7 @@ if __name__ == '__main__':
 
 
     #    symbol = 'BTCUSDT'
-    symbol = 'ENSUSDT'
+    symbol = 'TCTUSDT'
     interval = '5m'
     limit = 90
     aldi = 0
@@ -51,17 +55,6 @@ if __name__ == '__main__':
     ordersayiold = 0
     yirmibes=999
 
-    while True:
-        ordersayi = len(connection.client.futures_get_open_orders(symbol=symbol))
-        print(ordersayi)
-        if ordersayi < 100:
-            mesaj = (connection.client.futures_position_information(symbol='IOSTUSDT')[0]['unRealizedProfit'])
-
-            mesaj = mesaj + " __ " + (connection.client.futures_account_balance()[1]['balance'])
-            break
-
-        print("sipariş sayısı 7 emir verilemiyor")
-        time.sleep(30)
 
     while True:
         # 10 saniye bekliyoruz. Sürekli sorgu göndermeye gerek yok.
