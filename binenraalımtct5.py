@@ -130,7 +130,7 @@ if __name__ == '__main__':
                 type=ORDER_TYPE_LIMIT,
                 timeInForce=TIME_IN_FORCE_GTC,
                 sideEffectType="MARGIN_BUY",
-                quantity=tekalim*1.001,
+                quantity=tekalim + 2,
                 price=close[-1], isIsolated='TRUE')
 
             al = 0
