@@ -31,6 +31,9 @@ if __name__ == '__main__':
     file = "credantialMTUNCER.txt"
     connection1 = BinanceConnection(file)
     client1 = connection1.client
+    file = "credantialemre.txt"
+    connection2 = BinanceConnection(file)
+    client2 = connection2.client
 
 
 
@@ -59,6 +62,7 @@ if __name__ == '__main__':
     yirmibes = 999
     margin=0
     mparayok1=0
+    mparayokemre=0
 
     while True:
         ordersayi = len(connection.client.futures_get_open_orders(symbol=symbol))
@@ -116,36 +120,7 @@ if __name__ == '__main__':
             yirmibes = 0
 
         if 20 > stochasticRsiF[-1] and yirmibes == 0:
-            order = connection.client.futures_create_order(symbol=symbol, positionSide='LONG', side='BUY',
-                                                           type='MARKET', quantity='3')
-            time.sleep(1)
-            orderid = order['orderId']
-            time.sleep(2)
-            order = connection.client.futures_get_order(symbol=symbol, orderId=orderid)
-
-            print(order)
-            fiyat1 = float(order['avgPrice']) * 1.003
-            fiyat2 = float(order['avgPrice']) * 1.003
-            # fiyat3 = float(order1['avgPrice']) + 0.000300
-
-            fiyat = float("{:.3f}".format(fiyat1))
-            order = connection.client.futures_create_order(symbol=symbol, positionSide='LONG', side='SELL',
-                                                           type='LIMIT', timeInForce='GTC', quantity='1',
-                                                           price=fiyat)
-
-            fiyat = float("{:.3f}".format(fiyat2))
-            order = connection.client.futures_create_order(symbol=symbol, positionSide='LONG', side='SELL',
-                                                           type='LIMIT', timeInForce='GTC', quantity='2',
-                                                           price=fiyat)
-
-            os.system(
-                "C:\\Users\\bisho\\PycharmProjects\\nenra\\venv\\Scripts\\python.exe  C:\\Users\\bisho\\PycharmProjects\\nenra\\mdb\\msggonder.py '"  "hazırlan__*" + str(
-                    close[-1]) + "'")
-            os.system(
-                "C:\\Users\\bisho\\PycharmProjects\\nenra\\venv\\Scripts\\python.exe  C:\\Users\\bisho\\PycharmProjects\\nenra\\mdb\\msggonderdilek.py '"  "hazırlan__*" + str(
-                    close[-1]) + "'")
             yirmibes = 1
-
 
         if 9 > stochasticRsiF[-1] and yirmibes == 1:
             order = connection.client.futures_create_order(symbol=symbol, positionSide='LONG', side='BUY',
@@ -161,27 +136,8 @@ if __name__ == '__main__':
 
             fiyat = float("{:.3f}".format(fiyat1))
             order = connection.client.futures_create_order(symbol=symbol, positionSide='LONG', side='SELL',
-                                                           type='LIMIT', timeInForce='GTC', quantity='1',
+                                                           type='LIMIT', timeInForce='GTC', quantity='3',
                                                            price=fiyat)
-
-            fiyat = float("{:.3f}".format(fiyat2))
-            order = connection.client.futures_create_order(symbol=symbol, positionSide='LONG', side='SELL',
-                                                           type='LIMIT', timeInForce='GTC', quantity='2',
-                                                           price=fiyat)
-
-
-            fiyatm = float("{:.2f}".format(fiyatm+0.01))
-            order = connection.client.create_margin_order(
-                symbol=symbol1,
-                side=SIDE_BUY,
-                type=ORDER_TYPE_LIMIT,
-                timeInForce=TIME_IN_FORCE_GTC,
-                sideEffectType="MARGIN_BUY",
-                quantity=2,
-                price=fiyatm, isIsolated='TRUE')
-            print(order)
-            orderidm = order['orderId']
-            margin=1
 
             os.system(
                 "C:\\Users\\bisho\\PycharmProjects\\nenra\\venv\\Scripts\\python.exe  C:\\Users\\bisho\\PycharmProjects\\nenra\\mdb\\msggonder.py '"  "spot_al__*" + str(
@@ -191,23 +147,6 @@ if __name__ == '__main__':
                     close[-1]) + "'")
             yirmibes = 2
 
-        if margin==1:
-            order = connection.client.get_margin_order(symbol=symbol1, orderId=orderidm, isIsolated='TRUE')
-            if order['status']=='FILLED':
-                fiyatm = float("{:.2f}".format(fiyatm+0.04))
-
-                order = connection.client.create_margin_order(
-                    symbol=symbol1,
-                    side=SIDE_SELL,
-                    type=ORDER_TYPE_LIMIT,
-                    timeInForce=TIME_IN_FORCE_GTC,
-                    sideEffectType="AUTO_REPAY",
-                    quantity=2,
-                    price=fiyatm,
-                    isIsolated='TRUE')
-                margin=0
-
-
         if 13 < stochasticRsiF[-1]:
             time.sleep(10)
             print("..........................1")
@@ -216,22 +155,31 @@ if __name__ == '__main__':
             # os.system("C:\\Users\\bisho\\PycharmProjects\\nenra\\venv\\Scripts\\python.exe  C:\\Users\\bisho\\PycharmProjects\\nenra\\mdb\\msggonder.py '"  "__*" + str(close[-1]) + "'")
 
         # Alım şartı
-        if stochasticRsiF[-1] < stochasticRsiS[-1] < 12 and aldi < 1:
+        if stochasticRsiF[-1] < stochasticRsiS[-1] < 10 and aldi < 1:
             print("al", low[-1])
 
             al = 1
             # os.system('afplay ' + './images/ses.wav -v 0.7')
             zaman = 0.5
         # alım emri
-        if al == 1 and stochasticRsiF[-1] > stochasticRsiS[-1] and stochasticRsiF[-1] > 2 and stochasticRsiF[-1] < 12:
+        if al == 1 and stochasticRsiF[-1] > stochasticRsiS[-1] and stochasticRsiF[-1] > 2 and stochasticRsiF[-1] < 11:
             order = connection.client.futures_create_order(symbol=symbol, positionSide='LONG', side='BUY',
-                                                           type='MARKET', quantity='10')
+                                                           type='MARKET', quantity='25')
             orderid = order['orderId']
             try:
-                order = connection1.client.futures_create_order(symbol=symbol, positionSide='LONG', side='BUY', type='MARKET', quantity='1')
+                order = connection1.client.futures_create_order(symbol=symbol, positionSide='LONG', side='BUY', type='MARKET', quantity='5')
             except:
                 print("para kalmadı")
                 mparayok1=1
+
+            # emre alım
+            try:
+                order = client2.futures_create_order(symbol=symbol, positionSide='LONG', side='BUY', type='MARKET', quantity='10')
+            except:
+                print("para yok m")
+                mparayokemre=1
+            # emre end
+
 
 
             # print(orderid)
@@ -243,38 +191,25 @@ if __name__ == '__main__':
             print(order)
             fiyatm = float(order['avgPrice'])
             fiyat1 = float(order['avgPrice']) * 1.0040
-            fiyat2 = float(order['avgPrice']) * 1.0050
+            fiyat2 = float(order['avgPrice']) * 1.004
             # fiyat3 = float(order1['avgPrice']) + 0.000300
 
             fiyat = float("{:.3f}".format(fiyat1))
             order = connection.client.futures_create_order(symbol=symbol, positionSide='LONG', side='SELL',
-                                                           type='LIMIT', timeInForce='GTC', quantity='5',
+                                                           type='LIMIT', timeInForce='GTC', quantity='10',
                                                            price=fiyat)
 
             if mparayok1==0:
-                order = connection1.client.futures_create_order(symbol=symbol, positionSide='LONG', side='SELL',   type='LIMIT', timeInForce='GTC', quantity='1',   price=fiyat)
+                order = connection1.client.futures_create_order(symbol=symbol, positionSide='LONG', side='SELL',   type='LIMIT', timeInForce='GTC', quantity='5',   price=fiyat)
+            if mparayokemre==0:
+                order = client2.futures_create_order(symbol=symbol, positionSide='LONG', side='SELL', type='LIMIT', timeInForce='GTC', quantity='10',  price=fiyat)
 
             fiyat = float("{:.3f}".format(fiyat2))
             order = connection.client.futures_create_order(symbol=symbol, positionSide='LONG', side='SELL',
-                                                           type='LIMIT', timeInForce='GTC', quantity='5',
+                                                           type='LIMIT', timeInForce='GTC', quantity='15',
                                                            price=fiyat)
 
             zaman = 1.0
-
-
-            fiyatm = float("{:.2f}".format(fiyatm+0.01))
-            order = connection.client.create_margin_order(
-                symbol=symbol1,
-                side=SIDE_BUY,
-                type=ORDER_TYPE_LIMIT,
-                timeInForce=TIME_IN_FORCE_GTC,
-                sideEffectType="MARGIN_BUY",
-                quantity=10,
-                price=fiyatm, isIsolated='TRUE')
-            print(order)
-            orderidm = order['orderId']
-            time.sleep(3)
-            order = connection.client.get_margin_order(symbol=symbol1, orderId=orderidm, isIsolated='TRUE')
 
             os.system(
                 "C:\\Users\\bisho\\PycharmProjects\\nenra\\venv\\Scripts\\python.exe  C:\\Users\\bisho\\PycharmProjects\\nenra\\mdb\\msggonder.py '"  "__*" + str(
@@ -284,20 +219,6 @@ if __name__ == '__main__':
                     fiyat) + "'")
 
             start=time.time()
-            while order['status'] != 'FILLED':
-                print(order['status'])
-                order = connection.client.get_margin_order(symbol=symbol1, orderId=orderidm, isIsolated='TRUE')
-            fiyatm = float("{:.2f}".format(fiyatm + 0.05))
-            order = connection.client.create_margin_order(
-                symbol=symbol1,
-                side=SIDE_SELL,
-                type=ORDER_TYPE_LIMIT,
-                timeInForce=TIME_IN_FORCE_GTC,
-                sideEffectType="AUTO_REPAY",
-                quantity=10,
-                price=fiyatm,
-                isIsolated='TRUE')
-
             while time.time()-start<300:
                 print(time.time()-start)
                 time.sleep(3)

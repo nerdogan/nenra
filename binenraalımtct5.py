@@ -50,7 +50,7 @@ if __name__ == '__main__':
     zaman = 3
     ordersayiold = 0
     yirmibes=999
-    tekalim = 2500
+    tekalim = 2000
 
     while True:
         # 10 saniye bekliyoruz. Sürekli sorgu göndermeye gerek yok.
@@ -92,20 +92,55 @@ if __name__ == '__main__':
         upper, middle, lower = [b / 100 for b in bbands]
         print(lower[-1], middle[-1], upper[-1])
         print(stochasticRsiF[-1], stochasticRsiS[-1])
+        print("{:.6f}".format(stochasticRsiF[-1]), "{:.6f}".format(stochasticRsiS[-1]))
 
-        if 35 < stochasticRsiF[-1] :
+        if 25 < stochasticRsiF[-1] :
             yirmibes=0
 
 
-        if 25 > stochasticRsiF[-1] and yirmibes==0:
-            os.system("/opt/local/bin/python3.8 /Users/namikerdogan/PycharmProjects/nenra/mdb/msggonder.py '"  "hazırlan__*" + str(close[-1]) + "'")
-            #os.system("C:\\Users\\bisho\\PycharmProjects\\nenra\\venv\\Scripts\\python.exe  C:\\Users\\bisho\\PycharmProjects\\nenra\\mdb\\msggonderdilek.py '"  "hazırlan__*" + str(close[-1]) + "'")
+        if 12 > stochasticRsiF[-1] and yirmibes==0:
+            #os.system("/opt/local/bin/python3.8 /Users/namikerdogan/PycharmProjects/nenra/mdb/msggonder.py '"  "hazırlan__*" + str(close[-1]) + "'")
+            os.system("C:\\Users\\bisho\\PycharmProjects\\nenra\\venv\\Scripts\\python.exe  C:\\Users\\bisho\\PycharmProjects\\nenra\\mdb\\msggonder.py '"  "hazırlan__*" + str(close[-1]) + "'")
             yirmibes=1
 
-        if 11 > stochasticRsiF[-1] and yirmibes==1:
+        if 2 > stochasticRsiF[-1] and yirmibes==1:
+            order = connection.client.create_margin_order(
+                symbol=symbol,
+                side=SIDE_BUY,
+                type=ORDER_TYPE_MARKET,
+                sideEffectType="MARGIN_BUY",
+                quantity=tekalim+2 ,
+                isIsolated='TRUE')
 
-            os.system("/opt/local/bin/python3.8 /Users/namikerdogan/PycharmProjects/nenra/mdb/msggonder.py '"  "spot_al__*" + str(close[-1]) + "'")
-            #os.system("C:\\Users\\bisho\\PycharmProjects\\nenra\\venv\\Scripts\\python.exe  C:\\Users\\bisho\\PycharmProjects\\nenra\\mdb\\msggonderdilek.py '"  "grafiğe_bak_ona_göre_al__*" + str(close[-1]) + "'")
+            al = 0
+            print(order)
+            orderidm = order['orderId']
+            time.sleep(3)
+            order = connection.client.get_margin_order(symbol=symbol, orderId=orderidm, isIsolated='TRUE')
+
+            start=time.time()
+            while order['status'] != 'FILLED':
+                print(order['status'])
+                time.sleep(1)
+                os.system("C:\\Users\\bisho\\PycharmProjects\\nenra\\venv\\Scripts\\python.exe  C:\\Users\\bisho\\PycharmProjects\\nenra\\mdb\\msggonder.py '"  "durum__*" + str(order['status']) + "'")
+                order = connection.client.get_margin_order(symbol=symbol, orderId=orderidm, isIsolated='TRUE')
+
+            fiyat1 = float(close[-1]) *1.008
+            #fiyat2 = float(order['avgPrice']) *1.009
+            #fiyat3 = float(order1['avgPrice']) + 0.000300
+            fiyatm = float("{:.5f}".format(fiyat1))
+            order = connection.client.create_margin_order(
+                symbol=symbol,
+                side=SIDE_SELL,
+                type=ORDER_TYPE_LIMIT,
+                timeInForce=TIME_IN_FORCE_GTC,
+                sideEffectType="AUTO_REPAY",
+                quantity=tekalim,
+                price=fiyatm,
+                isIsolated='TRUE')
+
+            #os.system("/opt/local/bin/python3.8 /Users/namikerdogan/PycharmProjects/nenra/mdb/msggonder.py '"  "spot_al__*" + str(close[-1]) + "'")
+            os.system("C:\\Users\\bisho\\PycharmProjects\\nenra\\venv\\Scripts\\python.exe  C:\\Users\\bisho\\PycharmProjects\\nenra\\mdb\\msggonder.py '"  "spot_al__*" + str(close[-1]) + "'")
             yirmibes=2
 
         if 15 < stochasticRsiF[-1]:
@@ -116,22 +151,21 @@ if __name__ == '__main__':
             #os.system("C:\\Users\\bisho\\PycharmProjects\\nenra\\venv\\Scripts\\python.exe  C:\\Users\\bisho\\PycharmProjects\\nenra\\mdb\\msggonder.py '"  "__*" + str(close[-1]) + "'")
 
         # Alım şartı
-        if stochasticRsiF[-1] < stochasticRsiS[-1] < 14 and aldi < 1:
+        if stochasticRsiF[-1] < stochasticRsiS[-1] < 2 :
             print("al", low[-1])
 
             al = 1
             #os.system('afplay ' + './images/ses.wav -v 0.7'
             zaman = 0.5
         # alım emri
-        if al == 1 and stochasticRsiF[-1] > stochasticRsiS[-1] and stochasticRsiF[-1] > 2 and stochasticRsiF[-1] < 14:
+        if al == 1 and stochasticRsiF[-1] > stochasticRsiS[-1] and stochasticRsiF[-1] > 2 and stochasticRsiF[-1] < 4:
             order = connection.client.create_margin_order(
                 symbol=symbol,
                 side=SIDE_BUY,
-                type=ORDER_TYPE_LIMIT,
-                timeInForce=TIME_IN_FORCE_GTC,
+                type=ORDER_TYPE_MARKET,
                 sideEffectType="MARGIN_BUY",
-                quantity=tekalim + 2,
-                price=close[-1], isIsolated='TRUE')
+                quantity=tekalim+503,
+             isIsolated='TRUE')
 
             al = 0
             aldi = aldi + 1
@@ -155,21 +189,19 @@ if __name__ == '__main__':
                 type=ORDER_TYPE_LIMIT,
                 timeInForce=TIME_IN_FORCE_GTC,
                 sideEffectType="AUTO_REPAY",
-                quantity=tekalim,
+                quantity=tekalim+500,
                 price=fiyatm,
                 isIsolated='TRUE')
 
-            os.system(
-                "/opt/local/bin/python3.8 /Users/namikerdogan/PycharmProjects/nenra/mdb/msggonder.py '"  "__*" + str(
-                    close[-1]) + "'")
-            # os.system("C:\\Users\\bisho\\PycharmProjects\\nenra\\venv\\Scripts\\python.exe  C:\\Users\\bisho\\PycharmProjects\\nenra\\mdb\\msggonderdilek.py '"  "__*" + str(fiyat) + "'")
+            #os.system("/opt/local/bin/python3.8 /Users/namikerdogan/PycharmProjects/nenra/mdb/msggonder.py '"  "__*" + str(close[-1]) + "'")
+            os.system("C:\\Users\\bisho\\PycharmProjects\\nenra\\venv\\Scripts\\python.exe  C:\\Users\\bisho\\PycharmProjects\\nenra\\mdb\\msggonder.py '"  "__*" + str(fiyatm) + "'")
 
             while time.time() - start < 300:
                 print(time.time() - start)
                 time.sleep(3)
 
             zaman = 1.0
-            subprocess.Popen('/opt/local/bin/python3.8 /Users/namikerdogan/PycharmProjects/nenra/binenraalımtct5.py',
+            subprocess.Popen('C:\\Users\\bisho\\PycharmProjects\\nenra\\venv\\Scripts\\python.exe binenraalımtct5.py',
                              shell=True)
             print("çıktım")
             break
