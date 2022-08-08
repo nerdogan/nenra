@@ -151,7 +151,7 @@ class Cari(QtWidgets.QDialog, Ui_Dialog5):
             if (15 * (bb + 1)) >= 760:
                 c.setFont("Verdana", 11)
                 c.drawString(210, 800 - (15 * (bb + 1)), ".")
-                c.drawString(320, 800 - (15 * (bb + 1)), str(toplam))
+                c.drawString(320, 800 - (15 * (bb + 1)), "{:10.2f}".format((toplam)))
                 c.drawString(550, 800 - (15 * (bb + 1)), ".")
                 c.showPage()
                 c.setFont("Verdana", 8)
@@ -163,7 +163,7 @@ class Cari(QtWidgets.QDialog, Ui_Dialog5):
         self.tableWidget.item(aa + 1, 2).setFont(font)
         c.setFont("Verdana", 11)
         c.drawString(210, 800 - (15 * (bb + 1)), "Genel Toplam")
-        c.drawString(320, 800 - (15 * (bb + 1)), str(toplam))
+        c.drawString(320, 800 - (15 * (bb + 1)), "{:10.2f}".format((toplam)))
         c.drawString(550, 800 - (15 * (bb + 1)), ".")
         self.ws1.write(aa + 1, 2, toplam)
 
