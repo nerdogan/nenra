@@ -3,17 +3,18 @@
 import sys
 import re
 
-from PyQt5.QtCore import pyqtSignal
+from PyQt6.QtCore import pyqtSignal
 
 import hesapla
-from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QDialog
+from PyQt6 import QtWidgets
+from PyQt6.QtWidgets import QDialog
 
 from ui_hesap import Ui_Dialog
 
 
 class Hesap(QDialog, Ui_Dialog):
     acac = pyqtSignal(str)
+
     def __init__(self):
         QtWidgets.QDialog.__init__(self)
         self.setupUi(self)

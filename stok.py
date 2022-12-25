@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import sys, subprocess
-from PyQt5 import QtGui, QtCore, QtWidgets
-from PyQt5.QtCore import *
+from PyQt6 import QtGui, QtCore, QtWidgets
+from PyQt6.QtCore import *
 from ui_stok import Ui_Dialog6
 import xlwt
 from decimal import *

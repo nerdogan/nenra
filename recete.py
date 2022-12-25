@@ -2,9 +2,9 @@
 import sys
 import locale
 import subprocess
-from PyQt5 import QtGui, QtCore, QtWidgets
-from PyQt5.QtGui import QFont, QColor
-from PyQt5.QtCore import *
+from PyQt6 import QtGui, QtCore, QtWidgets
+from PyQt6.QtGui import QFont, QColor
+from PyQt6.QtCore import *
 import re
 import xlwt
 from decimal import *
@@ -37,10 +37,10 @@ class Recete2(QtWidgets.QDialog, Ui_Dialog2):
         return girdi
 
     @pyqtSlot()
-    def slotrecete2sql(self, item2):
+    def slotrecete2sql(self):
         myddb = Myddb()
 
-        a = item2
+        a = self.lineEdit.text()
         a = str(a)
 
         bul = myddb.cek1(a, "hammadde", "hamad")
@@ -48,7 +48,7 @@ class Recete2(QtWidgets.QDialog, Ui_Dialog2):
         i = len(bul)
         self.tableWidget.setRowCount(i)
         self.tableWidget.setSelectionBehavior(
-            QtWidgets.QAbstractItemView.SelectRows)
+            QtWidgets.QAbstractItemView.SelectionBehavior.SelectRows)
 
         aa = 0
         toplam = 0
@@ -173,7 +173,7 @@ class Recete2(QtWidgets.QDialog, Ui_Dialog2):
             file.write(item + "\n")
             item = str("{:.2f}".format(elma))
             item = QtWidgets.QTableWidgetItem(item)
-            item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignRight)
+            item.setTextAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignRight)
 
             self.tableWidget_2.setItem(aa, 5, QtWidgets.QTableWidgetItem(item))
 
@@ -195,7 +195,7 @@ class Recete2(QtWidgets.QDialog, Ui_Dialog2):
         self.tableWidget_2.setColumnWidth(5, 60)
 
         self.show()
-        self.lineEdit.setFocus(True)
+        self.lineEdit.setFocus()
 
 
 class Recete(QtWidgets.QDialog, Ui_Dialog):
@@ -268,7 +268,7 @@ class Recete(QtWidgets.QDialog, Ui_Dialog):
             file.write(item + "\n")
             item = str("{:.2f}".format(elma))
             item = QtWidgets.QTableWidgetItem(item)
-            item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignRight)
+            item.setTextAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignRight)
 
             self.recete2.tableWidget_2.setItem(aa, 5, QtWidgets.QTableWidgetItem(item))
 
@@ -290,7 +290,7 @@ class Recete(QtWidgets.QDialog, Ui_Dialog):
         self.recete2.tableWidget_2.setColumnWidth(5, 60)
 
         self.recete2.show()
-        self.recete2.lineEdit.setFocus(True)
+        self.recete2.lineEdit.setFocus()
 
     @pyqtSlot()
     def slottextch(self):
@@ -328,4 +328,4 @@ if __name__ == "__main__":
     recete.show()
     recete.raise_()
 
-    app.exec_()
+    app.exec()

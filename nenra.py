@@ -18,10 +18,10 @@ import decimal
 # import urllib2
 import time
 from threading import Thread
-from PyQt5 import QtGui, QtCore, QtWidgets
-from PyQt5.QtWidgets import QApplication
-from PyQt5.QtMultimedia import QSound
-from PyQt5.QtCore import *
+from PyQt6 import QtGui, QtCore, QtWidgets
+from PyQt6.QtWidgets import QApplication
+from PyQt6.QtMultimedia import QAudioOutput, QMediaPlayer
+from PyQt6.QtCore import *
 
 from mainwindow import MainWindow
 from recete import Recete
@@ -91,7 +91,7 @@ class WorkerThread(QThread):
 
     def run(self):
         selfstart_time = time.time()
-        StartDate = "01/01/22"
+        StartDate = "01/09/22"
         EndDate = datetime.datetime.strptime(StartDate, "%d/%m/%y")
         now = datetime.datetime.now() - datetime.timedelta(days=1)
         dt = now - EndDate
@@ -152,12 +152,15 @@ class WorkerThread(QThread):
 def main():
     app = QApplication(sys.argv)
     app.processEvents()
-    sound = QSound("./images/ses.wav")
-    sound.play()
+    filename = "./images/ses.wav"
+    player = QMediaPlayer()
+    audio_output = QAudioOutput()
+    player.setAudioOutput(audio_output)
+    player.setSource(QUrl.fromLocalFile(filename))
+    audio_output.setVolume(50)
 
     mainWindow = MainWindow()
     login = Login()
-
 
     recete = Recete()
     fatura = Fatura()
@@ -187,7 +190,7 @@ def main():
         # dialog penceresi boyutu sabit (fixed)
         i = len(bul)
         recete.tableWidget.setRowCount(i)
-        recete.tableWidget.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
+        recete.tableWidget.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectionBehavior.SelectRows)
         recete.tableWidget.setColumnWidth(0, 50)
         recete.tableWidget.setColumnWidth(1, 50)
         recete.tableWidget.setColumnWidth(2, 220)
@@ -206,7 +209,7 @@ def main():
             recete.tableWidget.setItem(aa, 2, QtWidgets.QTableWidgetItem(item))
             item = str(row1[3])
             proto = QtWidgets.QTableWidgetItem(item)
-            proto.setTextAlignment(Qt.AlignRight)
+            proto.setTextAlignment(Qt.AlignmentFlag.AlignRight)
             recete.tableWidget.setItem(aa, 3, proto)
             item = str(row1[4])
             recete.tableWidget.setItem(aa, 4, QtWidgets.QTableWidgetItem(item))
@@ -215,7 +218,7 @@ def main():
                     QtGui.QColor('red'))
 
             aa = aa + 1
-        recete.lineEdit.setFocus(True)
+        recete.lineEdit.setFocus()
 
     @pyqtSlot()
     def slotfatura(item2):
@@ -358,22 +361,21 @@ def main():
         u"                                  Bishop Restaurant")
 
     # recete.setWindowModality(Qt.ApplicationModal)
-    fatura.setWindowModality(Qt.ApplicationModal)
-    maliyet.setWindowModality(Qt.ApplicationModal)
-    login.setWindowModality(Qt.ApplicationModal)
-    rapor.setWindowModality(Qt.ApplicationModal)
-    stok.setWindowModality(Qt.ApplicationModal)
-    cari.setWindowModality(Qt.ApplicationModal)
- #   fatura.keyPressEvent=copyFunction
+    fatura.setWindowModality(Qt.WindowModality.ApplicationModal)
+    maliyet.setWindowModality(Qt.WindowModality.ApplicationModal)
+    login.setWindowModality(Qt.WindowModality.ApplicationModal)
+    rapor.setWindowModality(Qt.WindowModality.ApplicationModal)
+    stok.setWindowModality(Qt.WindowModality.ApplicationModal)
+    cari.setWindowModality(Qt.WindowModality.ApplicationModal)
+    #   fatura.keyPressEvent=copyFunction
 
+    #   fatura.connect(QtGui.QShortcut(QtGui.QKeySequence(Qt.Key_Enter),  fatura), QtCore.SIGNAL('activated()'), copyFunction)
 
- #   fatura.connect(QtGui.QShortcut(QtGui.QKeySequence(Qt.Key_Enter),  fatura), QtCore.SIGNAL('activated()'), copyFunction)
-
-#    mainWindow.connect(login, QtCore.SIGNAL("acac1(int)"), slotpuss4)
+    #    mainWindow.connect(login, QtCore.SIGNAL("acac1(int)"), slotpuss4)
     login.acac1.connect(slotpuss4)
-#    mainWindow.connect(fatura, QtCore.SIGNAL("acac"), slotpuss5)
+    #    mainWindow.connect(fatura, QtCore.SIGNAL("acac"), slotpuss5)
     fatura.acac.connect(slotpuss5)
-#    mainWindow.connect(cari, QtCore.SIGNAL("fisac"), slotpuss6)
+    #    mainWindow.connect(cari, QtCore.SIGNAL("fisac"), slotpuss6)
     cari.my_signal.connect(slotpuss6)
    # mainWindow.setWindowFlags(QtCore.Qt.FramelessWindowHint)
 
@@ -392,12 +394,12 @@ def main():
     # ~QtCore.Qt.WindowMinimized | QtCore.Qt.WindowActive)
 
     # mainWindow.activateWindow()
-    login.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+    login.setWindowFlags(QtCore.Qt.WindowType.FramelessWindowHint)
     login.setStyleSheet("color:red ; background-color: orange;")
     login.show()
     login.raise_()
 
-    return app.exec_()
+    return app.exec()
 
 
 if __name__ == "__main__":

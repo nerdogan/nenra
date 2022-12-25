@@ -8,30 +8,31 @@
 # Created:     28.01.2014
 # Copyright:   (c) muhasebe-2 2014
 # Licence:     <your licence>
-#-------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
 import sys
-from PyQt4 import QtGui, QtCore, QtSql
-from PyQt4.QtCore import pyqtSlot
+from PyQt5 import QtGui, QtCore, QtSql, QtWidgets
+from PyQt5.QtCore import pyqtSlot
+
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
     def _fromUtf8(s):
         return s
 
-
-appcore=QtCore.QCoreApplication(sys.argv)
+appcore = QtCore.QCoreApplication(sys.argv)
 db = QtSql.QSqlDatabase.addDatabase('QMYSQL')
-db.setHostName('192.168.2.251')
+db.setHostName('nen.duckdns.org')
+db.setPort(30000)
 db.setDatabaseName('test')
 db.setUserName('nen')
 db.setPassword('654152')
 
 if db.open() == False:
-    print 'fail'
+    print('fail')
 
 
 def initializeModel(model):
-    model.setQuery("select * from cari_har where  fistipi=10 and tarih between '2017-09-01' and '2017-09-31'")
+    model.setQuery("select * from cari_har where  fistipi=10 and tarih between '2022-09-01' and '2022-09-30'")
 
 
     model.setHeaderData(0, QtCore.Qt.Horizontal, " ")
@@ -40,7 +41,7 @@ def initializeModel(model):
 
 
 def createView(title, model):
-    view = QtGui.QTableView()
+    view = QtWidgets.QTableView()
     view.setModel(model)
 
     view.setWindowTitle(title)
@@ -50,8 +51,8 @@ def createView(title, model):
 def addrow(i):
     i=model.index(i,0)
     ret = (str(model.data(i).toString()))
-    print ret
-    model.setQuery('select * from cariay where  fisno="'+ret+'" ')
+    print(ret)
+    model.setQuery('select * from cariay where  fisno="' + ret + '" ')
     view1.setModel(model)
 
 
@@ -67,7 +68,7 @@ def findrow(i):
 
 
 if __name__ == '__main__':
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     model = QtSql.QSqlQueryModel()
     delrow = -1
     initializeModel(model)
@@ -75,17 +76,16 @@ if __name__ == '__main__':
     view1 = createView("Table Model (View 1)", model)
     view1.clicked.connect(findrow)
 
-    dlg = QtGui.QDialog()
+    dlg = QtWidgets.QDialog()
     dlg.resize(850,500)
-    layout = QtGui.QVBoxLayout()
+    layout = QtWidgets.QVBoxLayout()
     layout.addWidget(view1)
 
-    button = QtGui.QPushButton(_fromUtf8("Ayrıntı Göster"))
+    button = QtWidgets.QPushButton(_fromUtf8("Ayrıntı Göster"))
     button.clicked.connect(lambda: addrow(view1.currentIndex().row()))
     layout.addWidget(button)
 
-
-    btn1 = QtGui.QPushButton(_fromUtf8("Geri Dön "))
+    btn1 = QtWidgets.QPushButton(_fromUtf8("Geri Dön "))
     btn1.clicked.connect(geridon)
     layout.addWidget(btn1)
 

@@ -1,4 +1,5 @@
-from PyQt5 import QtCore, QtWidgets
+from PyQt6 import QtCore, QtWidgets
+from PyQt6.QtCore import *
 import fdb
 from mdb.modulemdb import Myddb
 import sys
@@ -152,18 +153,18 @@ class Pos1(QtWidgets.QWidget):
     def showdialog(self):
 
         d = QtWidgets.QDialog()
-        d.setFixedSize(200,200)
+        d.setFixedSize(200, 200)
         self.butt = QtWidgets.QPushButton(self.masano, d)
         self.butt.move(50, 50)
 
-        self.tar=QtWidgets.QDateEdit(d)
+        self.tar = QtWidgets.QDateEdit(d)
         self.tar.setCalendarPopup(True)
         self.tar.setDate(QtCore.QDate.currentDate())
-        self.tar.move(10,10)
+        self.tar.move(10, 10)
         self.tar.dateChanged.connect(self.tarihkaydet)
         d.setWindowTitle("Dialog")
-        d.setWindowModality(QtCore.Qt.ApplicationModal)
-        d.exec_()
+        d.setWindowModality(Qt.WindowModality.ApplicationModal)
+        d.exec()
 
         print(" ")
         selectt1 = "SELECT plu_no,urun_adi,adet,tutar,masa_no,satis_kod,kisi_sayisi,saat,departman,grup3,birim_fiyati,tarih,islem_kod FROM DATA WHERE  masa_no='" + self.masano + "' and plu_no<1000 and urun_turu > 0 "
@@ -200,4 +201,4 @@ if __name__ == '__main__':
     w.show()
     w.raise_()
 
-    sys.exit(app.exec_())
+    sys.exit(app.exec())

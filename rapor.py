@@ -14,8 +14,8 @@ import sys, os
 from escpos.printer import Network, Dummy
 from datetime import datetime, timedelta
 import subprocess
-from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtCore import *
+from PyQt6 import QtCore, QtWidgets
+from PyQt6.QtCore import *
 from ui_rapor import Ui_Dialog7
 import xlwt
 from decimal import *
@@ -329,7 +329,7 @@ class Rapor(QtWidgets.QDialog , Ui_Dialog7):
                 toplam1 = Decimal(toplam1) + (row1[1])
                 toplam3 = Decimal(toplam3) + (row1[1])
                 item=QtWidgets.QTableWidgetItem(item)
-                item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignRight)
+                item.setTextAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignRight)
                 self.tableWidget.setItem(aa, 1, item)
 
                 item= ""
@@ -372,7 +372,7 @@ class Rapor(QtWidgets.QDialog , Ui_Dialog7):
 
                 toplam1 = Decimal(toplam1) + (row1[1])
                 item=QtWidgets.QTableWidgetItem(item)
-                item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignRight)
+                item.setTextAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignRight)
                 self.tableWidget.setItem(aa, 1, item)
 
                 item= ""
@@ -392,7 +392,7 @@ class Rapor(QtWidgets.QDialog , Ui_Dialog7):
                 self.ws1.write(aa, 3, float(row1[1]))
                 c.drawRightString(310, 800 - (15 * (bb + 1)), item)
                 item=QtWidgets.QTableWidgetItem(item)
-                item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignRight)
+                item.setTextAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignRight)
                 self.tableWidget.setItem(aa, 1, item)
                 item = ""
                 c.drawRightString(390, 800 - (15 * (bb + 1)), item)
@@ -411,7 +411,7 @@ class Rapor(QtWidgets.QDialog , Ui_Dialog7):
                 c.drawRightString(310, 800 - (15 * (bb + 1)), item)
                 toplam = Decimal(toplam) - (row1[1])
                 item=QtWidgets.QTableWidgetItem(item)
-                item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignRight)
+                item.setTextAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignRight)
                 self.tableWidget.setItem(aa, 1, item)
 
                 item= ""
@@ -433,8 +433,9 @@ class Rapor(QtWidgets.QDialog , Ui_Dialog7):
                 toplam3 = Decimal(toplam3) + (row1[1])
 
                 self.tableWidget.setItem(aa, 1, QtWidgets.QTableWidgetItem(item))
-                self.d.text(item.rjust(10)+ " \n")
-                self.tableWidget.item(aa, 1).setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignRight)
+                self.d.text(item.rjust(10) + " \n")
+                self.tableWidget.item(aa, 1).setTextAlignment(
+                    Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignRight)
 
                 item= ""
                 c.drawRightString(390, 800 - (15 * (bb + 1)), item)
@@ -454,8 +455,9 @@ class Rapor(QtWidgets.QDialog , Ui_Dialog7):
                 toplam3 = Decimal(toplam3) + (row1[1])
                 toplam1 = Decimal(toplam1) + (row1[1])
                 self.tableWidget.setItem(aa, 1, QtWidgets.QTableWidgetItem(item))
-                self.d.text(item.rjust(10)+ " \n")
-                self.tableWidget.item(aa, 1).setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignRight)
+                self.d.text(item.rjust(10) + " \n")
+                self.tableWidget.item(aa, 1).setTextAlignment(
+                    Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignRight)
 
                 item= ""
                 c.drawRightString(390, 800 - (15 * (bb + 1)), item)
@@ -474,8 +476,9 @@ class Rapor(QtWidgets.QDialog , Ui_Dialog7):
                 toplam2=Decimal(toplam2)+(row1[1])
                 toplam1 = Decimal(toplam1) + (row1[1])
                 self.tableWidget.setItem(aa, 1, QtWidgets.QTableWidgetItem(item))
-                self.d.text(item.rjust(10)+ " \n")
-                self.tableWidget.item(aa, 1).setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignRight)
+                self.d.text(item.rjust(10) + " \n")
+                self.tableWidget.item(aa, 1).setTextAlignment(
+                    Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignRight)
 
                 item= ""
                 c.drawRightString(390, 800 - (15 * (bb + 1)), item)
@@ -495,7 +498,7 @@ class Rapor(QtWidgets.QDialog , Ui_Dialog7):
                 toplam2=Decimal(toplam2)+(row1[1])
                 toplam1 = Decimal(toplam1) + (row1[1])
                 item=QtWidgets.QTableWidgetItem(item)
-                item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignRight)
+                item.setTextAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignRight)
                 self.tableWidget.setItem(aa, 1, item)
 
                 item= ""
@@ -516,7 +519,7 @@ class Rapor(QtWidgets.QDialog , Ui_Dialog7):
                 toplam3 = Decimal(toplam3) + (row1[1])
                 toplam1 = Decimal(toplam1) + (row1[1])
                 item=QtWidgets.QTableWidgetItem(item)
-                item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignRight)
+                item.setTextAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignRight)
                 self.tableWidget.setItem(aa, 1, item)
 
                 item= ""
@@ -537,7 +540,7 @@ class Rapor(QtWidgets.QDialog , Ui_Dialog7):
                 toplam3 = Decimal(toplam3) + (row1[1])
                 toplam1 = Decimal(toplam1) + (row1[1])
                 item=QtWidgets.QTableWidgetItem(item)
-                item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignRight)
+                item.setTextAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignRight)
                 self.tableWidget.setItem(aa, 1, item)
 
                 item= ""
@@ -558,7 +561,7 @@ class Rapor(QtWidgets.QDialog , Ui_Dialog7):
                 toplam3 = Decimal(toplam3) + (row1[1])
                 toplam1 = Decimal(toplam1) + (row1[1])
                 item = QtWidgets.QTableWidgetItem(item)
-                item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignRight)
+                item.setTextAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignRight)
                 self.tableWidget.setItem(aa, 1, item)
 
                 item = ""
@@ -579,7 +582,7 @@ class Rapor(QtWidgets.QDialog , Ui_Dialog7):
                 toplam3 = Decimal(toplam3) + (row1[1])
                 toplam1 = Decimal(toplam1) + (row1[1])
                 item = QtWidgets.QTableWidgetItem(item)
-                item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignRight)
+                item.setTextAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignRight)
                 self.tableWidget.setItem(aa, 1, item)
 
                 item = ""
@@ -599,7 +602,7 @@ class Rapor(QtWidgets.QDialog , Ui_Dialog7):
                 c.drawRightString(310, 800 - (15 * (bb + 1)), item)
                 toplam = Decimal(toplam) + (row1[1])
                 item=QtWidgets.QTableWidgetItem(item)
-                item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignRight)
+                item.setTextAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignRight)
                 self.tableWidget.setItem(aa, 1, item)
 
                 item= ""
@@ -721,7 +724,7 @@ class Rapor(QtWidgets.QDialog , Ui_Dialog7):
 
             toplam1 = Decimal(toplam1) + (row1[1])
             item = QtWidgets.QTableWidgetItem(item)
-            item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignRight)
+            item.setTextAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignRight)
             self.tableWidget.setItem(aa, 1, item)
 
             aa=aa+1
@@ -766,9 +769,4 @@ if __name__ == "__main__":
     rapor=Rapor()
     rapor.show()
     rapor.raise_()
-    app.exec_()
-
-
-
-
-
+    app.exec()

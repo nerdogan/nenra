@@ -1,9 +1,10 @@
 import sys
 import re
 from hesapmak import Hesap
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QApplication
-from PyQt5.QtCore import *
+from PyQt6 import QtCore, QtGui, QtWidgets
+from PyQt6.QtWidgets import QApplication
+from PyQt6.QtCore import *
+from PyQt6.QtCore import Qt
 from ui_fatura import Ui_Dialog3
 
 from mdb.modulemdb import *
@@ -16,7 +17,7 @@ class Fatura(QtWidgets.QDialog, Ui_Dialog3):
         QtWidgets.QDialog.__init__(self)
         self.setupUi(self)
         self.hesapla = Hesap()
-        self.hesapla.setWindowModality(Qt.ApplicationModal)
+        self.hesapla.setWindowModality(Qt.WindowModality.ApplicationModal)
 
         self.fisno = None
         self.comb = {}
@@ -42,10 +43,10 @@ class Fatura(QtWidgets.QDialog, Ui_Dialog3):
         self.comboBox.currentIndexChanged.connect(self.odemeyap)
         self.keyPressEvent = (self.keyPressEvent1)
 
-        self.quitSc = QtWidgets.QShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Equal), self)
+        self.quitSc = QtGui.QShortcut(QtGui.QKeySequence(Qt.Key.Key_Equal), self)
         self.quitSc.activated.connect(self.slothesapmakgoster)
 
-        self.hamfiyat = QtWidgets.QShortcut(QtGui.QKeySequence(QtCore.Qt.ALT + QtCore.Qt.Key_H), self)
+        self.hamfiyat = QtGui.QShortcut(QtGui.QKeySequence(Qt.Key.Key_Alt + Qt.Key.Key_H), self)
         self.hamfiyat.activated.connect(self.slothamfiyat)
 
         # self.connect(self, QtCore.SIGNAL('triggered()'), self.closeEvent)
@@ -120,7 +121,7 @@ class Fatura(QtWidgets.QDialog, Ui_Dialog3):
         self.dateEdit_2.setDate(some_date)
         self.show()
         self.raise_()
-        self.lineEdit.setFocus(True)
+        self.lineEdit.setFocus()
 
     @pyqtSlot( 'QString')
     def vadeartir(self, item2):
@@ -329,14 +330,14 @@ class Fatura(QtWidgets.QDialog, Ui_Dialog3):
                     self.tableWidget_2.setItem(aa, 5, item)
                     item = str("{:.2f}".format((row1[6] * row1[5])))
                     item = QtWidgets.QTableWidgetItem(item)
-                    item.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignRight)
+                    item.setTextAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignRight)
                     if self.label_5.text() == "100":
-                        item.setFlags(QtCore.Qt.ItemIsEditable)
+                        item.setFlags(Qt.ItemFlag.ItemIsEditable)
 
                     self.tableWidget_2.setItem(aa, 6, QtWidgets.QTableWidgetItem(item))
                     aa = aa + 1
 
-            self.lineEdit_3.setFocus(True)
+            self.lineEdit_3.setFocus()
 
             self.tableWidget_2.blockSignals(False)
             self.toplamgoster()
@@ -356,7 +357,7 @@ class Fatura(QtWidgets.QDialog, Ui_Dialog3):
             self.label_3.setText(deger1 + " " + deger2 + " " + deger3)
             bul1 = str(deger1)
             self.lineEdit_3.setText("")
-            self.lineEdit_3.setFocus(True)
+            self.lineEdit_3.setFocus()
             self.slotfaturakaydet()
 
             return
@@ -412,7 +413,7 @@ class Fatura(QtWidgets.QDialog, Ui_Dialog3):
                 item.setFlags(QtCore.Qt.ItemIsEditable)
 
             self.tableWidget_2.setItem(aa, 6, QtWidgets.QTableWidgetItem(item))
-            self.lineEdit_3.setFocus(True)
+            self.lineEdit_3.setFocus()
             self.tableWidget_2.blockSignals(False)
 
     @pyqtSlot()
@@ -512,7 +513,7 @@ class Fatura(QtWidgets.QDialog, Ui_Dialog3):
         self.acac.emit(SQL5)
         self.label_6.setText("{0}  {1}  {2}".format(str("{0:.2f}".format(toplam)), str("{0:.2f}".format(kdv)),
                                                     str("{0:.2f}".format(toplam + kdv))))
-        self.lineEdit_3.setFocus(True)
+        self.lineEdit_3.setFocus()
         self.slotfaturakont()
 
 
@@ -549,16 +550,17 @@ class Fatura(QtWidgets.QDialog, Ui_Dialog3):
             #           _fromUtf8 = QtCore.QString.fromUtf8
             msg = QtWidgets.QMessageBox()
             msg.setWindowTitle(("Fiş Silme"))
-            msg.setIcon(QtWidgets.QMessageBox.Critical)
+            msg.setIcon(QtWidgets.QMessageBox.Icon.Critical)
 
             msg.setText(("Fiş Siliniyor !!!"))
             msg.setInformativeText((str(self.fisno) + " nolu fiş silmek istediğinizden eminmisiniz ?"))
 
             msg.setDetailedText(str(self.fisno) + "Siliniyor !!!")
-            msg.setStandardButtons(QtWidgets.QMessageBox.Ok | QtWidgets.QMessageBox.Cancel)
+            msg.setStandardButtons(
+                QtWidgets.QMessageBox.StandardButton.Ok | QtWidgets.QMessageBox.StandardButton.Cancel)
             # msg.buttonClicked.connect(msgbtn)
 
-            retval = msg.exec_()
+            retval = msg.exec()
             if retval == 1024:
                 print("value of pressed message box button:", retval)
                 print(self.myddb.sil(self.fisno, "cariay", "fisno"))
@@ -581,7 +583,7 @@ class Fatura(QtWidgets.QDialog, Ui_Dialog3):
                 str("{:06.2f}".format(
                     (float(self.kontrol(item.text())) * float(
                         self.kontrol(self.tableWidget_2.item(item.row(), 5).text()))))))
-            item1.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignRight)
+            item1.setTextAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignRight)
 
             self.tableWidget_2.setItem(item.row(), 6, item1)
 

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import sys
-from PyQt5 import  QtCore, QtWidgets
-from PyQt5.QtCore import *
+from PyQt6 import QtCore, QtWidgets
+from PyQt6.QtCore import *
 
 
 class Login(QtWidgets.QDialog):
@@ -53,7 +53,7 @@ class Login(QtWidgets.QDialog):
         self.acac1.emit(101)
 
     def keyPressEvent(self, event):
-        if event.key() == QtCore.Qt.Key_Escape:
+        if event.key() == Qt.Key.Key_Escape:
             print("Program kapanıyor")
             self.elmaa()
             self.close()
