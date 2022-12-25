@@ -84,7 +84,7 @@ class Ui_Dialog4(object):
         self.pushButton_3.setObjectName("pushButton_3")
 
         self.retranslateUi(Dialog4)
-        self.dateEdit.dateChanged['QDate'].connect(self.dateEdit_2.setDate)  # type: ignore
+        self.dateEdit.dateChanged['QDate'].connect(self.dateEdit_2.setDate) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(Dialog4)
 
     def retranslateUi(self, Dialog4):

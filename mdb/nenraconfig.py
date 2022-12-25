@@ -38,3 +38,9 @@ def _GetOption3(option):
         return _GetConfig().get('fdb', option)
     except:
         return None
+
+def _GetOption4(option):
+    try:
+        return _GetConfig().get('fdblocal', option)
+    except:
+        return None

@@ -39,8 +39,7 @@ class Ui_Dialog3(object):
         self.label_3.setText("")
         self.label_3.setObjectName("label_3")
         self.horizontalLayout_4.addWidget(self.label_3)
-        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding,
-                                           QtWidgets.QSizePolicy.Policy.Minimum)
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
         self.horizontalLayout_4.addItem(spacerItem)
         self.label_8 = QtWidgets.QLabel(Dialog3)
         self.label_8.setObjectName("label_8")
@@ -71,13 +70,11 @@ class Ui_Dialog3(object):
         font.setPointSize(15)
         self.label_6.setFont(font)
         self.label_6.setText("")
-        self.label_6.setAlignment(
-            QtCore.Qt.AlignmentFlag.AlignRight | QtCore.Qt.AlignmentFlag.AlignTrailing | QtCore.Qt.AlignmentFlag.AlignVCenter)
+        self.label_6.setAlignment(QtCore.Qt.AlignmentFlag.AlignRight|QtCore.Qt.AlignmentFlag.AlignTrailing|QtCore.Qt.AlignmentFlag.AlignVCenter)
         self.label_6.setObjectName("label_6")
         self.gridLayout.addWidget(self.label_6, 5, 0, 1, 1)
         self.tableWidget_2 = QtWidgets.QTableWidget(Dialog3)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding,
-                                           QtWidgets.QSizePolicy.Policy.Expanding)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.tableWidget_2.sizePolicy().hasHeightForWidth())
@@ -126,8 +123,7 @@ class Ui_Dialog3(object):
         self.lineEdit_2.setMaximumSize(QtCore.QSize(100, 16777215))
         self.lineEdit_2.setObjectName("lineEdit_2")
         self.horizontalLayout_3.addWidget(self.lineEdit_2)
-        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding,
-                                            QtWidgets.QSizePolicy.Policy.Minimum)
+        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
         self.horizontalLayout_3.addItem(spacerItem1)
         self.dateEdit = QtWidgets.QDateEdit(Dialog3)
         self.dateEdit.setCalendarPopup(True)
@@ -149,8 +145,7 @@ class Ui_Dialog3(object):
         self.pushButton_3.setFlat(False)
         self.pushButton_3.setObjectName("pushButton_3")
         self.verticalLayout_3.addWidget(self.pushButton_3)
-        spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum,
-                                            QtWidgets.QSizePolicy.Policy.Expanding)
+        spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
         self.verticalLayout_3.addItem(spacerItem2)
         self.pushButton = QtWidgets.QPushButton(Dialog3)
         icon = QtGui.QIcon()
@@ -192,8 +187,7 @@ class Ui_Dialog3(object):
         self.pushButton_5.setObjectName("pushButton_5")
         self.verticalLayout_2.addWidget(self.pushButton_5)
         self.comboBox = QtWidgets.QComboBox(Dialog3)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Preferred,
-                                           QtWidgets.QSizePolicy.Policy.Preferred)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Preferred, QtWidgets.QSizePolicy.Policy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.comboBox.sizePolicy().hasHeightForWidth())
@@ -206,8 +200,7 @@ class Ui_Dialog3(object):
         self.comboBox.addItem("")
         self.comboBox.addItem("")
         self.verticalLayout_2.addWidget(self.comboBox)
-        spacerItem3 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum,
-                                            QtWidgets.QSizePolicy.Policy.Preferred)
+        spacerItem3 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Preferred)
         self.verticalLayout_2.addItem(spacerItem3)
         self.gridLayout.addLayout(self.verticalLayout_2, 3, 1, 1, 1)
         self.tableWidget = QtWidgets.QTableWidget(Dialog3)
@@ -236,7 +229,7 @@ class Ui_Dialog3(object):
         self.gridLayout_4.addLayout(self.gridLayout, 0, 0, 1, 1)
 
         self.retranslateUi(Dialog3)
-        self.pushButton_2.clicked.connect(Dialog3.close)  # type: ignore
+        self.pushButton_2.clicked.connect(Dialog3.close) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(Dialog3)
         Dialog3.setTabOrder(self.lineEdit, self.lineEdit_2)
         Dialog3.setTabOrder(self.lineEdit_2, self.dateEdit)

@@ -67,7 +67,7 @@ if __name__ == '__main__':
     while True:
         ordersayi = len(connection.client.futures_get_open_orders(symbol=symbol))
         print(ordersayi)
-        if ordersayi < 90:
+        if ordersayi < 250:
             mesaj = (connection.client.futures_position_information(symbol='IOSTUSDT')[0]['unRealizedProfit'])
 
             mesaj = mesaj + " __ " + (connection.client.futures_account_balance()[1]['balance'])
@@ -130,8 +130,8 @@ if __name__ == '__main__':
             order = connection.client.futures_get_order(symbol=symbol, orderId=orderid)
             print(order)
             fiyatm = float(order['avgPrice'])
-            fiyat1 = float(order['avgPrice']) * 1.004
-            fiyat2 = float(order['avgPrice']) * 1.004
+            fiyat1 = float(order['avgPrice']) * 1.0025
+            fiyat2 = float(order['avgPrice']) * 1.0025
             # fiyat3 = float(order1['avgPrice']) + 0.000300
 
             fiyat = float("{:.3f}".format(fiyat1))
@@ -162,25 +162,10 @@ if __name__ == '__main__':
             # os.system('afplay ' + './images/ses.wav -v 0.7')
             zaman = 0.5
         # alım emri
-        if al == 1 and stochasticRsiF[-1] > stochasticRsiS[-1] and stochasticRsiF[-1] > 2 and stochasticRsiF[-1] < 11:
+        if al == 1 and stochasticRsiF[-1] > stochasticRsiS[-1] and stochasticRsiF[-1] > 4 and stochasticRsiF[-1] < 11:
             order = connection.client.futures_create_order(symbol=symbol, positionSide='LONG', side='BUY',
-                                                           type='MARKET', quantity='25')
+                                                           type='MARKET', quantity='10')
             orderid = order['orderId']
-            try:
-                order = connection1.client.futures_create_order(symbol=symbol, positionSide='LONG', side='BUY', type='MARKET', quantity='5')
-            except:
-                print("para kalmadı")
-                mparayok1=1
-
-            # emre alım
-            try:
-                order = client2.futures_create_order(symbol=symbol, positionSide='LONG', side='BUY', type='MARKET', quantity='10')
-            except:
-                print("para yok m")
-                mparayokemre=1
-            # emre end
-
-
 
             # print(orderid)
             al = 0
@@ -190,32 +175,24 @@ if __name__ == '__main__':
 
             print(order)
             fiyatm = float(order['avgPrice'])
-            fiyat1 = float(order['avgPrice']) * 1.0040
-            fiyat2 = float(order['avgPrice']) * 1.004
+            fiyat1 = float(order['avgPrice']) * 1.004
+            fiyat2 = float(order['avgPrice']) * 1.005
             # fiyat3 = float(order1['avgPrice']) + 0.000300
 
             fiyat = float("{:.3f}".format(fiyat1))
             order = connection.client.futures_create_order(symbol=symbol, positionSide='LONG', side='SELL',
-                                                           type='LIMIT', timeInForce='GTC', quantity='10',
+                                                           type='LIMIT', timeInForce='GTC', quantity='4',
                                                            price=fiyat)
-
-            if mparayok1==0:
-                order = connection1.client.futures_create_order(symbol=symbol, positionSide='LONG', side='SELL',   type='LIMIT', timeInForce='GTC', quantity='5',   price=fiyat)
-            if mparayokemre==0:
-                order = client2.futures_create_order(symbol=symbol, positionSide='LONG', side='SELL', type='LIMIT', timeInForce='GTC', quantity='10',  price=fiyat)
 
             fiyat = float("{:.3f}".format(fiyat2))
             order = connection.client.futures_create_order(symbol=symbol, positionSide='LONG', side='SELL',
-                                                           type='LIMIT', timeInForce='GTC', quantity='15',
+                                                           type='LIMIT', timeInForce='GTC', quantity='6',
                                                            price=fiyat)
 
             zaman = 1.0
 
             os.system(
                 "C:\\Users\\bisho\\PycharmProjects\\nenra\\venv\\Scripts\\python.exe  C:\\Users\\bisho\\PycharmProjects\\nenra\\mdb\\msggonder.py '"  "__*" + str(
-                    fiyat) + "'")
-            os.system(
-                "C:\\Users\\bisho\\PycharmProjects\\nenra\\venv\\Scripts\\python.exe  C:\\Users\\bisho\\PycharmProjects\\nenra\\mdb\\msggonderdilek.py '"  "__*" + str(
                     fiyat) + "'")
 
             start=time.time()
