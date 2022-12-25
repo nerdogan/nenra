@@ -16,7 +16,7 @@ rem ***** get rid of all the old files in the build folder Compress-Archive -Pat
 rd /S /Q build
 
 rem ***** create the e
-c:\users\namik\appdata\local\programs\python\Python311\Scripts\pyinstaller --clean --win-private-assemblies -F nenra.spec --distpath="C:\Users\NAMIK\OneDrive\Desktop\nenra2"  -w
+c:\users\namik\appdata\local\programs\python\Python38\Scripts\pyinstaller --clean --win-private-assemblies -F nenra.spec --distpath="C:\Users\NAMIK\OneDrive\Desktop\nenra2"  -w
 
 rem "c:\Program Files (x86)\WinRAR\Rar.exe" a -r c:\Users\NAMIK\Desktop\nenra\nenra.rar c:\Users\NAMIK\Desktop\nenra\nenra
 python uploadapp.py

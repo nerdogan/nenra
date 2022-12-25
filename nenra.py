@@ -20,7 +20,7 @@ import time
 from threading import Thread
 from PyQt6 import QtGui, QtCore, QtWidgets
 from PyQt6.QtWidgets import QApplication
-from PyQt6.QtMultimedia import QAudioOutput, QMediaPlayer
+from PyQt6.QtMultimedia import QSoundEffect
 from PyQt6.QtCore import *
 
 from mainwindow import MainWindow
@@ -152,12 +152,12 @@ class WorkerThread(QThread):
 def main():
     app = QApplication(sys.argv)
     app.processEvents()
-    filename = "./images/ses.wav"
-    player = QMediaPlayer()
-    audio_output = QAudioOutput()
-    player.setAudioOutput(audio_output)
-    player.setSource(QUrl.fromLocalFile(filename))
-    audio_output.setVolume(50)
+    filename = "./images/tada.wav"
+    effect = QSoundEffect()
+    effect.setSource(QUrl.fromLocalFile(filename))
+    # possible bug: QSoundEffect::Infinite cannot be used in setLoopCount
+    effect.setLoopCount(-2)
+    effect.play()
 
     mainWindow = MainWindow()
     login = Login()
