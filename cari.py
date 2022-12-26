@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import sys
+import os
 import locale
 import subprocess
 from PyQt5 import QtGui, QtCore, QtWidgets
@@ -496,7 +497,8 @@ class Cari(QtWidgets.QDialog, Ui_Dialog5):
         tar2 = deger2.strftime('%d%m%Y')
 
         if sys.platform == "win32":
-            os.startfile("./tempnenra/EKSTRE" + tar1 + tar2 + ".pdf")
+            print(os.path.dirname(sys.argv[0]))
+            os.startfile(os.path.dirname(sys.argv[0])+"/tempnenra/EKSTRE" + tar1 + tar2 + ".pdf")
         else:
             opener = "open" if sys.platform == "darwin" else "xdg-open"
             subprocess.call([opener, "./tempnenra/EKSTRE" + tar1 + tar2 + ".pdf"])
@@ -508,7 +510,7 @@ class Cari(QtWidgets.QDialog, Ui_Dialog5):
         tar2 = deger2.strftime('%d%m%Y')
 
         if sys.platform == "win32":
-            os.startfile("./tempnenra/EKSTRE" + tar1 + tar2 + ".xls")
+            os.startfile(os.path.dirname(sys.argv[0])+"/tempnenra/EKSTRE" + tar1 + tar2 + ".xls")
         else:
             opener = "open" if sys.platform == "darwin" else "xdg-open"
             subprocess.call([opener, "./tempnenra/EKSTRE" + tar1 + tar2 + ".xls"])

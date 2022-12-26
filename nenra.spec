@@ -2,7 +2,6 @@
 
 block_cipher = None
 
-
 a = Analysis(['nenra.py'],
              pathex=['C:\\Users\\bisho\\PycharmProjects\\nenra'],
              binaries=[],
@@ -30,4 +29,5 @@ exe = EXE(pyz,
           upx=True,
           upx_exclude=[],
           runtime_tmpdir=None,
-          console=False )
+          console=False ,
+          )
