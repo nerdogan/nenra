@@ -15,8 +15,8 @@ import sys
 import re
 from datetime import datetime, timedelta
 import time
-from PyQt6 import QtCore, QtWidgets
-from PyQt6.QtCore import *
+from PyQt5 import QtCore, QtWidgets
+from PyQt5.QtCore import *
 from ui_masraf import Ui_Masraf
 from fatura import Fatura
 

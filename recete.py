@@ -2,9 +2,9 @@
 import sys
 import locale
 import subprocess
-from PyQt6 import QtGui, QtCore, QtWidgets
-from PyQt6.QtGui import QFont, QColor
-from PyQt6.QtCore import *
+from PyQt5 import QtGui, QtCore, QtWidgets
+from PyQt5.QtGui import QFont, QColor
+from PyQt5.QtCore import *
 import re
 import xlwt
 from decimal import *

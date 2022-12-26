@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import sys, subprocess
-from PyQt6 import QtCore, QtWidgets
-from PyQt6.QtWidgets import QDialog
-from PyQt6.QtCore import *
+from PyQt5 import QtCore, QtWidgets
+from PyQt5.QtWidgets import QDialog
+from PyQt5.QtCore import *
 
 from ui_maliyet import Ui_Dialog4
 

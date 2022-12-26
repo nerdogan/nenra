@@ -18,10 +18,10 @@ import decimal
 # import urllib2
 import time
 from threading import Thread
-from PyQt6 import QtGui, QtCore, QtWidgets
-from PyQt6.QtWidgets import QApplication
-from PyQt6.QtMultimedia import QSoundEffect
-from PyQt6.QtCore import *
+from PyQt5 import QtGui, QtCore, QtWidgets
+from PyQt5.QtWidgets import QApplication
+from PyQt5.QtMultimedia import QSound
+from PyQt5.QtCore import *
 
 from mainwindow import MainWindow
 from recete import Recete
@@ -152,12 +152,9 @@ class WorkerThread(QThread):
 def main():
     app = QApplication(sys.argv)
     app.processEvents()
-    filename = "./images/tada.wav"
-    effect = QSoundEffect()
-    effect.setSource(QUrl.fromLocalFile(filename))
-    # possible bug: QSoundEffect::Infinite cannot be used in setLoopCount
-    effect.setLoopCount(-2)
-    effect.play()
+
+    sound = QSound("./images/ses.wav")
+    sound.play()
 
     mainWindow = MainWindow()
     login = Login()

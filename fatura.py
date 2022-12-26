@@ -1,10 +1,10 @@
 import sys
 import re
 from hesapmak import Hesap
-from PyQt6 import QtCore, QtGui, QtWidgets
-from PyQt6.QtWidgets import QApplication
-from PyQt6.QtCore import *
-from PyQt6.QtCore import Qt
+from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QApplication
+from PyQt5.QtCore import *
+from PyQt5.QtCore import Qt
 from ui_fatura import Ui_Dialog3
 
 from mdb.modulemdb import *
@@ -43,10 +43,10 @@ class Fatura(QtWidgets.QDialog, Ui_Dialog3):
         self.comboBox.currentIndexChanged.connect(self.odemeyap)
         self.keyPressEvent = (self.keyPressEvent1)
 
-        self.quitSc = QtGui.QShortcut(QtGui.QKeySequence(Qt.Key.Key_Equal), self)
+        self.quitSc = QtWidgets.QShortcut(QtGui.QKeySequence(QtCore.Qt.Key_Equal), self)
         self.quitSc.activated.connect(self.slothesapmakgoster)
 
-        self.hamfiyat = QtGui.QShortcut(QtGui.QKeySequence(Qt.Key.Key_Alt + Qt.Key.Key_H), self)
+        self.hamfiyat = QtWidgets.QShortcut(QtGui.QKeySequence(QtCore.Qt.ALT + QtCore.Qt.Key_H), self)
         self.hamfiyat.activated.connect(self.slothamfiyat)
 
         # self.connect(self, QtCore.SIGNAL('triggered()'), self.closeEvent)

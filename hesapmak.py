@@ -3,11 +3,11 @@
 import sys
 import re
 
-from PyQt6.QtCore import pyqtSignal
+from PyQt5.QtCore import pyqtSignal
 
 import hesapla
-from PyQt6 import QtWidgets
-from PyQt6.QtWidgets import QDialog
+from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QDialog
 
 from ui_hesap import Ui_Dialog
 

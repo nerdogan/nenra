@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 import sys
 
-from PyQt6 import QtGui, QtCore, uic, QtWidgets
-from PyQt6.QtWidgets import QMainWindow, QDialog, QApplication
-from PyQt6.QtCore import *
+from PyQt5 import QtGui, QtCore, uic, QtWidgets
+from PyQt5.QtWidgets import QMainWindow, QDialog, QApplication
+from PyQt5.QtCore import *
 from ui_mainwindow import Ui_MainWindow
 
 

@@ -14,8 +14,8 @@ import sys, os
 from escpos.printer import Network, Dummy
 from datetime import datetime, timedelta
 import subprocess
-from PyQt6 import QtCore, QtWidgets
-from PyQt6.QtCore import *
+from PyQt5 import QtCore, QtWidgets
+from PyQt5.QtCore import *
 from ui_rapor import Ui_Dialog7
 import xlwt
 from decimal import *
