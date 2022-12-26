@@ -263,7 +263,7 @@ def main():
         mainWindow.raise_()
         if item2 == 100:
             mainWindow.statusbar.showMessage(
-                u"Namık ERDOĞAN © 2016    Kullanıcı adı girilmedi !!! "
+                u"Namık ERDOĞAN © 2016 2022 v2.99  Kullanıcı adı girilmedi !!! "
                 u"   Bishop Restaurant")
             mainWindow.pushButton.blockSignals(1)
             mainWindow.pushButton_2.blockSignals(1)
@@ -292,7 +292,7 @@ def main():
 
         if item2 == 1234:
             mainWindow.statusbar.showMessage(
-                u"Namık ERDOĞAN © 2016  12072021   Yönetici "
+                u"Namık ERDOĞAN © 2016  26122022  Yönetici "
                 u"                 Bishop Restaurant")
             mainWindow.pushButton.blockSignals(0)
             mainWindow.pushButton_2.blockSignals(0)
