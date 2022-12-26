@@ -263,7 +263,7 @@ def main():
         mainWindow.raise_()
         if item2 == 100:
             mainWindow.statusbar.showMessage(
-                u"Namık ERDOĞAN © 2016 2022 v2.99  Kullanıcı adı girilmedi !!! "
+                u"Namık ERDOĞAN © 2016   Kullanıcı adı girilmedi !!! "
                 u"   Bishop Restaurant")
             mainWindow.pushButton.blockSignals(1)
             mainWindow.pushButton_2.blockSignals(1)
@@ -355,7 +355,7 @@ def main():
     mainWindow.actionSay_m_Fi_i.triggered.connect(lambda: slotfatura("SAY"))
     mainWindow.actionStok_Tan_mlama.triggered.connect(lambda: slottediye("VADE"))
     mainWindow.statusbar.showMessage(
-        u"Namık ERDOĞAN © 2016 v 2021.01 "
+        u"Namık ERDOĞAN © 2016 2022 v2.99  "
         u"                                  Bishop Restaurant")
 
     # recete.setWindowModality(Qt.ApplicationModal)
