@@ -144,190 +144,20 @@ class mizan():
 
 
 if __name__ == '__main__':
-    elma = mizan("2021-09-01", "2021-09-30")
-    elma.bishopgenel()
-    elma.tarih1 = "2021-10-01"
-    elma.tarih2 = "2021-10-31"
-    elma.bishopgenel()
-    elma.tarih1 = "2021-11-01"
-    elma.tarih2 = "2021-11-30"
-    elma.bishopgenel()
-    elma.tarih1 = "2021-12-01"
-    elma.tarih2 = "2021-12-31"
+    elma = mizan("2023-01-01", "2023-01-31")
     elma.bishopgenel()
 
-    elma.tarih1 = "2022-01-01"
-    elma.tarih2 = "2022-01-31"
+    elma.tarih1 = "2023-02-01"
+    elma.tarih2 = "2023-02-28"
     elma.bishopgenel()
 
-    elma.tarih1 = "2022-02-01"
-    elma.tarih2 = "2022-02-28"
+    elma.tarih1 = "2023-03-01"
+    elma.tarih2 = "2023-03-31"
     elma.bishopgenel()
 
-    elma.tarih1 = "2022-03-01"
-    elma.tarih2 = "2022-03-31"
+    elma.tarih1 = "2023-04-01"
+    elma.tarih2 = "2023-04-30"
     elma.bishopgenel()
 
-    elma.tarih1 = "2022-04-01"
-    elma.tarih2 = "2022-04-30"
-    elma.bishopgenel()
-
-    elma.tarih1 = "2022-05-01"
-    elma.tarih2 = "2022-05-31"
-    elma.bishopgenel()
-
-    elma.tarih1 = "2022-06-01"
-    elma.tarih2 = "2022-06-30"
-    elma.bishopgenel()
-
-    elma.tarih1 = "2022-07-01"
-    elma.tarih2 = "2022-07-31"
-    elma.bishopgenel()
-
-    elma.tarih1 = "2022-08-01"
-    elma.tarih2 = "2022-08-31"
-    elma.bishopgenel()
-
-    elma.tarih1 = "2022-09-01"
-    elma.tarih2 = "2022-09-30"
-    elma.bishopgenel()
-
-    """
-    elma.tarih1 = "2020-01-01"
-    elma.tarih2 = "2020-01-31"
-    elma.bishopgenel()
-    elma.tarih1 = "2020-02-01"
-    elma.tarih2 = "2020-02-29"
-    elma.bishopgenel()
-    elma.tarih1 = "2020-03-01"
-    elma.tarih2 = "2020-03-31"
-    elma.bishopgenel()
-    elma.tarih1 = "2020-04-01"
-    elma.tarih2 = "2020-04-30"
-    elma.bishopgenel()
-    elma.tarih1 = "2020-05-01"
-    elma.tarih2 = "2020-05-31"
-    elma.bishopgenel()
-    elma.tarih1 = "2020-06-01"
-    elma.tarih2 = "2020-06-30"
-    elma.bishopgenel()
-    elma.tarih1 = "2020-07-01"
-    elma.tarih2 = "2020-07-31"
-    elma.bishopgenel()
-    elma.tarih1 = "2020-08-01"
-    elma.tarih2 = "2020-08-31"
-    elma.bishopgenel()
-    elma.tarih1 = "2020-09-01"
-    elma.tarih2 = "2020-09-30"
-    elma.bishopgenel()
-    elma.tarih1 = "2020-10-01"
-    elma.tarih2 = "2020-10-31"
-    elma.bishopgenel()
-    elma.tarih1 = "2020-11-01"
-    elma.tarih2 = "2020-11-30"
-    elma.bishopgenel()
-    elma.tarih1 = "2020-12-01"
-    elma.tarih2 = "2020-12-31"
-    elma.bishopgenel()
-  
-   elma.tarih1 = "2021-02-01"
-    elma.tarih2 = "2021-02-28"
-    elma.bishopgenel()
-    elma.tarih1 = "2021-03-01"
-    elma.tarih2 = "2021-03-31"
-    elma.bishopgenel()
-    elma.tarih1 = "2021-04-01"
-    elma.tarih2 = "2021-04-30"
-    elma.bishopgenel()
-    elma.tarih1 = "2021-05-01"
-    elma.tarih2 = "2021-05-31"
-    elma.bishopgenel()
-    elma.tarih1 = "2021-06-01"
-    elma.tarih2 = "2021-06-30"
-    elma.bishopgenel()
- 
-   
-    elma.tarih1 = "2019-01-01"
-    elma.tarih2 = "2019-01-31"
-    elma.bishopgenel()
-    elma.tarih1 = "2019-02-01"
-    elma.tarih2 = "2019-02-28"
-    elma.bishopgenel()
-    elma.tarih1="2019-03-01"
-    elma.tarih2="2019-03-31"
-    elma.bishopgenel()
-    elma.tarih1="2019-04-01"
-    elma.tarih2="2019-04-30"
-    elma.bishopgenel()
-    elma.tarih1="2019-05-01"
-    elma.tarih2="2019-05-31"
-    elma.bishopgenel()
-    elma.tarih1="2019-06-01"
-    elma.tarih2="2019-06-30"
-    elma.bishopgenel()
-    elma.tarih1="2019-07-01"
-    elma.tarih2="2019-07-31"
-    elma.bishopgenel()
-    elma.tarih1="2019-08-01"
-    elma.tarih2="2019-08-31"
-    elma.bishopgenel()
-    elma.tarih1="2019-09-01"
-    elma.tarih2="2019-09-30"
-    elma.bishopgenel()
-    elma.tarih1 = "2019-10-01"
-    elma.tarih2 = "2019-10-31"
-    elma.bishopgenel()
-    elma.tarih1 = "2019-11-01"
-    elma.tarih2 = "2019-11-30"
-    elma.bishopgenel()
-    elma.tarih1 = "2019-12-01"
-    elma.tarih2 = "2019-12-31"
-    elma.bishopgenel()
-    
-    elma.tarih1 = "2018-01-01"
-    elma.tarih2 = "2018-01-31"
-    elma.bishopgenel()
-    elma.tarih1 = "2018-02-01"
-    elma.tarih2 = "2018-02-28"
-    elma.bishopgenel()
-    elma.tarih1 = "2018-03-01"
-    elma.tarih2 = "2018-03-31"
-    elma.bishopgenel()
-    elma.tarih1 = "2018-04-01"
-    elma.tarih2 = "2018-04-30"
-    elma.bishopgenel()
-    elma.tarih1 = "2018-05-01"
-    elma.tarih2 = "2018-05-31"
-    elma.bishopgenel()
-    elma.tarih1 = "2018-06-01"
-    elma.tarih2 = "2018-06-30"
-    elma.bishopgenel()
-    elma.tarih1 = "2018-07-01"
-    elma.tarih2 = "2018-07-31"
-    elma.bishopgenel()
-    elma.tarih1 = "2018-08-01"
-    elma.tarih2 = "2018-08-31"
-    elma.bishopgenel()
-    elma.tarih1 = "2018-09-01"
-    elma.tarih2 = "2018-09-30"
-    elma.bishopgenel()
-    elma.tarih1 = "2018-10-01"
-    elma.tarih2 = "2018-10-31"
-    elma.bishopgenel()
-    elma.tarih1 = "2018-11-01"
-    elma.tarih2 = "2018-11-30"
-    elma.bishopgenel()
-    elma.tarih1 = "2018-12-01"
-    elma.tarih2 = "2018-12-31"
-    elma.bishopgenel()
-    """
     elma.testgen()
     print("mizan güncelleme bitti")
-
-
-
-
-
-
-
-

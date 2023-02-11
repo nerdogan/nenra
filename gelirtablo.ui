@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Maliyet</string>
+   <string>Gelir Tablosu</string>
   </property>
   <widget class="QDateEdit" name="dateEdit">
    <property name="geometry">
@@ -71,7 +71,7 @@
     </font>
    </property>
    <property name="text">
-    <string>Ürün Maliyet Raporu</string>
+       <string>Gelir Raporu</string>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButton_2">
@@ -103,27 +103,27 @@
    </property>
    <column>
     <property name="text">
-     <string>Ürün Kodu</string>
+        <string>Açıklama</string>
     </property>
    </column>
    <column>
     <property name="text">
-     <string>Ürün Adı</string>
+        <string>Kod</string>
     </property>
    </column>
    <column>
     <property name="text">
-     <string>Satış Adedi</string>
+        <string>Tutar</string>
     </property>
    </column>
    <column>
     <property name="text">
-     <string>Tutar</string>
+        <string>.</string>
     </property>
    </column>
    <column>
     <property name="text">
-     <string>Maliyet</string>
+        <string>.</string>
     </property>
    </column>
   </widget>
@@ -131,7 +131,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>300</y>
+        <y>590</y>
      <width>161</width>
      <height>51</height>
     </rect>
@@ -142,7 +142,7 @@
     </font>
    </property>
    <property name="text">
-    <string>Ürün Satış Raporu</string>
+       <string>Güncelle</string>
    </property>
   </widget>
  </widget>

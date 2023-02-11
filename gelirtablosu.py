@@ -67,11 +67,11 @@ class GelirTablo(QtWidgets.QDialog, Ui_Dialog4):
         c.setFont("Verdana", 16)
 
         item = "   BISHOP RESTAURANT AYRINTILI GELİR TABLOSU  " + self.deger1.strftime('%B %Y')
-        c.drawString(10, 810, item)
+        c.drawString(10, 801, item)
         c.setFont("Verdana", 10)
         tar1 = self.deger1.strftime('%Y-%m-%d')
         tar2 = self.deger2.strftime('%Y-%m-%d')
-        sql = """SELECT  b.muhad ,a.aciklama,a.miktar1 FROM bishop.genelrapor a  JOIN bishop.muhkodt b ON b.muhkod=a.aciklama where tarih=%s """
+        sql = """ SELECT  b.muhad ,b.`muhkod`,COALESCE(a.miktar1, 0) FROM bishop.muhkodt b   LEFT JOIN (select * from bishop.genelrapor where tarih=%s)  a ON b.muhkod=a.aciklama  order by b.id """
         bul2 = myddb1.cur.execute(sql, (tar2,))
         print(bul2, tar1, tar2)
         bul = myddb1.cur.fetchall()
@@ -87,9 +87,9 @@ class GelirTablo(QtWidgets.QDialog, Ui_Dialog4):
 
             item = (row1[0])
             self.tableWidget.setItem(aa, 0, QtWidgets.QTableWidgetItem(item))
-            c.drawString(45, 800 - (15 * (bb + 1)), item)
+            c.drawString(45, 760 - (15 * (bb + 1)), item)
             item = row1[1]
-            c.drawString(180, 800 - (15 * (bb + 1)), item)
+            c.drawString(180, 760 - (15 * (bb + 1)), item)
             self.tableWidget.setItem(aa, 1, QtWidgets.QTableWidgetItem(item))
             if len(item) < 4:
                 c.setFont("Verdana", 12)
@@ -98,11 +98,15 @@ class GelirTablo(QtWidgets.QDialog, Ui_Dialog4):
             if item == 'None':
                 item = "0"
             toplam = toplam + float(item)
-            self.tableWidget.setItem(aa, 2, QtWidgets.QTableWidgetItem(item))
-            c.drawRightString(330, 800 - (15 * (bb + 1)), item)
+
+            item1 = QtWidgets.QTableWidgetItem(locale.currency(float(item), grouping=True, symbol=False))
+            item1.setTextAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignRight)
+            self.tableWidget.setItem(aa, 2, item1)
+
+            c.drawRightString(400, 760 - (15 * (bb + 1)), locale.currency(float(item), grouping=True, symbol=False))
             c.setFont("Verdana", 10)
             item = " ."
-            c.drawString(400, 800 - (15 * (bb + 1)), item)
+            c.drawString(470, 760 - (15 * (bb + 1)), item)
             toplam1 = toplam1
             self.tableWidget.setItem(aa, 3, QtWidgets.QTableWidgetItem(item))
 
@@ -111,23 +115,39 @@ class GelirTablo(QtWidgets.QDialog, Ui_Dialog4):
 
             if (15 * (bb + 1)) >= 760:
                 c.setFont("Verdana", 11)
-                c.drawString(210, 800 - (15 * (bb + 1)), str(toplam))
-                c.drawString(270, 800 - (15 * (bb + 1)), str(toplam1))
-                c.drawString(350, 800 - (15 * (bb + 1)), str(toplam2))
+                c.drawString(210, 760 - (15 * (bb + 1)), str(toplam))
+                c.drawString(270, 760 - (15 * (bb + 1)), str(toplam1))
+                c.drawString(350, 760 - (15 * (bb + 1)), str(toplam2))
                 c.showPage()
                 c.setFont("Verdana", 8)
                 bb = 0
 
         c.setFont("Verdana", 12)
-        c.drawString(150, 800 - (15 * (bb + 2)), "Kar Zarar")
+        c.drawString(220, 760 - (15 * (bb + 2)), "Kar Zarar")
+
         try:
-            c.drawRightString(330, 800 - (15 * (bb + 2)), str((bul[3][2]) - (bul[20][2])))
+            c.drawRightString(400, 760 - (15 * (bb + 2)), str((bul[3][2]) - (bul[23][2])))
         except:
             pass
 
-        #        c.drawString(450, 800 - (15 * (bb + 1)), "% " + str(int(toplam2 / toplam1 * 100)))
+        #        c.drawString(450, 760 - (15 * (bb + 1)), "% " + str(int(toplam2 / toplam1 * 100)))
         c.setFont("Verdana", 6)
         c.drawRightString(570, 20, datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S"))
+
+        c.setFont("Courier", 60)
+        # This next setting with make the text of our
+        # watermark gray, nice touch for a watermark.
+        c.setFillGray(0.3, 0.3)
+        # Set up our watermark document. Our watermark
+        # will be rotated 45 degrees from the direction
+        # of our underlying document.
+        c.saveState()
+        c.translate(500, 100)
+        c.rotate(45)
+        c.drawCentredString(0, 0, "BISHOP NEN ©")
+        c.drawCentredString(0, 300, "BISHOP NEN ©")
+        c.drawCentredString(0, 600, "BISHOP NEN ©")
+        c.restoreState()
 
         c.save()
 
@@ -173,9 +193,9 @@ class GelirTablo(QtWidgets.QDialog, Ui_Dialog4):
             item = str(row1[3])
             toplam = toplam + float(row1[3])
             self.tableWidget.setItem(aa, 2, QtWidgets.QTableWidgetItem(item))
-            c.drawRightString(290, 800 - (15 * (bb + 1)), item)
+            c.drawRightString(290, 760 - (15 * (bb + 1)), item)
             item = " "
-            c.drawString(350, 800 - (15 * (bb + 1)), item)
+            c.drawString(350, 760 - (15 * (bb + 1)), item)
             toplam1 = toplam1
             self.tableWidget.setItem(aa, 3, QtWidgets.QTableWidgetItem(item))
 
@@ -184,18 +204,18 @@ class GelirTablo(QtWidgets.QDialog, Ui_Dialog4):
 
             if (15 * (bb + 1)) >= 760:
                 c.setFont("Verdana", 11)
-                c.drawString(210, 800 - (15 * (bb + 1)), str(toplam))
-                c.drawString(270, 800 - (15 * (bb + 1)), str(toplam1))
-                c.drawString(350, 800 - (15 * (bb + 1)), str(toplam2))
+                c.drawString(210, 760 - (15 * (bb + 1)), str(toplam))
+                c.drawString(270, 760 - (15 * (bb + 1)), str(toplam1))
+                c.drawString(350, 760 - (15 * (bb + 1)), str(toplam2))
                 c.showPage()
                 c.setFont("Verdana", 8)
                 bb = 0
 
         c.setFont("Verdana", 12)
-        c.drawString(210, 800 - (15 * (bb + 1)), "")
-        c.drawRightString(300, 800 - (15 * (bb + 1)), str((bul[3][3]) - (bul[19][3])))
+        c.drawString(210, 760 - (15 * (bb + 1)), "")
+        c.drawRightString(300, 760 - (15 * (bb + 1)), str((bul[3][3]) - (bul[19][3])))
 
-        #        c.drawString(450, 800 - (15 * (bb + 1)), "% " + str(int(toplam2 / toplam1 * 100)))
+        #        c.drawString(450, 760 - (15 * (bb + 1)), "% " + str(int(toplam2 / toplam1 * 100)))
 
         c.save()
 
@@ -214,7 +234,7 @@ class GelirTablo(QtWidgets.QDialog, Ui_Dialog4):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    subprocess.Popen('python mizan.py', shell=True)
+    # subprocess.Popen('python mizan.py', shell=True)
     gelirt = GelirTablo()
     gelirt.show()
     gelirt.raise_()
