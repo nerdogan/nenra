@@ -12,6 +12,7 @@ python -m PyQt5.uic.pyuic  -x stok.ui -o ui_stok.py
 python -m PyQt5.uic.pyuic  -x masraf.ui -o ui_masraf.py
 python -m PyQt5.uic.pyuic  -x rapor.ui -o ui_rapor.py
 python -m PyQt5.uic.pyuic  -x hesap.ui -o ui_hesap.py
+python -m PyQt5.uic.pyuic  -x gelirtablo.ui -o ui_gelirtablo.py
 echo "***** build klasöründeki eski dosyalar siliniyor"
 
 rm -rf build dist

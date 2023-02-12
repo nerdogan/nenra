@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>903</width>
-    <height>755</height>
+    <width>911</width>
+    <height>788</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -71,7 +71,7 @@
     </font>
    </property>
    <property name="text">
-       <string>Gelir Raporu</string>
+    <string>Gelir Raporu</string>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButton_2">
@@ -98,32 +98,32 @@
      <x>180</x>
      <y>10</y>
      <width>711</width>
-     <height>731</height>
+     <height>761</height>
     </rect>
    </property>
    <column>
     <property name="text">
-        <string>Açıklama</string>
+     <string>Açıklama</string>
     </property>
    </column>
    <column>
     <property name="text">
-        <string>Kod</string>
+     <string>Kod</string>
     </property>
    </column>
    <column>
     <property name="text">
-        <string>Tutar</string>
+     <string>Tutar</string>
     </property>
    </column>
    <column>
     <property name="text">
-        <string>.</string>
+     <string>.</string>
     </property>
    </column>
    <column>
     <property name="text">
-        <string>.</string>
+     <string>.</string>
     </property>
    </column>
   </widget>
@@ -131,7 +131,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-        <y>590</y>
+     <y>590</y>
      <width>161</width>
      <height>51</height>
     </rect>
@@ -142,7 +142,7 @@
     </font>
    </property>
    <property name="text">
-       <string>Güncelle</string>
+    <string>Güncelle</string>
    </property>
   </widget>
  </widget>

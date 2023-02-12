@@ -354,6 +354,7 @@ def main():
     mainWindow.actionTediye_Fi_i.triggered.connect(lambda: slotfatura("TED"))
     mainWindow.actionSay_m_Fi_i.triggered.connect(lambda: slotfatura("SAY"))
     mainWindow.actionStok_Tan_mlama.triggered.connect(lambda: slottediye("VADE"))
+    mainWindow.actionGelir_Tablosu_Ayl_k.triggered.connect(lambda: slotfatura("ZZ"))
     mainWindow.statusbar.showMessage(
         u"Namık ERDOĞAN © 2016 2022 v2.99  "
         u"                                  Bishop Restaurant")

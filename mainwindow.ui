@@ -4,10 +4,10 @@
  <widget class="QMainWindow" name="MainWindow">
   <property name="geometry">
    <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>947</width>
-    <height>518</height>
+       <x>0</x>
+       <y>0</y>
+       <width>977</width>
+       <height>529</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -26,15 +26,15 @@
   <property name="windowOpacity">
    <double>0.950000000000000</double>
   </property>
-  <property name="iconSize">
-   <size>
-    <width>48</width>
-    <height>48</height>
-   </size>
-  </property>
-  <property name="toolButtonStyle">
-   <enum>Qt::ToolButtonIconOnly</enum>
-  </property>
+     <property name="iconSize">
+         <size>
+             <width>48</width>
+             <height>48</height>
+         </size>
+     </property>
+     <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonIconOnly</enum>
+     </property>
      <widget class="QWidget" name="centralwidget">
          <layout class="QGridLayout" name="gridLayout">
              <item row="1" column="0" colspan="7">
@@ -390,7 +390,7 @@
                                  </font>
                              </property>
                              <property name="text">
-                                 <string>Masraf</string>
+                                 <string>Masraf1</string>
                              </property>
                          </widget>
                      </item>
@@ -457,16 +457,16 @@
              </item>
          </layout>
      </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>947</width>
-        <height>22</height>
-    </rect>
-   </property>
-   <property name="font">
+     <widget class="QMenuBar" name="menubar">
+         <property name="geometry">
+             <rect>
+                 <x>0</x>
+                 <y>0</y>
+                 <width>977</width>
+                 <height>22</height>
+             </rect>
+         </property>
+         <property name="font">
     <font>
      <pointsize>14</pointsize>
     </font>
@@ -497,23 +497,30 @@
     <property name="title">
      <string>Fatura</string>
     </property>
-    <addaction name="actionFatura_Giri_Fi_i"/>
-    <addaction name="actionYemek_k_Fi_i"/>
-    <addaction name="actionTediye_Fi_i"/>
-    <addaction name="actionSay_m_Fi_i"/>
+       <addaction name="actionFatura_Giri_Fi_i"/>
+       <addaction name="actionYemek_k_Fi_i"/>
+       <addaction name="actionTediye_Fi_i"/>
+       <addaction name="actionSay_m_Fi_i"/>
    </widget>
-   <widget class="QMenu" name="menuBanka">
-    <property name="title">
-     <string>Banka</string>
-    </property>
-   </widget>
-   <addaction name="menuDosya"/>
-   <addaction name="menuRe_ete"/>
-   <addaction name="menuCari"/>
-   <addaction name="menuStok"/>
-   <addaction name="menuFatura"/>
-   <addaction name="menuBanka"/>
-  </widget>
+         <widget class="QMenu" name="menuBanka">
+             <property name="title">
+                 <string>Banka</string>
+             </property>
+         </widget>
+         <widget class="QMenu" name="menurapor">
+             <property name="title">
+                 <string>Raporlar</string>
+             </property>
+             <addaction name="actionGelir_Tablosu_Ayl_k"/>
+         </widget>
+         <addaction name="menuDosya"/>
+         <addaction name="menuRe_ete"/>
+         <addaction name="menuCari"/>
+         <addaction name="menuStok"/>
+         <addaction name="menuFatura"/>
+         <addaction name="menuBanka"/>
+         <addaction name="menurapor"/>
+     </widget>
   <widget class="QStatusBar" name="statusbar">
    <property name="autoFillBackground">
     <bool>false</bool>
@@ -545,16 +552,24 @@
     <string>Meta+Shift+F</string>
    </property>
   </action>
-  <action name="actionTediye_Fi_i">
-   <property name="text">
-    <string>Tediye Fişi</string>
-   </property>
-  </action>
-  <action name="actionSay_m_Fi_i">
-   <property name="text">
-    <string>Sayım Fişi</string>
-   </property>
-  </action>
+     <action name="actionTediye_Fi_i">
+         <property name="text">
+             <string>Tediye Fişi</string>
+         </property>
+     </action>
+     <action name="actionSay_m_Fi_i">
+         <property name="text">
+             <string>Sayım Fişi</string>
+         </property>
+     </action>
+     <action name="actionGelir_Tablosu_Ayl_k">
+         <property name="text">
+             <string>Gelir Tablosu Aylık</string>
+         </property>
+         <property name="shortcut">
+             <string>Ctrl+Alt+R</string>
+         </property>
+     </action>
  </widget>
  <resources/>
  <connections/>
