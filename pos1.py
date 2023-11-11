@@ -114,6 +114,7 @@ class Pos1(QtWidgets.QWidget):
             self.e.setItem(sira, 3, QtWidgets.QTableWidgetItem(item))
             item = str(zz[7])
             self.e.setItem(sira, 4, QtWidgets.QTableWidgetItem(item))
+            print(zz[0], zz[1], zz[2], zz[3], zz[4], zz[7])
 
 
     def masagoster(self,katno):
