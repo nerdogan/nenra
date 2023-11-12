@@ -127,7 +127,7 @@ if __name__ == '__main__':
 
         if 33 > RSI1[-1]:
             order = connection.client.futures_create_order(symbol=symbol, positionSide='LONG', side='BUY',
-                                                           type='MARKET', quantity='10')
+                                                           type='MARKET', quantity='50')
             orderid = order['orderId']
             time.sleep(3)
             order = connection.client.futures_get_order(symbol=symbol, orderId=orderid)
@@ -139,7 +139,7 @@ if __name__ == '__main__':
 
             fiyat = float("{:.4f}".format(fiyat1))
             order = connection.client.futures_create_order(symbol=symbol, positionSide='LONG', side='SELL',
-                                                           type='LIMIT', timeInForce='GTC', quantity='10',
+                                                           type='LIMIT', timeInForce='GTC', quantity='50',
                                                            price=fiyat)
 
             os.system(
@@ -149,7 +149,7 @@ if __name__ == '__main__':
                 "/Users/namikerdogan/PycharmProjects/nenra/venv/bin/python /Users/namikerdogan/PycharmProjects/nenra/bgetfurures.py")
 
         if 33 > RSI1[-1]:
-            time.sleep(60)
+            time.sleep(57)
             print("..........................1")
         else:
             pass
