@@ -195,7 +195,15 @@ if __name__ == '__main__':
     # ortalamaal(client, symbol="PEOPLEUSDT",hane=5)
 
     # ortalamaal(client, symbol="ENSUSDT",hane=3)
-    ortalamasat(client, symbol="TOMOUSDT", hane=4)
+    try:
+        ortalamasat(client, symbol="TOMOUSDT", hane=4)
+    except:
+        print("tomo yok")
+
+    try:
+        ortalamasat(client, symbol="ORDIUSDT", hane=3)
+    except:
+        print("ordi yok")
 
     # ortalamaal(client, symbol="ENSUSDT",hane=3)
     # ortalamaal(client1, symbol="ENSUSDT",hane=3)
@@ -205,8 +213,7 @@ if __name__ == '__main__':
     # ortalamaspot(client, symbol="FORUSDT",hane=5)
 
     pprint.pprint(client.futures_position_information(symbol="TOMOUSDT")[0]['unRealizedProfit'])
-
-    pprint.pprint(client.futures_position_information(symbol="TOMOUSDT")[1]['unRealizedProfit'])
+    pprint.pprint(client.futures_position_information(symbol="ORDIUSDT")[0]['unRealizedProfit'])
 
 """
     symbol="ENSUSDT"
@@ -249,5 +256,7 @@ if __name__ == '__main__':
   'timeInForce': 'GTC',
   'type': 'LIMIT',
   'updateTime': 1657999810869,
+WLVKmpwzaaw48RFF2bN2iaSGsngguq8r5soqlVcTN9EHoczaydqTZe9uAPqQn07O
+uAx6Zqb9UdcgJ0fJPwQeK4IvNuJWWiO2bhtxlMpe62PjdZwErEuSlArGy3iQP6YE
   'workingType': 'CONTRACT_PRICE'},
 """
