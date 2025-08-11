@@ -9,6 +9,10 @@ from ui_fatura import Ui_Dialog3
 
 from mdb.modulemdb import *
 
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+
+
 
 class Fatura(QtWidgets.QDialog, Ui_Dialog3):
     acac = pyqtSignal(int)
@@ -158,6 +162,49 @@ class Fatura(QtWidgets.QDialog, Ui_Dialog3):
         self.comboBox.blockSignals(True)
         self.comboBox.setCurrentIndex(0)
         self.comboBox.blockSignals(False)
+
+    def pdf_olustur(self):
+        # PDF dosyasının adı
+        pdf_dosya_adi = f"fatura_{self.fisno}.pdf"
+
+        # PDF oluşturma
+        c = canvas.Canvas(pdf_dosya_adi, pagesize=letter)
+        c.setFont("Helvetica", 12)
+
+        # Başlık
+        c.drawString(100, 750, "Fatura Bilgileri")
+        c.drawString(100, 735, f"Fiş No: {self.fisno}")
+        c.drawString(100, 720, f"Tarih: {self.dateEdit.date().toString('dd.MM.yyyy')}")
+
+        # Tablo Başlıkları
+        c.drawString(50, 700, "Kod")
+        c.drawString(150, 700, "Açıklama")
+        c.drawString(300, 700, "Miktar")
+        c.drawString(400, 700, "Birim Fiyat")
+        c.drawString(500, 700, "Toplam")
+
+        # Tablo Verileri
+        y = 680
+        for row in range(self.tableWidget_2.rowCount()):
+            kod = self.tableWidget_2.item(row, 0).text()
+            aciklama = self.tableWidget_2.item(row, 1).text()
+            miktar = self.tableWidget_2.item(row, 4).text()
+            birim_fiyat = self.tableWidget_2.item(row, 5).text()
+            toplam = self.tableWidget_2.item(row, 6).text()
+
+            c.drawString(50, y, kod)
+            c.drawString(150, y, aciklama)
+            c.drawString(300, y, miktar)
+            c.drawString(400, y, birim_fiyat)
+            c.drawString(500, y, toplam)
+            y -= 20
+
+        # Toplam Bilgisi
+        c.drawString(400, y - 20, f"Genel Toplam: {self.label_6.text()}")
+
+        # PDF kaydetme
+        c.save()
+        print(f"PDF oluşturuldu: {pdf_dosya_adi}")
 
     @pyqtSlot(int, str)
     def fisgetir(self, item2):
@@ -515,6 +562,8 @@ class Fatura(QtWidgets.QDialog, Ui_Dialog3):
                                                     str("{0:.2f}".format(toplam + kdv))))
         self.lineEdit_3.setFocus()
         self.slotfaturakont()
+
+        self.pdf_olustur()  # PDF oluşturma
 
 
     @pyqtSlot()

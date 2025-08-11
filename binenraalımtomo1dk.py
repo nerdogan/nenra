@@ -31,7 +31,7 @@ if __name__ == '__main__':
     file = "credantialMTUNCER.txt"
     connection1 = BinanceConnection(file)
     client1 = connection1.client
-    file = "credantialemre.txt"
+    file = "credantialdilek.txt"
     connection2 = BinanceConnection(file)
     client2 = connection2.client
 

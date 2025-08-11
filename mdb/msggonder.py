@@ -11,7 +11,7 @@ import nenraconfig
 
 token = nenraconfig._GetOption2('token')
 
-print(token)
+#print(token)
 elma = sys.argv[1]
 print(elma)
 rq = requests.post(url='https://api.telegram.org/bot{0}/sendMessage'.format(token),

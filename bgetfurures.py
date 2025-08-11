@@ -33,7 +33,7 @@ if __name__ == '__main__':
     file = "credantialMTUNCER.txt"
     connection1 = BinanceConnection(file)
     client1 = connection1.client
-    file = "credantialemre.txt"
+    file = "credantialdilek.txt"
     connection2 = BinanceConnection(file)
     client2 = connection2.client
 
@@ -142,6 +142,9 @@ if __name__ == '__main__':
         adet = 0.0
         toplam = 0.0
         elma = clientx.futures_get_open_orders(symbol=symbol)
+        print("order sayısı ",len(elma))
+        if len(elma)<2:
+            return
         for sip in elma:
             if sip["positionSide"] == "LONG" and sip['side'] == 'SELL':
                 print(sip['origQty'], "  ", sip['price'])
@@ -150,13 +153,31 @@ if __name__ == '__main__':
                 clientx.futures_cancel_order(symbol=symbol, orderId=sip['orderId'])
 
         print(adet, toplam, toplam / adet)
+
         time.sleep(1)
         satis = toplam / adet
         fiyat = float("{:.{}f}".format(satis, hane))
+        os.system("/Users/namikerdogan/PycharmProjects/nenra/venv/bin/python /Users/namikerdogan/PycharmProjects/nenra/mdb/msggonder.py '"  "durum "+ symbol +" "+ str( toplam) +" "+ str(adet) +" "+ str( fiyat) + "'")
 
         order = clientx.futures_create_order(symbol=symbol, positionSide='LONG', side='SELL',
                                              type='LIMIT', timeInForce='GTC',
                                              quantity=adet,
+                                             price=fiyat)
+
+    def ortalamasat2(clientx, symbol, hane):
+        elma = clientx.futures_position_information(symbol=symbol)
+        miktar = float(elma[0]['positionAmt'])
+        satis = float(elma[0]['entryPrice']) * 1.0045
+        print(miktar, satis)
+
+        time.sleep(1)
+        #satis = toplam / adet
+        fiyat = float("{:.{}f}".format(satis, hane))
+        os.system("/Users/namikerdogan/PycharmProjects/nenra/venv/bin/python /Users/namikerdogan/PycharmProjects/nenra/mdb/msggonder.py '"  "durum "+ str( miktar) +" "+ str(miktar) +" "+ str( fiyat) + "'")
+
+        order = clientx.futures_create_order(symbol=symbol, positionSide='LONG', side='SELL',
+                                             type='LIMIT', timeInForce='GTC',
+                                             quantity=miktar,
                                              price=fiyat)
 
 
@@ -195,15 +216,12 @@ if __name__ == '__main__':
     # ortalamaal(client, symbol="PEOPLEUSDT",hane=5)
 
     # ortalamaal(client, symbol="ENSUSDT",hane=3)
-    try:
-        ortalamasat(client, symbol="TOMOUSDT", hane=4)
-    except:
-        print("tomo yok")
 
     try:
         ortalamasat(client, symbol="ORDIUSDT", hane=3)
     except:
         print("ordi yok")
+
 
     # ortalamaal(client, symbol="ENSUSDT",hane=3)
     # ortalamaal(client1, symbol="ENSUSDT",hane=3)
@@ -212,7 +230,7 @@ if __name__ == '__main__':
 
     # ortalamaspot(client, symbol="FORUSDT",hane=5)
 
-    pprint.pprint(client.futures_position_information(symbol="TOMOUSDT")[0]['unRealizedProfit'])
+    pprint.pprint(client2.futures_position_information(symbol="BIGTIMEUSDT")[0]['unRealizedProfit'])
     pprint.pprint(client.futures_position_information(symbol="ORDIUSDT")[0]['unRealizedProfit'])
 
 """

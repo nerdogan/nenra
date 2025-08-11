@@ -31,7 +31,7 @@ if __name__ == '__main__':
     file = "credantialMTUNCER.txt"
     connection1 = BinanceConnection(file)
     client1 = connection1.client
-    file = "credantialemre.txt"
+    file = "credantialdilek.txt"
     connection2 = BinanceConnection(file)
     client2 = connection2.client
 
@@ -61,11 +61,11 @@ if __name__ == '__main__':
 
     #    symbol = 'BTCUSDT'
     symbol1 = 'TOMOUSDT'
-    symbol = 'ORDIUSDT'
+    symbol = '1000BONKUSDT'
     interval = '1m'
     limit = 90
     aldi = 0
-    al = 0
+    al = 40  # rsi değeri
     zaman = 3
     ordersayiold = 0
     yirmibes = 999
@@ -93,8 +93,10 @@ if __name__ == '__main__':
 
         try:
             klines = connection.client.futures_klines(symbol=symbol, interval=interval, limit=limit)
+            yirmibes=0
         except Exception as exp:
             print("Kline hatası")
+            yirmibes=999
         open_time = [int(entry[0]) for entry in klines]
         open = [float(entry[1]) for entry in klines]
         high = [float(entry[2]) for entry in klines]
@@ -126,21 +128,21 @@ if __name__ == '__main__':
         print(lower[-1], middle[-1], upper[-1])
         print(RSI1[-1])
 
-        if 40 > RSI1[-1]:
+        if al > RSI1[-1] and yirmibes==0:
             order = connection.client.futures_create_order(symbol=symbol, positionSide='LONG', side='BUY',
-                                                           type='MARKET', quantity='1')
+                                                           type='MARKET', quantity='5000')
             orderid = order['orderId']
             time.sleep(3)
             order = connection.client.futures_get_order(symbol=symbol, orderId=orderid)
             print(order)
             fiyatm = float(order['avgPrice'])
-            fiyat1 = float(order['avgPrice']) * 1.010
-            fiyat2 = float(order['avgPrice']) * 1.010
+            fiyat1 = float(order['avgPrice']) * 1.005
+            fiyat2 = float(order['avgPrice']) * 1.005
             # fiyat3 = float(order1['avgPrice']) + 0.000300
 
-            fiyat = float("{:.3f}".format(fiyat1))
+            fiyat = float("{:.6f}".format(fiyat1))
             order = connection.client.futures_create_order(symbol=symbol, positionSide='LONG', side='SELL',
-                                                           type='LIMIT', timeInForce='GTC', quantity='1',
+                                                           type='LIMIT', timeInForce='GTC', quantity='5000',
                                                            price=fiyat)
 
             os.system(
@@ -149,8 +151,8 @@ if __name__ == '__main__':
             os.system(
                 "/Users/namikerdogan/PycharmProjects/nenra/venv/bin/python /Users/namikerdogan/PycharmProjects/nenra/bgetfurures.py")
 
-        if 40 > RSI1[-1]:
-            time.sleep(57)
+        if al > RSI1[-1] and yirmibes==0:
+            time.sleep(56)
             print("..........................1")
         else:
             pass
