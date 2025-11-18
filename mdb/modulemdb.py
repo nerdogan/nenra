@@ -20,8 +20,14 @@ class Myddb:
         tgtip = gethostbyname(nenraconfig._GetOption('server'))
         print("Myddb ", tgtip)
         # connect to the database
-        self.conn = MySQLdb.connect(tgtip, nenraconfig._GetOption('user'), nenraconfig._GetOption('password'), 'test',
+        try:
+            self.conn = MySQLdb.connect(tgtip, nenraconfig._GetOption('user'), nenraconfig._GetOption('password'), 'test',
                                     charset='utf8', port=int(nenraconfig._GetOption('port')))
+        
+        except MySQLdb.Error as e:
+            print("Error connecting to MySQL Platform: ", e)
+            exit(1)
+            
 
         # create a cursor
         self.cur = self.conn.cursor()

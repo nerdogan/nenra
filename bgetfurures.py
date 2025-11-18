@@ -136,8 +136,9 @@ if __name__ == '__main__':
     def ortalamasat(clientx, symbol, hane):
         elma = clientx.futures_position_information(symbol=symbol)
         miktar = (elma[1]['positionAmt'])
-        satis = float(elma[1]['entryPrice']) * 1.0
-        print(miktar, satis)
+        satis1 = float(elma[1]['entryPrice']) * 1.0
+        print(miktar, satis1)
+        satis1 = float("{:.{}f}".format(satis1, hane))
 
         adet = 0.0
         toplam = 0.0
@@ -157,7 +158,7 @@ if __name__ == '__main__':
         time.sleep(1)
         satis = toplam / adet
         fiyat = float("{:.{}f}".format(satis, hane))
-        os.system("/Users/namikerdogan/PycharmProjects/nenra/venv/bin/python /Users/namikerdogan/PycharmProjects/nenra/mdb/msggonder.py '"  "durum "+ symbol +" "+ str( toplam) +" "+ str(adet) +" "+ str( fiyat) + "'")
+        os.system("/Users/namikerdogan/PycharmProjects/nenra/venv/bin/python /Users/namikerdogan/PycharmProjects/nenra/mdb/msggonder.py '"  "durum "+ symbol +" "+ str( toplam) +"usd \n "+ str(adet) +" "+ str( fiyat) +" "+str(satis1)+ "'")
 
         order = clientx.futures_create_order(symbol=symbol, positionSide='LONG', side='SELL',
                                              type='LIMIT', timeInForce='GTC',
@@ -230,8 +231,8 @@ if __name__ == '__main__':
 
     # ortalamaspot(client, symbol="FORUSDT",hane=5)
 
-    pprint.pprint(client2.futures_position_information(symbol="BIGTIMEUSDT")[0]['unRealizedProfit'])
-    pprint.pprint(client.futures_position_information(symbol="ORDIUSDT")[0]['unRealizedProfit'])
+    pprint.pprint(client.futures_position_information(symbol="GALAUSDT")[0]['unRealizedProfit'])
+    pprint.pprint(client.futures_position_information(symbol="SUPERUSDT")[0]['unRealizedProfit'])
 
 """
     symbol="ENSUSDT"
